@@ -15,7 +15,7 @@ public class Main {
         int intentoGestor=3;
         int intentoInversor1=3;
         int intentoInversor2=3;
-        Boolean bienvenido=false;
+        Boolean bienvenido;
         int opcion=0;
         do{
             bienvenido=false;
