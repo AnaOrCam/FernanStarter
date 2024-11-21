@@ -4,8 +4,7 @@ public class Main {
         Scanner s=new Scanner(System.in);
         String usuario="";
         String contrasena="";
-        String usuarioAdmin="administrador";
-        String usuarioGestor="gestor";
+        String usuarioAdmin="administrador", usuarioGestor="gestor";
         String usuarioInversor1="inversor1";
         String usuarioInversor2="inversor2";
         String contrasenaAdmin="admin";
@@ -16,7 +15,7 @@ public class Main {
         int intentoInversor1=3;
         int intentoInversor2=3;
         Boolean bienvenido;
-        int opcion=0;
+        int opcion;
         do{
             bienvenido=false;
             System.out.println("Introduce usuario y contraseña. Pulsa s para salir");
@@ -29,19 +28,28 @@ public class Main {
                 } else {
                     System.out.println("Usuario o contraseña incorrectos");
                 }
-                if (usuario.equals("gestor") && !contrasena.equals(contrasenaGestor)) {
+                if (usuario.equals(usuarioGestor) && contrasena.equals(contrasenaGestor)){
+                    intentoGestor=3;
+                }
+                if (usuario.equals(usuarioInversor1) && contrasena.equals(contrasenaInversor1)){
+                    intentoInversor1=3;
+                }
+                if (usuario.equals(usuarioInversor2) && contrasena.equals(contrasenaInversor2)){
+                    intentoInversor2=3;
+                }
+                if (usuario.equals(usuarioGestor) && !contrasena.equals(contrasenaGestor)) {
                     intentoGestor -= 1;
                     System.out.println("Te quedan " + intentoGestor + " intentos.");
                 }
-                if (usuario.equals("inversor1") && !contrasena.equals(contrasenaInversor1)) {
+                if (usuario.equals(usuarioInversor1) && !contrasena.equals(contrasenaInversor1)) {
                     intentoInversor1 -= 1;
                     System.out.println("Te quedan " + intentoInversor1 + " intentos.");
                 }
-                if (usuario.equals("inversor2") && !contrasena.equals(contrasenaInversor2)) {
+                if (usuario.equals(usuarioInversor2) && !contrasena.equals(contrasenaInversor2)) {
                     intentoInversor2 -= 1;
                     System.out.println("Te quedan " + intentoInversor2 + " intentos.");
                 }
-                if (usuario.equals("gestor") && intentoGestor == 0 || usuario.equals("inversor1") && intentoInversor1 == 0 || usuario.equals("inversor2") && intentoInversor2 == 0) {
+                if (usuario.equals(usuarioGestor) && intentoGestor == 0 || usuario.equals("inversor1") && intentoInversor1 == 0 || usuario.equals("inversor2") && intentoInversor2 == 0) {
                     System.out.println("Ha agotado los intentos de acceso a este perfil. Para restaurar contacte con el administrador.");
                 }
             }else{
