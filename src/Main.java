@@ -18,6 +18,10 @@ public class Main {
         Boolean gestorbloqueado=false;
         Boolean inversor1bloqueado=false;
         Boolean inversor2bloqueado=false;
+        int admin_gestor=0;
+        int admin_inversor1=0;
+        int admin_inversor2=0;
+        int eleccionadmin=0;
         int opcion;
         do{
             bienvenido=false;
@@ -117,6 +121,117 @@ public class Main {
                                     "3. Configuración\n" +
                                     "4. Cerrar Sesión\n");
                             opcion=Integer.parseInt(s.nextLine());
+                            switch (opcion){
+                                case 1: {
+                                    System.out.println("Ha accedido a Panel de control");
+                                    System.out.println("Introduzca de que usuario quiere conocer su estado:");
+                                    System.out.println("1."+usuarioGestor);
+                                    System.out.println("2."+usuarioInversor1);
+                                    System.out.println("3."+usuarioInversor2);
+                                    eleccionadmin=Integer.parseInt(s.nextLine());
+                                    switch (eleccionadmin){
+                                        case 1:{
+                                            System.out.print("El estado de "+ usuarioGestor+ " es ");
+                                            if(gestorbloqueado.equals(false)){
+                                                System.out.println("desbloqueado");
+                                            }else {
+                                                System.out.println("bloqueado");
+                                            }
+                                            System.out.println("Pulsa 1. Para bloquear");
+                                            System.out.println("Pulsa 2. Para desbloquear");
+                                            admin_gestor=Integer.parseInt(s.nextLine());
+                                            switch (admin_gestor){
+                                                case 1:{
+                                                    if(gestorbloqueado.equals(true)){
+                                                        System.out.println("Este usuario ya esta bloqueado");
+                                                    }else {
+                                                        System.out.println("Usuario bloqueado satisfactoriamente");
+                                                        gestorbloqueado=true;
+                                                    }
+                                                    break;
+                                                }
+                                                case 2:{
+                                                    if(gestorbloqueado.equals(false)){
+                                                        System.out.println("Este usuario ya esta desbloqueado");
+                                                    }else {
+                                                        System.out.println("Usuario desbloqueado satisfactoriamente");
+                                                        gestorbloqueado=false;
+                                                    }
+                                                    break;
+                                                }
+                                            }
+                                            break;
+                                        }
+                                    }
+                                }
+                                case 2: {
+                                    System.out.print("El estado de "+ usuarioInversor1+ " es ");
+                                    if(inversor1bloqueado.equals(false)){
+                                        System.out.println("desbloqueado");
+                                    }else {
+                                        System.out.println("bloqueado");
+                                    }
+                                    System.out.println("Pulsa 1. Para bloquear");
+                                    System.out.println("Pulsa 2. Para desbloquear");
+                                    admin_inversor1=Integer.parseInt(s.nextLine());
+                                    switch (admin_inversor1){
+                                        case 1:{
+                                            if(inversor1bloqueado.equals(true)){
+                                                System.out.println("Este usuario ya esta bloqueado");
+                                            }else {
+                                                System.out.println("Usuario bloqueado satisfactoriamente");
+                                                inversor1bloqueado=true;
+                                            }
+                                            break;
+                                        }
+                                        case 2:{
+                                            if(inversor1bloqueado.equals(false)){
+                                                System.out.println("Este usuario ya esta desbloqueado");
+                                            }else {
+                                                System.out.println("Usuario desbloqueado satisfactoriamente");
+                                                inversor1bloqueado=false;
+                                            }
+                                            break;
+                                        }
+                                    }
+                                    break;
+
+                                }
+                                case 3: {
+                                    System.out.print("El estado de "+ usuarioInversor2+ " es ");
+                                    if(inversor2bloqueado.equals(false)){
+                                        System.out.println("desbloqueado");
+                                    }else {
+                                        System.out.println("bloqueado");
+                                    }
+                                    System.out.println("Pulsa 1. Para bloquear");
+                                    System.out.println("Pulsa 2. Para desbloquear");
+                                    admin_inversor2=Integer.parseInt(s.nextLine());
+                                    switch (admin_inversor2){
+                                        case 1:{
+                                            if(inversor2bloqueado.equals(true)){
+                                                System.out.println("Este usuario ya esta bloqueado");
+                                            }else {
+                                                System.out.println("Usuario bloqueado satisfactoriamente");
+                                                inversor2bloqueado=true;
+                                            }
+                                            break;
+                                        }
+                                        case 2:{
+                                            if(inversor2bloqueado.equals(false)){
+                                                System.out.println("Este usuario ya esta desbloqueado");
+                                            }else {
+                                                System.out.println("Usuario desbloqueado satisfactoriamente");
+                                                inversor2bloqueado=false;
+                                            }
+                                            break;
+                                        }
+                                    }
+                                    break;
+
+
+                                }
+                            }
                             if (opcion==4){
                                 System.out.println("¡Hasta pronto!");
                             }
