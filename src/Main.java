@@ -2,22 +2,13 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner s=new Scanner(System.in);
-        String usuario="";
-        String contrasena="";
-        String usuarioAdmin="administrador", usuarioGestor="gestor";
-        String usuarioInversor1="inversor1";
-        String usuarioInversor2="inversor2";
-        String contrasenaAdmin="admin";
-        String contrasenaGestor="gestor";
-        String contrasenaInversor1="inversor1";
-        String contrasenaInversor2="inversor2";
-        int intentoGestor=3;
-        int intentoInversor1=3;
-        int intentoInversor2=3;
+        String usuario;
+        String contrasena;
+        String usuarioAdmin="administrador", usuarioGestor="gestor", usuarioInversor1="inversor1", usuarioInversor2="inversor2";
+        String contrasenaAdmin="admin", contrasenaGestor="gestor", contrasenaInversor1="inversor1", contrasenaInversor2="inversor2";
+        int intentoGestor=3, intentoInversor1=3, intentoInversor2=3;
         Boolean bienvenido;
-        Boolean gestorbloqueado=false;
-        Boolean inversor1bloqueado=false;
-        Boolean inversor2bloqueado=false;
+        Boolean gestorbloqueado=false, inversor1bloqueado=false, inversor2bloqueado=false;
         int admin_gestor=0;
         int admin_inversor1=0;
         int admin_inversor2=0;
@@ -37,27 +28,27 @@ public class Main {
                     System.out.println("Bienvenido Gestor");
                     bienvenido = true;
                 } else if ((usuario.equals(usuarioGestor)&&gestorbloqueado.equals(true))) {
-                    System.out.println("Acceso denegado  el perfil *Gestor* a sido bloqueado ");
+                    System.out.println("Acceso denegado  el perfil *Gestor* ha sido bloqueado ");
                 }
                 if (usuario.equals(usuarioInversor1)&&contrasena.equals(contrasenaInversor1)&&inversor1bloqueado.equals(false)) {
                     System.out.println("Bienvenido inversor1");
                     bienvenido = true;
                 } else if ((usuario.equals(usuarioInversor1)&&inversor1bloqueado.equals(true))) {
-                    System.out.println("Acceso denegado  el perfil *inversor1* a sido bloqueado ");
+                    System.out.println("Acceso denegado  el perfil *inversor1* ha sido bloqueado ");
                 }
                 if (usuario.equals(usuarioInversor2)&&contrasena.equals(contrasenaInversor2)&&inversor2bloqueado.equals(false)) {
                     System.out.println("Bienvenido inversor2");
                     bienvenido = true;
                 } else if ((usuario.equals(usuarioInversor2)&&inversor2bloqueado.equals(true))) {
-                    System.out.println("Acceso denegado  el perfil *Gestor* a sido bloqueado ");
+                    System.out.println("Acceso denegado  el perfil *Gestor* ha sido bloqueado ");
                 }
                 if (!usuario.equals(usuarioGestor)&&!usuario.equals(usuarioInversor1)&&!usuario.equals(usuarioInversor2)&&!usuario.equals(usuarioAdmin)){
                  if(gestorbloqueado.equals(true)){
-                     System.out.println("No es posible el intento de acceso al perfil *Gestor* , esta bloqueado");
+                     System.out.println("No es posible el intento de acceso al perfil *Gestor*, esta bloqueado");
                  } else if (inversor1bloqueado.equals(true)) {
-                     System.out.println("No es posible el intento de acceso al perfil *Inversor1* , esta bloqueado");
+                     System.out.println("No es posible el intento de acceso al perfil *Inversor1*, esta bloqueado");
                  }else if (inversor2bloqueado.equals(true)) {
-                     System.out.println("No es posible el intento de acceso al perfil *Inversor2* , esta bloqueado");
+                     System.out.println("No es posible el intento de acceso al perfil *Inversor2*, esta bloqueado");
                  }else{
                      System.out.println("Usuario o contraseña incorrectos");
 
@@ -65,11 +56,11 @@ public class Main {
                 }
                 if((usuario.equals(usuarioGestor)&&!contrasena.equals(contrasenaGestor))||(usuario.equals(usuarioInversor1)&&!contrasena.equals(contrasenaInversor1))||(usuario.equals(usuarioInversor1)&&!contrasena.equals(contrasenaInversor2))||(usuario.equals(usuarioAdmin)&&!contrasena.equals(contrasenaAdmin))){
                     if(gestorbloqueado.equals(true)){
-                        System.out.println("No es posible el intento de acceso al perfil *Gestor* , esta bloqueado");
+                        System.out.println("No es posible el intento de acceso al perfil *Gestor*, esta bloqueado");
                     } else if (inversor1bloqueado.equals(true)) {
-                        System.out.println("No es posible el intento de acceso al perfil *Inversor1* , esta bloqueado");
+                        System.out.println("No es posible el intento de acceso al perfil *Inversor1*, esta bloqueado");
                     }else if (inversor2bloqueado.equals(true)) {
-                        System.out.println("No es posible el intento de acceso al perfil *Inversor2* , esta bloqueado");
+                        System.out.println("No es posible el intento de acceso al perfil *Inversor2*, esta bloqueado");
                     }else{
                         System.out.println("Usuario o contraseña incorrectos");
 
@@ -228,8 +219,6 @@ public class Main {
                                         }
                                     }
                                     break;
-
-
                                 }
                             }
                             if (opcion==4){
@@ -237,19 +226,35 @@ public class Main {
                             }
                         }while (opcion != 4);
                     }
-                    if(usuario.equals("gestor")&& gestorbloqueado.equals(false)&&contrasena.equals(contrasenaGestor)) {
+                    if(usuario.equals(usuarioGestor)&& gestorbloqueado.equals(false)&&contrasena.equals(contrasenaGestor)) {
                         do {
                             System.out.println("Elije opción:\n" +
                                     "1. Mis proyectos\n"+
                                     "2. Configuración\n" +
                                     "3. Cerrar Sesión\n");
                             opcion=Integer.parseInt(s.nextLine());
-                            if (opcion==3){
-                                System.out.println("¡Hasta pronto!");
+                            switch (opcion){
+                                case 1-> {}
+                                case 2 -> {
+                                    System.out.println("¿Qué quieres cambiar?\n 1.Nombre de usuario\n 2.Contraseña");
+                                    int opcionConfiguracionGestor = Integer.parseInt(s.nextLine());
+                                    if (opcionConfiguracionGestor == 1) {
+                                        System.out.println("Introduzca el nuevo nombre de usuario. Pulsa INTRO para guardar los cambios.");
+                                        usuarioGestor = s.nextLine();
+                                    } else if (opcionConfiguracionGestor == 2) {
+                                        System.out.println("Introduzca la nueva contraseña. Pulsa INTRO para guardar los cambios.");
+                                        contrasenaGestor = s.nextLine();
+                                    } else {
+                                        System.out.println("Error esa opcion no se encuentra en el menú");
+                                    }
+                                }
+                                case 3-> System.out.println("¡Hasta pronto!");
+                                default -> System.out.println("Esa opción no se encuentra en el menú");
                             }
+
                         }while (opcion != 3);
                     }
-                    if(usuario.equals("inversor1")&&inversor1bloqueado.equals(false)) {
+                    if(usuario.equals(usuarioInversor1)&&inversor1bloqueado.equals(false)) {
                         do {
                             System.out.println("Elije opción:\n" +
                                     "1. Mis inversiones\n" +
@@ -264,7 +269,7 @@ public class Main {
                             }
                         }while (opcion != 6);
                     }
-                    if (usuario.equals("inversor2")&&inversor2bloqueado.equals(false)){
+                    if (usuario.equals(usuarioInversor2)&&inversor2bloqueado.equals(false)){
                         do {
                             System.out.println("Elije opción:\n" +
                                     "1. Mis inversiones\n" +
