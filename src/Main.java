@@ -15,12 +15,13 @@ public class Main {
         int eleccionadmin=0  ;
         int Adminconfiguracion=0;
         int opcion;
-        String proyecto1="", proyecto2="", proyecto3="";
+        String proyecto1="Próximamente", proyecto2="Próximamente", proyecto3="Próximamente";
         String categoria1="", categoria2="", categoria3="";
         int financiacionTotal1=0, financiacionTotal2=0, financiacionTotal3=0;
         int financiado1=0, financiado2=0, financiado3=0;
         String fechaApertura1="", fechaApertura2="", fechaApertura3="";
         String fechaCierre1="", fechaCierre2="", fechaCierre3="";
+        int cantidadRecompensas1, cantidadRecompensas2, cantidadRecompensas3;
         String recompensa1proy1="", recompensa2proy1="", recompensa3proy1="";
         String recompensa1proy2="", recompensa2proy2="", recompensa3proy2="";
         String recompensa1proy3="", recompensa2proy3="", recompensa3proy3="";
@@ -268,7 +269,7 @@ public class Main {
                                         }
                                     }
                                 }
-                                System.out.println("Saliendo del menu de configurazion");
+                                System.out.println("Saliendo del menu de configuracion");
 
 
 
@@ -300,7 +301,7 @@ public class Main {
                                     opcion = Integer.parseInt(s.nextLine());
                                     switch (opcion) {
                                         case 1 ->{
-                                            if (proyecto1.equals("")){
+                                            if (proyecto1.equals("Próximamente")){
                                                 System.out.println("Introduzca el nombre del proyecto");
                                                 proyecto1=s.nextLine();
                                                 System.out.println("Introduzca la categoría del proyecto (arte, tecnología, cine, música, juegos, comida, moda…)");
@@ -313,24 +314,39 @@ public class Main {
                                                 fechaApertura1=s.nextLine();
                                                 System.out.println("Escriba la fecha de cierre de inversiones (formato --/--/----)");
                                                 fechaCierre1=s.nextLine();
-                                                System.out.println("Escriba la recompensa 1 ofrecida por el promotor del proyecto");
-                                                recompensa1proy1=s.nextLine();
-                                                System.out.println("Incluye una breve descripción de la recompensa 1");
-                                                descripcion1proy1 =s.nextLine();
-                                                System.out.println("¿Qué precio tiene la recompensa 1?");
-                                                precio1proy1 =Integer.parseInt(s.nextLine());
-                                                System.out.println("Escriba la recompensa 2 ofrecida por el promotor del proyecto");
-                                                recompensa2proy1=s.nextLine();
-                                                System.out.println("Incluye una breve descripción de la recompensa 2");
-                                                descripcion2proy1 =s.nextLine();
-                                                System.out.println("¿Qué precio tiene la recompensa 2?");
-                                                precio2proy1 =Integer.parseInt(s.nextLine());
-                                                System.out.println("Escriba la recompensa 3 ofrecida por el promotor del proyecto");
-                                                recompensa3proy1=s.nextLine();
-                                                System.out.println("Incluye una breve descripción de la recompensa 3");
-                                                descripcion3proy1 =s.nextLine();
-                                                System.out.println("¿Qué precio tiene la recompensa 3?");
-                                                precio3proy1 =Integer.parseInt(s.nextLine());
+                                                do {
+                                                    System.out.println("¿Cuántas recompensas quieres añadir (máximo 3)?");
+                                                    cantidadRecompensas1 = Integer.parseInt(s.nextLine());
+                                                    if (cantidadRecompensas1<1 || cantidadRecompensas1>3){
+                                                        System.out.println("Error, la cantidad de recompensas debe ser de al menos 1 y como máximo de 3");
+                                                    }
+                                                }while (cantidadRecompensas1<1 || cantidadRecompensas1>3);
+                                                for (int i = 1; i <= cantidadRecompensas1; i++) {
+                                                    System.out.println("Escriba la recompensa "+i+" ofrecida por el promotor del proyecto");
+                                                    if (i==1){
+                                                        recompensa1proy1=s.nextLine();
+                                                    } else if (i==2) {
+                                                        recompensa2proy1=s.nextLine();
+                                                    } else if (i==3) {
+                                                        recompensa3proy1=s.nextLine();
+                                                    }
+                                                    System.out.println("Incluye una breve descripción de la recompensa "+i);
+                                                    if (i==1){
+                                                        descripcion1proy1 =s.nextLine();
+                                                    } else if (i==2) {
+                                                        descripcion2proy1 =s.nextLine();
+                                                    } else if (i==3) {
+                                                        descripcion3proy1=s.nextLine();
+                                                    }
+                                                    System.out.println("¿Qué precio tiene la recompensa "+i+"?");
+                                                    if (i==1){
+                                                        precio1proy1 =Integer.parseInt(s.nextLine());
+                                                    } else if (i==2) {
+                                                        precio2proy1 =Integer.parseInt(s.nextLine());
+                                                    } else if (i==3) {
+                                                        precio3proy1 =Integer.parseInt(s.nextLine());
+                                                    }
+                                                }
                                                 System.out.println("Has añadido esta información en el proyecto 1:\n" +
                                                         "Nombre: "+proyecto1+"\n" +
                                                         "Categoría: "+categoria1+"\n" +
@@ -339,12 +355,16 @@ public class Main {
                                                         "Fecha de apertura de inversiones: "+fechaApertura1+"\n" +
                                                         "Fecha de cierre de inversiones: "+fechaCierre1+"\n" +
                                                         "Recompensa 1: "+recompensa1proy1+" por "+precio1proy1+"€\n" +
-                                                        "\t\t"+descripcion1proy1+"\n" +
-                                                        "Recompensa 2: "+recompensa2proy1+" por "+precio2proy1+"€\n" +
-                                                        "\t\t"+descripcion2proy1+"\n" +
-                                                        "Recompensa 3: "+recompensa3proy1+" por "+precio3proy1+"€\n" +
-                                                        "\t\t"+descripcion3proy1+"\n");
-                                            } else if (proyecto2.equals("")) {
+                                                        "\t\t"+descripcion1proy1);
+                                                if (!recompensa2proy1.equals("")){
+                                                    System.out.println("Recompensa 2: "+recompensa2proy1+" por "+precio2proy1+"€\n" +
+                                                            "\t\t"+descripcion2proy1);
+                                                }
+                                                if (!recompensa3proy1.equals("")){
+                                                    System.out.println("Recompensa 3: "+recompensa3proy1+" por "+precio3proy1+"€\n" +
+                                                            "\t\t"+descripcion3proy1);
+                                                }
+                                            } else if (proyecto2.equals("Próximamente")) {
                                                 System.out.println("Introduzca el nombre del proyecto");
                                                 proyecto2=s.nextLine();
                                                 System.out.println("Introduzca la categoría del proyecto (arte, tecnología, cine, música, juegos, comida, moda…)");
@@ -357,24 +377,39 @@ public class Main {
                                                 fechaApertura2=s.nextLine();
                                                 System.out.println("Escriba la fecha de cierre de inversiones (formato --/--/----)");
                                                 fechaCierre2=s.nextLine();
-                                                System.out.println("Escriba la recompensa 1 ofrecida por el promotor del proyecto");
-                                                recompensa1proy2=s.nextLine();
-                                                System.out.println("Incluye una breve descripción de la recompensa 1");
-                                                descripcion1proy2 =s.nextLine();
-                                                System.out.println("¿Qué precio tiene la recompensa 1?");
-                                                precio1proy2 =Integer.parseInt(s.nextLine());
-                                                System.out.println("Escriba la recompensa 2 ofrecida por el promotor del proyecto");
-                                                recompensa2proy2=s.nextLine();
-                                                System.out.println("Incluye una breve descripción de la recompensa 2");
-                                                descripcion2proy2 =s.nextLine();
-                                                System.out.println("¿Qué precio tiene la recompensa 2?");
-                                                precio2proy2 =Integer.parseInt(s.nextLine());
-                                                System.out.println("Escriba la recompensa 3 ofrecida por el promotor del proyecto");
-                                                recompensa3proy2=s.nextLine();
-                                                System.out.println("Incluye una breve descripción de la recompensa 3");
-                                                descripcion3proy2 =s.nextLine();
-                                                System.out.println("¿Qué precio tiene la recompensa 3?");
-                                                precio3proy2 =Integer.parseInt(s.nextLine());
+                                                do {
+                                                    System.out.println("¿Cuántas recompensas quieres añadir (máximo 3)?");
+                                                    cantidadRecompensas2 = Integer.parseInt(s.nextLine());
+                                                    if (cantidadRecompensas2<1 || cantidadRecompensas2>3){
+                                                        System.out.println("Error, la cantidad de recompensas debe ser de al menos 1 y como máximo de 3");
+                                                    }
+                                                }while (cantidadRecompensas2<1 || cantidadRecompensas2>3);
+                                                for (int i = 1; i <= cantidadRecompensas2; i++) {
+                                                    System.out.println("Escriba la recompensa "+i+" ofrecida por el promotor del proyecto");
+                                                    if (i==1){
+                                                        recompensa1proy2=s.nextLine();
+                                                    } else if (i==2) {
+                                                        recompensa2proy2=s.nextLine();
+                                                    } else if (i==3) {
+                                                        recompensa3proy2=s.nextLine();
+                                                    }
+                                                    System.out.println("Incluye una breve descripción de la recompensa "+i);
+                                                    if (i==1){
+                                                        descripcion1proy2 =s.nextLine();
+                                                    } else if (i==2) {
+                                                        descripcion2proy2 =s.nextLine();
+                                                    } else if (i==3) {
+                                                        descripcion3proy2=s.nextLine();
+                                                    }
+                                                    System.out.println("¿Qué precio tiene la recompensa "+i+"?");
+                                                    if (i==1){
+                                                        precio1proy2 =Integer.parseInt(s.nextLine());
+                                                    } else if (i==2) {
+                                                        precio2proy2 =Integer.parseInt(s.nextLine());
+                                                    } else if (i==3) {
+                                                        precio3proy2 =Integer.parseInt(s.nextLine());
+                                                    }
+                                                }
                                                 System.out.println("Has añadido esta información en el proyecto 2:\n" +
                                                         "Nombre: "+proyecto2+"\n" +
                                                         "Categoría: "+categoria2+"\n" +
@@ -383,12 +418,16 @@ public class Main {
                                                         "Fecha de apertura de inversiones: "+fechaApertura2+"\n" +
                                                         "Fecha de cierre de inversiones: "+fechaCierre2+"\n" +
                                                         "Recompensa 1: "+recompensa1proy2+" por "+precio1proy2+"€\n" +
-                                                        "\t\t"+descripcion1proy2+"\n" +
-                                                        "Recompensa 2: "+recompensa2proy2+" por "+precio2proy2+"€\n" +
-                                                        "\t\t"+descripcion2proy2+"\n" +
-                                                        "Recompensa 3: "+recompensa3proy2+" por "+precio3proy2+"€\n" +
-                                                        "\t\t"+descripcion3proy2+"\n");
-                                            } else if (proyecto3.equals("")) {
+                                                        "\t\t"+descripcion1proy2);
+                                                if (!recompensa2proy2.equals("")){
+                                                    System.out.println("Recompensa 2: "+recompensa2proy2+" por "+precio2proy2+"€\n" +
+                                                            "\t\t"+descripcion2proy2);
+                                                }
+                                                if (!recompensa3proy2.equals("")){
+                                                    System.out.println("Recompensa 3: "+recompensa3proy2+" por "+precio3proy2+"€\n" +
+                                                            "\t\t"+descripcion3proy2);
+                                                }
+                                            } else if (proyecto3.equals("Próximamente")) {
                                                 System.out.println("Introduzca el nombre del proyecto");
                                                 proyecto3=s.nextLine();
                                                 System.out.println("Introduzca la categoría del proyecto (arte, tecnología, cine, música, juegos, comida, moda…)");
@@ -401,24 +440,39 @@ public class Main {
                                                 fechaApertura3=s.nextLine();
                                                 System.out.println("Escriba la fecha de cierre de inversiones (formato --/--/----)");
                                                 fechaCierre3=s.nextLine();
-                                                System.out.println("Escriba la recompensa 1 ofrecida por el promotor del proyecto");
-                                                recompensa1proy3=s.nextLine();
-                                                System.out.println("Incluye una breve descripción de la recompensa 1");
-                                                descripcion1proy3 =s.nextLine();
-                                                System.out.println("¿Qué precio tiene la recompensa 1?");
-                                                precio1proy3 =Integer.parseInt(s.nextLine());
-                                                System.out.println("Escriba la recompensa 2 ofrecida por el promotor del proyecto");
-                                                recompensa2proy3=s.nextLine();
-                                                System.out.println("Incluye una breve descripción de la recompensa 2");
-                                                descripcion2proy3 =s.nextLine();
-                                                System.out.println("¿Qué precio tiene la recompensa 2?");
-                                                precio2proy3 =Integer.parseInt(s.nextLine());
-                                                System.out.println("Escriba la recompensa 3 ofrecida por el promotor del proyecto");
-                                                recompensa3proy3=s.nextLine();
-                                                System.out.println("Incluye una breve descripción de la recompensa 3");
-                                                descripcion3proy3 =s.nextLine();
-                                                System.out.println("¿Qué precio tiene la recompensa 3?");
-                                                precio3proy3 =Integer.parseInt(s.nextLine());
+                                                do {
+                                                    System.out.println("¿Cuántas recompensas quieres añadir? (máximo 3)");
+                                                    cantidadRecompensas3 = Integer.parseInt(s.nextLine());
+                                                    if (cantidadRecompensas3<1 || cantidadRecompensas3>3){
+                                                        System.out.println("Error, la cantidad de recompensas debe ser de al menos 1 y como máximo de 3");
+                                                    }
+                                                }while (cantidadRecompensas3<1 || cantidadRecompensas3>3);
+                                                for (int i = 1; i <= cantidadRecompensas3; i++) {
+                                                    System.out.println("Escriba la recompensa "+i+" ofrecida por el promotor del proyecto");
+                                                    if (i==1){
+                                                        recompensa1proy3=s.nextLine();
+                                                    } else if (i==2) {
+                                                        recompensa2proy3=s.nextLine();
+                                                    } else if (i==3) {
+                                                        recompensa3proy3=s.nextLine();
+                                                    }
+                                                    System.out.println("Incluye una breve descripción de la recompensa "+i);
+                                                    if (i==1){
+                                                        descripcion1proy3 =s.nextLine();
+                                                    } else if (i==2) {
+                                                        descripcion2proy3 =s.nextLine();
+                                                    } else if (i==3) {
+                                                        descripcion3proy3=s.nextLine();
+                                                    }
+                                                    System.out.println("¿Qué precio tiene la recompensa "+i+"?");
+                                                    if (i==1){
+                                                        precio1proy3 =Integer.parseInt(s.nextLine());
+                                                    } else if (i==2) {
+                                                        precio2proy3 =Integer.parseInt(s.nextLine());
+                                                    } else if (i==3) {
+                                                        precio3proy3 =Integer.parseInt(s.nextLine());
+                                                    }
+                                                }
                                                 System.out.println("Has añadido esta información en el proyecto 3:\n" +
                                                         "Nombre: "+proyecto3+"\n" +
                                                         "Categoría: "+categoria3+"\n" +
@@ -427,11 +481,15 @@ public class Main {
                                                         "Fecha de apertura de inversiones: "+fechaApertura3+"\n" +
                                                         "Fecha de cierre de inversiones: "+fechaCierre3+"\n" +
                                                         "Recompensa 1: "+recompensa1proy3+" por "+precio1proy3+"€\n" +
-                                                        "\t\t"+descripcion1proy3+"\n" +
-                                                        "Recompensa 2: "+recompensa2proy3+" por "+precio2proy3+"€\n" +
-                                                        "\t\t"+descripcion2proy3+"\n" +
-                                                        "Recompensa 3: "+recompensa3proy3+" por "+precio3proy3+"€\n" +
-                                                        "\t\t"+descripcion3proy3+"\n");
+                                                        "\t\t"+descripcion1proy3);
+                                                if (!recompensa2proy3.equals("")){
+                                                    System.out.println("Recompensa 2: "+recompensa2proy3+" por "+precio2proy3+"€\n" +
+                                                            "\t\t"+descripcion2proy3);
+                                                }
+                                                if (!recompensa3proy3.equals("")){
+                                                    System.out.println("Recompensa 3: "+recompensa3proy3+" por "+precio3proy3+"€\n" +
+                                                            "\t\t"+descripcion3proy3);
+                                                }
                                             }else{
                                                 System.out.println("Ha alcanzado el límite de proyectos.");
                                             }
@@ -444,7 +502,7 @@ public class Main {
                                                     "4. Salir");
                                             opcion=Integer.parseInt(s.nextLine());
                                             if (opcion==1){
-                                                if (!proyecto1.equals("")) {
+                                                if (!proyecto1.equals("Próximamente")) {
                                                     System.out.println("Proyecto 1: "+proyecto1+"\n" +
                                                             "Nombre: "+proyecto1+"\n" +
                                                             "Categoría: "+categoria1+"\n" +
@@ -453,16 +511,20 @@ public class Main {
                                                             "Fecha de apertura de inversiones: "+fechaApertura1+"\n" +
                                                             "Fecha de cierre de inversiones: "+fechaCierre1+"\n" +
                                                             "Recompensa 1: "+recompensa1proy1+" por "+precio1proy1+"€\n" +
-                                                            "\t\t"+descripcion1proy1+"\n" +
-                                                            "Recompensa 2: "+recompensa2proy1+" por "+precio2proy1+"€\n" +
-                                                            "\t\t"+descripcion2proy1+"\n" +
-                                                            "Recompensa 3: "+recompensa3proy1+" por "+precio3proy1+"€\n" +
-                                                            "\t\t"+descripcion3proy1+"\n");
+                                                            "\t\t"+descripcion1proy1);
+                                                    if (!recompensa2proy1.equals("")){
+                                                        System.out.println("Recompensa 2: "+recompensa2proy1+" por "+precio2proy1+"€\n" +
+                                                                "\t\t"+descripcion2proy1);
+                                                    }
+                                                    if (!recompensa3proy1.equals("")){
+                                                        System.out.println("Recompensa 3: "+recompensa3proy1+" por "+precio3proy1+"€\n" +
+                                                                "\t\t"+descripcion3proy1);
+                                                    }
                                                 }else{
                                                     System.out.println("No existe el proyecto 1");
                                                 }
                                             }else if (opcion==2){
-                                                if (!proyecto2.equals("")) {
+                                                if (!proyecto2.equals("Próximamente")) {
                                                     System.out.println("Proyecto 2: "+ proyecto2+"\n" +
                                                             "Nombre: "+proyecto2+"\n" +
                                                             "Categoría: "+categoria2+"\n" +
@@ -471,16 +533,20 @@ public class Main {
                                                             "Fecha de apertura de inversiones: "+fechaApertura2+"\n" +
                                                             "Fecha de cierre de inversiones: "+fechaCierre2+"\n" +
                                                             "Recompensa 1: "+recompensa1proy2+" por "+precio1proy2+"€\n" +
-                                                            "\t\t"+descripcion1proy2+"\n" +
-                                                            "Recompensa 2: "+recompensa2proy2+" por "+precio2proy2+"€\n" +
-                                                            "\t\t"+descripcion2proy2+"\n" +
-                                                            "Recompensa 3: "+recompensa3proy2+" por "+precio3proy2+"€\n" +
-                                                            "\t\t"+descripcion3proy2+"\n");
+                                                            "\t\t"+descripcion1proy2);
+                                                    if (!recompensa2proy2.equals("")){
+                                                        System.out.println("Recompensa 2: "+recompensa2proy2+" por "+precio2proy2+"€\n" +
+                                                                "\t\t"+descripcion2proy2);
+                                                    }
+                                                    if (!recompensa3proy2.equals("")){
+                                                        System.out.println("Recompensa 3: "+recompensa3proy2+" por "+precio3proy2+"€\n" +
+                                                                "\t\t"+descripcion3proy2);
+                                                    }
                                                 }else{
                                                     System.out.println("No existe el proyecto 2");
                                                 }
                                             }else if (opcion==3){
-                                                if (!proyecto3.equals("")) {
+                                                if (!proyecto3.equals("Próximamente")) {
                                                     System.out.println("Proyecto 3: "+proyecto3+"\n" +
                                                             "Nombre: "+proyecto3+"\n" +
                                                             "Categoría: "+categoria3+"\n" +
@@ -489,11 +555,15 @@ public class Main {
                                                             "Fecha de apertura de inversiones: "+fechaApertura3+"\n" +
                                                             "Fecha de cierre de inversiones: "+fechaCierre3+"\n" +
                                                             "Recompensa 1: "+recompensa1proy3+" por "+precio1proy3+"€\n" +
-                                                            "\t\t"+descripcion1proy3+"\n" +
-                                                            "Recompensa 2: "+recompensa2proy3+" por "+precio2proy3+"€\n" +
-                                                            "\t\t"+descripcion2proy3+"\n" +
-                                                            "Recompensa 3: "+recompensa3proy3+" por "+precio3proy3+"€\n" +
-                                                            "\t\t"+descripcion3proy3+"\n");
+                                                            "\t\t"+descripcion1proy3);
+                                                    if (!recompensa2proy3.equals("")){
+                                                        System.out.println("Recompensa 2: "+recompensa2proy3+" por "+precio2proy3+"€\n" +
+                                                                "\t\t"+descripcion2proy3);
+                                                    }
+                                                    if (!recompensa3proy3.equals("")){
+                                                        System.out.println("Recompensa 3: "+recompensa3proy3+" por "+precio3proy3+"€\n" +
+                                                                "\t\t"+descripcion3proy3);
+                                                    }
                                                 }else{
                                                     System.out.println("No existe el proyecto 3");
                                                 }
@@ -511,7 +581,7 @@ public class Main {
                                                     "4. Salir");
                                             opcion=Integer.parseInt(s.nextLine());
                                             if (opcion==1){
-                                                if (!proyecto1.equals("")) {
+                                                if (!proyecto1.equals("Próximamente")) {
                                                     System.out.println("Qué quieres modificar?\n" +
                                                             "1. Nombre\n" +
                                                             "2. Categoría\n" +
@@ -578,47 +648,55 @@ public class Main {
                                                                     }
                                                                 }
                                                                 case 2 -> {
-                                                                    System.out.println("¿Qué quiere modificar de la recompensa 2?\n" +
-                                                                            "1. Objeto de la recompensa\n" +
-                                                                            "2. Descripción\n" +
-                                                                            "3. Precio\n" +
-                                                                            "4. Salir");
-                                                                    opcion=Integer.parseInt(s.nextLine());
-                                                                    if (opcion==1){
-                                                                        System.out.println("Escribe la nueva recompensa ofrecida");
-                                                                        recompensa2proy1=s.nextLine();
-                                                                    } else if (opcion==2) {
-                                                                        System.out.println("Escribe la nueva descripción");
-                                                                        descripcion2proy1=s.nextLine();
-                                                                    } else if (opcion==3) {
-                                                                        System.out.println("Escribe el nuevo precio");
-                                                                        precio2proy1=Integer.parseInt(s.nextLine());
-                                                                    } else if (opcion==4) {
-                                                                        System.out.println("Ha salido del menú modificar recompensa 2");
+                                                                    if (!recompensa2proy1.equals("")) {
+                                                                        System.out.println("¿Qué quiere modificar de la recompensa 2?\n" +
+                                                                                "1. Objeto de la recompensa\n" +
+                                                                                "2. Descripción\n" +
+                                                                                "3. Precio\n" +
+                                                                                "4. Salir");
+                                                                        opcion=Integer.parseInt(s.nextLine());
+                                                                        if (opcion==1){
+                                                                            System.out.println("Escribe la nueva recompensa ofrecida");
+                                                                            recompensa2proy1=s.nextLine();
+                                                                        } else if (opcion==2) {
+                                                                            System.out.println("Escribe la nueva descripción");
+                                                                            descripcion2proy1=s.nextLine();
+                                                                        } else if (opcion==3) {
+                                                                            System.out.println("Escribe el nuevo precio");
+                                                                            precio2proy1=Integer.parseInt(s.nextLine());
+                                                                        } else if (opcion==4) {
+                                                                            System.out.println("Ha salido del menú modificar recompensa 2");
+                                                                        }else{
+                                                                            System.out.println("Esa opción no se encuentra en el menú");
+                                                                        }
                                                                     }else{
-                                                                        System.out.println("Esa opción no se encuentra en el menú");
+                                                                        System.out.println("No existe esta recompensa todavía");
                                                                     }
                                                                 }
                                                                 case 3 -> {
-                                                                    System.out.println("¿Qué quiere modificar de la recompensa 3?\n" +
-                                                                            "1. Objeto de la recompensa\n" +
-                                                                            "2. Descripción\n" +
-                                                                            "3. Precio\n" +
-                                                                            "4. Salir");
-                                                                    opcion=Integer.parseInt(s.nextLine());
-                                                                    if (opcion==1){
-                                                                        System.out.println("Escribe la nueva recompensa ofrecida");
-                                                                        recompensa3proy1=s.nextLine();
-                                                                    } else if (opcion==2) {
-                                                                        System.out.println("Escribe la nueva descripción");
-                                                                        descripcion3proy1=s.nextLine();
-                                                                    } else if (opcion==3) {
-                                                                        System.out.println("Escribe el nuevo precio");
-                                                                        precio3proy1=Integer.parseInt(s.nextLine());
-                                                                    } else if (opcion==4) {
-                                                                        System.out.println("Ha salido del menú modificar recompensa 3");
+                                                                    if (!recompensa3proy1.equals("")) {
+                                                                        System.out.println("¿Qué quiere modificar de la recompensa 3?\n" +
+                                                                                "1. Objeto de la recompensa\n" +
+                                                                                "2. Descripción\n" +
+                                                                                "3. Precio\n" +
+                                                                                "4. Salir");
+                                                                        opcion = Integer.parseInt(s.nextLine());
+                                                                        if (opcion == 1) {
+                                                                            System.out.println("Escribe la nueva recompensa ofrecida");
+                                                                            recompensa3proy1 = s.nextLine();
+                                                                        } else if (opcion == 2) {
+                                                                            System.out.println("Escribe la nueva descripción");
+                                                                            descripcion3proy1 = s.nextLine();
+                                                                        } else if (opcion == 3) {
+                                                                            System.out.println("Escribe el nuevo precio");
+                                                                            precio3proy1 = Integer.parseInt(s.nextLine());
+                                                                        } else if (opcion == 4) {
+                                                                            System.out.println("Ha salido del menú modificar recompensa 3");
+                                                                        } else {
+                                                                            System.out.println("Esa opción no se encuentra en el menú");
+                                                                        }
                                                                     }else{
-                                                                        System.out.println("Esa opción no se encuentra en el menú");
+                                                                        System.out.println("No existe esta recompensa todavía");
                                                                     }
                                                                 }
                                                                 case 4 -> {
@@ -636,7 +714,7 @@ public class Main {
                                                     System.out.println("No existe el proyecto 1");
                                                 }
                                             }else if (opcion==2){
-                                                if (!proyecto2.equals("")) {
+                                                if (!proyecto2.equals("Próximamente")) {
                                                     System.out.println("Qué quieres modificar?\n" +
                                                             "1. Nombre\n" +
                                                             "2. Categoría\n" +
@@ -703,47 +781,55 @@ public class Main {
                                                                     }
                                                                 }
                                                                 case 2 -> {
-                                                                    System.out.println("¿Qué quiere modificar de la recompensa 2?\n" +
-                                                                            "1. Objeto de la recompensa\n" +
-                                                                            "2. Descripción\n" +
-                                                                            "3. Precio\n" +
-                                                                            "4. Salir");
-                                                                    opcion=Integer.parseInt(s.nextLine());
-                                                                    if (opcion==1){
-                                                                        System.out.println("Escribe la nueva recompensa ofrecida");
-                                                                        recompensa2proy2=s.nextLine();
-                                                                    } else if (opcion==2) {
-                                                                        System.out.println("Escribe la nueva descripción");
-                                                                        descripcion2proy2=s.nextLine();
-                                                                    } else if (opcion==3) {
-                                                                        System.out.println("Escribe el nuevo precio");
-                                                                        precio2proy2=Integer.parseInt(s.nextLine());
-                                                                    } else if (opcion==4) {
-                                                                        System.out.println("Ha salido del menú modificar recompensa 2");
+                                                                    if (!recompensa2proy2.equals("")) {
+                                                                        System.out.println("¿Qué quiere modificar de la recompensa 2?\n" +
+                                                                                "1. Objeto de la recompensa\n" +
+                                                                                "2. Descripción\n" +
+                                                                                "3. Precio\n" +
+                                                                                "4. Salir");
+                                                                        opcion = Integer.parseInt(s.nextLine());
+                                                                        if (opcion == 1) {
+                                                                            System.out.println("Escribe la nueva recompensa ofrecida");
+                                                                            recompensa2proy2 = s.nextLine();
+                                                                        } else if (opcion == 2) {
+                                                                            System.out.println("Escribe la nueva descripción");
+                                                                            descripcion2proy2 = s.nextLine();
+                                                                        } else if (opcion == 3) {
+                                                                            System.out.println("Escribe el nuevo precio");
+                                                                            precio2proy2 = Integer.parseInt(s.nextLine());
+                                                                        } else if (opcion == 4) {
+                                                                            System.out.println("Ha salido del menú modificar recompensa 2");
+                                                                        } else {
+                                                                            System.out.println("Esa opción no se encuentra en el menú");
+                                                                        }
                                                                     }else{
-                                                                        System.out.println("Esa opción no se encuentra en el menú");
+                                                                        System.out.println("No existe esta recompensa todavía");
                                                                     }
                                                                 }
                                                                 case 3 -> {
-                                                                    System.out.println("¿Qué quiere modificar de la recompensa 3?\n" +
-                                                                            "1. Objeto de la recompensa\n" +
-                                                                            "2. Descripción\n" +
-                                                                            "3. Precio\n" +
-                                                                            "4. Salir");
-                                                                    opcion=Integer.parseInt(s.nextLine());
-                                                                    if (opcion==1){
-                                                                        System.out.println("Escribe la nueva recompensa ofrecida");
-                                                                        recompensa3proy2=s.nextLine();
-                                                                    } else if (opcion==2) {
-                                                                        System.out.println("Escribe la nueva descripción");
-                                                                        descripcion3proy2=s.nextLine();
-                                                                    } else if (opcion==3) {
-                                                                        System.out.println("Escribe el nuevo precio");
-                                                                        precio3proy2=Integer.parseInt(s.nextLine());
-                                                                    } else if (opcion==4) {
-                                                                        System.out.println("Ha salido del menú modificar recompensa 3");
+                                                                    if (!recompensa3proy2.equals("")) {
+                                                                        System.out.println("¿Qué quiere modificar de la recompensa 3?\n" +
+                                                                                "1. Objeto de la recompensa\n" +
+                                                                                "2. Descripción\n" +
+                                                                                "3. Precio\n" +
+                                                                                "4. Salir");
+                                                                        opcion = Integer.parseInt(s.nextLine());
+                                                                        if (opcion == 1) {
+                                                                            System.out.println("Escribe la nueva recompensa ofrecida");
+                                                                            recompensa3proy2 = s.nextLine();
+                                                                        } else if (opcion == 2) {
+                                                                            System.out.println("Escribe la nueva descripción");
+                                                                            descripcion3proy2 = s.nextLine();
+                                                                        } else if (opcion == 3) {
+                                                                            System.out.println("Escribe el nuevo precio");
+                                                                            precio3proy2 = Integer.parseInt(s.nextLine());
+                                                                        } else if (opcion == 4) {
+                                                                            System.out.println("Ha salido del menú modificar recompensa 3");
+                                                                        } else {
+                                                                            System.out.println("Esa opción no se encuentra en el menú");
+                                                                        }
                                                                     }else{
-                                                                        System.out.println("Esa opción no se encuentra en el menú");
+                                                                        System.out.println("No existe esta recompensa todavía");
                                                                     }
                                                                 }
                                                                 case 4 -> {
@@ -761,7 +847,7 @@ public class Main {
                                                     System.out.println("No existe el proyecto 2");
                                                 }
                                             }else if (opcion==3){
-                                                if (!proyecto3.equals("")) {
+                                                if (!proyecto3.equals("Próximamente")) {
                                                     System.out.println("Qué quieres modificar?\n" +
                                                             "1. Nombre\n" +
                                                             "2. Categoría\n" +
@@ -828,47 +914,55 @@ public class Main {
                                                                     }
                                                                 }
                                                                 case 2 -> {
-                                                                    System.out.println("¿Qué quiere modificar de la recompensa 2?\n" +
-                                                                            "1. Objeto de la recompensa\n" +
-                                                                            "2. Descripción\n" +
-                                                                            "3. Precio\n" +
-                                                                            "4. Salir");
-                                                                    opcion=Integer.parseInt(s.nextLine());
-                                                                    if (opcion==1){
-                                                                        System.out.println("Escribe la nueva recompensa ofrecida");
-                                                                        recompensa2proy3=s.nextLine();
-                                                                    } else if (opcion==2) {
-                                                                        System.out.println("Escribe la nueva descripción");
-                                                                        descripcion2proy3=s.nextLine();
-                                                                    } else if (opcion==3) {
-                                                                        System.out.println("Escribe el nuevo precio");
-                                                                        precio2proy3=Integer.parseInt(s.nextLine());
-                                                                    } else if (opcion==4) {
-                                                                        System.out.println("Ha salido del menú modificar recompensa 2");
+                                                                    if (!recompensa2proy3.equals("")) {
+                                                                        System.out.println("¿Qué quiere modificar de la recompensa 2?\n" +
+                                                                                "1. Objeto de la recompensa\n" +
+                                                                                "2. Descripción\n" +
+                                                                                "3. Precio\n" +
+                                                                                "4. Salir");
+                                                                        opcion = Integer.parseInt(s.nextLine());
+                                                                        if (opcion == 1) {
+                                                                            System.out.println("Escribe la nueva recompensa ofrecida");
+                                                                            recompensa2proy3 = s.nextLine();
+                                                                        } else if (opcion == 2) {
+                                                                            System.out.println("Escribe la nueva descripción");
+                                                                            descripcion2proy3 = s.nextLine();
+                                                                        } else if (opcion == 3) {
+                                                                            System.out.println("Escribe el nuevo precio");
+                                                                            precio2proy3 = Integer.parseInt(s.nextLine());
+                                                                        } else if (opcion == 4) {
+                                                                            System.out.println("Ha salido del menú modificar recompensa 2");
+                                                                        } else {
+                                                                            System.out.println("Esa opción no se encuentra en el menú");
+                                                                        }
                                                                     }else{
-                                                                        System.out.println("Esa opción no se encuentra en el menú");
+                                                                        System.out.println("No existe esta recompensa todavía");
                                                                     }
                                                                 }
                                                                 case 3 -> {
-                                                                    System.out.println("¿Qué quiere modificar de la recompensa 3?\n" +
-                                                                            "1. Objeto de la recompensa\n" +
-                                                                            "2. Descripción\n" +
-                                                                            "3. Precio\n" +
-                                                                            "4. Salir");
-                                                                    opcion=Integer.parseInt(s.nextLine());
-                                                                    if (opcion==1){
-                                                                        System.out.println("Escribe la nueva recompensa ofrecida");
-                                                                        recompensa3proy3=s.nextLine();
-                                                                    } else if (opcion==2) {
-                                                                        System.out.println("Escribe la nueva descripción");
-                                                                        descripcion3proy3=s.nextLine();
-                                                                    } else if (opcion==3) {
-                                                                        System.out.println("Escribe el nuevo precio");
-                                                                        precio3proy3=Integer.parseInt(s.nextLine());
-                                                                    } else if (opcion==4) {
-                                                                        System.out.println("Ha salido del menú modificar recompensa 3");
+                                                                    if (!recompensa3proy3.equals("")) {
+                                                                        System.out.println("¿Qué quiere modificar de la recompensa 3?\n" +
+                                                                                "1. Objeto de la recompensa\n" +
+                                                                                "2. Descripción\n" +
+                                                                                "3. Precio\n" +
+                                                                                "4. Salir");
+                                                                        opcion = Integer.parseInt(s.nextLine());
+                                                                        if (opcion == 1) {
+                                                                            System.out.println("Escribe la nueva recompensa ofrecida");
+                                                                            recompensa3proy3 = s.nextLine();
+                                                                        } else if (opcion == 2) {
+                                                                            System.out.println("Escribe la nueva descripción");
+                                                                            descripcion3proy3 = s.nextLine();
+                                                                        } else if (opcion == 3) {
+                                                                            System.out.println("Escribe el nuevo precio");
+                                                                            precio3proy3 = Integer.parseInt(s.nextLine());
+                                                                        } else if (opcion == 4) {
+                                                                            System.out.println("Ha salido del menú modificar recompensa 3");
+                                                                        } else {
+                                                                            System.out.println("Esa opción no se encuentra en el menú");
+                                                                        }
                                                                     }else{
-                                                                        System.out.println("Esa opción no se encuentra en el menú");
+                                                                        System.out.println("No existe esta recompensa todavía");
                                                                     }
                                                                 }
                                                                 case 4 -> {
@@ -899,22 +993,22 @@ public class Main {
                                                     "4. Salir");
                                             opcion=Integer.parseInt(s.nextLine());
                                             if (opcion==1){
-                                                if (!proyecto1.equals("")) {
-                                                    proyecto1 = "";
+                                                if (!proyecto1.equals("Próximamente")) {
+                                                    proyecto1 = "Próximamente";
                                                     System.out.println("Ha borrado el proyecto 1 satisfactoriamente.");
                                                 }else{
                                                     System.out.println("No existe el proyecto 1");
                                                 }
                                             }else if (opcion==2){
-                                                if (!proyecto2.equals("")) {
-                                                    proyecto2 = "";
+                                                if (!proyecto2.equals("Próximamente")) {
+                                                    proyecto2 = "Próximamente";
                                                     System.out.println("Ha borrado el proyecto 2 satisfactoriamente.");
                                                 }else{
                                                     System.out.println("No existe el proyecto 2");
                                                 }
                                             }else if (opcion==3){
-                                                if (!proyecto3.equals("")) {
-                                                    proyecto3 = "";
+                                                if (!proyecto3.equals("Próximamente")) {
+                                                    proyecto3 = "Próximamente";
                                                     System.out.println("Ha borrado el proyecto 3 satisfactoriamente.");
                                                 }else{
                                                     System.out.println("No existe el proyecto 3");
