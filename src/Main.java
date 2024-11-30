@@ -28,9 +28,19 @@ public class Main {
         String descripcion1proy1 ="", descripcion2proy1 ="", descripcion3proy1 ="";
         String descripcion1proy2 ="", descripcion2proy2 ="", descripcion3proy2 ="";
         String descripcion1proy3 ="", descripcion2proy3 ="", descripcion3proy3 ="";
+
         int precio1proy1 =0, precio2proy1 =0, precio3proy1 =0;
         int precio1proy2 =0, precio2proy2 =0, precio3proy2 =0;
         int precio1proy3 =0, precio2proy3 =0, precio3proy3 =0;
+        int opcionProyecto=0;
+        int saldoInversor2=0;
+        int inversionProyecto2Inversor2=0;
+        int inversionProyecto1Inversor2=0;
+        int inversionProyecto3Inversor2=0;
+        int saldoInversor1=0;
+        int inversionProyecto2Inversor1=0;
+        int inversionProyecto1Inversor1=0;
+        int inversionProyecto3Inversor1=0;
         do{
             bienvenido=false;
             System.out.println("Introduce usuario y contraseña. Pulsa s para salir");
@@ -1054,6 +1064,158 @@ public class Main {
                                 "5. Configuración\n"+
                                 "6. Cerrar Sesión\n");
                         opcion=Integer.parseInt(s.nextLine());
+                        switch (opcion){
+                            case 1:{
+                                System.out.println("Usted a accedido a Mis inversiones");
+                                if(inversionProyecto1Inversor1>0){
+                                    System.out.println("Usted a contribuido con "+ inversionProyecto1Inversor1+" € en el proyecto *****"+ proyecto1+"*****");
+                                    System.out.println("La categoria de *****"+proyecto1+"***** es "+categoria1);
+                                }
+                                if(inversionProyecto2Inversor1>0){
+                                    System.out.println("Usted a contribuido con "+ inversionProyecto2Inversor1+" € en el proyecto *****"+ proyecto2+"*****");
+                                    System.out.println("La categoria de *****"+proyecto2+"***** es "+categoria2);
+                                }
+                                if(inversionProyecto3Inversor1>0){
+                                    System.out.println("Usted a contribuido con "+ inversionProyecto3Inversor1+" € en el proyecto *****"+ proyecto3+"*****");
+                                    System.out.println("La categoria de *****"+proyecto3+"***** es "+categoria3);
+                                }
+                                if (inversionProyecto3Inversor1==0&&inversionProyecto2Inversor1==0&&inversionProyecto1Inversor1==0){
+                                    System.out.println("Usted aún no ha realizado ninguna inversion");
+                                }
+                                break;
+                            }
+                            case 2:{
+                                System.out.println("Has accedido a proyectos");
+                                System.out.println("*****PROYECTOS*****");
+                                if (!proyecto1.equals("Próximamente")) {
+                                    System.out.println("Proyecto 1: "+proyecto1+"\n" +
+                                            "Nombre: "+proyecto1+"\n" +
+                                            "Categoría: "+categoria1+"\n" +
+                                            "Cantidad a financiar: "+financiacionTotal1+"\n" +
+                                            "Cantidad financiada hasta el momento: "+financiado1+"\n" +
+                                            "Fecha de apertura de inversiones: "+fechaApertura1+"\n" +
+                                            "Fecha de cierre de inversiones: "+fechaCierre1+"\n" +
+                                            "Recompensa 1: "+recompensa1proy1+" por "+precio1proy1+"€\n" +
+                                            "\t\t"+descripcion1proy1+"\n" +
+                                            "Recompensa 2: "+recompensa2proy1+" por "+precio2proy1+"€\n" +
+                                            "\t\t"+descripcion2proy1+"\n" +
+                                            "Recompensa 3: "+recompensa3proy1+" por "+precio3proy1+"€\n" +
+                                            "\t\t"+descripcion3proy1+"\n");
+                                }else{
+                                    System.out.println("No existe el proyecto 1");
+                                }
+
+                                if (!proyecto2.equals("Próximamente")) {
+                                    System.out.println("Proyecto 2: "+ proyecto2+"\n" +
+                                            "Nombre: "+proyecto2+"\n" +
+                                            "Categoría: "+categoria2+"\n" +
+                                            "Cantidad a financiar: "+financiacionTotal2+"\n" +
+                                            "Cantidad financiada hasta el momento: "+financiado2+"\n" +
+                                            "Fecha de apertura de inversiones: "+fechaApertura2+"\n" +
+                                            "Fecha de cierre de inversiones: "+fechaCierre2+"\n" +
+                                            "Recompensa 1: "+recompensa1proy2+" por "+precio1proy2+"€\n" +
+                                            "\t\t"+descripcion1proy2+"\n" +
+                                            "Recompensa 2: "+recompensa2proy2+" por "+precio2proy2+"€\n" +
+                                            "\t\t"+descripcion2proy2+"\n" +
+                                            "Recompensa 3: "+recompensa3proy2+" por "+precio3proy2+"€\n" +
+                                            "\t\t"+descripcion3proy2+"\n");
+                                }else{
+                                    System.out.println("No existe el proyecto 2");
+                                }
+                                if (!proyecto3.equals("Próximamente")) {
+                                    System.out.println("Proyecto 3: "+proyecto3+"\n" +
+                                            "Nombre: "+proyecto3+"\n" +
+                                            "Categoría: "+categoria3+"\n" +
+                                            "Cantidad a financiar: "+financiacionTotal3+"\n" +
+                                            "Cantidad financiada hasta el momento: "+financiado3+"\n" +
+                                            "Fecha de apertura de inversiones: "+fechaApertura3+"\n" +
+                                            "Fecha de cierre de inversiones: "+fechaCierre3+"\n" +
+                                            "Recompensa 1: "+recompensa1proy3+" por "+precio1proy3+"€\n" +
+                                            "\t\t"+descripcion1proy3+"\n" +
+                                            "Recompensa 2: "+recompensa2proy3+" por "+precio2proy3+"€\n" +
+                                            "\t\t"+descripcion2proy3+"\n" +
+                                            "Recompensa 3: "+recompensa3proy3+" por "+precio3proy3+"€\n" +
+                                            "\t\t"+descripcion3proy3+"\n");
+
+
+
+                                }else{
+                                    System.out.println("No existe el proyecto 3");
+                                }
+                                do{
+                                    System.out.println("¿En que proyecto desea invertir?");
+                                    System.out.println("1. "+proyecto1);
+                                    System.out.println("2. "+proyecto2);
+                                    System.out.println("3. "+proyecto3);
+                                    System.out.println("4. Salir");
+                                    opcionProyecto=Integer.parseInt(s.nextLine());
+                                    if(opcionProyecto==1){
+
+                                        if (proyecto1=="Próximamente"){
+                                            System.out.println("Proyecto no disponible para invertir");
+                                        }else {
+                                            System.out.println("Cuanto desea invertir");
+                                            inversionProyecto1Inversor1=Integer.parseInt(s.nextLine());
+                                            if (inversionProyecto1Inversor1<=saldoInversor1&&inversionProyecto1Inversor1>0){
+                                                System.out.println("Operacion realizada con exito");
+                                                saldoInversor1-=inversionProyecto1Inversor1;
+                                                financiado1+=inversionProyecto1Inversor1;
+                                            }else {
+                                                System.out.println("Operacion Denegada");
+                                            }
+
+                                        }
+
+                                    } else if (opcionProyecto==2) {
+                                        if (proyecto2=="Próximamente"){
+                                            System.out.println("Proyecto no disponible para invertir");
+
+                                        }else {
+                                            System.out.println("Cuanto desea invertir");
+                                            inversionProyecto2Inversor1=Integer.parseInt(s.nextLine());
+                                            if (inversionProyecto2Inversor1<=saldoInversor1&&inversionProyecto2Inversor1>0){
+                                                System.out.println("Operacion realizada con exito");
+                                                saldoInversor1-=inversionProyecto2Inversor1;
+                                                financiado2+=inversionProyecto2Inversor1;
+                                            }else {
+                                                System.out.println("Operacion Denegada");
+                                            }
+
+                                        }
+                                    } else if (opcionProyecto==3) {
+                                        if (proyecto3=="Próximamente"){
+                                            System.out.println("Proyecto no disponible para invertor");
+                                        }else {
+                                            System.out.println("Cuanto desea invertir");
+                                            inversionProyecto3Inversor1=Integer.parseInt(s.nextLine());
+                                            if (inversionProyecto3Inversor1<=saldoInversor1&&inversionProyecto3Inversor1>0){
+                                                System.out.println("Operacion realizada con exito");
+                                                saldoInversor1-=inversionProyecto3Inversor1;
+                                                financiado3+=inversionProyecto3Inversor1;
+                                            }else {
+                                                System.out.println("Operacion Denegada");
+                                            }                                        }
+                                    } else if (opcion==4) {
+                                        System.out.println("Saliendo del menu proyectos");
+                                    }
+                                }while(opcionProyecto>=1&&opcionProyecto<4);
+
+                                break;
+                            }
+                            case 3:{
+
+                                break;
+                            }
+                            case 4:{
+
+                                break;
+                            }
+                            case 5:{
+
+                                break;
+                            }
+
+                        }
                         if (opcion==6){
                             System.out.println("¡Hasta pronto!");
                         }
@@ -1069,6 +1231,158 @@ public class Main {
                                 "5. Configuración\n"+
                                 "6. Cerrar Sesión\n");
                         opcion=Integer.parseInt(s.nextLine());
+                        switch (opcion){
+                            case 1:{
+                                System.out.println("Usted a accedido a Mis inversiones");
+                                if(inversionProyecto1Inversor2>0){
+                                    System.out.println("Usted a contribuido con "+ inversionProyecto1Inversor2+" € en el proyecto *****"+ proyecto1+"*****");
+                                    System.out.println("La categoria de *****"+proyecto1+"***** es "+categoria1);
+                                }
+                                if(inversionProyecto2Inversor2>0){
+                                    System.out.println("Usted a contribuido con "+ inversionProyecto2Inversor2+" € en el proyecto *****"+ proyecto2+"*****");
+                                    System.out.println("La categoria de *****"+proyecto2+"***** es "+categoria2);
+                                }
+                                if(inversionProyecto3Inversor2>0){
+                                    System.out.println("Usted a contribuido con "+ inversionProyecto3Inversor2+" € en el proyecto *****"+ proyecto3+"*****");
+                                    System.out.println("La categoria de *****"+proyecto3+"***** es "+categoria3);
+                                }
+                                if (inversionProyecto3Inversor2==0&&inversionProyecto2Inversor2==0&&inversionProyecto1Inversor2==0){
+                                    System.out.println("Usted aún no ha realizado ninguna inversion");
+                                }
+                                break;
+                            }
+                            case 2:{
+                                System.out.println("Has accedido a proyectos");
+                                System.out.println("*****PROYECTOS*****");
+                                if (!proyecto1.equals("Próximamente")) {
+                                    System.out.println("Proyecto 1: "+proyecto1+"\n" +
+                                            "Nombre: "+proyecto1+"\n" +
+                                            "Categoría: "+categoria1+"\n" +
+                                            "Cantidad a financiar: "+financiacionTotal1+"\n" +
+                                            "Cantidad financiada hasta el momento: "+financiado1+"\n" +
+                                            "Fecha de apertura de inversiones: "+fechaApertura1+"\n" +
+                                            "Fecha de cierre de inversiones: "+fechaCierre1+"\n" +
+                                            "Recompensa 1: "+recompensa1proy1+" por "+precio1proy1+"€\n" +
+                                            "\t\t"+descripcion1proy1+"\n" +
+                                            "Recompensa 2: "+recompensa2proy1+" por "+precio2proy1+"€\n" +
+                                            "\t\t"+descripcion2proy1+"\n" +
+                                            "Recompensa 3: "+recompensa3proy1+" por "+precio3proy1+"€\n" +
+                                            "\t\t"+descripcion3proy1+"\n");
+                                }else{
+                                    System.out.println("No existe el proyecto 1");
+                                }
+
+                                if (!proyecto2.equals("Próximamente")) {
+                                    System.out.println("Proyecto 2: "+ proyecto2+"\n" +
+                                            "Nombre: "+proyecto2+"\n" +
+                                            "Categoría: "+categoria2+"\n" +
+                                            "Cantidad a financiar: "+financiacionTotal2+"\n" +
+                                            "Cantidad financiada hasta el momento: "+financiado2+"\n" +
+                                            "Fecha de apertura de inversiones: "+fechaApertura2+"\n" +
+                                            "Fecha de cierre de inversiones: "+fechaCierre2+"\n" +
+                                            "Recompensa 1: "+recompensa1proy2+" por "+precio1proy2+"€\n" +
+                                            "\t\t"+descripcion1proy2+"\n" +
+                                            "Recompensa 2: "+recompensa2proy2+" por "+precio2proy2+"€\n" +
+                                            "\t\t"+descripcion2proy2+"\n" +
+                                            "Recompensa 3: "+recompensa3proy2+" por "+precio3proy2+"€\n" +
+                                            "\t\t"+descripcion3proy2+"\n");
+                                }else{
+                                    System.out.println("No existe el proyecto 2");
+                                }
+                                if (!proyecto3.equals("Próximamente")) {
+                                    System.out.println("Proyecto 3: "+proyecto3+"\n" +
+                                            "Nombre: "+proyecto3+"\n" +
+                                            "Categoría: "+categoria3+"\n" +
+                                            "Cantidad a financiar: "+financiacionTotal3+"\n" +
+                                            "Cantidad financiada hasta el momento: "+financiado3+"\n" +
+                                            "Fecha de apertura de inversiones: "+fechaApertura3+"\n" +
+                                            "Fecha de cierre de inversiones: "+fechaCierre3+"\n" +
+                                            "Recompensa 1: "+recompensa1proy3+" por "+precio1proy3+"€\n" +
+                                            "\t\t"+descripcion1proy3+"\n" +
+                                            "Recompensa 2: "+recompensa2proy3+" por "+precio2proy3+"€\n" +
+                                            "\t\t"+descripcion2proy3+"\n" +
+                                            "Recompensa 3: "+recompensa3proy3+" por "+precio3proy3+"€\n" +
+                                            "\t\t"+descripcion3proy3+"\n");
+
+
+
+                                }else{
+                                    System.out.println("No existe el proyecto 3");
+                                }
+                                do{
+                                    System.out.println("¿En que proyecto desea invertir?");
+                                    System.out.println("1. "+proyecto1);
+                                    System.out.println("2. "+proyecto2);
+                                    System.out.println("3. "+proyecto3);
+                                    System.out.println("4. Salir");
+                                    opcionProyecto=Integer.parseInt(s.nextLine());
+                                    if(opcionProyecto==1){
+
+                                        if (proyecto1=="Próximamente"){
+                                            System.out.println("Proyecto no disponible para invertir");
+                                        }else {
+                                            System.out.println("Cuanto desea invertir");
+                                            inversionProyecto1Inversor2=Integer.parseInt(s.nextLine());
+                                            if (inversionProyecto1Inversor2<=saldoInversor2&&inversionProyecto1Inversor2>0){
+                                                System.out.println("Operacion realizada con exito");
+                                                saldoInversor2-=inversionProyecto1Inversor2;
+                                                financiado1+=inversionProyecto1Inversor2;
+                                            }else {
+                                                System.out.println("Operacion Denegada");
+                                            }
+
+                                        }
+
+                                    } else if (opcionProyecto==2) {
+                                        if (proyecto2=="Próximamente"){
+                                            System.out.println("Proyecto no disponible para invertir");
+
+                                        }else {
+                                            System.out.println("Cuanto desea invertir");
+                                            inversionProyecto2Inversor2=Integer.parseInt(s.nextLine());
+                                            if (inversionProyecto2Inversor2<=saldoInversor2&&inversionProyecto2Inversor2>0){
+                                                System.out.println("Operacion realizada con exito");
+                                                saldoInversor2-=inversionProyecto2Inversor2;
+                                                financiado2+=inversionProyecto2Inversor2;
+                                            }else {
+                                                System.out.println("Operacion Denegada");
+                                            }
+
+                                        }
+                                    } else if (opcionProyecto==3) {
+                                        if (proyecto3=="Próximamente"){
+                                            System.out.println("Proyecto no disponible para invertor");
+                                        }else {
+                                            System.out.println("Cuanto desea invertir");
+                                            inversionProyecto3Inversor2=Integer.parseInt(s.nextLine());
+                                            if (inversionProyecto3Inversor2<=saldoInversor2&&inversionProyecto3Inversor2>0){
+                                                System.out.println("Operacion realizada con exito");
+                                                saldoInversor2-=inversionProyecto3Inversor2;
+                                                financiado3+=inversionProyecto3Inversor2;
+                                            }else {
+                                                System.out.println("Operacion Denegada");
+                                            }                                        }
+                                    } else if (opcion==4) {
+                                        System.out.println("Saliendo del menu proyectos");
+                                    }
+                                }while(opcionProyecto>=1&&opcionProyecto<4);
+
+                                break;
+                            }
+                            case 3:{
+
+                                break;
+                            }
+                            case 4:{
+
+                                break;
+                            }
+                            case 5:{
+
+                                break;
+                            }
+
+                        }
                         if (opcion==6){
                             System.out.println("¡Hasta pronto!");
                         }
