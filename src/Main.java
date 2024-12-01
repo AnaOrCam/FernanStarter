@@ -19,6 +19,7 @@ public class Main {
         int admin_inversor2=0;
         int eleccionadmin=0  ;
         int Adminconfiguracion=0;
+        int opcionConfiguracion;
         int opcion;
         String proyecto1="Próximamente", proyecto2="Próximamente", proyecto3="Próximamente";
         String categoria1="", categoria2="", categoria3="";
@@ -1265,8 +1266,8 @@ public class Main {
                                     System.out.println("1. Cambiar nombre de usuario");
                                     System.out.println("2. Cambiar contraseña de usuario");
                                     System.out.println("3. Salir");
-                                    opcion=Integer.parseInt(s.nextLine());
-                                    switch (opcion){
+                                    opcionConfiguracion=Integer.parseInt(s.nextLine());
+                                    switch (opcionConfiguracion){
                                         case 1:{
                                             System.out.println("Introduzca el nuevo nombre de usuario");
                                             usuarioGestor=s.nextLine();
@@ -1282,7 +1283,7 @@ public class Main {
                                             break;
                                         }
                                     }
-                                }while(opcion!=3);
+                                }while(opcionConfiguracion!=3);
                             }
                             case 3-> System.out.println("¡Hasta pronto!");
                             default -> System.out.println("Esa opción no se encuentra en el menú");
