@@ -411,13 +411,13 @@ public class Main {
                                 break;
                             }
                             case 3:{
-                                System.out.println("Ha accedido a configuracion");
+                                System.out.println("Ha accedido a configuración");
 
                                 do{
-                                    System.out.println("Seleccione opcion");
+                                    System.out.println("Seleccione opción");
                                     System.out.println("1. Cambiar nombre de usuario");
                                     System.out.println("2. Cambiar contraseña de usuario");
-                                    System.out.println("3. Para salir del menu configuracion");
+                                    System.out.println("3. Salir");
                                     Adminconfiguracion=Integer.parseInt(s.nextLine());
                                     switch (Adminconfiguracion){
                                         case 1:{
@@ -431,7 +431,7 @@ public class Main {
                                             break;
                                         }
                                         case 3:{
-                                            System.out.println("Saliendo del menu de configuracion");
+                                            System.out.println("Saliendo de configuración");
                                             break;
                                         }
                                     }
@@ -1258,17 +1258,31 @@ public class Main {
                                 }while (opcion!=5);
                             }
                             case 2 -> {
-                                System.out.println("¿Qué quieres cambiar?\n 1.Nombre de usuario\n 2.Contraseña");
-                                int opcionConfiguracionGestor = Integer.parseInt(s.nextLine());
-                                if (opcionConfiguracionGestor == 1) {
-                                    System.out.println("Introduzca el nuevo nombre de usuario. Pulsa INTRO para guardar los cambios.");
-                                    usuarioGestor = s.nextLine();
-                                } else if (opcionConfiguracionGestor == 2) {
-                                    System.out.println("Introduzca la nueva contraseña. Pulsa INTRO para guardar los cambios.");
-                                    contrasenaGestor = s.nextLine();
-                                } else {
-                                    System.out.println("Error esa opcion no se encuentra en el menú");
-                                }
+                                System.out.println("Ha accedido a configuración");
+
+                                do{
+                                    System.out.println("Seleccione opción");
+                                    System.out.println("1. Cambiar nombre de usuario");
+                                    System.out.println("2. Cambiar contraseña de usuario");
+                                    System.out.println("3. Salir");
+                                    opcion=Integer.parseInt(s.nextLine());
+                                    switch (opcion){
+                                        case 1:{
+                                            System.out.println("Introduzca el nuevo nombre de usuario");
+                                            usuarioGestor=s.nextLine();
+                                            break;
+                                        }
+                                        case 2:{
+                                            System.out.println("Introduzca la nueva contraseña de usuario");
+                                            contrasenaGestor=s.nextLine();
+                                            break;
+                                        }
+                                        case 3:{
+                                            System.out.println("Saliendo de configuración");
+                                            break;
+                                        }
+                                    }
+                                }while(opcion!=3);
                             }
                             case 3-> System.out.println("¡Hasta pronto!");
                             default -> System.out.println("Esa opción no se encuentra en el menú");
@@ -1545,17 +1559,31 @@ public class Main {
                                 break;
                             }
                             case 5:{
-                                System.out.println("¿Qué quieres cambiar?\n 1.Nombre de usuario\n 2.Contraseña");
-                                int opcionConfiguracionInversor = Integer.parseInt(s.nextLine());
-                                if (opcionConfiguracionInversor == 1) {
-                                    System.out.println("Introduzca el nuevo nombre de usuario. Pulsa INTRO para guardar los cambios.");
-                                    usuarioInversor1 = s.nextLine();
-                                } else if (opcionConfiguracionInversor == 2) {
-                                    System.out.println("Introduzca la nueva contraseña. Pulsa INTRO para guardar los cambios.");
-                                    contrasenaInversor1 = s.nextLine();
-                                } else {
-                                    System.out.println("Error esa opción no se encuentra en el menú");
-                                }
+                                System.out.println("Ha accedido a configuración");
+
+                                do{
+                                    System.out.println("Seleccione opcion");
+                                    System.out.println("1. Cambiar nombre de usuario");
+                                    System.out.println("2. Cambiar contraseña de usuario");
+                                    System.out.println("3. Salir");
+                                    opcion=Integer.parseInt(s.nextLine());
+                                    switch (opcion){
+                                        case 1:{
+                                            System.out.println("Introduzca el nuevo nombre de usuario");
+                                            usuarioInversor1=s.nextLine();
+                                            break;
+                                        }
+                                        case 2:{
+                                            System.out.println("Introduzca la nueva contraseña de usuario");
+                                            contrasenaInversor1=s.nextLine();
+                                            break;
+                                        }
+                                        case 3:{
+                                            System.out.println("Saliendo de configuración");
+                                            break;
+                                        }
+                                    }
+                                }while(opcion!=3);
                                 break;
                             }
 
@@ -1835,17 +1863,31 @@ public class Main {
                                 break;
                             }
                             case 5:{
-                                System.out.println("¿Qué quieres cambiar?\n 1.Nombre de usuario\n 2.Contraseña");
-                                int opcionConfiguracionInversor = Integer.parseInt(s.nextLine());
-                                if (opcionConfiguracionInversor == 1) {
-                                    System.out.println("Introduzca el nuevo nombre de usuario. Pulsa INTRO para guardar los cambios.");
-                                    usuarioInversor2 = s.nextLine();
-                                } else if (opcionConfiguracionInversor == 2) {
-                                    System.out.println("Introduzca la nueva contraseña. Pulsa INTRO para guardar los cambios.");
-                                    contrasenaInversor2 = s.nextLine();
-                                } else {
-                                    System.out.println("Error esa opción no se encuentra en el menú");
-                                }
+                                System.out.println("Ha accedido a configuracion");
+
+                                do{
+                                    System.out.println("Seleccione opción");
+                                    System.out.println("1. Cambiar nombre de usuario");
+                                    System.out.println("2. Cambiar contraseña de usuario");
+                                    System.out.println("3. Salir");
+                                    opcion=Integer.parseInt(s.nextLine());
+                                    switch (opcion){
+                                        case 1:{
+                                            System.out.println("Introduzca el nuevo nombre de usuario");
+                                            usuarioInversor2=s.nextLine();
+                                            break;
+                                        }
+                                        case 2:{
+                                            System.out.println("Introduzca la nueva contraseña de usuario");
+                                            contrasenaInversor2=s.nextLine();
+                                            break;
+                                        }
+                                        case 3:{
+                                            System.out.println("Saliendo de configuración");
+                                            break;
+                                        }
+                                    }
+                                }while(opcion!=3);
                                 break;
                             }
                         }
