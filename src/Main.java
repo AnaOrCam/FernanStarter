@@ -1546,7 +1546,7 @@ public class Main {
                                             System.out.println("Cuánto quieres añadir?");
                                             saldoInversor1 += Integer.parseInt(s.nextLine());
                                         }
-                                        case 3 -> System.out.println("¡Hasta pronto!");
+                                        case 3 -> System.out.println("Saliendo de cartera digital");
                                         default -> System.out.println("Esa opción no se encuentra en el menú");
                                     }
                                 }while (opcion!=3);
@@ -1850,7 +1850,7 @@ public class Main {
                                             System.out.println("Cuánto quieres añadir?");
                                             saldoInversor2 += Integer.parseInt(s.nextLine());
                                         }
-                                        case 3 -> System.out.println("¡Hasta pronto!");
+                                        case 3 -> System.out.println("Saliendo de Cartera Digital");
                                         default -> System.out.println("Esa opción no se encuentra en el menú");
                                     }
                                 }while (opcion!=3);
