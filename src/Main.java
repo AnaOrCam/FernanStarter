@@ -430,9 +430,12 @@ public class Main {
                                             contrasenaAdmin=s.nextLine();
                                             break;
                                         }
+                                        case 3:{
+                                            System.out.println("Saliendo del menu de configuracion");
+                                            break;
+                                        }
                                     }
                                 }
-                                System.out.println("Saliendo del menu de configuracion");
                                 break;
                             }
                         }
@@ -1385,8 +1388,8 @@ public class Main {
                                                 if (intentoInversion<=saldoInversor1 && intentoInversion>0){
                                                     System.out.println(ANSI_GREEN+"Operación realizada con exito"+ANSI_RESET);
                                                     inversionProyecto1Inversor1+=intentoInversion;
-                                                    saldoInversor1-=inversionProyecto1Inversor1;
-                                                    financiado1+=inversionProyecto1Inversor1;
+                                                    saldoInversor1-=intentoInversion;
+                                                    financiado1+=intentoInversion;
                                                 }else {
                                                     System.out.println(ANSI_RED+"Operación Denegada"+ANSI_RESET);
                                                 }
@@ -1441,8 +1444,8 @@ public class Main {
                                                 if (intentoInversion<=saldoInversor1 && intentoInversion>0){
                                                     System.out.println(ANSI_GREEN+"Operacion realizada con exito"+ANSI_RESET);
                                                     inversionProyecto2Inversor1+=intentoInversion;
-                                                    saldoInversor1-=inversionProyecto2Inversor1;
-                                                    financiado2+=inversionProyecto2Inversor1;
+                                                    saldoInversor1-=intentoInversion;
+                                                    financiado2+=intentoInversion;
                                                 }else {
                                                     System.out.println(ANSI_RED+"Operación Denegada"+ANSI_RESET);
                                                 }
@@ -1498,8 +1501,8 @@ public class Main {
                                                 if (intentoInversion<=saldoInversor1&&intentoInversion>0){
                                                     System.out.println(ANSI_GREEN+"Operación realizada con exito"+ANSI_RESET);
                                                     inversionProyecto3Inversor1+=intentoInversion;
-                                                    saldoInversor1-=inversionProyecto3Inversor1;
-                                                    financiado3+=inversionProyecto3Inversor1;
+                                                    saldoInversor1-=intentoInversion;
+                                                    financiado3+=intentoInversion;
                                                 }else {
                                                     System.out.println(ANSI_RED+"Operación Denegada"+ANSI_RESET);
                                                 }
@@ -1674,8 +1677,8 @@ public class Main {
                                                     if (intentoInversion<=saldoInversor2 && intentoInversion>0){
                                                         inversionProyecto1Inversor2+=intentoInversion;
                                                         System.out.println(ANSI_GREEN+"Operación realizada con exito"+ANSI_RESET);
-                                                        saldoInversor2-=inversionProyecto1Inversor2;
-                                                        financiado1+=inversionProyecto1Inversor2;
+                                                        saldoInversor2-=intentoInversion;
+                                                        financiado1+=intentoInversion;
                                                     }else {
                                                         System.out.println(ANSI_RED+"Operación Denegada"+ANSI_RESET);
                                                     }
@@ -1731,8 +1734,8 @@ public class Main {
                                                 if (intentoInversion<=saldoInversor2 && intentoInversion>0){
                                                     inversionProyecto2Inversor2+=intentoInversion;
                                                     System.out.println(ANSI_GREEN+"Operación realizada con exito"+ANSI_RESET);
-                                                    saldoInversor2-=inversionProyecto2Inversor2;
-                                                    financiado2+=inversionProyecto2Inversor2;
+                                                    saldoInversor2-=intentoInversion;
+                                                    financiado2+=intentoInversion;
                                                 }else {
                                                     System.out.println(ANSI_RED+"Operación Denegada"+ANSI_RESET);
                                                 }
@@ -1788,8 +1791,8 @@ public class Main {
                                                 if (intentoInversion<=saldoInversor2 && intentoInversion>0){
                                                     System.out.println(ANSI_GREEN+"Operación realizada con exito"+ANSI_RESET);
                                                     inversionProyecto3Inversor2+=intentoInversion;
-                                                    saldoInversor2-=inversionProyecto3Inversor2;
-                                                    financiado3+=inversionProyecto3Inversor2;
+                                                    saldoInversor2-=intentoInversion;
+                                                    financiado3+=intentoInversion;
                                                 }else {
                                                     System.out.println(ANSI_RED+"Operación Denegada"+ANSI_RESET);
                                                 }
