@@ -52,7 +52,7 @@ public class Main {
         do{
             bienvenido=false;
             System.out.println("Introduce usuario y contraseña. Pulsa s para salir");
-            usuario=s.nextLine().toLowerCase();
+            usuario=s.nextLine();
             contrasena=s.nextLine();
             if (!usuario.equals("s") && !contrasena.equals("s")) {
                 if (usuario.equals(usuarioAdmin) && contrasena.equals(contrasenaAdmin) ) {
@@ -413,7 +413,7 @@ public class Main {
                             case 3:{
                                 System.out.println("Ha accedido a configuracion");
 
-                                while(Adminconfiguracion!=3){
+                                do{
                                     System.out.println("Seleccione opcion");
                                     System.out.println("1. Cambiar nombre de usuario");
                                     System.out.println("2. Cambiar contraseña de usuario");
@@ -435,7 +435,7 @@ public class Main {
                                             break;
                                         }
                                     }
-                                }
+                                }while(Adminconfiguracion!=3);
                                 break;
                             }
                         }
