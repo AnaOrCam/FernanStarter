@@ -42,6 +42,7 @@ public class Main {
         int precio1proy2 =0, precio2proy2 =0, precio3proy2 =0;
         int precio1proy3 =0, precio2proy3 =0, precio3proy3 =0;
         int opcionProyecto=0;
+        int opcionProyectoAdmin=0;
         int saldoInversor1=0, saldoInversor2=0;
         int intentoInversion;
         int inversionProyecto1Inversor1=0, inversionProyecto2Inversor1=0, inversionProyecto3Inversor1=0;
@@ -136,6 +137,7 @@ public class Main {
                                 System.out.println("1."+usuarioGestor);
                                 System.out.println("2."+usuarioInversor1);
                                 System.out.println("3."+usuarioInversor2);
+                                System.out.println("4. Salir");
                                 eleccionadmin=Integer.parseInt(s.nextLine());
                                 switch (eleccionadmin){
                                     case 1:{
@@ -147,6 +149,7 @@ public class Main {
                                         }
                                         System.out.println("Pulsa 1. Para bloquear");
                                         System.out.println("Pulsa 2. Para desbloquear");
+                                        System.out.println("Pulsa 3. Para salir al menú principal de admin");
                                         admin_gestor=Integer.parseInt(s.nextLine());
                                         switch (admin_gestor){
                                             case 1:{
@@ -167,6 +170,12 @@ public class Main {
                                                 }
                                                 break;
                                             }
+                                            case 3:{
+                                                System.out.println("Saliendo al menú principal de "+ usuarioAdmin);
+                                                break;
+                                            }
+                                            default:
+                                                System.out.println("Opción no valida , saliendo al menu principal de "+usuarioAdmin);
 
                                         }
                                         break;
@@ -180,6 +189,8 @@ public class Main {
                                         }
                                         System.out.println("Pulsa 1. Para bloquear");
                                         System.out.println("Pulsa 2. Para desbloquear");
+                                        System.out.println("Pulsa 3. Para salir al menú principal de admin");
+
                                         admin_inversor1=Integer.parseInt(s.nextLine());
                                         switch (admin_inversor1){
                                             case 1:{
@@ -200,6 +211,12 @@ public class Main {
                                                 }
                                                 break;
                                             }
+                                            case 3:{
+                                                System.out.println("Saliendo al menú principal de "+ usuarioAdmin);
+                                                break;
+                                            }
+                                            default:
+                                                System.out.println("Opción no valida , saliendo al menu principal de "+usuarioAdmin);
                                         }
                                         break;
 
@@ -213,6 +230,8 @@ public class Main {
                                         }
                                         System.out.println("Pulsa 1. Para bloquear");
                                         System.out.println("Pulsa 2. Para desbloquear");
+                                        System.out.println("Pulsa 3. Para salir al menú principal de admin");
+
                                         admin_inversor2=Integer.parseInt(s.nextLine());
                                         switch (admin_inversor2){
                                             case 1:{
@@ -233,9 +252,21 @@ public class Main {
                                                 }
                                                 break;
                                             }
+                                            case 3:{
+                                                System.out.println("Saliendo al menú principal de "+ usuarioAdmin);
+                                                break;
+                                            }
+                                            default:
+                                                System.out.println("Opción no valida , saliendo al menu principal de "+usuarioAdmin);
                                         }
                                         break;
                                     }
+                                    case 4:{
+                                        System.out.println("Saliendo del panel de control");
+                                        break;
+                                    }
+                                    default:
+                                        System.out.println("Opcion no valida , saliendo de panel de control");
                                 }
                                 break;
                             }
@@ -246,8 +277,8 @@ public class Main {
                                         "2. Proyecto 2: " + proyecto2 + "\n" +
                                         "3. Proyecto 3: " + proyecto3 + "\n" +
                                         "4. Salir");
-                                opcion = Integer.parseInt(s.nextLine());
-                                switch (opcion) {
+                                opcionProyectoAdmin = Integer.parseInt(s.nextLine());
+                                switch (opcionProyectoAdmin) {
                                     case 1 -> {
                                         if (!proyecto1.equals("Próximamente")) {
                                             System.out.println("Proyecto 1: " + proyecto1 + "\n" +
@@ -377,6 +408,7 @@ public class Main {
                                     case 4 -> System.out.println("¡Hasta pronto!");
                                     default -> System.out.println("Esa opcion no se encuentra en el menú");
                                 }
+                                break;
                             }
                             case 3:{
                                 System.out.println("Ha accedido a configuracion");
