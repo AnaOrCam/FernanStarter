@@ -6,6 +6,7 @@ public class Main {
         final String ANSI_RED="\033[31m";
         final String ANSI_GREY= "\033[37m";
         final String ANSI_RESET= "\033[0m";
+        final String ANSI_PURPLE= "\033[35m";
         String usuario;
         String contrasena;
         String usuarioAdmin="administrador", usuarioGestor="gestor", usuarioInversor1="inversor1", usuarioInversor2="inversor2";
@@ -46,6 +47,7 @@ public class Main {
         int inversionProyecto1Inversor1=0, inversionProyecto2Inversor1=0, inversionProyecto3Inversor1=0;
         int inversionProyecto1Inversor2=0,inversionProyecto2Inversor2=0, inversionProyecto3Inversor2=0;
         String amigosInvitadosInversor1="", amigosInvitadosInversor2="";
+        System.out.println(ANSI_PURPLE+"\n**[Bienvenido a FernanStarter]**\n"+ANSI_RESET);
         do{
             bienvenido=false;
             System.out.println("Introduce usuario y contraseña. Pulsa s para salir");
