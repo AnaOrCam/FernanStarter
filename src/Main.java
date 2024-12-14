@@ -1,10 +1,10 @@
 import java.util.Scanner;
+import static utilidades.Funciones.*;
 public class Main {
     public static void main(String[] args) {
         Scanner s=new Scanner(System.in);
         final String ANSI_GREEN= "\033[32m";
         final String ANSI_RED="\033[31m";
-        final String ANSI_GREY= "\033[37m";
         final String ANSI_RESET= "\033[0m";
         final String ANSI_PURPLE= "\033[35m";
         String usuario;
@@ -25,7 +25,6 @@ public class Main {
         String categoria1="", categoria2="", categoria3="";
         int financiacionTotal1=0, financiacionTotal2=0, financiacionTotal3=0;
         int financiado1=0, financiado2=0, financiado3=0;
-        final int porcFinanciacionTotal=100;
         int porcentajefinanciado1;
         int porcentajefinanciado2;
         int porcentajefinanciado3;
@@ -42,7 +41,6 @@ public class Main {
         int precio1proy1 =0, precio2proy1 =0, precio3proy1 =0;
         int precio1proy2 =0, precio2proy2 =0, precio3proy2 =0;
         int precio1proy3 =0, precio2proy3 =0, precio3proy3 =0;
-        int opcionProyecto=0;
         int opcionProyectoAdmin=0;
         int saldoInversor1=0, saldoInversor2=0;
         int intentoInversion;
@@ -125,11 +123,7 @@ public class Main {
             if (bienvenido) {
                 if(usuario.equals(usuarioAdmin)) {
                     do {
-                        System.out.println("Elije opción:\n" +
-                                "1. Panel de control\n" +
-                                "2. Proyectos\n" +
-                                "3. Configuración\n" +
-                                "4. Cerrar Sesión\n");
+                        menuAdministrador();
                         opcion=Integer.parseInt(s.nextLine());
                         switch (opcion){
                             case 1: {
@@ -148,9 +142,7 @@ public class Main {
                                         }else {
                                             System.out.println(ANSI_RED+"bloqueado"+ANSI_RESET);
                                         }
-                                        System.out.println("Pulsa 1. Para bloquear");
-                                        System.out.println("Pulsa 2. Para desbloquear");
-                                        System.out.println("Pulsa 3. Para salir al menú principal de admin");
+                                        menuBloqueo();
                                         admin_gestor=Integer.parseInt(s.nextLine());
                                         switch (admin_gestor){
                                             case 1:{
@@ -188,10 +180,7 @@ public class Main {
                                         }else {
                                             System.out.println(ANSI_RED+"bloqueado"+ANSI_RESET);
                                         }
-                                        System.out.println("Pulsa 1. Para bloquear");
-                                        System.out.println("Pulsa 2. Para desbloquear");
-                                        System.out.println("Pulsa 3. Para salir al menú principal de admin");
-
+                                        menuBloqueo();
                                         admin_inversor1=Integer.parseInt(s.nextLine());
                                         switch (admin_inversor1){
                                             case 1:{
@@ -229,10 +218,7 @@ public class Main {
                                         }else {
                                             System.out.println(ANSI_RED+"bloqueado"+ANSI_RESET);
                                         }
-                                        System.out.println("Pulsa 1. Para bloquear");
-                                        System.out.println("Pulsa 2. Para desbloquear");
-                                        System.out.println("Pulsa 3. Para salir al menú principal de admin");
-
+                                        menuBloqueo();
                                         admin_inversor2=Integer.parseInt(s.nextLine());
                                         switch (admin_inversor2){
                                             case 1:{
@@ -282,15 +268,7 @@ public class Main {
                                 switch (opcionProyectoAdmin) {
                                     case 1 -> {
                                         if (!proyecto1.equals("Próximamente")) {
-                                            System.out.println("Proyecto 1: " + proyecto1 + "\n" +
-                                                    "Nombre: " + proyecto1 + "\n" +
-                                                    "Categoría: " + categoria1 + "\n" +
-                                                    "Cantidad a financiar: " + financiacionTotal1 + "\n" +
-                                                    "Cantidad financiada hasta el momento: " + financiado1 + "\n" +
-                                                    "Fecha de apertura de inversiones: " + fechaApertura1 + "\n" +
-                                                    "Fecha de cierre de inversiones: " + fechaCierre1 + "\n" +
-                                                    "Recompensa 1: " + recompensa1proy1 + " por " + precio1proy1 + "€\n" +
-                                                    "\t\t" + descripcion1proy1);
+                                            visualizarProyecto1(proyecto1, categoria1, financiacionTotal1, financiado1, fechaApertura1, fechaCierre1, recompensa1proy1,descripcion1proy1,precio1proy1);
                                             if (!recompensa2proy1.equals("")) {
                                                 System.out.println("Recompensa 2: " + recompensa2proy1 + " por " + precio2proy1 + "€\n" +
                                                         "\t\t" + descripcion2proy1);
@@ -301,107 +279,45 @@ public class Main {
                                             }
                                             porcentajefinanciado1=financiado1*100/financiacionTotal1;
                                             System.out.println("Actualmente se ha financiado un "+porcentajefinanciado1+"%");
-                                            for (int i = 1; i <=8; i++) {
-                                                System.out.printf("|");
-                                                if (i>=3 && i<=5){
-                                                    for (int j = 0; j <=porcentajefinanciado1; j++) {
-                                                        System.out.printf(ANSI_GREEN+"█"+ANSI_RESET);
-                                                    }
-                                                    for (int j=porcentajefinanciado1+1; j <=porcFinanciacionTotal ; j++) {
-                                                        System.out.printf(ANSI_GREY+"█"+ANSI_RESET);
-                                                    }
-                                                }
-                                                if (i==8){
-                                                    for (int j = 0; j < porcFinanciacionTotal; j++) {
-                                                        System.out.printf("_");
-                                                    }
-                                                }
-                                                System.out.println();
-                                            }
+                                            grafico(porcentajefinanciado1);
                                         } else {
                                             System.out.println("No existe el proyecto 1");
                                         }
                                     }
                                     case 2 -> {
                                         if (!proyecto2.equals("Próximamente")) {
-                                            System.out.println("Proyecto 2: " + proyecto2 + "\n" +
-                                                    "Nombre: " + proyecto2 + "\n" +
-                                                    "Categoría: " + categoria2 + "\n" +
-                                                    "Cantidad a financiar: " + financiacionTotal2 + "\n" +
-                                                    "Cantidad financiada hasta el momento: " + financiado2 + "\n" +
-                                                    "Fecha de apertura de inversiones: " + fechaApertura2 + "\n" +
-                                                    "Fecha de cierre de inversiones: " + fechaCierre2 + "\n" +
-                                                    "Recompensa 1: " + recompensa1proy2 + " por " + precio1proy2 + "€\n" +
-                                                    "\t\t" + descripcion1proy2);
-                                            if (!recompensa2proy1.equals("")) {
+                                            visualizarProyecto2(proyecto2,categoria2,financiacionTotal2,financiado2,fechaApertura2,fechaCierre2,recompensa1proy2,descripcion1proy2,precio1proy2);
+                                            if (!recompensa2proy2.equals("")) {
                                                 System.out.println("Recompensa 2: " + recompensa2proy2 + " por " + precio2proy2 + "€\n" +
                                                         "\t\t" + descripcion2proy2);
                                             }
-                                            if (!recompensa3proy1.equals("")) {
+                                            if (!recompensa3proy2.equals("")) {
                                                 System.out.println("Recompensa 3: " + recompensa3proy2 + " por " + precio3proy2 + "€\n" +
                                                         "\t\t" + descripcion3proy2);
                                             }
                                             porcentajefinanciado2=financiado2*100/financiacionTotal2;
                                             System.out.println("Actualmente se ha financiado un "+porcentajefinanciado2+"%");
-                                            for (int i = 1; i <=8; i++) {
-                                                System.out.printf("|");
-                                                if (i>=3 && i<=5){
-                                                    for (int j = 0; j <=porcentajefinanciado2; j++) {
-                                                        System.out.printf(ANSI_GREEN+"█"+ANSI_RESET);
-                                                    }
-                                                    for (int j=porcentajefinanciado2+1; j <=porcFinanciacionTotal ; j++) {
-                                                        System.out.printf(ANSI_GREY+"█"+ANSI_RESET);
-                                                    }
-                                                }
-                                                if (i==8){
-                                                    for (int j = 0; j < porcFinanciacionTotal; j++) {
-                                                        System.out.printf("_");
-                                                    }
-                                                }
-                                                System.out.println();
-                                            }
+                                            grafico(porcentajefinanciado2);
+
                                         } else {
                                             System.out.println("No existe el proyecto 2");
                                         }
                                     }
                                     case 3 -> {
                                         if (!proyecto3.equals("Próximamente")) {
-                                            System.out.println("Proyecto 3: " + proyecto3 + "\n" +
-                                                    "Nombre: " + proyecto3 + "\n" +
-                                                    "Categoría: " + categoria3 + "\n" +
-                                                    "Cantidad a financiar: " + financiacionTotal3 + "\n" +
-                                                    "Cantidad financiada hasta el momento: " + financiado3 + "\n" +
-                                                    "Fecha de apertura de inversiones: " + fechaApertura3 + "\n" +
-                                                    "Fecha de cierre de inversiones: " + fechaCierre3 + "\n" +
-                                                    "Recompensa 1: " + recompensa1proy3 + " por " + precio1proy3 + "€\n" +
-                                                    "\t\t" + descripcion1proy3);
-                                            if (!recompensa2proy1.equals("")) {
+                                            visualizarProyecto3(proyecto3,categoria3,financiacionTotal3,financiado3,fechaApertura3,fechaCierre3,recompensa1proy3,descripcion1proy3,precio1proy3);
+                                            if (!recompensa2proy3.equals("")) {
                                                 System.out.println("Recompensa 2: " + recompensa2proy3 + " por " + precio2proy3 + "€\n" +
                                                         "\t\t" + descripcion2proy3);
                                             }
-                                            if (!recompensa3proy1.equals("")) {
+                                            if (!recompensa3proy3.equals("")) {
                                                 System.out.println("Recompensa 3: " + recompensa3proy3 + " por " + precio3proy3 + "€\n" +
                                                         "\t\t" + descripcion3proy3);
                                             }
                                             porcentajefinanciado3=financiado3*100/financiacionTotal3;
                                             System.out.println("Actualmente se ha financiado un "+porcentajefinanciado3+"%");
-                                            for (int i = 1; i <=8; i++) {
-                                                System.out.printf("|");
-                                                if (i>=3 && i<=5){
-                                                    for (int j = 0; j <=porcentajefinanciado3; j++) {
-                                                        System.out.printf(ANSI_GREEN+"█"+ANSI_RESET);
-                                                    }
-                                                    for (int j=porcentajefinanciado3+1; j <=porcFinanciacionTotal ; j++) {
-                                                        System.out.printf(ANSI_GREY+"█"+ANSI_RESET);
-                                                    }
-                                                }
-                                                if (i==8){
-                                                    for (int j = 0; j < porcFinanciacionTotal; j++) {
-                                                        System.out.printf("_");
-                                                    }
-                                                }
-                                                System.out.println();
-                                            }
+                                            grafico(porcentajefinanciado3);
+
                                         } else {
                                             System.out.println("No existe el proyecto 3");
                                         }
@@ -415,10 +331,7 @@ public class Main {
                                 System.out.println("Ha accedido a configuración");
 
                                 do{
-                                    System.out.println("Seleccione opción");
-                                    System.out.println("1. Cambiar nombre de usuario");
-                                    System.out.println("2. Cambiar contraseña de usuario");
-                                    System.out.println("3. Salir");
+                                    menuConfiguracion();
                                     Adminconfiguracion=Integer.parseInt(s.nextLine());
                                     switch (Adminconfiguracion){
                                         case 1:{
@@ -447,10 +360,7 @@ public class Main {
                 }
                 if(usuario.equals(usuarioGestor)) {
                     do {
-                        System.out.println("Elije opción:\n" +
-                                "1. Mis proyectos\n"+
-                                "2. Configuración\n" +
-                                "3. Cerrar Sesión\n");
+                        menuGestor();
                         opcion=Integer.parseInt(s.nextLine());
                         switch (opcion){
                             case 1-> {
@@ -510,15 +420,8 @@ public class Main {
                                                         precio3proy1 =Integer.parseInt(s.nextLine());
                                                     }
                                                 }
-                                                System.out.println("Has añadido esta información en el proyecto 1:\n" +
-                                                        "Nombre: "+proyecto1+"\n" +
-                                                        "Categoría: "+categoria1+"\n" +
-                                                        "Cantidad a financiar: "+financiacionTotal1+"\n" +
-                                                        "Cantidad financiada hasta el momento: "+financiado1+"\n" +
-                                                        "Fecha de apertura de inversiones: "+fechaApertura1+"\n" +
-                                                        "Fecha de cierre de inversiones: "+fechaCierre1+"\n" +
-                                                        "Recompensa 1: "+recompensa1proy1+" por "+precio1proy1+"€\n" +
-                                                        "\t\t"+descripcion1proy1);
+                                                System.out.println("Has añadido esta información en el proyecto 1:");
+                                                visualizarProyecto1(proyecto1, categoria1, financiacionTotal1, financiado1, fechaApertura1, fechaCierre1, recompensa1proy1,descripcion1proy1,precio1proy1);
                                                 if (!recompensa2proy1.equals("")){
                                                     System.out.println("Recompensa 2: "+recompensa2proy1+" por "+precio2proy1+"€\n" +
                                                             "\t\t"+descripcion2proy1);
@@ -573,15 +476,8 @@ public class Main {
                                                         precio3proy2 =Integer.parseInt(s.nextLine());
                                                     }
                                                 }
-                                                System.out.println("Has añadido esta información en el proyecto 2:\n" +
-                                                        "Nombre: "+proyecto2+"\n" +
-                                                        "Categoría: "+categoria2+"\n" +
-                                                        "Cantidad a financiar: "+financiacionTotal2+"\n" +
-                                                        "Cantidad financiada hasta el momento: "+financiado2+"\n" +
-                                                        "Fecha de apertura de inversiones: "+fechaApertura2+"\n" +
-                                                        "Fecha de cierre de inversiones: "+fechaCierre2+"\n" +
-                                                        "Recompensa 1: "+recompensa1proy2+" por "+precio1proy2+"€\n" +
-                                                        "\t\t"+descripcion1proy2);
+                                                System.out.println("Has añadido esta información en el proyecto 2:");
+                                                visualizarProyecto2(proyecto2,categoria2,financiacionTotal2,financiado2,fechaApertura2,fechaCierre2,recompensa1proy2,descripcion1proy2,precio1proy2);
                                                 if (!recompensa2proy2.equals("")){
                                                     System.out.println("Recompensa 2: "+recompensa2proy2+" por "+precio2proy2+"€\n" +
                                                             "\t\t"+descripcion2proy2);
@@ -636,15 +532,8 @@ public class Main {
                                                         precio3proy3 =Integer.parseInt(s.nextLine());
                                                     }
                                                 }
-                                                System.out.println("Has añadido esta información en el proyecto 3:\n" +
-                                                        "Nombre: "+proyecto3+"\n" +
-                                                        "Categoría: "+categoria3+"\n" +
-                                                        "Cantidad a financiar: "+financiacionTotal3+"\n" +
-                                                        "Cantidad financiada hasta el momento: "+financiado3+"\n" +
-                                                        "Fecha de apertura de inversiones: "+fechaApertura3+"\n" +
-                                                        "Fecha de cierre de inversiones: "+fechaCierre3+"\n" +
-                                                        "Recompensa 1: "+recompensa1proy3+" por "+precio1proy3+"€\n" +
-                                                        "\t\t"+descripcion1proy3);
+                                                System.out.println("Has añadido esta información en el proyecto 3:");
+                                                visualizarProyecto3(proyecto3,categoria3,financiacionTotal3,financiado3,fechaApertura3,fechaCierre3,recompensa1proy3,descripcion1proy3,precio1proy3);
                                                 if (!recompensa2proy3.equals("")){
                                                     System.out.println("Recompensa 2: "+recompensa2proy3+" por "+precio2proy3+"€\n" +
                                                             "\t\t"+descripcion2proy3);
@@ -668,15 +557,7 @@ public class Main {
                                                 opcion = Integer.parseInt(s.nextLine());
                                                 if (opcion == 1) {
                                                     if (!proyecto1.equals("Próximamente")) {
-                                                        System.out.println("Proyecto 1: " + proyecto1 + "\n" +
-                                                                "Nombre: " + proyecto1 + "\n" +
-                                                                "Categoría: " + categoria1 + "\n" +
-                                                                "Cantidad a financiar: " + financiacionTotal1 + "\n" +
-                                                                "Cantidad financiada hasta el momento: " + financiado1 + "\n" +
-                                                                "Fecha de apertura de inversiones: " + fechaApertura1 + "\n" +
-                                                                "Fecha de cierre de inversiones: " + fechaCierre1 + "\n" +
-                                                                "Recompensa 1: " + recompensa1proy1 + " por " + precio1proy1 + "€\n" +
-                                                                "\t\t" + descripcion1proy1);
+                                                        visualizarProyecto1(proyecto1, categoria1, financiacionTotal1, financiado1, fechaApertura1, fechaCierre1, recompensa1proy1,descripcion1proy1,precio1proy1);
                                                         if (!recompensa2proy1.equals("")) {
                                                             System.out.println("Recompensa 2: " + recompensa2proy1 + " por " + precio2proy1 + "€\n" +
                                                                     "\t\t" + descripcion2proy1);
@@ -687,37 +568,13 @@ public class Main {
                                                         }
                                                         porcentajefinanciado1=financiado1*100/financiacionTotal1;
                                                         System.out.println("Actualmente se ha financiado un "+porcentajefinanciado1+"%");
-                                                        for (int i = 1; i <=8; i++) {
-                                                            System.out.printf("|");
-                                                            if (i>=3 && i<=5){
-                                                                for (int j = 0; j <=porcentajefinanciado1; j++) {
-                                                                    System.out.printf(ANSI_GREEN+"█"+ANSI_RESET);
-                                                                }
-                                                                for (int j=porcentajefinanciado1+1; j <=porcFinanciacionTotal ; j++) {
-                                                                    System.out.printf(ANSI_GREY+"█"+ANSI_RESET);
-                                                                }
-                                                            }
-                                                            if (i==8){
-                                                                for (int j = 0; j < porcFinanciacionTotal; j++) {
-                                                                    System.out.printf("_");
-                                                                }
-                                                            }
-                                                            System.out.println();
-                                                        }
+                                                        grafico(porcentajefinanciado1);
                                                     } else {
                                                         System.out.println("No existe el proyecto 1");
                                                     }
                                                 } else if (opcion == 2) {
                                                     if (!proyecto2.equals("Próximamente")) {
-                                                        System.out.println("Proyecto 2: " + proyecto2 + "\n" +
-                                                                "Nombre: " + proyecto2 + "\n" +
-                                                                "Categoría: " + categoria2 + "\n" +
-                                                                "Cantidad a financiar: " + financiacionTotal2 + "\n" +
-                                                                "Cantidad financiada hasta el momento: " + financiado2 + "\n" +
-                                                                "Fecha de apertura de inversiones: " + fechaApertura2 + "\n" +
-                                                                "Fecha de cierre de inversiones: " + fechaCierre2 + "\n" +
-                                                                "Recompensa 1: " + recompensa1proy2 + " por " + precio1proy2 + "€\n" +
-                                                                "\t\t" + descripcion1proy2);
+                                                        visualizarProyecto2(proyecto2,categoria2,financiacionTotal2,financiado2,fechaApertura2,fechaCierre2,recompensa1proy2,descripcion1proy2,precio1proy2);
                                                         if (!recompensa2proy2.equals("")) {
                                                             System.out.println("Recompensa 2: " + recompensa2proy2 + " por " + precio2proy2 + "€\n" +
                                                                     "\t\t" + descripcion2proy2);
@@ -728,37 +585,13 @@ public class Main {
                                                         }
                                                         porcentajefinanciado2=financiado2*100/financiacionTotal2;
                                                         System.out.println("Actualmente se ha financiado un "+porcentajefinanciado2+"%");
-                                                        for (int i = 1; i <=8; i++) {
-                                                            System.out.printf("|");
-                                                            if (i>=3 && i<=5){
-                                                                for (int j = 0; j <=porcentajefinanciado2; j++) {
-                                                                    System.out.printf(ANSI_GREEN+"█"+ANSI_RESET);
-                                                                }
-                                                                for (int j=porcentajefinanciado2+1; j <=porcFinanciacionTotal ; j++) {
-                                                                    System.out.printf(ANSI_GREY+"█"+ANSI_RESET);
-                                                                }
-                                                            }
-                                                            if (i==8){
-                                                                for (int j = 0; j < porcFinanciacionTotal; j++) {
-                                                                    System.out.printf("_");
-                                                                }
-                                                            }
-                                                            System.out.println();
-                                                        }
+                                                        grafico(porcentajefinanciado2);
                                                     } else {
                                                         System.out.println("No existe el proyecto 2");
                                                     }
                                                 } else if (opcion == 3) {
                                                     if (!proyecto3.equals("Próximamente")) {
-                                                        System.out.println("Proyecto 3: " + proyecto3 + "\n" +
-                                                                "Nombre: " + proyecto3 + "\n" +
-                                                                "Categoría: " + categoria3 + "\n" +
-                                                                "Cantidad a financiar: " + financiacionTotal3 + "\n" +
-                                                                "Cantidad financiada hasta el momento: " + financiado3 + "\n" +
-                                                                "Fecha de apertura de inversiones: " + fechaApertura3 + "\n" +
-                                                                "Fecha de cierre de inversiones: " + fechaCierre3 + "\n" +
-                                                                "Recompensa 1: " + recompensa1proy3 + " por " + precio1proy3 + "€\n" +
-                                                                "\t\t" + descripcion1proy3);
+                                                        visualizarProyecto3(proyecto3,categoria3,financiacionTotal3,financiado3,fechaApertura3,fechaCierre3,recompensa1proy3,descripcion1proy3,precio1proy3);
                                                         if (!recompensa2proy3.equals("")) {
                                                             System.out.println("Recompensa 2: " + recompensa2proy3 + " por " + precio2proy3 + "€\n" +
                                                                     "\t\t" + descripcion2proy3);
@@ -769,23 +602,7 @@ public class Main {
                                                         }
                                                         porcentajefinanciado3=financiado3*100/financiacionTotal3;
                                                         System.out.println("Actualmente se ha financiado un "+porcentajefinanciado3+"%");
-                                                        for (int i = 1; i <=8; i++) {
-                                                            System.out.printf("|");
-                                                            if (i>=3 && i<=5){
-                                                                for (int j = 0; j <=porcentajefinanciado3; j++) {
-                                                                    System.out.printf(ANSI_GREEN+"█"+ANSI_RESET);
-                                                                }
-                                                                for (int j=porcentajefinanciado3+1; j <=porcFinanciacionTotal ; j++) {
-                                                                    System.out.printf(ANSI_GREY+"█"+ANSI_RESET);
-                                                                }
-                                                            }
-                                                            if (i==8){
-                                                                for (int j = 0; j < porcFinanciacionTotal; j++) {
-                                                                    System.out.printf("_");
-                                                                }
-                                                            }
-                                                            System.out.println();
-                                                        }
+                                                        grafico(porcentajefinanciado3);
                                                     } else {
                                                         System.out.println("No existe el proyecto 3");
                                                     }
@@ -806,15 +623,7 @@ public class Main {
                                                 opcion = Integer.parseInt(s.nextLine());
                                                     if (opcion == 1) {
                                                         if (!proyecto1.equals("Próximamente")) {
-                                                            System.out.println("Qué quieres modificar?\n" +
-                                                                    "1. Nombre\n" +
-                                                                    "2. Categoría\n" +
-                                                                    "3. Cantidad a financiar\n" +
-                                                                    "4. Cantidad financiada hasta el momento\n" +
-                                                                    "5. Fecha de apertura de inversiones\n" +
-                                                                    "6. Fecha de cierre de inversiones\n" +
-                                                                    "7. Recompensas\n" +
-                                                                    "8. Salir");
+                                                            menuModificarProyecto();
                                                             opcion = Integer.parseInt(s.nextLine());
                                                             switch (opcion) {
                                                                 case 1 -> {
@@ -842,19 +651,11 @@ public class Main {
                                                                     fechaCierre1 = s.nextLine();
                                                                 }
                                                                 case 7 -> {
-                                                                    System.out.println("¿Qué recompensa quiere modificar?\n" +
-                                                                            "1. Recompensa 1\n" +
-                                                                            "2. Recompensa 2\n" +
-                                                                            "3. Recompensa 3\n" +
-                                                                            "4. Salir");
+                                                                    menuEleccionRecompensa();
                                                                     opcion = Integer.parseInt(s.nextLine());
                                                                     switch (opcion) {
                                                                         case 1 -> {
-                                                                            System.out.println("¿Qué quiere modificar de la recompensa 1?\n" +
-                                                                                    "1. Objeto de la recompensa\n" +
-                                                                                    "2. Descripción\n" +
-                                                                                    "3. Precio\n" +
-                                                                                    "4. Salir");
+                                                                            modificarRecompensa();
                                                                             opcion = Integer.parseInt(s.nextLine());
                                                                             if (opcion == 1) {
                                                                                 System.out.println("Escribe la nueva recompensa ofrecida");
@@ -873,11 +674,7 @@ public class Main {
                                                                         }
                                                                         case 2 -> {
                                                                             if (!recompensa2proy1.equals("")) {
-                                                                                System.out.println("¿Qué quiere modificar de la recompensa 2?\n" +
-                                                                                        "1. Objeto de la recompensa\n" +
-                                                                                        "2. Descripción\n" +
-                                                                                        "3. Precio\n" +
-                                                                                        "4. Salir");
+                                                                                modificarRecompensa();
                                                                                 opcion = Integer.parseInt(s.nextLine());
                                                                                 if (opcion == 1) {
                                                                                     System.out.println("Escribe la nueva recompensa ofrecida");
@@ -899,11 +696,7 @@ public class Main {
                                                                         }
                                                                         case 3 -> {
                                                                             if (!recompensa3proy1.equals("")) {
-                                                                                System.out.println("¿Qué quiere modificar de la recompensa 3?\n" +
-                                                                                        "1. Objeto de la recompensa\n" +
-                                                                                        "2. Descripción\n" +
-                                                                                        "3. Precio\n" +
-                                                                                        "4. Salir");
+                                                                                modificarRecompensa();
                                                                                 opcion = Integer.parseInt(s.nextLine());
                                                                                 if (opcion == 1) {
                                                                                     System.out.println("Escribe la nueva recompensa ofrecida");
@@ -941,15 +734,7 @@ public class Main {
                                                         }
                                                     } else if (opcion == 2) {
                                                         if (!proyecto2.equals("Próximamente")) {
-                                                            System.out.println("Qué quieres modificar?\n" +
-                                                                    "1. Nombre\n" +
-                                                                    "2. Categoría\n" +
-                                                                    "3. Cantidad a financiar\n" +
-                                                                    "4. Cantidad financiada hasta el momento\n" +
-                                                                    "5. Fecha de apertura de inversiones\n" +
-                                                                    "6. Fecha de cierre de inversiones\n" +
-                                                                    "7. Recompensas\n" +
-                                                                    "8. Salir");
+                                                            menuModificarProyecto();
                                                             opcion = Integer.parseInt(s.nextLine());
                                                             switch (opcion) {
                                                                 case 1 -> {
@@ -977,19 +762,11 @@ public class Main {
                                                                     fechaCierre2 = s.nextLine();
                                                                 }
                                                                 case 7 -> {
-                                                                    System.out.println("¿Qué recompensa quiere modificar?\n" +
-                                                                            "1. Recompensa 1\n" +
-                                                                            "2. Recompensa 2\n" +
-                                                                            "3. Recompensa 3\n" +
-                                                                            "4. Salir");
+                                                                    menuEleccionRecompensa();
                                                                     opcion = Integer.parseInt(s.nextLine());
                                                                     switch (opcion) {
                                                                         case 1 -> {
-                                                                            System.out.println("¿Qué quiere modificar de la recompensa 1?\n" +
-                                                                                    "1. Objeto de la recompensa\n" +
-                                                                                    "2. Descripción\n" +
-                                                                                    "3. Precio\n" +
-                                                                                    "4. Salir");
+                                                                            modificarRecompensa();
                                                                             opcion = Integer.parseInt(s.nextLine());
                                                                             if (opcion == 1) {
                                                                                 System.out.println("Escribe la nueva recompensa ofrecida");
@@ -1008,11 +785,7 @@ public class Main {
                                                                         }
                                                                         case 2 -> {
                                                                             if (!recompensa2proy2.equals("")) {
-                                                                                System.out.println("¿Qué quiere modificar de la recompensa 2?\n" +
-                                                                                        "1. Objeto de la recompensa\n" +
-                                                                                        "2. Descripción\n" +
-                                                                                        "3. Precio\n" +
-                                                                                        "4. Salir");
+                                                                                modificarRecompensa();
                                                                                 opcion = Integer.parseInt(s.nextLine());
                                                                                 if (opcion == 1) {
                                                                                     System.out.println("Escribe la nueva recompensa ofrecida");
@@ -1034,11 +807,7 @@ public class Main {
                                                                         }
                                                                         case 3 -> {
                                                                             if (!recompensa3proy2.equals("")) {
-                                                                                System.out.println("¿Qué quiere modificar de la recompensa 3?\n" +
-                                                                                        "1. Objeto de la recompensa\n" +
-                                                                                        "2. Descripción\n" +
-                                                                                        "3. Precio\n" +
-                                                                                        "4. Salir");
+                                                                                modificarRecompensa();
                                                                                 opcion = Integer.parseInt(s.nextLine());
                                                                                 if (opcion == 1) {
                                                                                     System.out.println("Escribe la nueva recompensa ofrecida");
@@ -1076,15 +845,7 @@ public class Main {
                                                         }
                                                     } else if (opcion == 3) {
                                                         if (!proyecto3.equals("Próximamente")) {
-                                                            System.out.println("Qué quieres modificar?\n" +
-                                                                    "1. Nombre\n" +
-                                                                    "2. Categoría\n" +
-                                                                    "3. Cantidad a financiar\n" +
-                                                                    "4. Cantidad financiada hasta el momento\n" +
-                                                                    "5. Fecha de apertura de inversiones\n" +
-                                                                    "6. Fecha de cierre de inversiones\n" +
-                                                                    "7. Recompensas\n" +
-                                                                    "8. Salir");
+                                                            menuModificarProyecto();
                                                             opcion = Integer.parseInt(s.nextLine());
                                                             switch (opcion) {
                                                                 case 1 -> {
@@ -1112,19 +873,11 @@ public class Main {
                                                                     fechaCierre3 = s.nextLine();
                                                                 }
                                                                 case 7 -> {
-                                                                    System.out.println("¿Qué recompensa quiere modificar?\n" +
-                                                                            "1. Recompensa 1\n" +
-                                                                            "2. Recompensa 2\n" +
-                                                                            "3. Recompensa 3\n" +
-                                                                            "4. Salir");
+                                                                    menuEleccionRecompensa();
                                                                     opcion = Integer.parseInt(s.nextLine());
                                                                     switch (opcion) {
                                                                         case 1 -> {
-                                                                            System.out.println("¿Qué quiere modificar de la recompensa 1?\n" +
-                                                                                    "1. Objeto de la recompensa\n" +
-                                                                                    "2. Descripción\n" +
-                                                                                    "3. Precio\n" +
-                                                                                    "4. Salir");
+                                                                            modificarRecompensa();
                                                                             opcion = Integer.parseInt(s.nextLine());
                                                                             if (opcion == 1) {
                                                                                 System.out.println("Escribe la nueva recompensa ofrecida");
@@ -1143,11 +896,7 @@ public class Main {
                                                                         }
                                                                         case 2 -> {
                                                                             if (!recompensa2proy3.equals("")) {
-                                                                                System.out.println("¿Qué quiere modificar de la recompensa 2?\n" +
-                                                                                        "1. Objeto de la recompensa\n" +
-                                                                                        "2. Descripción\n" +
-                                                                                        "3. Precio\n" +
-                                                                                        "4. Salir");
+                                                                                modificarRecompensa();
                                                                                 opcion = Integer.parseInt(s.nextLine());
                                                                                 if (opcion == 1) {
                                                                                     System.out.println("Escribe la nueva recompensa ofrecida");
@@ -1169,11 +918,7 @@ public class Main {
                                                                         }
                                                                         case 3 -> {
                                                                             if (!recompensa3proy3.equals("")) {
-                                                                                System.out.println("¿Qué quiere modificar de la recompensa 3?\n" +
-                                                                                        "1. Objeto de la recompensa\n" +
-                                                                                        "2. Descripción\n" +
-                                                                                        "3. Precio\n" +
-                                                                                        "4. Salir");
+                                                                                modificarRecompensa();
                                                                                 opcion = Integer.parseInt(s.nextLine());
                                                                                 if (opcion == 1) {
                                                                                     System.out.println("Escribe la nueva recompensa ofrecida");
@@ -1262,10 +1007,7 @@ public class Main {
                                 System.out.println("Ha accedido a configuración");
 
                                 do{
-                                    System.out.println("Seleccione opción");
-                                    System.out.println("1. Cambiar nombre de usuario");
-                                    System.out.println("2. Cambiar contraseña de usuario");
-                                    System.out.println("3. Salir");
+                                    menuConfiguracion();
                                     opcionConfiguracion=Integer.parseInt(s.nextLine());
                                     switch (opcionConfiguracion){
                                         case 1:{
@@ -1293,13 +1035,7 @@ public class Main {
                 }
                 if(usuario.equals(usuarioInversor1)) {
                     do {
-                        System.out.println("Elije opción:\n" +
-                                "1. Mis inversiones\n" +
-                                "2. Proyectos\n" +
-                                "3. Cartera digital\n" +
-                                "4. Invita a un amigo\n" +
-                                "5. Configuración\n"+
-                                "6. Cerrar Sesión\n");
+                        menuInversor();
                         opcion=Integer.parseInt(s.nextLine());
                         switch (opcion){
                             case 1:{
@@ -1360,15 +1096,7 @@ public class Main {
                                 switch (opcion) {
                                     case 1-> {
                                         if (!proyecto1.equals("Próximamente")) {
-                                            System.out.println("Proyecto 1: " + proyecto1 + "\n" +
-                                                    "Nombre: " + proyecto1 + "\n" +
-                                                    "Categoría: " + categoria1 + "\n" +
-                                                    "Cantidad a financiar: " + financiacionTotal1 + "\n" +
-                                                    "Cantidad financiada hasta el momento: " + financiado1 + "\n" +
-                                                    "Fecha de apertura de inversiones: " + fechaApertura1 + "\n" +
-                                                    "Fecha de cierre de inversiones: " + fechaCierre1 + "\n" +
-                                                    "Recompensa 1: " + recompensa1proy1 + " por " + precio1proy1 + "€\n" +
-                                                    "\t\t" + descripcion1proy1);
+                                            visualizarProyecto1(proyecto1, categoria1, financiacionTotal1, financiado1, fechaApertura1, fechaCierre1, recompensa1proy1,descripcion1proy1,precio1proy1);
                                             if (!recompensa2proy1.equals("")) {
                                                 System.out.println("Recompensa 2: " + recompensa2proy1 + " por " + precio2proy1 + "€\n" +
                                                         "\t\t" + descripcion2proy1);
@@ -1379,23 +1107,7 @@ public class Main {
                                             }
                                             porcentajefinanciado1=financiado1*100/financiacionTotal1;
                                             System.out.println("Actualmente se ha financiado un "+porcentajefinanciado1+"%");
-                                            for (int i = 1; i <=8; i++) {
-                                                System.out.printf("|");
-                                                if (i>=3 && i<=5){
-                                                    for (int j = 0; j <=porcentajefinanciado1; j++) {
-                                                        System.out.printf(ANSI_GREEN+"█"+ANSI_RESET);
-                                                    }
-                                                    for (int j=porcentajefinanciado1+1; j <=porcFinanciacionTotal ; j++) {
-                                                        System.out.printf(ANSI_GREY+"█"+ANSI_RESET);
-                                                    }
-                                                }
-                                                if (i==8){
-                                                    for (int j = 0; j < porcFinanciacionTotal; j++) {
-                                                        System.out.printf("_");
-                                                    }
-                                                }
-                                                System.out.println();
-                                            }
+                                            grafico(porcentajefinanciado1);
                                             System.out.println("\n Quieres invertir en el proyecto: "+proyecto1+"? (si/no)");
                                             if (s.nextLine().equalsIgnoreCase("SI")) {
                                                 System.out.println("¿Cuánto desea invertir?");
@@ -1417,41 +1129,17 @@ public class Main {
                                     }
                                     case 2-> {
                                         if (!proyecto2.equals("Próximamente")) {
-                                            System.out.println("Proyecto 2: " + proyecto2 + "\n" +
-                                                    "Nombre: " + proyecto2 + "\n" +
-                                                    "Categoría: " + categoria2 + "\n" +
-                                                    "Cantidad a financiar: " + financiacionTotal2 + "\n" +
-                                                    "Cantidad financiada hasta el momento: " + financiado2 + "\n" +
-                                                    "Fecha de apertura de inversiones: " + fechaApertura2 + "\n" +
-                                                    "Fecha de cierre de inversiones: " + fechaCierre2 + "\n" +
-                                                    "Recompensa 1: " + recompensa1proy2 + " por " + precio1proy2 + "€\n" +
-                                                    "\t\t" + descripcion1proy2);
-                                            if (!recompensa2proy1.equals("")) {
+                                            visualizarProyecto2(proyecto2,categoria2,financiacionTotal2,financiado2,fechaApertura2,fechaCierre2,recompensa1proy2,descripcion1proy2,precio1proy2);
+                                            if (!recompensa2proy2.equals("")) {
                                                 System.out.println("Recompensa 2: " + recompensa2proy2 + " por " + precio2proy2 + "€\n" +
                                                         "\t\t" + descripcion2proy2);
                                             }
-                                            if (!recompensa3proy1.equals("")) {
+                                            if (!recompensa3proy2.equals("")) {
                                                 System.out.println("Recompensa 3: " + recompensa3proy2 + " por " + precio3proy2 + "€\n" +
                                                         "\t\t" + descripcion3proy2);
                                             }porcentajefinanciado2=financiado2*100/financiacionTotal2;
                                             System.out.println("Actualmente se ha financiado un "+porcentajefinanciado2+"%");
-                                            for (int i = 1; i <=8; i++) {
-                                                System.out.printf("|");
-                                                if (i>=3 && i<=5){
-                                                    for (int j = 0; j <=porcentajefinanciado2; j++) {
-                                                        System.out.printf(ANSI_GREEN+"█"+ANSI_RESET);
-                                                    }
-                                                    for (int j=porcentajefinanciado2+1; j <=porcFinanciacionTotal ; j++) {
-                                                        System.out.printf(ANSI_GREY+"█"+ANSI_RESET);
-                                                    }
-                                                }
-                                                if (i==8){
-                                                    for (int j = 0; j < porcFinanciacionTotal; j++) {
-                                                        System.out.printf("_");
-                                                    }
-                                                }
-                                                System.out.println();
-                                            }
+                                            grafico(porcentajefinanciado2);
                                             System.out.println("\n Quieres invertir en el proyecto: "+proyecto2+"? (si/no)");
                                             if (s.nextLine().equalsIgnoreCase("SI")) {
                                                 System.out.println("¿Cuánto desea invertir?");
@@ -1473,42 +1161,18 @@ public class Main {
                                     }
                                     case 3-> {
                                         if (!proyecto3.equals("Próximamente")) {
-                                            System.out.println("Proyecto 3: " + proyecto3 + "\n" +
-                                                    "Nombre: " + proyecto3 + "\n" +
-                                                    "Categoría: " + categoria3 + "\n" +
-                                                    "Cantidad a financiar: " + financiacionTotal3 + "\n" +
-                                                    "Cantidad financiada hasta el momento: " + financiado3 + "\n" +
-                                                    "Fecha de apertura de inversiones: " + fechaApertura3 + "\n" +
-                                                    "Fecha de cierre de inversiones: " + fechaCierre3 + "\n" +
-                                                    "Recompensa 1: " + recompensa1proy3 + " por " + precio1proy3 + "€\n" +
-                                                    "\t\t" + descripcion1proy3);
-                                            if (!recompensa2proy1.equals("")) {
+                                            visualizarProyecto3(proyecto3,categoria3,financiacionTotal3,financiado3,fechaApertura3,fechaCierre3,recompensa1proy3,descripcion1proy3,precio1proy3);
+                                            if (!recompensa2proy3.equals("")) {
                                                 System.out.println("Recompensa 2: " + recompensa2proy3 + " por " + precio2proy3 + "€\n" +
                                                         "\t\t" + descripcion2proy3);
                                             }
-                                            if (!recompensa3proy1.equals("")) {
+                                            if (!recompensa3proy3.equals("")) {
                                                 System.out.println("Recompensa 3: " + recompensa3proy3 + " por " + precio3proy3 + "€\n" +
                                                         "\t\t" + descripcion3proy3);
                                             }
                                             porcentajefinanciado3=financiado3*100/financiacionTotal3;
                                             System.out.println("Actualmente se ha financiado un "+porcentajefinanciado3+"%");
-                                            for (int i = 1; i <=8; i++) {
-                                                System.out.printf("|");
-                                                if (i>=3 && i<=5){
-                                                    for (int j = 0; j <=porcentajefinanciado3; j++) {
-                                                        System.out.printf(ANSI_GREEN+"█"+ANSI_RESET);
-                                                    }
-                                                    for (int j=porcentajefinanciado3+1; j <=porcFinanciacionTotal ; j++) {
-                                                        System.out.printf(ANSI_GREY+"█"+ANSI_RESET);
-                                                    }
-                                                }
-                                                if (i==8){
-                                                    for (int j = 0; j < porcFinanciacionTotal; j++) {
-                                                        System.out.printf("_");
-                                                    }
-                                                }
-                                                System.out.println();
-                                            }
+                                            grafico(porcentajefinanciado3);
                                             System.out.println("\n Quieres invertir en el proyecto: "+proyecto3+"? (si/no)");
                                             if (s.nextLine().equalsIgnoreCase("SI")) {
                                                 System.out.println("¿Cuánto desea invertir?");
@@ -1563,10 +1227,7 @@ public class Main {
                                 System.out.println("Ha accedido a configuración");
 
                                 do{
-                                    System.out.println("Seleccione opcion");
-                                    System.out.println("1. Cambiar nombre de usuario");
-                                    System.out.println("2. Cambiar contraseña de usuario");
-                                    System.out.println("3. Salir");
+                                    menuConfiguracion();
                                     opcion=Integer.parseInt(s.nextLine());
                                     switch (opcion){
                                         case 1:{
@@ -1596,13 +1257,7 @@ public class Main {
                 }
                 if (usuario.equals(usuarioInversor2)){
                     do {
-                        System.out.println("Elije opción:\n" +
-                                "1. Mis inversiones\n" +
-                                "2. Proyectos\n" +
-                                "3. Cartera digital\n" +
-                                "4. Invita a un amigo\n" +
-                                "5. Configuración\n"+
-                                "6. Cerrar Sesión\n");
+                        menuInversor();
                         opcion=Integer.parseInt(s.nextLine());
                         switch (opcion){
                             case 1:{
@@ -1663,15 +1318,7 @@ public class Main {
                                 switch (opcion) {
                                     case 1-> {
                                         if (!proyecto1.equals("Próximamente")) {
-                                            System.out.println("Proyecto 1: " + proyecto1 + "\n" +
-                                                    "Nombre: " + proyecto1 + "\n" +
-                                                    "Categoría: " + categoria1 + "\n" +
-                                                    "Cantidad a financiar: " + financiacionTotal1 + "\n" +
-                                                    "Cantidad financiada hasta el momento: " + financiado1 + "\n" +
-                                                    "Fecha de apertura de inversiones: " + fechaApertura1 + "\n" +
-                                                    "Fecha de cierre de inversiones: " + fechaCierre1 + "\n" +
-                                                    "Recompensa 1: " + recompensa1proy1 + " por " + precio1proy1 + "€\n" +
-                                                    "\t\t" + descripcion1proy1);
+                                            visualizarProyecto1(proyecto1, categoria1, financiacionTotal1, financiado1, fechaApertura1, fechaCierre1, recompensa1proy1,descripcion1proy1,precio1proy1);
                                             if (!recompensa2proy1.equals("")) {
                                                 System.out.println("Recompensa 2: " + recompensa2proy1 + " por " + precio2proy1 + "€\n" +
                                                         "\t\t" + descripcion2proy1);
@@ -1682,23 +1329,7 @@ public class Main {
                                             }
                                             porcentajefinanciado1=financiado1*100/financiacionTotal1;
                                             System.out.println("Actualmente se ha financiado un "+porcentajefinanciado1+"%");
-                                            for (int i = 1; i <=8; i++) {
-                                                System.out.printf("|");
-                                                if (i>=3 && i<=5){
-                                                    for (int j = 0; j <=porcentajefinanciado1; j++) {
-                                                        System.out.printf(ANSI_GREEN+"█"+ANSI_RESET);
-                                                    }
-                                                    for (int j=porcentajefinanciado1+1; j <=porcFinanciacionTotal ; j++) {
-                                                        System.out.printf(ANSI_GREY+"█"+ANSI_RESET);
-                                                    }
-                                                }
-                                                if (i==8){
-                                                    for (int j = 0; j < porcFinanciacionTotal; j++) {
-                                                        System.out.printf("_");
-                                                    }
-                                                }
-                                                System.out.println();
-                                            }
+                                            grafico(porcentajefinanciado1);
                                             System.out.println("\n Quieres invertir en el proyecto: "+proyecto1+"? (si/no)");
                                                 if (s.nextLine().equalsIgnoreCase("SI")) {
                                                     System.out.println("¿Cuánto desea invertir?");
@@ -1720,42 +1351,18 @@ public class Main {
                                     }
                                     case 2-> {
                                         if (!proyecto2.equals("Próximamente")) {
-                                            System.out.println("Proyecto 2: " + proyecto2 + "\n" +
-                                                    "Nombre: " + proyecto2 + "\n" +
-                                                    "Categoría: " + categoria2 + "\n" +
-                                                    "Cantidad a financiar: " + financiacionTotal2 + "\n" +
-                                                    "Cantidad financiada hasta el momento: " + financiado2 + "\n" +
-                                                    "Fecha de apertura de inversiones: " + fechaApertura2 + "\n" +
-                                                    "Fecha de cierre de inversiones: " + fechaCierre2 + "\n" +
-                                                    "Recompensa 1: " + recompensa1proy2 + " por " + precio1proy2 + "€\n" +
-                                                    "\t\t" + descripcion1proy2);
-                                            if (!recompensa2proy1.equals("")) {
+                                            visualizarProyecto2(proyecto2,categoria2,financiacionTotal2,financiado2,fechaApertura2,fechaCierre2,recompensa1proy2,descripcion1proy2,precio1proy2);
+                                            if (!recompensa2proy2.equals("")) {
                                                 System.out.println("Recompensa 2: " + recompensa2proy2 + " por " + precio2proy2 + "€\n" +
                                                         "\t\t" + descripcion2proy2);
                                             }
-                                            if (!recompensa3proy1.equals("")) {
+                                            if (!recompensa3proy2.equals("")) {
                                                 System.out.println("Recompensa 3: " + recompensa3proy2 + " por " + precio3proy2 + "€\n" +
                                                         "\t\t" + descripcion3proy2);
                                             }
                                             porcentajefinanciado2=financiado2*100/financiacionTotal2;
                                             System.out.println("Actualmente se ha financiado un "+porcentajefinanciado2+"%");
-                                            for (int i = 1; i <=8; i++) {
-                                                System.out.printf("|");
-                                                if (i>=3 && i<=5){
-                                                    for (int j = 0; j <=porcentajefinanciado2; j++) {
-                                                        System.out.printf(ANSI_GREEN+"█"+ANSI_RESET);
-                                                    }
-                                                    for (int j=porcentajefinanciado2+1; j <=porcFinanciacionTotal ; j++) {
-                                                        System.out.printf(ANSI_GREY+"█"+ANSI_RESET);
-                                                    }
-                                                }
-                                                if (i==8){
-                                                    for (int j = 0; j < porcFinanciacionTotal; j++) {
-                                                        System.out.printf("_");
-                                                    }
-                                                }
-                                                System.out.println();
-                                            }
+                                            grafico(porcentajefinanciado2);
                                             System.out.println("\n Quieres invertir en el proyecto: "+proyecto2+"? (si/no)");
                                             if (s.nextLine().equalsIgnoreCase("SI")) {
                                                 System.out.println("¿Cuánto desea invertir?");
@@ -1777,42 +1384,18 @@ public class Main {
                                     }
                                     case 3-> {
                                         if (!proyecto3.equals("Próximamente")) {
-                                            System.out.println("Proyecto 3: " + proyecto3 + "\n" +
-                                                    "Nombre: " + proyecto3 + "\n" +
-                                                    "Categoría: " + categoria3 + "\n" +
-                                                    "Cantidad a financiar: " + financiacionTotal3 + "\n" +
-                                                    "Cantidad financiada hasta el momento: " + financiado3 + "\n" +
-                                                    "Fecha de apertura de inversiones: " + fechaApertura3 + "\n" +
-                                                    "Fecha de cierre de inversiones: " + fechaCierre3 + "\n" +
-                                                    "Recompensa 1: " + recompensa1proy3 + " por " + precio1proy3 + "€\n" +
-                                                    "\t\t" + descripcion1proy3);
-                                            if (!recompensa2proy1.equals("")) {
+                                            visualizarProyecto3(proyecto3,categoria3,financiacionTotal3,financiado3,fechaApertura3,fechaCierre3,recompensa1proy3,descripcion1proy3,precio1proy3);
+                                            if (!recompensa2proy3.equals("")) {
                                                 System.out.println("Recompensa 2: " + recompensa2proy3 + " por " + precio2proy3 + "€\n" +
                                                         "\t\t" + descripcion2proy3);
                                             }
-                                            if (!recompensa3proy1.equals("")) {
+                                            if (!recompensa3proy3.equals("")) {
                                                 System.out.println("Recompensa 3: " + recompensa3proy3 + " por " + precio3proy3 + "€\n" +
                                                         "\t\t" + descripcion3proy3);
                                             }
                                             porcentajefinanciado3=financiado3*100/financiacionTotal3;
                                             System.out.println("Actualmente se ha financiado un "+porcentajefinanciado3+"%");
-                                            for (int i = 1; i <=8; i++) {
-                                                System.out.printf("|");
-                                                if (i>=3 && i<=5){
-                                                    for (int j = 0; j <=porcentajefinanciado3; j++) {
-                                                        System.out.printf(ANSI_GREEN+"█"+ANSI_RESET);
-                                                    }
-                                                    for (int j=porcentajefinanciado3+1; j <=porcFinanciacionTotal ; j++) {
-                                                        System.out.printf(ANSI_GREY+"█"+ANSI_RESET);
-                                                    }
-                                                }
-                                                if (i==8){
-                                                    for (int j = 0; j < porcFinanciacionTotal; j++) {
-                                                        System.out.printf("_");
-                                                    }
-                                                }
-                                                System.out.println();
-                                            }
+                                            grafico(porcentajefinanciado3);
                                             System.out.println("\n Quieres invertir en el proyecto: "+proyecto3+"? (si/no)");
                                             if (s.nextLine().equalsIgnoreCase("SI")) {
                                                 System.out.println("¿Cuánto desea invertir?");
@@ -1867,10 +1450,7 @@ public class Main {
                                 System.out.println("Ha accedido a configuracion");
 
                                 do{
-                                    System.out.println("Seleccione opción");
-                                    System.out.println("1. Cambiar nombre de usuario");
-                                    System.out.println("2. Cambiar contraseña de usuario");
-                                    System.out.println("3. Salir");
+                                    menuConfiguracion();
                                     opcion=Integer.parseInt(s.nextLine());
                                     switch (opcion){
                                         case 1:{
