@@ -1,5 +1,8 @@
 import java.util.Scanner;
 import static utilidades.Funciones.*;
+
+
+
 public class Main {
     public static void main(String[] args) {
         Scanner s=new Scanner(System.in);
@@ -9,6 +12,7 @@ public class Main {
         final String ANSI_PURPLE= "\033[35m";
         String usuario;
         String contrasena;
+        String destinatario="davidrosanebrera@gmail.com";
         String usuarioAdmin="administrador", usuarioGestor="gestor", usuarioInversor1="inversor1", usuarioInversor2="inversor2";
         String contrasenaAdmin="admin", contrasenaGestor="gestor", contrasenaInversor1="inversor1", contrasenaInversor2="inversor2";
         int intentoGestor=3, intentoInversor1=3, intentoInversor2=3;
@@ -47,6 +51,9 @@ public class Main {
         int inversionProyecto1Inversor1=0, inversionProyecto2Inversor1=0, inversionProyecto3Inversor1=0;
         int inversionProyecto1Inversor2=0,inversionProyecto2Inversor2=0, inversionProyecto3Inversor2=0;
         String amigosInvitadosInversor1="", amigosInvitadosInversor2="";
+        int autentificacion=0;
+        double autentificacionInicial =0;
+
         System.out.println(ANSI_PURPLE+"\n**[Bienvenido a FernanStarter]**\n"+ANSI_RESET);
         do{
             bienvenido=false;
@@ -55,24 +62,69 @@ public class Main {
             contrasena=s.nextLine();
             if (!usuario.equals("s") && !contrasena.equals("s")) {
                 if (usuario.equals(usuarioAdmin) && contrasena.equals(contrasenaAdmin) ) {
-                    System.out.println(ANSI_GREEN+"Bienvenido Administrador"+ANSI_RESET);
-                    bienvenido = true;
+                    System.out.println("Introduce autentificacion");
+                    autentificacionInicial =Math.random();
+                    autentificacion =(int) (autentificacionInicial*8999+1000);
+                    String asunto = "Codigo de autentificacion";
+                    String cuerpo = "codigo"+ autentificacion;
+                    enviarConGMail(destinatario, asunto, cuerpo);
+                    int codigo=Integer.parseInt(s.nextLine());
+                    if (codigo == autentificacion) {
+                        System.out.println(ANSI_GREEN+"Bienvenido Administrador"+ANSI_RESET);
+                        bienvenido = true;
+                    }else {
+                        System.out.println("Acceso denegado, clave de autentificacion erronea");
+                    }
                 }
                 if (usuario.equals(usuarioGestor)&&contrasena.equals(contrasenaGestor)&&gestorbloqueado.equals(false)) {
-                    System.out.println(ANSI_GREEN+"Bienvenido Gestor"+ANSI_RESET);
-                    bienvenido = true;
+                    System.out.println("Introduce autentificacion");
+                    autentificacionInicial =Math.random();
+                    autentificacion =(int) (autentificacionInicial*8999+1000);
+                    String asunto = "Codigo de autentificacion";
+                    String cuerpo = "codigo"+ autentificacion;
+                    enviarConGMail(destinatario, asunto, cuerpo);
+                    int codigo=Integer.parseInt(s.nextLine());
+                    if (codigo == autentificacion) {
+                        System.out.println(ANSI_GREEN+"Bienvenido Gestor"+ANSI_RESET);
+                        bienvenido = true;
+                    }else {
+                        System.out.println("Acceso denegado, clave de autentificacion erronea");
+                    }
                 } else if ((usuario.equals(usuarioGestor)&&gestorbloqueado.equals(true))) {
                     System.out.println(ANSI_RED+"Acceso denegado. El perfil *Gestor* ha sido bloqueado"+ANSI_RESET);
                 }
                 if (usuario.equals(usuarioInversor1)&&contrasena.equals(contrasenaInversor1)&&inversor1bloqueado.equals(false)) {
-                    System.out.println(ANSI_GREEN+"Bienvenido inversor1"+ANSI_RESET);
-                    bienvenido = true;
+                    System.out.println("Introduce autentificacion");
+                    autentificacionInicial =Math.random();
+                    autentificacion =(int) (autentificacionInicial*8999+1000);
+                    String asunto = "Codigo de autentificacion";
+                    String cuerpo = "codigo"+ autentificacion;
+                    enviarConGMail(destinatario, asunto, cuerpo);
+                    int codigo=Integer.parseInt(s.nextLine());
+                    if (codigo == autentificacion) {
+                        System.out.println(ANSI_GREEN+"Bienvenido Inversor1"+ANSI_RESET);
+                        bienvenido = true;
+                    }else {
+                        System.out.println("Acceso denegado, clave de autentificacion erronea");
+                    }
+
                 } else if ((usuario.equals(usuarioInversor1)&&inversor1bloqueado.equals(true))) {
                     System.out.println(ANSI_RED+"Acceso denegado. El perfil *inversor1* ha sido bloqueado "+ANSI_RESET);
                 }
                 if (usuario.equals(usuarioInversor2)&&contrasena.equals(contrasenaInversor2)&&inversor2bloqueado.equals(false)) {
-                    System.out.println(ANSI_GREEN+"Bienvenido inversor2"+ANSI_RESET);
-                    bienvenido = true;
+                    System.out.println("Introduce autentificacion");
+                    autentificacionInicial =Math.random();
+                    autentificacion =(int) (autentificacionInicial*8999+1000);
+                    String asunto = "Codigo de autentificacion";
+                    String cuerpo = "codigo"+ autentificacion;
+                    enviarConGMail(destinatario, asunto, cuerpo);
+                    int codigo=Integer.parseInt(s.nextLine());
+                    if (codigo == autentificacion) {
+                        System.out.println(ANSI_GREEN+"Bienvenido Inversor2"+ANSI_RESET);
+                        bienvenido = true;
+                    }else {
+                        System.out.println("Acceso denegado, clave de autentificacion erronea");
+                    }
                 } else if ((usuario.equals(usuarioInversor2)&&inversor2bloqueado.equals(true))) {
                     System.out.println(ANSI_RED+"Acceso denegado. El perfil *Gestor* ha sido bloqueado "+ANSI_RESET);
                 }
@@ -258,12 +310,8 @@ public class Main {
                                 break;
                             }
                             case 2:{
-                                System.out.println(ANSI_GREEN+"*****PROYECTOS*****"+ANSI_RESET);
-                                System.out.println("¿Qué proyecto quiere ver?\n" +
-                                        "1. Proyecto 1: " + proyecto1 + "\n" +
-                                        "2. Proyecto 2: " + proyecto2 + "\n" +
-                                        "3. Proyecto 3: " + proyecto3 + "\n" +
-                                        "4. Salir");
+                                verProyecto(proyecto1,proyecto2,proyecto3,ANSI_GREEN,ANSI_RESET);
+
                                 opcionProyectoAdmin = Integer.parseInt(s.nextLine());
                                 switch (opcionProyectoAdmin) {
                                     case 1 -> {
@@ -548,12 +596,7 @@ public class Main {
                                         }
                                         case 2 ->{
                                             do {
-                                                System.out.println(ANSI_GREEN+"*****PROYECTOS*****"+ANSI_RESET);
-                                                System.out.println("¿Qué proyecto quiere ver?\n" +
-                                                        "1. Proyecto 1: " + proyecto1 + "\n" +
-                                                        "2. Proyecto 2: " + proyecto2 + "\n" +
-                                                        "3. Proyecto 3: " + proyecto3 + "\n" +
-                                                        "4. Salir");
+                                                verProyecto(proyecto1,proyecto2,proyecto3,ANSI_GREEN,ANSI_RESET);
                                                 opcion = Integer.parseInt(s.nextLine());
                                                 if (opcion == 1) {
                                                     if (!proyecto1.equals("Próximamente")) {
@@ -964,11 +1007,7 @@ public class Main {
                                         }
                                         case 4 ->{
                                             do {
-                                                System.out.println("Elija un proyecto para borrar\n" +
-                                                        "1. Proyecto 1: " + proyecto1 + "\n" +
-                                                        "2. Proyecto 2: " + proyecto2 + "\n" +
-                                                        "3. Proyecto 3: " + proyecto3 + "\n" +
-                                                        "4. Salir");
+                                                borrarProyecto(proyecto1,proyecto2,proyecto3);
                                                 opcion = Integer.parseInt(s.nextLine());
                                                 if (opcion == 1) {
                                                     if (!proyecto1.equals("Próximamente")) {
@@ -1085,13 +1124,8 @@ public class Main {
                                 break;
                             }
                             case 2:{
-                                System.out.println("Has accedido a proyectos");
-                                System.out.println(ANSI_GREEN+"*****PROYECTOS*****"+ANSI_RESET);
-                                System.out.println("¿Qué proyecto quiere ver?\n" +
-                                        "1. Proyecto 1: " + proyecto1 + "\n" +
-                                        "2. Proyecto 2: " + proyecto2 + "\n" +
-                                        "3. Proyecto 3: " + proyecto3 + "\n" +
-                                        "4. Salir");
+                                verProyecto(proyecto1,proyecto2,proyecto3,ANSI_GREEN,ANSI_RESET);
+
                                 opcion = Integer.parseInt(s.nextLine());
                                 switch (opcion) {
                                     case 1-> {
@@ -1307,13 +1341,8 @@ public class Main {
                                 break;
                             }
                             case 2:{
-                                System.out.println("Has accedido a proyectos");
-                                System.out.println(ANSI_GREEN+"*****PROYECTOS*****"+ANSI_RESET);
-                                System.out.println("¿Qué proyecto quiere ver?\n" +
-                                        "1. Proyecto 1: " + proyecto1 + "\n" +
-                                        "2. Proyecto 2: " + proyecto2 + "\n" +
-                                        "3. Proyecto 3: " + proyecto3 + "\n" +
-                                        "4. Salir");
+                                verProyecto(proyecto1,proyecto2,proyecto3,ANSI_GREEN,ANSI_RESET);
+
                                 opcion = Integer.parseInt(s.nextLine());
                                 switch (opcion) {
                                     case 1-> {

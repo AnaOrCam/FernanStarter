@@ -1,5 +1,12 @@
 package utilidades;
 
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.Properties;
+
 public class Funciones {
     public static void grafico (int porcentajefinanciado){
         final String ANSI_GREEN= "\033[32m";
@@ -122,4 +129,50 @@ public class Funciones {
                 "3. Precio\n" +
                 "4. Salir");
     }
+    public static void verProyecto(String proyecto1,String proyecto2, String proyecto3,String ANSI_GREEN, String ANSI_RESET){
+        System.out.println("Has accedido a proyectos");
+        System.out.println(ANSI_GREEN+"*****PROYECTOS*****"+ANSI_RESET);
+        System.out.println("¿Qué proyecto quiere ver?\n" +
+                "1. Proyecto 1: " + proyecto1 + "\n" +
+                "2. Proyecto 2: " + proyecto2 + "\n" +
+                "3. Proyecto 3: " + proyecto3 + "\n" +
+                "4. Salir");
+    }
+    public static void borrarProyecto( String proyecto1,String proyecto2, String proyecto3){
+        System.out.println("Elija un proyecto para borrar\n" +
+                "1. Proyecto 1: " + proyecto1 + "\n" +
+                "2. Proyecto 2: " + proyecto2 + "\n" +
+                "3. Proyecto 3: " + proyecto3 + "\n" +
+                "4. Salir");
+    }
+
+        public static void enviarConGMail(String destinatario, String asunto, String cuerpo) {
+            String remitente = "davidrosanebrera@gmail.com";
+            String clave = "";
+
+            Properties props = System.getProperties();
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.put("mail.smtp.user", remitente);
+            props.put("mail.smtp.clave", clave);
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.port", "587");
+            Session session = Session.getDefaultInstance(props);
+            try {
+                MimeMessage message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(remitente));
+                message.setRecipients(Message.RecipientType.TO,
+                        InternetAddress.parse(destinatario));
+                message.setSubject(asunto);
+                message.setContent(cuerpo, "text/html; charset=utf-8");
+                Transport transport = session.getTransport("smtp");
+                transport.connect("smtp.gmail.com", remitente, clave);
+                transport.sendMessage(message, message.getAllRecipients());
+                transport.close();
+            }
+            catch (Exception me) {
+                me.printStackTrace();
+            }
+        }
 }
+
