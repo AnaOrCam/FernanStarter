@@ -1,8 +1,5 @@
 import java.util.Scanner;
 import static utilidades.Funciones.*;
-
-
-
 public class Main {
     public static void main(String[] args) {
         Scanner s=new Scanner(System.in);
@@ -12,10 +9,11 @@ public class Main {
         final String ANSI_PURPLE= "\033[35m";
         String usuario;
         String contrasena;
-        String destinatario="davidrosanebrera@gmail.com";
+        String destinatario="ana.oc.094@gmail.com";
         String usuarioAdmin="administrador", usuarioGestor="gestor", usuarioInversor1="inversor1", usuarioInversor2="inversor2";
         String contrasenaAdmin="admin", contrasenaGestor="gestor", contrasenaInversor1="inversor1", contrasenaInversor2="inversor2";
         int intentoGestor=3, intentoInversor1=3, intentoInversor2=3;
+        int intentoGestorCodigo=3, intentoInversor1Codigo=3, intentoInversor2Codigo=3;
         Boolean bienvenido;
         Boolean gestorbloqueado=false, inversor1bloqueado=false, inversor2bloqueado=false;
         int admin_gestor=0;
@@ -62,11 +60,11 @@ public class Main {
             contrasena=s.nextLine();
             if (!usuario.equals("s") && !contrasena.equals("s")) {
                 if (usuario.equals(usuarioAdmin) && contrasena.equals(contrasenaAdmin) ) {
-                    System.out.println("Introduce autentificacion");
+                    System.out.println("Hemos enviado un código a tu correo. Introduce la autentificación");
                     autentificacionInicial =Math.random();
                     autentificacion =(int) (autentificacionInicial*8999+1000);
                     String asunto = "Codigo de autentificacion";
-                    String cuerpo = "codigo"+ autentificacion;
+                    String cuerpo = "codigo "+ autentificacion;
                     enviarConGMail(destinatario, asunto, cuerpo);
                     int codigo=Integer.parseInt(s.nextLine());
                     if (codigo == autentificacion) {
@@ -77,53 +75,60 @@ public class Main {
                     }
                 }
                 if (usuario.equals(usuarioGestor)&&contrasena.equals(contrasenaGestor)&&gestorbloqueado.equals(false)) {
-                    System.out.println("Introduce autentificacion");
+                    System.out.println("Hemos enviado un código a tu correo. Introduce autentificacion");
                     autentificacionInicial =Math.random();
                     autentificacion =(int) (autentificacionInicial*8999+1000);
                     String asunto = "Codigo de autentificacion";
-                    String cuerpo = "codigo"+ autentificacion;
+                    String cuerpo = "codigo "+ autentificacion;
                     enviarConGMail(destinatario, asunto, cuerpo);
                     int codigo=Integer.parseInt(s.nextLine());
                     if (codigo == autentificacion) {
                         System.out.println(ANSI_GREEN+"Bienvenido Gestor"+ANSI_RESET);
                         bienvenido = true;
+                        intentoGestorCodigo=3;
                     }else {
-                        System.out.println("Acceso denegado, clave de autentificacion erronea");
+                        intentoGestorCodigo--;
+                        System.out.println("Acceso denegado, clave de autentificacion erronea. Te quedan "+intentoGestorCodigo+" intentos.");
                     }
                 } else if ((usuario.equals(usuarioGestor)&&gestorbloqueado.equals(true))) {
                     System.out.println(ANSI_RED+"Acceso denegado. El perfil *Gestor* ha sido bloqueado"+ANSI_RESET);
                 }
                 if (usuario.equals(usuarioInversor1)&&contrasena.equals(contrasenaInversor1)&&inversor1bloqueado.equals(false)) {
-                    System.out.println("Introduce autentificacion");
+                    System.out.println("Hemos enviado un código a tu correo. Introduce autentificacion");
                     autentificacionInicial =Math.random();
                     autentificacion =(int) (autentificacionInicial*8999+1000);
                     String asunto = "Codigo de autentificacion";
-                    String cuerpo = "codigo"+ autentificacion;
+                    String cuerpo = "codigo "+ autentificacion;
                     enviarConGMail(destinatario, asunto, cuerpo);
                     int codigo=Integer.parseInt(s.nextLine());
                     if (codigo == autentificacion) {
                         System.out.println(ANSI_GREEN+"Bienvenido Inversor1"+ANSI_RESET);
                         bienvenido = true;
+                        intentoInversor1Codigo=3;
                     }else {
-                        System.out.println("Acceso denegado, clave de autentificacion erronea");
+                        intentoInversor1Codigo--;
+                        System.out.println("Acceso denegado, clave de autentificacion erronea. Te quedan "+intentoInversor1Codigo+" intentos.");
                     }
 
                 } else if ((usuario.equals(usuarioInversor1)&&inversor1bloqueado.equals(true))) {
                     System.out.println(ANSI_RED+"Acceso denegado. El perfil *inversor1* ha sido bloqueado "+ANSI_RESET);
                 }
                 if (usuario.equals(usuarioInversor2)&&contrasena.equals(contrasenaInversor2)&&inversor2bloqueado.equals(false)) {
-                    System.out.println("Introduce autentificacion");
+                    System.out.println("Hemos enviado un código a tu correo. Introduce autentificacion");
                     autentificacionInicial =Math.random();
                     autentificacion =(int) (autentificacionInicial*8999+1000);
                     String asunto = "Codigo de autentificacion";
-                    String cuerpo = "codigo"+ autentificacion;
+                    String cuerpo = "codigo "+ autentificacion;
                     enviarConGMail(destinatario, asunto, cuerpo);
                     int codigo=Integer.parseInt(s.nextLine());
                     if (codigo == autentificacion) {
                         System.out.println(ANSI_GREEN+"Bienvenido Inversor2"+ANSI_RESET);
                         bienvenido = true;
+                        intentoInversor2Codigo=3;
                     }else {
-                        System.out.println("Acceso denegado, clave de autentificacion erronea");
+                        intentoInversor2Codigo--;
+                        System.out.println("Acceso denegado, clave de autentificacion errónea. Te quedan "+intentoInversor2Codigo+" intentos.");
+
                     }
                 } else if ((usuario.equals(usuarioInversor2)&&inversor2bloqueado.equals(true))) {
                     System.out.println(ANSI_RED+"Acceso denegado. El perfil *Gestor* ha sido bloqueado "+ANSI_RESET);
@@ -157,15 +162,15 @@ public class Main {
                     System.out.println("Usuario o contraseña incorrectos");
                     System.out.println("Te quedan " + intentoInversor2 + " intentos.");
                 }
-                if (usuario.equals(usuarioGestor) && intentoGestor == 0 ) {
+                if (usuario.equals(usuarioGestor) && (intentoGestor == 0 || intentoGestorCodigo==0)) {
                     System.out.println("Ha agotado los intentos de acceso a el perfil Gestor. Para restaurar contacte con el administrador.");
                     gestorbloqueado=true;
                 }
-                if (usuario.equals(usuarioInversor1)&&(intentoInversor1==0)){
+                if (usuario.equals(usuarioInversor1)&&(intentoInversor1==0 || intentoInversor1Codigo==0)){
                     System.out.println("Ha agotado los intentos de acceso a el perfil Inversor1. Para restaurar contacte con el administrador.");
                     inversor1bloqueado=true;
                 }
-                if (usuario.equals(usuarioInversor2)&&(intentoInversor2==0)){
+                if (usuario.equals(usuarioInversor2)&&(intentoInversor2==0 || intentoInversor2Codigo==0)){
                     System.out.println("Ha agotado los intentos de acceso a el perfil Inversor2. Para restaurar contacte con el administrador.");
                     inversor2bloqueado=true;
                 }
@@ -212,6 +217,8 @@ public class Main {
                                                 }else {
                                                     System.out.println("Usuario desbloqueado satisfactoriamente");
                                                     gestorbloqueado=false;
+                                                    intentoGestorCodigo=3;
+                                                    intentoGestor=3;
                                                 }
                                                 break;
                                             }
@@ -250,6 +257,8 @@ public class Main {
                                                 }else {
                                                     System.out.println("Usuario desbloqueado satisfactoriamente");
                                                     inversor1bloqueado=false;
+                                                    intentoInversor1Codigo=3;
+                                                    intentoInversor1=3;
                                                 }
                                                 break;
                                             }
@@ -288,6 +297,8 @@ public class Main {
                                                 }else {
                                                     System.out.println("Usuario desbloqueado satisfactoriamente");
                                                     inversor2bloqueado=false;
+                                                    intentoInversor2Codigo=3;
+                                                    intentoInversor2=3;
                                                 }
                                                 break;
                                             }
