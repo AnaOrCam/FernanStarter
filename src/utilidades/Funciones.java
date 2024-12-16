@@ -5,6 +5,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
+import java.util.Scanner;
 
 public class Funciones {
 
@@ -98,84 +99,47 @@ public class Funciones {
         System.out.println("1. Cambiar nombre de usuario");
         System.out.println("2. Cambiar contraseña de usuario");
         System.out.println("3. Salir");
+
     }
 
     /**
-     * Muestra la visualización detallada del proyecto 1 a los usuarios.
+     * Muestra la visualización detallada de un proyecto determinado a los usuarios.
      * @author AnaOrCam
-     * @param proyecto1 nombre del proyecto 1.
-     * @param categoria1 categoría del proyecto 1.
-     * @param financiacionTotal1 financiación necesaria para llevar a cabo el proyecto 1.
-     * @param financiado1 cantidad financiada hasta el momento en el proyecto 1.
-     * @param fechaApertura1 fecha de apertura para inversiones del proyecto 1.
-     * @param fechaCierre1 fecha de cierre para inversiones del proyecto 1.
-     * @param recompensa1proy1 nombre de la primera recompensa ofrecida en el proyecto 1.
-     * @param descripcion1proy1 descripción de la primera recompensa ofrecida en el proyecto 1.
-     * @param precio1proy1 precio de la primera recompensa ofrecida en el proyecto 1.
+     * @param proyecto nombre del proyecto.
+     * @param categoria categoría del proyecto.
+     * @param financiacionTotal financiación necesaria para llevar a cabo el proyecto.
+     * @param financiado cantidad financiada hasta el momento en el proyecto.
+     * @param fechaApertura fecha de apertura para inversiones del proyecto.
+     * @param fechaCierre fecha de cierre para inversiones del proyecto.
+     * @param recompensa1proy nombre de la primera recompensa ofrecida en el proyecto.
+     * @param descripcion1proy descripción de la primera recompensa ofrecida en el proyecto.
+     * @param precio1proy precio de la primera recompensa ofrecida en el proyecto.
+     * @param recompensa2proy nombre de la segunda recompensa ofrecida en el proyecto.
+     * @param descripcion2proy descripción de la segunda recompensa ofrecida en el proyecto.
+     * @param precio2proy precio de la segunda recompensa ofrecida en el proyecto.
+     * @param recompensa3proy nombre de la tercera recompensa ofrecida en el proyecto.
+     * @param descripcion3proy descripción de la tercera recompensa ofrecida en el proyecto.
+     * @param precio3proy precio de la tercera recompensa ofrecida en el proyecto.
      * @return no devuelve nada.
      */
-    public static void visualizarProyecto1 (String proyecto1, String categoria1,int financiacionTotal1, int financiado1, String fechaApertura1, String fechaCierre1, String recompensa1proy1, String descripcion1proy1, int precio1proy1){
-        System.out.println("Proyecto 1: " + proyecto1 + "\n" +
-                "Nombre: " + proyecto1 + "\n" +
-                "Categoría: " + categoria1 + "\n" +
-                "Cantidad a financiar: " + financiacionTotal1 + "\n" +
-                "Cantidad financiada hasta el momento: " + financiado1 + "\n" +
-                "Fecha de apertura de inversiones: " + fechaApertura1 + "\n" +
-                "Fecha de cierre de inversiones: " + fechaCierre1 + "\n" +
-                "Recompensa 1: " + recompensa1proy1 + " por " + precio1proy1 + "€\n" +
-                "\t\t" + descripcion1proy1);
-    }
-
-    /**
-     * Muestra la visualización detallada del proyecto 2 a los usuarios.
-     * @author AnaOrCam
-     * @param proyecto2 nombre del proyecto 2.
-     * @param categoria2 categoría del proyecto 2.
-     * @param financiacionTotal2 financiación necesaria para llevar a cabo el proyecto 2.
-     * @param financiado2 cantidad financiada hasta el momento en el proyecto 2.
-     * @param fechaApertura2 fecha de apertura para inversiones del proyecto 2.
-     * @param fechaCierre2 fecha de cierre para inversiones del proyecto 2.
-     * @param recompensa1proy2 nombre de la primera recompensa ofrecida en el proyecto 2.
-     * @param descripcion1proy2 descripción de la primera recompensa ofrecida en el proyecto 2.
-     * @param precio1proy2 precio de la primera recompensa ofrecida en el proyecto 2.
-     * @return no devuelve nada.
-     */
-    public static void visualizarProyecto2 (String proyecto2, String categoria2,int financiacionTotal2, int financiado2, String fechaApertura2, String fechaCierre2, String recompensa1proy2, String descripcion1proy2, int precio1proy2){
-        System.out.println("Proyecto 2: " + proyecto2 + "\n" +
-                "Nombre: " + proyecto2 + "\n" +
-                "Categoría: " + categoria2 + "\n" +
-                "Cantidad a financiar: " + financiacionTotal2 + "\n" +
-                "Cantidad financiada hasta el momento: " + financiado2 + "\n" +
-                "Fecha de apertura de inversiones: " + fechaApertura2 + "\n" +
-                "Fecha de cierre de inversiones: " + fechaCierre2 + "\n" +
-                "Recompensa 1: " + recompensa1proy2 + " por " + precio1proy2 + "€\n" +
-                "\t\t" + descripcion1proy2);
-    }
-
-    /**
-     * Muestra la visualización detallada del proyecto 3 a los usuarios.
-     * @author AnaOrCam
-     * @param proyecto3 nombre del proyecto 3.
-     * @param categoria3 categoría del proyecto 3.
-     * @param financiacionTotal3 financiación necesaria para llevar a cabo el proyecto 3.
-     * @param financiado3 cantidad financiada hasta el momento en el proyecto 3.
-     * @param fechaApertura3 fecha de apertura para inversiones del proyecto 3.
-     * @param fechaCierre3 fecha de cierre para inversiones del proyecto 3.
-     * @param recompensa1proy3 nombre de la primera recompensa ofrecida en el proyecto 3.
-     * @param descripcion1proy3 descripción de la primera recompensa ofrecida en el proyecto 3.
-     * @param precio1proy3 precio de la primera recompensa ofrecida en el proyecto 3.
-     * @return no devuelve nada.
-     */
-    public static void visualizarProyecto3 (String proyecto3, String categoria3,int financiacionTotal3, int financiado3, String fechaApertura3, String fechaCierre3, String recompensa1proy3, String descripcion1proy3, int precio1proy3){
-        System.out.println("Proyecto 3: " + proyecto3 + "\n" +
-                "Nombre: " + proyecto3 + "\n" +
-                "Categoría: " + categoria3 + "\n" +
-                "Cantidad a financiar: " + financiacionTotal3 + "\n" +
-                "Cantidad financiada hasta el momento: " + financiado3 + "\n" +
-                "Fecha de apertura de inversiones: " + fechaApertura3 + "\n" +
-                "Fecha de cierre de inversiones: " + fechaCierre3 + "\n" +
-                "Recompensa 1: " + recompensa1proy3 + " por " + precio1proy3 + "€\n" +
-                "\t\t" + descripcion1proy3);
+    public static void visualizarProyecto (String proyecto, String categoria,int financiacionTotal, int financiado, String fechaApertura, String fechaCierre, String recompensa1proy, String descripcion1proy, int precio1proy, String recompensa2proy, String descripcion2proy, int precio2proy, String recompensa3proy, String descripcion3proy, int precio3proy){
+        System.out.println("Proyecto 1: " + proyecto + "\n" +
+                "Nombre: " + proyecto + "\n" +
+                "Categoría: " + categoria + "\n" +
+                "Cantidad a financiar: " + financiacionTotal + "\n" +
+                "Cantidad financiada hasta el momento: " + financiado + "\n" +
+                "Fecha de apertura de inversiones: " + fechaApertura + "\n" +
+                "Fecha de cierre de inversiones: " + fechaCierre + "\n" +
+                "Recompensa 1: " + recompensa1proy + " por " + precio1proy + "€\n" +
+                "\t\t" + descripcion1proy);
+        if (!recompensa2proy.equals("")) {
+            System.out.println("Recompensa 2: " + recompensa2proy + " por " + precio2proy + "€\n" +
+                    "\t\t" + descripcion2proy);
+        }
+        if (!recompensa3proy.equals("")) {
+            System.out.println("Recompensa 3: " + recompensa3proy + " por " + precio3proy + "€\n" +
+                    "\t\t" + descripcion3proy);
+        }
     }
 
     /**
@@ -220,6 +184,7 @@ public class Funciones {
                 "3. Precio\n" +
                 "4. Salir");
     }
+
     public static void verProyecto(String proyecto1,String proyecto2, String proyecto3,String ANSI_GREEN, String ANSI_RESET){
         System.out.println("Has accedido a proyectos");
         System.out.println(ANSI_GREEN+"*****PROYECTOS*****"+ANSI_RESET);
@@ -237,9 +202,50 @@ public class Funciones {
                 "4. Salir");
     }
 
+    /**
+     * Añade un nuevo amigo a la lista de amigos invitados y luego muestra la lista actualizada.
+     * @author AnaOrCam
+     * @param amigosInvitados es la cadena con los amigos invitados hasta el momento.
+     * @return no devuelve nada.
+     */
+    public static String invitarAmigo (String amigosInvitados){
+        Scanner s=new Scanner (System.in);
+        System.out.println("¿A quien quieres invitar? Introduce su email");
+        amigosInvitados=amigosInvitados.concat(s.nextLine()+"\n");
+        System.out.println("Tus amigos invitados hasta la fecha son los siguientes:");
+        System.out.println(amigosInvitados);
+        return amigosInvitados;
+    }
+
+    /**
+     * Permite visualizar el saldo actual e ingresar una cantidad a ese saldo.
+     * @author AnaOrCam
+     * @param saldo numero entero que indica el saldo del usuario.
+     * @return devuelve un entero.
+     */
+    public static int gestionSaldoInversor (int saldo){
+        Scanner s=new Scanner(System.in);
+        System.out.println("¿Qué quieres hacer?\n 1.Mostrar mi saldo actual\n 2.Añadir saldo\n 3.Salir");
+        int opcion=Integer.parseInt(s.nextLine());
+        switch (opcion) {
+            case 1 -> {
+                System.out.println("Tu saldo actual es:");
+                System.out.println(saldo + "€");
+            }
+            case 2 -> {
+                System.out.println("Cuánto quieres añadir?");
+                saldo+= Integer.parseInt(s.nextLine());
+            }
+            case 3 -> System.out.println("Saliendo de Cartera Digital");
+            default -> System.out.println("Esa opción no se encuentra en el menú");
+        }
+        return saldo;
+    }
+
+
     public static void enviarConGMail(String destinatario, String asunto, String cuerpo) {
-        String remitente = "";
-        String clave = "";
+        String remitente = "ana.oc.094@gmail.com";
+        String clave = "pimc zxie qftf gdvn";
 
         Properties props = System.getProperties();
         props.put("mail.smtp.host", "smtp.gmail.com");

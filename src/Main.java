@@ -322,20 +322,11 @@ public class Main {
                             }
                             case 2:{
                                 verProyecto(proyecto1,proyecto2,proyecto3,ANSI_GREEN,ANSI_RESET);
-
                                 opcionProyectoAdmin = Integer.parseInt(s.nextLine());
                                 switch (opcionProyectoAdmin) {
                                     case 1 -> {
                                         if (!proyecto1.equals("Próximamente")) {
-                                            visualizarProyecto1(proyecto1, categoria1, financiacionTotal1, financiado1, fechaApertura1, fechaCierre1, recompensa1proy1,descripcion1proy1,precio1proy1);
-                                            if (!recompensa2proy1.equals("")) {
-                                                System.out.println("Recompensa 2: " + recompensa2proy1 + " por " + precio2proy1 + "€\n" +
-                                                        "\t\t" + descripcion2proy1);
-                                            }
-                                            if (!recompensa3proy1.equals("")) {
-                                                System.out.println("Recompensa 3: " + recompensa3proy1 + " por " + precio3proy1 + "€\n" +
-                                                        "\t\t" + descripcion3proy1);
-                                            }
+                                            visualizarProyecto(proyecto1, categoria1, financiacionTotal1, financiado1, fechaApertura1, fechaCierre1, recompensa1proy1,descripcion1proy1,precio1proy1, recompensa2proy1, descripcion2proy1, precio2proy1, recompensa3proy1, descripcion3proy1, precio3proy1);
                                             porcentajefinanciado1=financiado1*100/financiacionTotal1;
                                             System.out.println("Actualmente se ha financiado un "+porcentajefinanciado1+"%");
                                             grafico(porcentajefinanciado1);
@@ -345,15 +336,7 @@ public class Main {
                                     }
                                     case 2 -> {
                                         if (!proyecto2.equals("Próximamente")) {
-                                            visualizarProyecto2(proyecto2,categoria2,financiacionTotal2,financiado2,fechaApertura2,fechaCierre2,recompensa1proy2,descripcion1proy2,precio1proy2);
-                                            if (!recompensa2proy2.equals("")) {
-                                                System.out.println("Recompensa 2: " + recompensa2proy2 + " por " + precio2proy2 + "€\n" +
-                                                        "\t\t" + descripcion2proy2);
-                                            }
-                                            if (!recompensa3proy2.equals("")) {
-                                                System.out.println("Recompensa 3: " + recompensa3proy2 + " por " + precio3proy2 + "€\n" +
-                                                        "\t\t" + descripcion3proy2);
-                                            }
+                                            visualizarProyecto(proyecto2,categoria2,financiacionTotal2,financiado2,fechaApertura2,fechaCierre2,recompensa1proy2,descripcion1proy2,precio1proy2, recompensa2proy2, descripcion2proy2, precio2proy2, recompensa3proy2, descripcion3proy2, precio3proy2);
                                             porcentajefinanciado2=financiado2*100/financiacionTotal2;
                                             System.out.println("Actualmente se ha financiado un "+porcentajefinanciado2+"%");
                                             grafico(porcentajefinanciado2);
@@ -364,15 +347,7 @@ public class Main {
                                     }
                                     case 3 -> {
                                         if (!proyecto3.equals("Próximamente")) {
-                                            visualizarProyecto3(proyecto3,categoria3,financiacionTotal3,financiado3,fechaApertura3,fechaCierre3,recompensa1proy3,descripcion1proy3,precio1proy3);
-                                            if (!recompensa2proy3.equals("")) {
-                                                System.out.println("Recompensa 2: " + recompensa2proy3 + " por " + precio2proy3 + "€\n" +
-                                                        "\t\t" + descripcion2proy3);
-                                            }
-                                            if (!recompensa3proy3.equals("")) {
-                                                System.out.println("Recompensa 3: " + recompensa3proy3 + " por " + precio3proy3 + "€\n" +
-                                                        "\t\t" + descripcion3proy3);
-                                            }
+                                            visualizarProyecto(proyecto3,categoria3,financiacionTotal3,financiado3,fechaApertura3,fechaCierre3,recompensa1proy3,descripcion1proy3,precio1proy3, recompensa2proy3, descripcion2proy3, precio2proy3, recompensa3proy3, descripcion3proy3, precio3proy3);
                                             porcentajefinanciado3=financiado3*100/financiacionTotal3;
                                             System.out.println("Actualmente se ha financiado un "+porcentajefinanciado3+"%");
                                             grafico(porcentajefinanciado3);
@@ -480,15 +455,7 @@ public class Main {
                                                     }
                                                 }
                                                 System.out.println("Has añadido esta información en el proyecto 1:");
-                                                visualizarProyecto1(proyecto1, categoria1, financiacionTotal1, financiado1, fechaApertura1, fechaCierre1, recompensa1proy1,descripcion1proy1,precio1proy1);
-                                                if (!recompensa2proy1.equals("")){
-                                                    System.out.println("Recompensa 2: "+recompensa2proy1+" por "+precio2proy1+"€\n" +
-                                                            "\t\t"+descripcion2proy1);
-                                                }
-                                                if (!recompensa3proy1.equals("")){
-                                                    System.out.println("Recompensa 3: "+recompensa3proy1+" por "+precio3proy1+"€\n" +
-                                                            "\t\t"+descripcion3proy1);
-                                                }
+                                                visualizarProyecto(proyecto1, categoria1, financiacionTotal1, financiado1, fechaApertura1, fechaCierre1, recompensa1proy1,descripcion1proy1,precio1proy1, recompensa2proy1, descripcion2proy1, precio2proy1, recompensa3proy1, descripcion3proy1, precio3proy1);
                                             } else if (proyecto2.equals("Próximamente")) {
                                                 System.out.println("Introduzca el nombre del proyecto");
                                                 proyecto2=s.nextLine();
@@ -536,15 +503,7 @@ public class Main {
                                                     }
                                                 }
                                                 System.out.println("Has añadido esta información en el proyecto 2:");
-                                                visualizarProyecto2(proyecto2,categoria2,financiacionTotal2,financiado2,fechaApertura2,fechaCierre2,recompensa1proy2,descripcion1proy2,precio1proy2);
-                                                if (!recompensa2proy2.equals("")){
-                                                    System.out.println("Recompensa 2: "+recompensa2proy2+" por "+precio2proy2+"€\n" +
-                                                            "\t\t"+descripcion2proy2);
-                                                }
-                                                if (!recompensa3proy2.equals("")){
-                                                    System.out.println("Recompensa 3: "+recompensa3proy2+" por "+precio3proy2+"€\n" +
-                                                            "\t\t"+descripcion3proy2);
-                                                }
+                                                visualizarProyecto(proyecto2,categoria2,financiacionTotal2,financiado2,fechaApertura2,fechaCierre2,recompensa1proy2,descripcion1proy2,precio1proy2, recompensa2proy2, descripcion2proy2, precio2proy2, recompensa3proy2, descripcion3proy2, precio3proy2);
                                             } else if (proyecto3.equals("Próximamente")) {
                                                 System.out.println("Introduzca el nombre del proyecto");
                                                 proyecto3=s.nextLine();
@@ -592,15 +551,7 @@ public class Main {
                                                     }
                                                 }
                                                 System.out.println("Has añadido esta información en el proyecto 3:");
-                                                visualizarProyecto3(proyecto3,categoria3,financiacionTotal3,financiado3,fechaApertura3,fechaCierre3,recompensa1proy3,descripcion1proy3,precio1proy3);
-                                                if (!recompensa2proy3.equals("")){
-                                                    System.out.println("Recompensa 2: "+recompensa2proy3+" por "+precio2proy3+"€\n" +
-                                                            "\t\t"+descripcion2proy3);
-                                                }
-                                                if (!recompensa3proy3.equals("")){
-                                                    System.out.println("Recompensa 3: "+recompensa3proy3+" por "+precio3proy3+"€\n" +
-                                                            "\t\t"+descripcion3proy3);
-                                                }
+                                                visualizarProyecto(proyecto3,categoria3,financiacionTotal3,financiado3,fechaApertura3,fechaCierre3,recompensa1proy3,descripcion1proy3,precio1proy3, recompensa2proy3, descripcion2proy3, precio2proy3, recompensa3proy3, descripcion3proy3, precio3proy3);
                                             }else{
                                                 System.out.println("Ha alcanzado el límite de proyectos.");
                                             }
@@ -611,15 +562,7 @@ public class Main {
                                                 opcion = Integer.parseInt(s.nextLine());
                                                 if (opcion == 1) {
                                                     if (!proyecto1.equals("Próximamente")) {
-                                                        visualizarProyecto1(proyecto1, categoria1, financiacionTotal1, financiado1, fechaApertura1, fechaCierre1, recompensa1proy1,descripcion1proy1,precio1proy1);
-                                                        if (!recompensa2proy1.equals("")) {
-                                                            System.out.println("Recompensa 2: " + recompensa2proy1 + " por " + precio2proy1 + "€\n" +
-                                                                    "\t\t" + descripcion2proy1);
-                                                        }
-                                                        if (!recompensa3proy1.equals("")) {
-                                                            System.out.println("Recompensa 3: " + recompensa3proy1 + " por " + precio3proy1 + "€\n" +
-                                                                    "\t\t" + descripcion3proy1);
-                                                        }
+                                                        visualizarProyecto(proyecto1, categoria1, financiacionTotal1, financiado1, fechaApertura1, fechaCierre1, recompensa1proy1,descripcion1proy1,precio1proy1, recompensa2proy1, descripcion2proy1, precio2proy1, recompensa3proy1, descripcion3proy1, precio3proy1);
                                                         porcentajefinanciado1=financiado1*100/financiacionTotal1;
                                                         System.out.println("Actualmente se ha financiado un "+porcentajefinanciado1+"%");
                                                         grafico(porcentajefinanciado1);
@@ -628,15 +571,7 @@ public class Main {
                                                     }
                                                 } else if (opcion == 2) {
                                                     if (!proyecto2.equals("Próximamente")) {
-                                                        visualizarProyecto2(proyecto2,categoria2,financiacionTotal2,financiado2,fechaApertura2,fechaCierre2,recompensa1proy2,descripcion1proy2,precio1proy2);
-                                                        if (!recompensa2proy2.equals("")) {
-                                                            System.out.println("Recompensa 2: " + recompensa2proy2 + " por " + precio2proy2 + "€\n" +
-                                                                    "\t\t" + descripcion2proy2);
-                                                        }
-                                                        if (!recompensa3proy2.equals("")) {
-                                                            System.out.println("Recompensa 3: " + recompensa3proy2 + " por " + precio3proy2 + "€\n" +
-                                                                    "\t\t" + descripcion3proy2);
-                                                        }
+                                                        visualizarProyecto(proyecto2,categoria2,financiacionTotal2,financiado2,fechaApertura2,fechaCierre2,recompensa1proy2,descripcion1proy2,precio1proy2, recompensa2proy2, descripcion2proy2, precio2proy2, recompensa3proy2, descripcion3proy2, precio3proy2);
                                                         porcentajefinanciado2=financiado2*100/financiacionTotal2;
                                                         System.out.println("Actualmente se ha financiado un "+porcentajefinanciado2+"%");
                                                         grafico(porcentajefinanciado2);
@@ -645,15 +580,7 @@ public class Main {
                                                     }
                                                 } else if (opcion == 3) {
                                                     if (!proyecto3.equals("Próximamente")) {
-                                                        visualizarProyecto3(proyecto3,categoria3,financiacionTotal3,financiado3,fechaApertura3,fechaCierre3,recompensa1proy3,descripcion1proy3,precio1proy3);
-                                                        if (!recompensa2proy3.equals("")) {
-                                                            System.out.println("Recompensa 2: " + recompensa2proy3 + " por " + precio2proy3 + "€\n" +
-                                                                    "\t\t" + descripcion2proy3);
-                                                        }
-                                                        if (!recompensa3proy3.equals("")) {
-                                                            System.out.println("Recompensa 3: " + recompensa3proy3 + " por " + precio3proy3 + "€\n" +
-                                                                    "\t\t" + descripcion3proy3);
-                                                        }
+                                                        visualizarProyecto(proyecto3,categoria3,financiacionTotal3,financiado3,fechaApertura3,fechaCierre3,recompensa1proy3,descripcion1proy3,precio1proy3, recompensa2proy3, descripcion2proy3, precio2proy3, recompensa3proy3, descripcion3proy3, precio3proy3);
                                                         porcentajefinanciado3=financiado3*100/financiacionTotal3;
                                                         System.out.println("Actualmente se ha financiado un "+porcentajefinanciado3+"%");
                                                         grafico(porcentajefinanciado3);
@@ -1141,15 +1068,7 @@ public class Main {
                                 switch (opcion) {
                                     case 1-> {
                                         if (!proyecto1.equals("Próximamente")) {
-                                            visualizarProyecto1(proyecto1, categoria1, financiacionTotal1, financiado1, fechaApertura1, fechaCierre1, recompensa1proy1,descripcion1proy1,precio1proy1);
-                                            if (!recompensa2proy1.equals("")) {
-                                                System.out.println("Recompensa 2: " + recompensa2proy1 + " por " + precio2proy1 + "€\n" +
-                                                        "\t\t" + descripcion2proy1);
-                                            }
-                                            if (!recompensa3proy1.equals("")) {
-                                                System.out.println("Recompensa 3: " + recompensa3proy1 + " por " + precio3proy1 + "€\n" +
-                                                        "\t\t" + descripcion3proy1);
-                                            }
+                                            visualizarProyecto(proyecto1, categoria1, financiacionTotal1, financiado1, fechaApertura1, fechaCierre1, recompensa1proy1,descripcion1proy1,precio1proy1, recompensa2proy1, descripcion2proy1, precio2proy1, recompensa3proy1, descripcion3proy1, precio3proy1);
                                             porcentajefinanciado1=financiado1*100/financiacionTotal1;
                                             System.out.println("Actualmente se ha financiado un "+porcentajefinanciado1+"%");
                                             grafico(porcentajefinanciado1);
@@ -1174,15 +1093,8 @@ public class Main {
                                     }
                                     case 2-> {
                                         if (!proyecto2.equals("Próximamente")) {
-                                            visualizarProyecto2(proyecto2,categoria2,financiacionTotal2,financiado2,fechaApertura2,fechaCierre2,recompensa1proy2,descripcion1proy2,precio1proy2);
-                                            if (!recompensa2proy2.equals("")) {
-                                                System.out.println("Recompensa 2: " + recompensa2proy2 + " por " + precio2proy2 + "€\n" +
-                                                        "\t\t" + descripcion2proy2);
-                                            }
-                                            if (!recompensa3proy2.equals("")) {
-                                                System.out.println("Recompensa 3: " + recompensa3proy2 + " por " + precio3proy2 + "€\n" +
-                                                        "\t\t" + descripcion3proy2);
-                                            }porcentajefinanciado2=financiado2*100/financiacionTotal2;
+                                            visualizarProyecto(proyecto2,categoria2,financiacionTotal2,financiado2,fechaApertura2,fechaCierre2,recompensa1proy2,descripcion1proy2,precio1proy2, recompensa2proy2, descripcion2proy2, precio2proy2, recompensa3proy2, descripcion3proy2, precio3proy2);
+                                            porcentajefinanciado2=financiado2*100/financiacionTotal2;
                                             System.out.println("Actualmente se ha financiado un "+porcentajefinanciado2+"%");
                                             grafico(porcentajefinanciado2);
                                             System.out.println("\n Quieres invertir en el proyecto: "+proyecto2+"? (si/no)");
@@ -1206,15 +1118,7 @@ public class Main {
                                     }
                                     case 3-> {
                                         if (!proyecto3.equals("Próximamente")) {
-                                            visualizarProyecto3(proyecto3,categoria3,financiacionTotal3,financiado3,fechaApertura3,fechaCierre3,recompensa1proy3,descripcion1proy3,precio1proy3);
-                                            if (!recompensa2proy3.equals("")) {
-                                                System.out.println("Recompensa 2: " + recompensa2proy3 + " por " + precio2proy3 + "€\n" +
-                                                        "\t\t" + descripcion2proy3);
-                                            }
-                                            if (!recompensa3proy3.equals("")) {
-                                                System.out.println("Recompensa 3: " + recompensa3proy3 + " por " + precio3proy3 + "€\n" +
-                                                        "\t\t" + descripcion3proy3);
-                                            }
+                                            visualizarProyecto(proyecto3,categoria3,financiacionTotal3,financiado3,fechaApertura3,fechaCierre3,recompensa1proy3,descripcion1proy3,precio1proy3, recompensa2proy3, descripcion2proy3, precio2proy3, recompensa3proy3, descripcion3proy3, precio3proy3);
                                             porcentajefinanciado3=financiado3*100/financiacionTotal3;
                                             System.out.println("Actualmente se ha financiado un "+porcentajefinanciado3+"%");
                                             grafico(porcentajefinanciado3);
@@ -1244,28 +1148,12 @@ public class Main {
                             }
                             case 3:{
                                 do{
-                                    System.out.println("¿Qué quieres hacer?\n 1.Mostrar mi saldo actual\n 2.Añadir saldo\n 3.Salir");
-                                    opcion=Integer.parseInt(s.nextLine());
-                                    switch (opcion) {
-                                        case 1 -> {
-                                            System.out.println("Tu saldo actual es:");
-                                            System.out.println(saldoInversor1 + "€");
-                                        }
-                                        case 2 -> {
-                                            System.out.println("Cuánto quieres añadir?");
-                                            saldoInversor1 += Integer.parseInt(s.nextLine());
-                                        }
-                                        case 3 -> System.out.println("Saliendo de cartera digital");
-                                        default -> System.out.println("Esa opción no se encuentra en el menú");
-                                    }
+                                    saldoInversor1=gestionSaldoInversor(saldoInversor1);
                                 }while (opcion!=3);
                                 break;
                             }
                             case 4:{
-                                System.out.println("¿A quien quieres invitar? Introduce su email");
-                                amigosInvitadosInversor1=amigosInvitadosInversor1.concat(s.nextLine()+"\n");
-                                System.out.println("Tus amigos invitados hasta la fecha son los siguientes:");
-                                System.out.println(amigosInvitadosInversor1);
+                                amigosInvitadosInversor1=invitarAmigo(amigosInvitadosInversor1);
                                 break;
                             }
                             case 5:{
@@ -1358,15 +1246,7 @@ public class Main {
                                 switch (opcion) {
                                     case 1-> {
                                         if (!proyecto1.equals("Próximamente")) {
-                                            visualizarProyecto1(proyecto1, categoria1, financiacionTotal1, financiado1, fechaApertura1, fechaCierre1, recompensa1proy1,descripcion1proy1,precio1proy1);
-                                            if (!recompensa2proy1.equals("")) {
-                                                System.out.println("Recompensa 2: " + recompensa2proy1 + " por " + precio2proy1 + "€\n" +
-                                                        "\t\t" + descripcion2proy1);
-                                            }
-                                            if (!recompensa3proy1.equals("")) {
-                                                System.out.println("Recompensa 3: " + recompensa3proy1 + " por " + precio3proy1 + "€\n" +
-                                                        "\t\t" + descripcion3proy1);
-                                            }
+                                            visualizarProyecto(proyecto1, categoria1, financiacionTotal1, financiado1, fechaApertura1, fechaCierre1, recompensa1proy1,descripcion1proy1,precio1proy1, recompensa2proy1, descripcion2proy1, precio2proy1, recompensa3proy1, descripcion3proy1, precio3proy1);
                                             porcentajefinanciado1=financiado1*100/financiacionTotal1;
                                             System.out.println("Actualmente se ha financiado un "+porcentajefinanciado1+"%");
                                             grafico(porcentajefinanciado1);
@@ -1391,15 +1271,7 @@ public class Main {
                                     }
                                     case 2-> {
                                         if (!proyecto2.equals("Próximamente")) {
-                                            visualizarProyecto2(proyecto2,categoria2,financiacionTotal2,financiado2,fechaApertura2,fechaCierre2,recompensa1proy2,descripcion1proy2,precio1proy2);
-                                            if (!recompensa2proy2.equals("")) {
-                                                System.out.println("Recompensa 2: " + recompensa2proy2 + " por " + precio2proy2 + "€\n" +
-                                                        "\t\t" + descripcion2proy2);
-                                            }
-                                            if (!recompensa3proy2.equals("")) {
-                                                System.out.println("Recompensa 3: " + recompensa3proy2 + " por " + precio3proy2 + "€\n" +
-                                                        "\t\t" + descripcion3proy2);
-                                            }
+                                            visualizarProyecto(proyecto2,categoria2,financiacionTotal2,financiado2,fechaApertura2,fechaCierre2,recompensa1proy2,descripcion1proy2,precio1proy2, recompensa2proy2, descripcion2proy2, precio2proy2, recompensa3proy2, descripcion3proy2, precio3proy2);
                                             porcentajefinanciado2=financiado2*100/financiacionTotal2;
                                             System.out.println("Actualmente se ha financiado un "+porcentajefinanciado2+"%");
                                             grafico(porcentajefinanciado2);
@@ -1424,15 +1296,7 @@ public class Main {
                                     }
                                     case 3-> {
                                         if (!proyecto3.equals("Próximamente")) {
-                                            visualizarProyecto3(proyecto3,categoria3,financiacionTotal3,financiado3,fechaApertura3,fechaCierre3,recompensa1proy3,descripcion1proy3,precio1proy3);
-                                            if (!recompensa2proy3.equals("")) {
-                                                System.out.println("Recompensa 2: " + recompensa2proy3 + " por " + precio2proy3 + "€\n" +
-                                                        "\t\t" + descripcion2proy3);
-                                            }
-                                            if (!recompensa3proy3.equals("")) {
-                                                System.out.println("Recompensa 3: " + recompensa3proy3 + " por " + precio3proy3 + "€\n" +
-                                                        "\t\t" + descripcion3proy3);
-                                            }
+                                            visualizarProyecto(proyecto3,categoria3,financiacionTotal3,financiado3,fechaApertura3,fechaCierre3,recompensa1proy3,descripcion1proy3,precio1proy3, recompensa2proy3, descripcion2proy3, precio2proy3, recompensa3proy3, descripcion3proy3, precio3proy3);
                                             porcentajefinanciado3=financiado3*100/financiacionTotal3;
                                             System.out.println("Actualmente se ha financiado un "+porcentajefinanciado3+"%");
                                             grafico(porcentajefinanciado3);
@@ -1462,28 +1326,12 @@ public class Main {
                             }
                             case 3:{
                                 do{
-                                    System.out.println("¿Qué quieres hacer?\n 1.Mostrar mi saldo actual\n 2.Añadir saldo\n 3.Salir");
-                                    opcion=Integer.parseInt(s.nextLine());
-                                    switch (opcion) {
-                                        case 1 -> {
-                                            System.out.println("Tu saldo actual es:");
-                                            System.out.println(saldoInversor2 + "€");
-                                        }
-                                        case 2 -> {
-                                            System.out.println("Cuánto quieres añadir?");
-                                            saldoInversor2 += Integer.parseInt(s.nextLine());
-                                        }
-                                        case 3 -> System.out.println("Saliendo de Cartera Digital");
-                                        default -> System.out.println("Esa opción no se encuentra en el menú");
-                                    }
+                                    saldoInversor2=gestionSaldoInversor(saldoInversor2);
                                 }while (opcion!=3);
                                 break;
                             }
                             case 4:{
-                                System.out.println("¿A quien quieres invitar? Introduce su email");
-                                amigosInvitadosInversor2=amigosInvitadosInversor2.concat(s.nextLine()+"\n");
-                                System.out.println("Tus amigos invitados hasta la fecha son los siguientes:");
-                                System.out.println(amigosInvitadosInversor2);
+                                amigosInvitadosInversor2=invitarAmigo(amigosInvitadosInversor2);
                                 break;
                             }
                             case 5:{
