@@ -160,7 +160,7 @@ public class Funciones {
     }
 
     /**
-     * Muestra el menú de configuración de los usuarios.
+     * Muestra para la eleccion de la recompensa.
      * @author AnaOrCam
      * @return no devuelve nada.
      */
@@ -260,7 +260,7 @@ public class Funciones {
     }
 
     /**
-     * Menu de visualizacion de borrado de los proyectos.
+     * Funcion para el envio del correo.
      * @author davidrn06
      * @param destinatario nombre del destinatario que recibe la autentificacion en dos factores.
      * @param asunto asunto correspondiente al correo enviado.
@@ -296,7 +296,7 @@ public class Funciones {
         }
     }
     /**
-     * Menu de visualizacion de borrado de los proyectos.
+     * Menu para generar el codigo de autentificacion.
      * @author davidrn06
      * @return Devuelve el codigo de autentificacion generado para el acceso a los perfiles.
      */
