@@ -9,7 +9,7 @@ public class Main {
         final String ANSI_PURPLE= "\033[35m";
         String usuario;
         String contrasena;
-        String destinatario="ana.oc.094@gmail.com";
+        String destinatario="davidrosanebrera@gmail.com";
         String usuarioAdmin="administrador", usuarioGestor="gestor", usuarioInversor1="inversor1", usuarioInversor2="inversor2";
         String contrasenaAdmin="admin", contrasenaGestor="gestor", contrasenaInversor1="inversor1", contrasenaInversor2="inversor2";
         int intentoGestor=3, intentoInversor1=3, intentoInversor2=3;
@@ -49,8 +49,7 @@ public class Main {
         int inversionProyecto1Inversor1=0, inversionProyecto2Inversor1=0, inversionProyecto3Inversor1=0;
         int inversionProyecto1Inversor2=0,inversionProyecto2Inversor2=0, inversionProyecto3Inversor2=0;
         String amigosInvitadosInversor1="", amigosInvitadosInversor2="";
-        int autentificacion=0;
-        double autentificacionInicial =0;
+        int autentificacion;
 
         System.out.println(ANSI_PURPLE+"\n**[Bienvenido a FernanStarter]**\n"+ANSI_RESET);
         do{
@@ -61,10 +60,9 @@ public class Main {
             if (!usuario.equals("s") && !contrasena.equals("s")) {
                 if (usuario.equals(usuarioAdmin) && contrasena.equals(contrasenaAdmin) ) {
                     System.out.println("Hemos enviado un código a tu correo. Introduce la autentificación");
-                    autentificacionInicial =Math.random();
-                    autentificacion =(int) (autentificacionInicial*8999+1000);
+                    autentificacion=generarAutentificacion();
                     String asunto = "Codigo de autentificacion";
-                    String cuerpo = "codigo "+ autentificacion;
+                    String cuerpo = "Codigo de verificacion para el inicio de sesion : "+ autentificacion+"\n Bienvenido a FernanStarter";
                     enviarConGMail(destinatario, asunto, cuerpo);
                     int codigo=Integer.parseInt(s.nextLine());
                     if (codigo == autentificacion) {
@@ -76,10 +74,9 @@ public class Main {
                 }
                 if (usuario.equals(usuarioGestor)&&contrasena.equals(contrasenaGestor)&&gestorbloqueado.equals(false)) {
                     System.out.println("Hemos enviado un código a tu correo. Introduce autentificacion");
-                    autentificacionInicial =Math.random();
-                    autentificacion =(int) (autentificacionInicial*8999+1000);
+                    autentificacion=generarAutentificacion();
                     String asunto = "Codigo de autentificacion";
-                    String cuerpo = "codigo "+ autentificacion;
+                    String cuerpo = "Codigo de verificacion para el inicio de sesion : "+ autentificacion+"\n Bienvenido a FernanStarter";
                     enviarConGMail(destinatario, asunto, cuerpo);
                     int codigo=Integer.parseInt(s.nextLine());
                     if (codigo == autentificacion) {
@@ -95,10 +92,9 @@ public class Main {
                 }
                 if (usuario.equals(usuarioInversor1)&&contrasena.equals(contrasenaInversor1)&&inversor1bloqueado.equals(false)) {
                     System.out.println("Hemos enviado un código a tu correo. Introduce autentificacion");
-                    autentificacionInicial =Math.random();
-                    autentificacion =(int) (autentificacionInicial*8999+1000);
+                    autentificacion=generarAutentificacion();
                     String asunto = "Codigo de autentificacion";
-                    String cuerpo = "codigo "+ autentificacion;
+                    String cuerpo = "Codigo de verificacion para el inicio de sesion : "+ autentificacion+"\n Bienvenido a FernanStarter";
                     enviarConGMail(destinatario, asunto, cuerpo);
                     int codigo=Integer.parseInt(s.nextLine());
                     if (codigo == autentificacion) {
@@ -115,10 +111,9 @@ public class Main {
                 }
                 if (usuario.equals(usuarioInversor2)&&contrasena.equals(contrasenaInversor2)&&inversor2bloqueado.equals(false)) {
                     System.out.println("Hemos enviado un código a tu correo. Introduce autentificacion");
-                    autentificacionInicial =Math.random();
-                    autentificacion =(int) (autentificacionInicial*8999+1000);
+                    autentificacion=generarAutentificacion();
                     String asunto = "Codigo de autentificacion";
-                    String cuerpo = "codigo "+ autentificacion;
+                    String cuerpo = "Codigo de verificacion para el inicio de sesion : "+ autentificacion+"\n Bienvenido a FernanStarter";
                     enviarConGMail(destinatario, asunto, cuerpo);
                     int codigo=Integer.parseInt(s.nextLine());
                     if (codigo == autentificacion) {

@@ -184,7 +184,16 @@ public class Funciones {
                 "3. Precio\n" +
                 "4. Salir");
     }
-
+    /**
+     * Menu de visualizacion de los proyectos.
+     * @author davidrn06
+     * @param proyecto1 nombre del proyecto numero 1.
+     * @param proyecto2 nombre del proyecto numero 2.
+     * @param proyecto3 nombre del proyecto numero 3.
+     * @param ANSI_GREEN asignacion de color verde.
+     * @param ANSI_RESET asignacion de color predeterminado.
+     * @return no devuelve ningun valor.
+     */
     public static void verProyecto(String proyecto1,String proyecto2, String proyecto3,String ANSI_GREEN, String ANSI_RESET){
         System.out.println("Has accedido a proyectos");
         System.out.println(ANSI_GREEN+"*****PROYECTOS*****"+ANSI_RESET);
@@ -194,6 +203,14 @@ public class Funciones {
                 "3. Proyecto 3: " + proyecto3 + "\n" +
                 "4. Salir");
     }
+    /**
+     * Menu de visualizacion de borrado de los proyectos.
+     * @author davidrn06
+     * @param proyecto1 nombre del proyecto numero 1.
+     * @param proyecto2 nombre del proyecto numero 2.
+     * @param proyecto3 nombre del proyecto numero 3.
+     * @return no devuelve ningun valor.
+     */
     public static void borrarProyecto( String proyecto1,String proyecto2, String proyecto3){
         System.out.println("Elija un proyecto para borrar\n" +
                 "1. Proyecto 1: " + proyecto1 + "\n" +
@@ -242,10 +259,17 @@ public class Funciones {
         return saldo;
     }
 
-
+    /**
+     * Menu de visualizacion de borrado de los proyectos.
+     * @author davidrn06
+     * @param destinatario nombre del destinatario que recibe la autentificacion en dos factores.
+     * @param asunto asunto correspondiente al correo enviado.
+     * @param cuerpo cuerpo del correo enviado.
+     * @return no devuelve ningun valor.
+     */
     public static void enviarConGMail(String destinatario, String asunto, String cuerpo) {
-        String remitente = "ana.oc.094@gmail.com";
-        String clave = "pimc zxie qftf gdvn";
+        String remitente = "davidrosanebrera@gmail.com";
+        String clave = "cnnu lpxh vvva enhn";
 
         Properties props = System.getProperties();
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -270,5 +294,10 @@ public class Funciones {
         catch (Exception me) {
             me.printStackTrace();
         }
+    }
+    public static int generarAutentificacion(){
+        double autentificacionInicial =Math.random();
+        int  autentificacion =(int) (autentificacionInicial*8999+1000);
+        return autentificacion;
     }
 }
