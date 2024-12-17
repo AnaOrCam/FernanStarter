@@ -39,7 +39,6 @@ public class Main {
         String descripcion1proy1 ="", descripcion2proy1 ="", descripcion3proy1 ="";
         String descripcion1proy2 ="", descripcion2proy2 ="", descripcion3proy2 ="";
         String descripcion1proy3 ="", descripcion2proy3 ="", descripcion3proy3 ="";
-
         int precio1proy1 =0, precio2proy1 =0, precio3proy1 =0;
         int precio1proy2 =0, precio2proy2 =0, precio3proy2 =0;
         int precio1proy3 =0, precio2proy3 =0, precio3proy3 =0;
