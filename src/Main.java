@@ -9,7 +9,7 @@ public class Main {
         final String ANSI_PURPLE= "\033[35m";
         String usuario;
         String contrasena;
-        String destinatario="davidrosanebrera@gmail.com";
+        String destinatarioAdmin="ana.oc.094@gmail.com", destinatarioGestor="ana.oc.094@gmail.com", destinatarioInversor1="ana.oc.094@gmail.com", destinatarioInversor2="ana.oc.094@gmail.com";
         String usuarioAdmin="administrador", usuarioGestor="gestor", usuarioInversor1="inversor1", usuarioInversor2="inversor2";
         String contrasenaAdmin="admin", contrasenaGestor="gestor", contrasenaInversor1="inversor1", contrasenaInversor2="inversor2";
         int intentoGestor=3, intentoInversor1=3, intentoInversor2=3;
@@ -39,7 +39,6 @@ public class Main {
         String descripcion1proy1 ="", descripcion2proy1 ="", descripcion3proy1 ="";
         String descripcion1proy2 ="", descripcion2proy2 ="", descripcion3proy2 ="";
         String descripcion1proy3 ="", descripcion2proy3 ="", descripcion3proy3 ="";
-
         int precio1proy1 =0, precio2proy1 =0, precio3proy1 =0;
         int precio1proy2 =0, precio2proy2 =0, precio3proy2 =0;
         int precio1proy3 =0, precio2proy3 =0, precio3proy3 =0;
@@ -63,7 +62,7 @@ public class Main {
                     autentificacion=generarAutentificacion();
                     String asunto = "Codigo de autentificacion";
                     String cuerpo = "Codigo de verificacion para el inicio de sesion : "+ autentificacion+"\n Bienvenido a FernanStarter";
-                    enviarConGMail(destinatario, asunto, cuerpo);
+                    enviarConGMail(destinatarioAdmin, asunto, cuerpo);
                     int codigo=Integer.parseInt(s.nextLine());
                     if (codigo == autentificacion) {
                         System.out.println(ANSI_GREEN+"Bienvenido Administrador"+ANSI_RESET);
@@ -77,7 +76,7 @@ public class Main {
                     autentificacion=generarAutentificacion();
                     String asunto = "Codigo de autentificacion";
                     String cuerpo = "Codigo de verificacion para el inicio de sesion : "+ autentificacion+"\n Bienvenido a FernanStarter";
-                    enviarConGMail(destinatario, asunto, cuerpo);
+                    enviarConGMail(destinatarioGestor, asunto, cuerpo);
                     int codigo=Integer.parseInt(s.nextLine());
                     if (codigo == autentificacion) {
                         System.out.println(ANSI_GREEN+"Bienvenido Gestor"+ANSI_RESET);
@@ -95,7 +94,7 @@ public class Main {
                     autentificacion=generarAutentificacion();
                     String asunto = "Codigo de autentificacion";
                     String cuerpo = "Codigo de verificacion para el inicio de sesion : "+ autentificacion+"\n Bienvenido a FernanStarter";
-                    enviarConGMail(destinatario, asunto, cuerpo);
+                    enviarConGMail(destinatarioInversor1, asunto, cuerpo);
                     int codigo=Integer.parseInt(s.nextLine());
                     if (codigo == autentificacion) {
                         System.out.println(ANSI_GREEN+"Bienvenido Inversor1"+ANSI_RESET);
@@ -114,7 +113,7 @@ public class Main {
                     autentificacion=generarAutentificacion();
                     String asunto = "Codigo de autentificacion";
                     String cuerpo = "Codigo de verificacion para el inicio de sesion : "+ autentificacion+"\n Bienvenido a FernanStarter";
-                    enviarConGMail(destinatario, asunto, cuerpo);
+                    enviarConGMail(destinatarioInversor2, asunto, cuerpo);
                     int codigo=Integer.parseInt(s.nextLine());
                     if (codigo == autentificacion) {
                         System.out.println(ANSI_GREEN+"Bienvenido Inversor2"+ANSI_RESET);
@@ -223,7 +222,6 @@ public class Main {
                                             }
                                             default:
                                                 System.out.println("Opción no valida , saliendo al menu principal de "+usuarioAdmin);
-
                                         }
                                         break;
                                     }
