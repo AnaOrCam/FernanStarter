@@ -295,6 +295,11 @@ public class Funciones {
             me.printStackTrace();
         }
     }
+    /**
+     * Menu de visualizacion de borrado de los proyectos.
+     * @author davidrn06
+     * @return Devuelve el codigo de autentificacion generado para el acceso a los perfiles.
+     */
     public static int generarAutentificacion(){
         double autentificacionInicial =Math.random();
         int  autentificacion =(int) (autentificacionInicial*8999+1000);
