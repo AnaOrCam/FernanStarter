@@ -223,7 +223,7 @@ public class Funciones {
      * Añade un nuevo amigo a la lista de amigos invitados y luego muestra la lista actualizada.
      * @author AnaOrCam
      * @param amigosInvitados es la cadena con los amigos invitados hasta el momento.
-     * @return no devuelve nada.
+     * @return devuelve una cadena.
      */
     public static String invitarAmigo (String amigosInvitados){
         Scanner s=new Scanner (System.in);
