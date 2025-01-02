@@ -45,14 +45,108 @@ public class Main {
         int opcionProyectoAdmin=0;
         int saldoInversor1=0, saldoInversor2=0;
         int intentoInversion;
+        int opcionInicial=0;
         int inversionProyecto1Inversor1=0, inversionProyecto2Inversor1=0, inversionProyecto3Inversor1=0;
         int inversionProyecto1Inversor2=0,inversionProyecto2Inversor2=0, inversionProyecto3Inversor2=0;
         String amigosInvitadosInversor1="", amigosInvitadosInversor2="";
         int autentificacion;
+        boolean creado=false;
+        int respuesta=0;
+
+        String [] nombreUsuarioInversor = new String[10];
+        String [] contrasenaUsuarioInversor = new String[10];
+        String [] correoUsuarioInversor = new String[10];
+
+
+        String [] nombreUsuarioGestor = new String[10];
+        String [] contrasenaUsuarioGestor = new String[10];
+        String [] correoUsuarioGestor = new String[10];
+
 
         System.out.println(ANSI_PURPLE+"\n**[Bienvenido a FernanStarter]**\n"+ANSI_RESET);
+        for (int x=0;x<10;x++){
+            nombreUsuarioGestor[x]="";
+            nombreUsuarioInversor[x]="";
+            contrasenaUsuarioGestor[x]="";
+            contrasenaUsuarioInversor[x]="";
+        }
         do{
             bienvenido=false;
+            System.out.println("Que desea hacer");
+            System.out.println("1.Crear nuevo usuario");
+            System.out.println("2.Iniciar Sesion");
+            opcionInicial=Integer.parseInt(s.nextLine());
+            if (opcionInicial==1){
+                do {
+                    System.out.println("ACCESO A CREACION DE USUARIO");
+                    System.out.println("Que tipo de perfil desea crear");
+                    System.out.println("1.Inversor");
+                    System.out.println("2.Gestor");
+                    int creacionPerfil=Integer.parseInt(s.nextLine());
+                    if (creacionPerfil==1){
+                        creado=false;
+                        for (int i=0;i<10;i++){
+                            if (nombreUsuarioInversor[i].equals("")&&creado==false){
+                                System.out.println("Introduzca el nombre de usuario del nuevo perfil inversor");
+                                nombreUsuarioInversor[i]=s.nextLine();
+                                System.out.println("Introduzca la contraseña de usuario del nuevo perfil inversor ");
+                                contrasenaUsuarioInversor[i]=s.nextLine();
+                                System.out.println("Introduzca su correo ");
+                                correoUsuarioInversor[i]=s.nextLine();
+                                System.out.println("Introduzca el codigo de verificacion para la creacion del perfil que hemos enviado a su correo");
+                                autentificacion=generarAutentificacion();
+                                String asunto = "Codigo de autentificacion";
+                                String cuerpo = "Codigo de verificacion para crear sesion : "+ autentificacion+"\n ";
+                                enviarConGMail(correoUsuarioInversor[i], asunto, cuerpo);
+                                    int verificaion=Integer.parseInt(s.nextLine());
+                                    if (verificaion==autentificacion){
+                                        System.out.println("Usuario creado con exito");
+                                    }else {
+                                        System.out.println("El codigo no corresponde al enviado, creacion fallida");
+                                        nombreUsuarioInversor[i]="";
+                                        contrasenaUsuarioInversor[i]="";
+                                        correoUsuarioInversor[i]="";
+                                    }
+                                creado=true;
+
+                            }
+                        }
+                    }else if (creacionPerfil==2){
+                        creado=false;
+                        for (int i=0;i<10;i++){
+                            if (nombreUsuarioGestor[i].equals("")&&creado==false){
+                                System.out.println("Introduzca el nombre de usuario del nuevo perfil gestor");
+                                nombreUsuarioGestor[i]=s.nextLine();
+                                System.out.println("Introduzca la contraseña de usuario del nuevo perfil gestor ");
+                                contrasenaUsuarioGestor[i]=s.nextLine();
+                                System.out.println("Introduzca su correo ");
+                                correoUsuarioGestor[i]=s.nextLine();
+                                creado=true;
+                                System.out.println("Introduzca el codigo de verificacion para la creacion del perfil que hemos enviado a su correo");
+                                autentificacion=generarAutentificacion();
+                                String asunto = "Codigo de autentificacion";
+                                String cuerpo = "Codigo de verificacion para crear sesion : "+ autentificacion+"\n ";
+                                enviarConGMail(correoUsuarioGestor[i], asunto, cuerpo);
+                                int verificaion=Integer.parseInt(s.nextLine());
+                                if (verificaion==autentificacion){
+                                    System.out.println("Usuario creado con exito");
+                                }else {
+                                    System.out.println("El codigo no corresponde al enviado, creacion fallida");
+                                    nombreUsuarioGestor[i]="";
+                                    contrasenaUsuarioGestor[i]="";
+                                    correoUsuarioGestor[i]="";
+                                }
+                            }
+                        }
+                    }
+                    System.out.println("¿Desea crear otro usuario?");
+                    System.out.println("1.Si");
+                    System.out.println("2.No");
+                    respuesta = Integer.parseInt(s.nextLine());
+                }while(respuesta==1);
+            }
+
+
             System.out.println("Introduce usuario y contraseña. Pulsa s para salir");
             usuario=s.nextLine();
             contrasena=s.nextLine();
