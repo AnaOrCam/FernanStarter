@@ -6,6 +6,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 import java.util.Scanner;
+import static utilidades.FuncionesCadenas.*;
 
 public class Funciones {
 
@@ -225,12 +226,19 @@ public class Funciones {
      * @param amigosInvitados es la cadena con los amigos invitados hasta el momento.
      * @return devuelve una cadena.
      */
-    public static String invitarAmigo (String amigosInvitados){
+    public static String [] invitarAmigo (String[] amigosInvitados, String[] usuarios, String []contrasenas){
         Scanner s=new Scanner (System.in);
-        System.out.println("¿A quien quieres invitar? Introduce su email");
-        amigosInvitados=amigosInvitados.concat(s.nextLine()+"\n");
-        System.out.println("Tus amigos invitados hasta la fecha son los siguientes:");
-        System.out.println(amigosInvitados);
+        System.out.println("Introduce usuario y contraseña para validar la operación");
+        String usuario=s.nextLine();
+        String contrasena=s.nextLine();
+        for (int i = 0; i < usuarios.length; i++) {
+            if (validarOperacion(usuario,contrasena,usuarios,contrasenas)) {
+                System.out.println("¿A quien quieres invitar? Introduce su email");
+                amigosInvitados[i] = amigosInvitados[i].concat(s.nextLine() + "\n");
+                System.out.println("Tus amigos invitados hasta la fecha son los siguientes:");
+                System.out.println(amigosInvitados[i]);
+            }
+        }
         return amigosInvitados;
     }
 
@@ -240,21 +248,32 @@ public class Funciones {
      * @param saldo numero entero que indica el saldo del usuario.
      * @return devuelve un entero.
      */
-    public static int gestionSaldoInversor (int saldo){
+    public static int[] gestionSaldoInversor (String []usuarios, String []contrasenas, int []saldo){
         Scanner s=new Scanner(System.in);
-        System.out.println("¿Qué quieres hacer?\n 1.Mostrar mi saldo actual\n 2.Añadir saldo\n 3.Salir");
-        int opcion=Integer.parseInt(s.nextLine());
-        switch (opcion) {
-            case 1 -> {
-                System.out.println("Tu saldo actual es:");
-                System.out.println(saldo + "€");
+        System.out.println("Por favor introzuca usuario y contraseña para acceder a la cartera digital");
+        String usuario=s.nextLine();
+        String contrasena=s.nextLine();
+        if (validarOperacion(usuario, contrasena, usuarios, contrasenas)) {
+            System.out.println("¿Qué quieres hacer?\n 1.Mostrar mi saldo actual\n 2.Añadir saldo\n 3.Salir");
+            int opcion = Integer.parseInt(s.nextLine());
+            for (int i = 0; i < usuarios.length; i++) {
+                if (usuario.equals(usuarios[i]) && contrasena.equals(contrasenas[i])) {
+                    switch (opcion) {
+                        case 1 -> {
+                            System.out.println("Tu saldo actual es:");
+                            System.out.println(saldo[i] + "€");
+                        }
+                        case 2 -> {
+                            System.out.println("Cuánto quieres añadir?");
+                            saldo[i] += Integer.parseInt(s.nextLine());
+                        }
+                        case 3 -> System.out.println("Saliendo de Cartera Digital");
+                        default -> System.out.println("Esa opción no se encuentra en el menú");
+                    }
+                }
             }
-            case 2 -> {
-                System.out.println("Cuánto quieres añadir?");
-                saldo+= Integer.parseInt(s.nextLine());
-            }
-            case 3 -> System.out.println("Saliendo de Cartera Digital");
-            default -> System.out.println("Esa opción no se encuentra en el menú");
+        }else{
+            System.out.println("El nombre de usuario o la contraseña son incorrectos");
         }
         return saldo;
     }

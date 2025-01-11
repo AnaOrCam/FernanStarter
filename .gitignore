@@ -1,4 +1,5 @@
 ### IntelliJ IDEA ###
+out/*
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
@@ -11,7 +12,7 @@ out/
 .settings
 .springBeans
 .sts4-cache
-javadoc/
+javadoc/*
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
