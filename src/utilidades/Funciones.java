@@ -231,13 +231,17 @@ public class Funciones {
         System.out.println("Introduce usuario y contraseña para validar la operación");
         String usuario=s.nextLine();
         String contrasena=s.nextLine();
-        for (int i = 0; i < usuarios.length; i++) {
-            if (validarOperacion(usuario,contrasena,usuarios,contrasenas)) {
-                System.out.println("¿A quien quieres invitar? Introduce su email");
-                amigosInvitados[i] = amigosInvitados[i].concat(s.nextLine() + "\n");
-                System.out.println("Tus amigos invitados hasta la fecha son los siguientes:");
-                System.out.println(amigosInvitados[i]);
+        if (validarOperacion(usuario,contrasena,usuarios,contrasenas)) {
+            System.out.println("¿A quien quieres invitar? Introduce su email");
+            for (int i = 0; i < usuarios.length; i++) {
+                if (usuario.equals(usuarios[i])) {
+                    amigosInvitados[i] = amigosInvitados[i].concat(s.nextLine() + "\n");
+                    System.out.println("Tus amigos invitados hasta la fecha son los siguientes:");
+                    System.out.println(amigosInvitados[i]);
+                }
             }
+        }else{
+            System.out.println("La autenticación ha fallado.");
         }
         return amigosInvitados;
     }
@@ -266,6 +270,7 @@ public class Funciones {
                         case 2 -> {
                             System.out.println("Cuánto quieres añadir?");
                             saldo[i] += Integer.parseInt(s.nextLine());
+                            System.out.println("Operación realizada satisfactoriamente.");
                         }
                         case 3 -> System.out.println("Saliendo de Cartera Digital");
                         default -> System.out.println("Esa opción no se encuentra en el menú");
@@ -273,7 +278,7 @@ public class Funciones {
                 }
             }
         }else{
-            System.out.println("El nombre de usuario o la contraseña son incorrectos");
+            System.out.println("La autenticación ha fallado.");
         }
         return saldo;
     }

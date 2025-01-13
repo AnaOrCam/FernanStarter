@@ -10,15 +10,15 @@ public class Main {
         final String ANSI_PURPLE= "\033[35m";
         String usuario="";
         String contrasena;
-        String destinatarioAdmin="davidrosanebrera@gmail.com";
+        String destinatarioAdmin="ana.oc.094@gmail.com";
         String usuarioAdmin="administrador";
         String contrasenaAdmin="admin";
         String [] nombreUsuarioGestor = {"gestor","","","","","","","","",""};
         String [] contrasenaUsuarioGestor = {"gestor","","","","","","","","",""};
-        String [] correoUsuarioGestor = {"davidrosanebrera@gmail.com","","","","","","","","",""};
+        String [] correoUsuarioGestor = {"ana.oc.094@gmail.com","","","","","","","","",""};
         String [] nombreUsuarioInversor = {"inversor","","","","","","","","",""};
         String [] contrasenaUsuarioInversor = {"inversor","","","","","","","","",""};
-        String [] correoUsuarioInversor = {"davidrosanebrera@gmail.com","","","","","","","","",""};
+        String [] correoUsuarioInversor = {"ana.oc.094@gmail.com","","","","","","","","",""};
         String [] proyecto = {"","","","","","","","","","","","","","","","","","","",""};
         String [] categoria = {"","","","","","","","","","","","","","","","","","","",""};
         int [] financiacionTotal = new int [20];
@@ -26,14 +26,11 @@ public class Main {
         String [] fechaApertura = {"","","","","","","","","","","","","","","","","","","",""};
         String [] fechaCierre = {"","","","","","","","","","","","","","","","","","","",""};
 
-
         int [] intentoGestor= new int[10];
         int [] intentoInversor= new int[10];
         int [] intentoGestorCodigo= new int[10];
         int [] intentoInversorCodigo= new int[10];
         int [] saldoInversor= new int[10];
-
-
         String [] amigosInvitadosInversor= new String[10];
         boolean [] gestorbloqueado=new boolean [10];
         boolean [] inversorbloqueado=new boolean [10];
@@ -106,7 +103,7 @@ public class Main {
             opcionInicial=Integer.parseInt(s.nextLine());
             if (opcionInicial==1){
 
-                System.out.println("ACCESO A CREACION DE USUARIO");
+                System.out.println(ANSI_PURPLE+"---ACCESO A CREACION DE USUARIO---"+ANSI_RESET);
                 System.out.println("Que tipo de perfil desea crear");
                 System.out.println("1.Inversor");
                 System.out.println("2.Gestor");
@@ -204,7 +201,7 @@ public class Main {
                                 bienvenido = true;
                                 loginHecho=true;
                             } else {
-                                System.out.println("Acceso denegado, clave de autentificacion erronea");
+                                System.out.println(ANSI_RED+"Acceso denegado, clave de autentificacion erronea"+ANSI_RESET);
                             }
                         }
                         for (int i = 0; i < nombreUsuarioGestor.length; i++) {
@@ -226,13 +223,13 @@ public class Main {
                                         loginHecho=true;
                                         intentoGestorCodigo[i] = 3;
                                     } else {
-                                        System.out.println("Acceso denegado, clave de autentificacion errónea");
+                                        System.out.println(ANSI_RED+"Acceso denegado, clave de autentificacion errónea"+ANSI_RESET);
                                         intentoGestorCodigo[i]--;
                                         System.out.println("Te quedan " + intentoGestorCodigo[i] + " intentos.");
                                     }
                                     if (intentoGestorCodigo[i] <= 0) {
                                         gestorbloqueado[i] = true;
-                                        System.out.println("El usuario ha sido bloqueado. Contacte con el Administrador.");
+                                        System.out.println(ANSI_RED+"El usuario ha sido bloqueado. Contacte con el Administrador."+ANSI_RESET);
                                     }
                                 } else {
                                     System.out.println("Usuario o contraseña incorrectos");
@@ -240,10 +237,10 @@ public class Main {
                                     System.out.println("Te quedan " + intentoGestor[i] + " intentos.");
                                     if (intentoGestor[i] <= 0) {
                                         gestorbloqueado[i] = true;
-                                        System.out.println("El usuario ha sido bloqueado. Contacte con el Administrador.");
+                                        System.out.println(ANSI_RED+"El usuario ha sido bloqueado. Contacte con el Administrador."+ANSI_RESET);
                                     }
                                 }
-                            } else if (gestorbloqueado[i]) {
+                            } else if (usuario.equals(nombreUsuarioGestor[i]) && gestorbloqueado[i]) {
                                 System.out.println("El usuario está bloqueado. Por favor contacte con el administrador");
                             }
                         }
@@ -265,13 +262,13 @@ public class Main {
                                         loginHecho=true;
                                         intentoInversorCodigo[i] = 3;
                                     } else {
-                                        System.out.println("Acceso denegado, clave de autentificacion erronea");
+                                        System.out.println(ANSI_RED+"Acceso denegado, clave de autentificacion erronea"+ANSI_RESET);
                                         intentoInversorCodigo[i]--;
                                         System.out.println("Te quedan " + intentoInversorCodigo[i] + " intentos.");
                                     }
                                     if (intentoInversorCodigo[i] <= 0) {
                                         inversorbloqueado[i] = true;
-                                        System.out.println("El usuario ha sido bloqueado. Contacte con el Administrador.");
+                                        System.out.println(ANSI_RED+"El usuario ha sido bloqueado. Contacte con el Administrador."+ANSI_RESET);
                                     }
                                 } else {
                                     System.out.println("Usuario o contraseña incorrectos");
@@ -279,11 +276,11 @@ public class Main {
                                     System.out.println("Te quedan " + intentoInversor[i] + " intentos.");
                                     if (intentoInversor[i] <= 0) {
                                         gestorbloqueado[i] = true;
-                                        System.out.println("El usuario ha sido bloqueado. Contacte con el Administrador.");
+                                        System.out.println(ANSI_RED+"El usuario ha sido bloqueado. Contacte con el Administrador."+ANSI_RESET);
                                     }
                                 }
 
-                            } else if (inversorbloqueado[i]) {
+                            } else if (usuario.equals(nombreUsuarioInversor[i]) && inversorbloqueado[i]) {
                                 System.out.println("El usuario está bloqueado. Por favor contacte con el administrador");
                             }
                         }
@@ -297,7 +294,7 @@ public class Main {
                 }while (!usuario.equals("s") && !contrasena.equals("s") && !bienvenido);
 
             } else if (opcionInicial==3) {
-                System.out.println("Cerrando FernanStarter...");
+                System.out.println(ANSI_PURPLE+"Cerrando FernanStarter..."+ANSI_RESET);
             }else{
                 System.out.println("Esa opción no se encuentra en el menú");
             }
@@ -316,10 +313,11 @@ public class Main {
                                 eleccionadmin=Integer.parseInt(s.nextLine());
                                 switch (eleccionadmin){
                                     case 1:{
-                                        for (int i = 0; i < nombreUsuarioGestor.length; i++) {
+                                        int i=0;
+                                        do{
                                             if (!nombreUsuarioGestor[i].equals("")){
                                                 System.out.print("El estado de "+ nombreUsuarioGestor[i]+ " es ");
-                                                if(gestorbloqueado.equals(false)){
+                                                if(!gestorbloqueado[i]){
                                                     System.out.println(ANSI_GREEN+"desbloqueado"+ANSI_RESET);
                                                 }else {
                                                     System.out.println(ANSI_RED+"bloqueado"+ANSI_RESET);
@@ -329,19 +327,19 @@ public class Main {
                                             admin_gestor=Integer.parseInt(s.nextLine());
                                             switch (admin_gestor){
                                                 case 1:{
-                                                    if(gestorbloqueado.equals(true)){
+                                                    if(gestorbloqueado[i]){
                                                         System.out.println("Este usuario ya esta bloqueado");
                                                     }else {
-                                                        System.out.println("Usuario bloqueado satisfactoriamente");
+                                                        System.out.println(ANSI_RED+"Usuario bloqueado satisfactoriamente"+ANSI_RESET);
                                                         gestorbloqueado[i]=true;
                                                     }
                                                     break;
                                                 }
                                                 case 2:{
-                                                    if(gestorbloqueado.equals(false)){
+                                                    if(!gestorbloqueado[i]){
                                                         System.out.println("Este usuario ya esta desbloqueado");
                                                     }else {
-                                                        System.out.println("Usuario desbloqueado satisfactoriamente");
+                                                        System.out.println(ANSI_GREEN+"Usuario desbloqueado satisfactoriamente"+ANSI_RESET);
                                                         gestorbloqueado[i]=false;
                                                         intentoGestorCodigo[i]=3;
                                                         intentoGestor[i]=3;
@@ -355,12 +353,14 @@ public class Main {
                                                 default:
                                                     System.out.println("Opción no valida , saliendo al menu principal de "+usuarioAdmin);
                                             }
-                                        }
+                                            i++;
+                                        }while (admin_gestor!=3 && i<=nombreUsuarioGestor.length-1);
                                         break;
                                     }
                                     case 2: {
-                                        for (int i = 0; i < nombreUsuarioGestor.length; i++) {
-                                            if (!nombreUsuarioGestor[i].equals("")) {
+                                        int i=0;
+                                        do{
+                                            if (!nombreUsuarioInversor[i].equals("")) {
                                                 System.out.print("El estado de " + nombreUsuarioInversor[i] + " es ");
                                                 if (!inversorbloqueado[i]) {
                                                     System.out.println(ANSI_GREEN + "desbloqueado" + ANSI_RESET);
@@ -375,7 +375,7 @@ public class Main {
                                                     if (inversorbloqueado[i]) {
                                                         System.out.println("Este usuario ya esta bloqueado");
                                                     } else {
-                                                        System.out.println("Usuario bloqueado satisfactoriamente");
+                                                        System.out.println(ANSI_RED+"Usuario bloqueado satisfactoriamente"+ANSI_RESET);
                                                         inversorbloqueado[i] = true;
                                                     }
                                                     break;
@@ -384,7 +384,7 @@ public class Main {
                                                     if (!inversorbloqueado[i]) {
                                                         System.out.println("Este usuario ya esta desbloqueado");
                                                     } else {
-                                                        System.out.println("Usuario desbloqueado satisfactoriamente");
+                                                        System.out.println(ANSI_GREEN+"Usuario desbloqueado satisfactoriamente"+ANSI_RESET);
                                                         inversorbloqueado[i] = false;
                                                         intentoInversorCodigo[i] = 3;
                                                         intentoInversor[i] = 3;
@@ -395,11 +395,14 @@ public class Main {
                                                     System.out.println("Saliendo al menú principal de " + usuarioAdmin);
                                                     break;
                                                 }
+
                                                 default:
                                                     System.out.println("Opción no valida , saliendo al menu principal de " + usuarioAdmin);
                                             }
-                                            break;
-                                        }
+                                            i++;
+
+                                        }while(admin_inversor1!=3 && i<=nombreUsuarioInversor.length-1);
+                                        break;
                                     }
                                     case 3:{
                                         System.out.println("Saliendo del panel de control");
@@ -1027,9 +1030,9 @@ public class Main {
                                                 }
                                             }
                                             if (contrasenaCambiada){
-                                                System.out.println(ANSI_GREEN+"Contraseña actualizada satisfactoriamente");
+                                                System.out.println(ANSI_GREEN+"Contraseña actualizada satisfactoriamente"+ANSI_RESET);
                                             }else{
-                                                System.out.println(ANSI_RED+"La contraseña actual introducida es errónea");
+                                                System.out.println(ANSI_RED+"La contraseña actual introducida es errónea"+ANSI_RESET);
                                             }
                                             break;
                                         }
@@ -1216,7 +1219,7 @@ public class Main {
                                 break;
                             }
                             case 4:{
-                                invitarAmigo(amigosInvitadosInversor, nombreUsuarioInversor, correoUsuarioInversor);
+                                amigosInvitadosInversor=invitarAmigo(amigosInvitadosInversor,nombreUsuarioInversor,contrasenaUsuarioInversor);
                                 break;
                             }
                             case 5:{
@@ -1266,9 +1269,9 @@ public class Main {
                                                 }
                                             }
                                             if (contrasenaCambiada){
-                                                System.out.println(ANSI_GREEN+"Contraseña actualizada satisfactoriamente");
+                                                System.out.println(ANSI_GREEN+"Contraseña actualizada satisfactoriamente"+ANSI_RESET);
                                             }else{
-                                                System.out.println(ANSI_RED+"La contraseña actual introducida es errónea");
+                                                System.out.println(ANSI_RED+"La contraseña actual introducida es errónea"+ANSI_RESET);
                                             }
                                             break;
                                         }
