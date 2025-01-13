@@ -188,21 +188,19 @@ public class Funciones {
     /**
      * Menu de visualizacion de los proyectos.
      * @author davidrn06
-     * @param proyecto1 nombre del proyecto numero 1.
-     * @param proyecto2 nombre del proyecto numero 2.
-     * @param proyecto3 nombre del proyecto numero 3.
+     * @param proyecto nombre de los  proyectos .
      * @param ANSI_GREEN asignacion de color verde.
      * @param ANSI_RESET asignacion de color predeterminado.
      * @return no devuelve ningun valor.
      */
-    public static void verProyecto(String proyecto1,String proyecto2, String proyecto3,String ANSI_GREEN, String ANSI_RESET){
+    public static void verProyecto(String [] proyecto,String ANSI_GREEN, String ANSI_RESET){
         System.out.println("Has accedido a proyectos");
         System.out.println(ANSI_GREEN+"*****PROYECTOS*****"+ANSI_RESET);
-        System.out.println("¿Qué proyecto quiere ver?\n" +
-                "1. Proyecto 1: " + proyecto1 + "\n" +
-                "2. Proyecto 2: " + proyecto2 + "\n" +
-                "3. Proyecto 3: " + proyecto3 + "\n" +
-                "4. Salir");
+        System.out.println("¿Qué proyecto quiere ver?");
+                for( int i=0;i< proyecto.length;i++){
+                    System.out.println(i+". Proyecto "+i+" : "+proyecto[i]);
+        }
+        System.out.println(proyecto.length+". Salir");
     }
     /**
      * Menu de visualizacion de borrado de los proyectos.
