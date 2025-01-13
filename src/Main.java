@@ -294,7 +294,8 @@ public class Main {
                         System.out.println("¡Nos vemos pronto!");
                         loginHecho=true;
                     }
-                }while (loginHecho==false);
+                }while (!usuario.equals("s") && !contrasena.equals("s") && !bienvenido);
+
             } else if (opcionInicial==3) {
                 System.out.println("Cerrando FernanStarter...");
             }else{
