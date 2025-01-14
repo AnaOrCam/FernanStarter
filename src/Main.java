@@ -10,36 +10,33 @@ public class Main {
         final String ANSI_PURPLE= "\033[35m";
         String usuario="";
         String contrasena;
-        String destinatarioAdmin="davidrosanebrera@gmail.com";
+        String destinatarioAdmin="ana.oc.094@gmail.com";
         String usuarioAdmin="administrador";
         String contrasenaAdmin="admin";
         String [] nombreUsuarioGestor = {"gestor","","","","","","","","",""};
         String [] contrasenaUsuarioGestor = {"gestor","","","","","","","","",""};
-        String [] correoUsuarioGestor = {"davidrosanebrera@gmail.com","","","","","","","","",""};
+        String [] correoUsuarioGestor = {"ana.oc.094@gmail.com","","","","","","","","",""};
         String [] nombreUsuarioInversor = {"inversor","","","","","","","","",""};
         String [] contrasenaUsuarioInversor = {"inversor","","","","","","","","",""};
-        String [] correoUsuarioInversor = {"davidrosanebrera@gmail.com","","","","","","","","",""};
-        String [] proyecto = {"Próximamente","Próximamente","Próximamente","Próximamente","Próximamente","Próximamente","Próximamente","Próximamente","Próximamente","Próximamente","Próximamente","Próximamente","Próximamente","Próximamente","Próximamente","Próximamente","Próximamente","Próximamente","Próximamente","Próximamente"};
-        String [] categoria = {"","","","","","","","","","","","","","","","","","","",""};
-        int [] financiacionTotal = new int [20];
-        int [] financiado = new int [20];
-        String [] fechaApertura = {"","","","","","","","","","","","","","","","","","","",""};
-        String [] fechaCierre = {"","","","","","","","","","","","","","","","","","","",""};
-        int [] cantidadRecompensas= new int[10];
-        String [] recompensa1proy = {"","","","","","","","","","","","","","","","","","","",""};
-        String [] recompensa2proy = {"","","","","","","","","","","","","","","","","","","",""};
-        String [] recompensa3proy = {"","","","","","","","","","","","","","","","","","","",""};
-        String [] descripcion1proy = {"","","","","","","","","","","","","","","","","","","",""};
-        String [] descripcion2proy = {"","","","","","","","","","","","","","","","","","","",""};
-        String [] descripcion3proy = {"","","","","","","","","","","","","","","","","","","",""};
-        int [] precio1proy = new int [20];
-        int [] precio2proy = new int [20];
-        int [] precio3proy = new int [20];
-        int [] porcentajefinanciado = new int [20];
-
-
-
-
+        String [] correoUsuarioInversor = {"ana.oc.094@gmail.com","","","","","","","","",""};
+        String [] proyecto = {"Aloha","","","","","","","","","","","","","","","","","","",""};
+        String [] categoria = {"Cine","","","","","","","","","","","","","","","","","","",""};
+        int [] financiacionTotal = {500,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        int [] financiado = {200,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        String [] fechaApertura = {"12/12/1212","","","","","","","","","","","","","","","","","","",""};
+        String [] fechaCierre = {"12/12/1212","","","","","","","","","","","","","","","","","","",""};
+        int [] cantidadRecompensas= {3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        String [] recompensa1proy = {"gafas","","","","","","","","","","","","","","","","","","",""};
+        String [] recompensa2proy = {"trineo","","","","","","","","","","","","","","","","","","",""};
+        String [] recompensa3proy = {"televisor","","","","","","","","","","","","","","","","","","",""};
+        String [] descripcion1proy = {"qer","","","","","","","","","","","","","","","","","","",""};
+        String [] descripcion2proy = {" qwer","","","","","","","","","","","","","","","","","","",""};
+        String [] descripcion3proy = {"qwert","","","","","","","","","","","","","","","","","","",""};
+        int [] precio1proy = {20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        int [] precio2proy = {50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        int [] precio3proy = {250,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        int [] porcentajefinanciado = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        int [][] inversorProyectoInversion = new int[10][20];
 
 
         int [] intentoGestor= new int[10];
@@ -59,41 +56,21 @@ public class Main {
         boolean tipoUsuarioInversor;
         boolean tipoUsuarioGestor;
         boolean inversionAceptada;
-        boolean proyectoCreado=false;
         int admin_gestor=0;
         int admin_inversor1=0;
         int eleccionadmin=0;
         int Adminconfiguracion=0;
         int opcionConfiguracion;
         int opcion;
-        String proyecto1="Próximamente", proyecto2="Próximamente", proyecto3="Próximamente";
-        String categoria1="", categoria2="", categoria3="";
-        int financiacionTotal1=0, financiacionTotal2=0, financiacionTotal3=0;
-        int financiado1=0, financiado2=0, financiado3=0;
-        int porcentajefinanciado1;
-        int porcentajefinanciado2;
-        int porcentajefinanciado3;
-        String fechaApertura1="", fechaApertura2="", fechaApertura3="";
-        String fechaCierre1="", fechaCierre2="", fechaCierre3="";
-        int cantidadRecompensas1, cantidadRecompensas2, cantidadRecompensas3;
-        String recompensa1proy1="", recompensa2proy1="", recompensa3proy1="";
-        String recompensa1proy2="", recompensa2proy2="", recompensa3proy2="";
-        String recompensa1proy3="", recompensa2proy3="", recompensa3proy3="";
-        String descripcion1proy1 ="", descripcion2proy1 ="", descripcion3proy1 ="";
-        String descripcion1proy2 ="", descripcion2proy2 ="", descripcion3proy2 ="";
-        String descripcion1proy3 ="", descripcion2proy3 ="", descripcion3proy3 ="";
-        int precio1proy1 =0, precio2proy1 =0, precio3proy1 =0;
-        int precio1proy2 =0, precio2proy2 =0, precio3proy2 =0;
-        int precio1proy3 =0, precio2proy3 =0, precio3proy3 =0;
-        int opcionProyectoAdmin=0;
+        int numeroProyecto;
         int intentoInversion;
+        int contadorInversiones=0;
         int opcionInicial=0;
-        int inversionProyecto1Inversor1=0, inversionProyecto2Inversor1=0, inversionProyecto3Inversor1=0;
-        int inversionProyecto1Inversor2=0,inversionProyecto2Inversor2=0, inversionProyecto3Inversor2=0;
+        int numeroUsuario;
         int autentificacion;
+        int contadorProyectos=0;
         boolean creado=false;
         boolean loginHecho=false;
-        int respuesta=0;
 
         for (int i = 0; i < intentoGestor.length; i++) {
             intentoGestor[i]=3;
@@ -187,9 +164,9 @@ public class Main {
                             enviarConGMail(correoUsuarioGestor[i], asunto, cuerpo);
                             int verificaion = Integer.parseInt(s.nextLine());
                             if (verificaion == autentificacion) {
-                                System.out.println("Usuario creado con exito");
+                                System.out.println(ANSI_GREEN+"Usuario creado con exito"+ANSI_RESET);
                             } else {
-                                System.out.println("El codigo no corresponde al enviado, creacion fallida");
+                                System.out.println(ANSI_RED+"El codigo no corresponde al enviado, creacion fallida"+ANSI_RESET);
                                 nombreUsuarioGestor[i] = "";
                                 contrasenaUsuarioGestor[i] = "";
                                 correoUsuarioGestor[i] = "";
@@ -221,9 +198,9 @@ public class Main {
                             }
                         }
                         for (int i = 0; i < nombreUsuarioGestor.length; i++) {
-                            if (usuario.equals(nombreUsuarioGestor[i]) && !gestorbloqueado[i]) {
+                            if (usuario.equals(nombreUsuarioGestor[i])) {
                                 usuarioExiste = true;
-                                if (contrasena.equals(contrasenaUsuarioGestor[i])) {
+                                if (contrasena.equals(contrasenaUsuarioGestor[i]) && !gestorbloqueado[i]) {
                                     intentoGestor[i] = 3;
                                     System.out.println("Hemos enviado un código a tu correo. Introduce la autentificación");
                                     autentificacion = generarAutentificacion();
@@ -261,9 +238,9 @@ public class Main {
                             }
                         }
                         for (int i = 0; i < nombreUsuarioInversor.length; i++) {
-                            if (usuario.equals(nombreUsuarioInversor[i]) && !inversorbloqueado[i]) {
+                            if (usuario.equals(nombreUsuarioInversor[i])) {
                                 usuarioExiste = true;
-                                if (contrasena.equals(contrasenaUsuarioInversor[i])) {
+                                if (contrasena.equals(contrasenaUsuarioInversor[i]) && !inversorbloqueado[i]) {
                                     intentoInversor[i] = 3;
                                     System.out.println("Hemos enviado un código a tu correo. Introduce la autentificación");
                                     autentificacion = generarAutentificacion();
@@ -329,36 +306,41 @@ public class Main {
                                 eleccionadmin=Integer.parseInt(s.nextLine());
                                 switch (eleccionadmin){
                                     case 1:{
-                                        int i=0;
-                                        do{
-                                            if (!nombreUsuarioGestor[i].equals("")){
-                                                System.out.print("El estado de "+ nombreUsuarioGestor[i]+ " es ");
-                                                if(!gestorbloqueado[i]){
-                                                    System.out.println(ANSI_GREEN+"desbloqueado"+ANSI_RESET);
-                                                }else {
-                                                    System.out.println(ANSI_RED+"bloqueado"+ANSI_RESET);
+                                            for (int i = 0; i < nombreUsuarioGestor.length; i++) {
+                                                if (!nombreUsuarioGestor[i].isEmpty()){
+                                                    System.out.print(i+1+":"+ nombreUsuarioGestor[i]+ " está ");
+                                                    if(!gestorbloqueado[i]){
+                                                        System.out.println(ANSI_GREEN+"desbloqueado"+ANSI_RESET);
+                                                    }else {
+                                                        System.out.println(ANSI_RED+"bloqueado"+ANSI_RESET);
+                                                    }
                                                 }
                                             }
+
                                             menuBloqueo();
                                             admin_gestor=Integer.parseInt(s.nextLine());
                                             switch (admin_gestor){
                                                 case 1:{
-                                                    if(gestorbloqueado[i]){
+                                                    System.out.println("Escribe el número del usuario que quieres bloquear");
+                                                    numeroUsuario=Integer.parseInt(s.nextLine());
+                                                    if(gestorbloqueado[numeroUsuario-1]){
                                                         System.out.println("Este usuario ya esta bloqueado");
                                                     }else {
-                                                        System.out.println(ANSI_RED+"Usuario bloqueado satisfactoriamente"+ANSI_RESET);
-                                                        gestorbloqueado[i]=true;
+                                                        System.out.println(ANSI_GREEN+"Usuario bloqueado satisfactoriamente"+ANSI_RESET);
+                                                        gestorbloqueado[numeroUsuario-1]=true;
                                                     }
                                                     break;
                                                 }
                                                 case 2:{
-                                                    if(!gestorbloqueado[i]){
+                                                    System.out.println("Escribe el número del usuario que quieres desbloquear");
+                                                    numeroUsuario=Integer.parseInt(s.nextLine());
+                                                    if(!gestorbloqueado[numeroUsuario-1]){
                                                         System.out.println("Este usuario ya esta desbloqueado");
                                                     }else {
                                                         System.out.println(ANSI_GREEN+"Usuario desbloqueado satisfactoriamente"+ANSI_RESET);
-                                                        gestorbloqueado[i]=false;
-                                                        intentoGestorCodigo[i]=3;
-                                                        intentoGestor[i]=3;
+                                                        gestorbloqueado[numeroUsuario-1]=false;
+                                                        intentoGestorCodigo[numeroUsuario-1]=3;
+                                                        intentoGestor[numeroUsuario-1]=3;
                                                     }
                                                     break;
                                                 }
@@ -369,55 +351,53 @@ public class Main {
                                                 default:
                                                     System.out.println("Opción no valida , saliendo al menu principal de "+usuarioAdmin);
                                             }
-                                            i++;
-                                        }while (admin_gestor!=3 && i<=nombreUsuarioGestor.length-1);
                                         break;
                                     }
                                     case 2: {
-                                        int i=0;
-                                        do{
-                                            if (!nombreUsuarioInversor[i].equals("")) {
-                                                System.out.print("El estado de " + nombreUsuarioInversor[i] + " es ");
+                                        for (int i = 0; i < nombreUsuarioGestor.length; i++) {
+                                            if (!nombreUsuarioInversor[i].isEmpty()) {
+                                                System.out.print(i+1+":"+ nombreUsuarioInversor[i] + " está ");
                                                 if (!inversorbloqueado[i]) {
                                                     System.out.println(ANSI_GREEN + "desbloqueado" + ANSI_RESET);
                                                 } else {
                                                     System.out.println(ANSI_RED + "bloqueado" + ANSI_RESET);
                                                 }
                                             }
-                                            menuBloqueo();
-                                            admin_inversor1 = Integer.parseInt(s.nextLine());
-                                            switch (admin_inversor1) {
-                                                case 1: {
-                                                    if (inversorbloqueado[i]) {
-                                                        System.out.println("Este usuario ya esta bloqueado");
-                                                    } else {
-                                                        System.out.println(ANSI_RED+"Usuario bloqueado satisfactoriamente"+ANSI_RESET);
-                                                        inversorbloqueado[i] = true;
-                                                    }
-                                                    break;
+                                        }
+                                        menuBloqueo();
+                                        admin_inversor1 = Integer.parseInt(s.nextLine());
+                                        switch (admin_inversor1) {
+                                            case 1: {
+                                                System.out.println("Escribe el número del usuario que quieres bloquear");
+                                                numeroUsuario=Integer.parseInt(s.nextLine());
+                                                if (inversorbloqueado[numeroUsuario-1]) {
+                                                    System.out.println("Este usuario ya esta bloqueado");
+                                                } else {
+                                                    System.out.println(ANSI_GREEN+"Usuario bloqueado satisfactoriamente"+ANSI_RESET);
+                                                    inversorbloqueado[numeroUsuario-1] = true;
                                                 }
-                                                case 2: {
-                                                    if (!inversorbloqueado[i]) {
-                                                        System.out.println("Este usuario ya esta desbloqueado");
-                                                    } else {
-                                                        System.out.println(ANSI_GREEN+"Usuario desbloqueado satisfactoriamente"+ANSI_RESET);
-                                                        inversorbloqueado[i] = false;
-                                                        intentoInversorCodigo[i] = 3;
-                                                        intentoInversor[i] = 3;
-                                                    }
-                                                    break;
-                                                }
-                                                case 3: {
-                                                    System.out.println("Saliendo al menú principal de " + usuarioAdmin);
-                                                    break;
-                                                }
-
-                                                default:
-                                                    System.out.println("Opción no valida , saliendo al menu principal de " + usuarioAdmin);
+                                                break;
                                             }
-                                            i++;
-
-                                        }while(admin_inversor1!=3 && i<=nombreUsuarioInversor.length-1);
+                                            case 2: {
+                                                System.out.println("Escribe el número del usuario que quieres desbloquear");
+                                                numeroUsuario=Integer.parseInt(s.nextLine());
+                                                if (!inversorbloqueado[numeroUsuario-1]) {
+                                                    System.out.println("Este usuario ya esta desbloqueado");
+                                                } else {
+                                                    System.out.println(ANSI_GREEN+"Usuario desbloqueado satisfactoriamente"+ANSI_RESET);
+                                                    inversorbloqueado[numeroUsuario-1] = false;
+                                                    intentoInversorCodigo[numeroUsuario-1] = 3;
+                                                    intentoInversor[numeroUsuario-1] = 3;
+                                                }
+                                                break;
+                                            }
+                                            case 3: {
+                                                System.out.println("Saliendo al menú principal de " + usuarioAdmin);
+                                                break;
+                                            }
+                                            default:
+                                                System.out.println("Opción no valida , saliendo al menu principal de " + usuarioAdmin);
+                                        }
                                         break;
                                     }
                                     case 3:{
@@ -431,24 +411,29 @@ public class Main {
                             }
                             case 2:{
                                 System.out.println("Has accedido a proyectos");
-                                System.out.println(ANSI_GREEN+"*****PROYECTOS*****"+ANSI_RESET);
-                                System.out.println("¿Qué proyecto quiere ver?");
-                                for (int k=0;k<proyecto.length;k++){
-                                    System.out.println(k+". Proyecto "+k+" : "+proyecto[k]);
-                                }
-                                System.out.println(proyecto.length+". Salir");
-                                opcionProyectoAdmin = Integer.parseInt(s.nextLine());
-                                if (opcionProyectoAdmin==proyecto.length){
-                                    System.out.println("¡Hasta pronto!");
-                                }else if (opcionProyectoAdmin<0||opcionProyectoAdmin>proyecto.length){
-                                    System.out.println("Esa opcion no se encuentra en el menú");
-                                } else if (!proyecto[opcionProyectoAdmin].equals("Próximamente")) {
-                                    visualizarProyecto(proyecto[opcionProyectoAdmin], categoria[opcionProyectoAdmin], financiacionTotal[opcionProyectoAdmin], financiado[opcionProyectoAdmin], fechaApertura[opcionProyectoAdmin], fechaCierre[opcionProyectoAdmin], recompensa1proy[opcionProyectoAdmin],descripcion1proy[opcionProyectoAdmin],precio1proy[opcionProyectoAdmin], recompensa2proy[opcionProyectoAdmin], descripcion2proy[opcionProyectoAdmin], precio2proy[opcionProyectoAdmin], recompensa3proy[opcionProyectoAdmin], descripcion3proy[opcionProyectoAdmin], precio3proy[opcionProyectoAdmin]);
-                                    porcentajefinanciado[opcionProyectoAdmin]=financiado[opcionProyectoAdmin]*100/financiacionTotal[opcionProyectoAdmin];
-                                    System.out.println("Actualmente se ha financiado un "+porcentajefinanciado[opcionProyectoAdmin]+"%");
-                                    grafico(porcentajefinanciado[opcionProyectoAdmin]);
-                                } else if (proyecto[opcionProyectoAdmin].equals("Próximamente")){
-                                    System.out.println("No existe el proyecto "+opcionProyectoAdmin);
+                                System.out.println("¿Qué quieres hacer?");
+                                System.out.println("1. Visualizar proyecto");
+                                System.out.println("2. Salir");
+                                opcion = Integer.parseInt(s.nextLine());
+                                switch (opcion) {
+                                    case 1 -> {
+                                        System.out.println(ANSI_GREEN + "*****PROYECTOS*****" + ANSI_RESET);
+                                        for (int k = 0; k < proyecto.length; k++) {
+                                            if (!proyecto[k].isEmpty()) {
+                                                System.out.println(k + 1 + ". Proyecto " + k + " : " + proyecto[k]);
+                                            }
+                                        }
+                                        System.out.println("Escribe el número del proyecto que desees visualizar");
+                                        numeroProyecto = Integer.parseInt(s.nextLine());
+                                        if (!proyecto[numeroProyecto - 1].isEmpty()) {
+                                            visualizarProyecto(proyecto[numeroProyecto - 1], categoria[numeroProyecto - 1], financiacionTotal[numeroProyecto - 1], financiado[numeroProyecto - 1], fechaApertura[numeroProyecto - 1], fechaCierre[numeroProyecto - 1], recompensa1proy[numeroProyecto - 1], descripcion1proy[numeroProyecto - 1], precio1proy[numeroProyecto - 1], recompensa2proy[numeroProyecto - 1], descripcion2proy[numeroProyecto - 1], precio2proy[numeroProyecto - 1], recompensa3proy[numeroProyecto - 1], descripcion3proy[numeroProyecto - 1], precio3proy[numeroProyecto - 1]);
+                                            porcentajefinanciado[numeroProyecto - 1] = financiado[numeroProyecto - 1] * 100 / financiacionTotal[numeroProyecto - 1];
+                                            System.out.println("Actualmente se ha financiado un " + porcentajefinanciado[numeroProyecto - 1] + "%");
+                                            grafico(porcentajefinanciado[numeroProyecto - 1]);
+                                        }
+                                    }
+                                    case 2 -> System.out.println("¡Hasta pronto!");
+                                    default -> System.out.println("Esa opción no se encuentra en el menú");
                                 }
                                 break;
                             }
@@ -500,9 +485,8 @@ public class Main {
 
                                     switch (opcion) {
                                         case 1 ->{
-                                            proyectoCreado=false;
                                             for (int k=0;k<proyecto.length;k++){
-                                                if (proyecto[k].equals("Próximamente")&&proyectoCreado==false){
+                                                if (proyecto[k].isEmpty()){
                                                     System.out.println("Introduzca el nombre del proyecto");
                                                     proyecto[k]=s.nextLine();
                                                     System.out.println("Introduzca la categoría del proyecto (arte, tecnología, cine, música, juegos, comida, moda…)");
@@ -531,7 +515,7 @@ public class Main {
                                                         } else if (j==3) {
                                                             recompensa3proy[k]=s.nextLine();
                                                         }
-                                                        System.out.println("Incluye una breve descripción de la recompensa "+k);
+                                                        System.out.println("Incluye una breve descripción de la recompensa "+j);
                                                         if (j==1){
                                                             descripcion1proy[k] =s.nextLine();
                                                         } else if (j==2) {
@@ -539,7 +523,7 @@ public class Main {
                                                         } else if (j==3) {
                                                             descripcion3proy[k]=s.nextLine();
                                                         }
-                                                        System.out.println("¿Qué precio tiene la recompensa "+k+"?");
+                                                        System.out.println("¿Qué precio tiene la recompensa "+j+"?");
                                                         if (j==1){
                                                             precio1proy[k] =Integer.parseInt(s.nextLine());
                                                         } else if (j==2) {
@@ -550,183 +534,196 @@ public class Main {
                                                     }
                                                     System.out.println("Has añadido esta información en el proyecto :" +proyecto[k]);
                                                     visualizarProyecto(proyecto[k], categoria[k], financiacionTotal[k], financiado[k], fechaApertura[k], fechaCierre[k], recompensa1proy[k],descripcion1proy[k],precio1proy[k], recompensa2proy[k], descripcion2proy[k], precio2proy[k], recompensa3proy[k], descripcion3proy[k], precio3proy[k]);
-                                                    proyectoCreado=true;
                                                 }
-
                                             }
-
                                         }
                                         case 2 ->{
-                                            do {
-                                                System.out.println("Has accedido a proyectos");
-                                                System.out.println(ANSI_GREEN+"*****PROYECTOS*****"+ANSI_RESET);
-                                                System.out.println("¿Qué proyecto quiere ver?");
-                                                for (int k=0;k<proyecto.length;k++){
-                                                    System.out.println(k+". Proyecto "+k+" : "+proyecto[k]);
-                                                }
-                                            System.out.println(proyecto.length+". Salir");
-
+                                            System.out.println("Has accedido a proyectos");
+                                            System.out.println("¿Qué quieres hacer?");
+                                            System.out.println("1. Visualizar proyecto");
+                                            System.out.println("2. Salir");
                                             opcion = Integer.parseInt(s.nextLine());
-                                            if (opcion == proyecto.length) {
-                                                System.out.println("Ha salido de la vista detallada de proyectos");
-                                            }else if (!proyecto[opcion].equals("Próximamente")&&opcion<20) {
-                                                        visualizarProyecto(proyecto[opcion], categoria[opcion], financiacionTotal[opcion], financiado[opcion], fechaApertura[opcion], fechaCierre[opcion], recompensa1proy[opcion],descripcion1proy[opcion],precio1proy[opcion], recompensa2proy[opcion], descripcion2proy[opcion], precio2proy[opcion], recompensa3proy[opcion], descripcion3proy[opcion], precio3proy[opcion]);
-                                                        porcentajefinanciado[opcion]=financiado[opcion]*100/financiacionTotal[opcion];
-                                                        System.out.println("Actualmente se ha financiado un "+porcentajefinanciado[opcion]+"%");
-                                                        grafico(porcentajefinanciado[opcion]);
-                                            } else if (proyecto[opcion].equals("Próximamente")){
-                                                        System.out.println("No existe el proyecto "+opcion);
-                                            }else if (opcion<0||opcion>proyecto.length){
-                                                    System.out.println("Esa opción no se encuentra en el menú");
+                                            switch (opcion) {
+                                                case 1 -> {
+                                                    contadorProyectos=0;
+                                                    System.out.println(ANSI_GREEN + "*****PROYECTOS*****" + ANSI_RESET);
+                                                    for (int k = 0; k < proyecto.length; k++) {
+                                                        if (!proyecto[k].isEmpty()) {
+                                                            System.out.println(k + 1 + ". Proyecto: " + proyecto[k]);
+                                                        }
+                                                    }
+                                                    if (contadorProyectos>0) {
+                                                        System.out.println("Escribe el número del proyecto que desees visualizar");
+                                                        numeroProyecto = Integer.parseInt(s.nextLine());
+                                                        if (!proyecto[numeroProyecto - 1].isEmpty()) {
+                                                            visualizarProyecto(proyecto[numeroProyecto - 1], categoria[numeroProyecto - 1], financiacionTotal[numeroProyecto - 1], financiado[numeroProyecto - 1], fechaApertura[numeroProyecto - 1], fechaCierre[numeroProyecto - 1], recompensa1proy[numeroProyecto - 1], descripcion1proy[numeroProyecto - 1], precio1proy[numeroProyecto - 1], recompensa2proy[numeroProyecto - 1], descripcion2proy[numeroProyecto - 1], precio2proy[numeroProyecto - 1], recompensa3proy[numeroProyecto - 1], descripcion3proy[numeroProyecto - 1], precio3proy[numeroProyecto - 1]);
+                                                            porcentajefinanciado[numeroProyecto - 1] = financiado[numeroProyecto - 1] * 100 / financiacionTotal[numeroProyecto - 1];
+                                                            System.out.println("Actualmente se ha financiado un " + porcentajefinanciado[numeroProyecto - 1] + "%");
+                                                            grafico(porcentajefinanciado[numeroProyecto - 1]);
+                                                        }
+                                                    }else{
+                                                        System.out.println("No hay proyectos actualmente");
+                                                    }
                                                 }
-                                            }while (opcion!=proyecto.length);
+                                                case 2 -> System.out.println("¡Hasta pronto!");
+                                                default -> System.out.println("Esa opción no se encuentra en el menú");
+                                            }
                                         }
                                         case 3 ->{
                                             do {
                                                 System.out.println("Elige un proyecto para modificar");
+                                                contadorProyectos=0;
                                                 for(int k=0;k<proyecto.length;k++){
-                                                    System.out.println(k+". Proyecto "+k+" : "+proyecto[k]);
+                                                    if (!proyecto[k].isEmpty()) {
+                                                        System.out.println(k+1 + ". Proyecto: " + proyecto[k]);
+                                                        contadorProyectos++;
+                                                    }
                                                 }
-                                                System.out.println(proyecto.length+".Salir");
-                                                opcion = Integer.parseInt(s.nextLine());
-
-                                                        int aux=opcion;
-                                                        if (opcion == proyecto.length) {
-                                                            System.out.println("Ha salido del menú modificar proyecto");
-                                                        }else if (!proyecto[aux].equals("Próximamente")&&opcion<20) {
-                                                            menuModificarProyecto();
-                                                            opcion = Integer.parseInt(s.nextLine());
-                                                            switch (opcion) {
-                                                                case 1 -> {
-                                                                    System.out.println("Escribe el nuevo nombre del proyecto "+aux);
-                                                                    proyecto[aux] = s.nextLine();
-                                                                }
-                                                                case 2 -> {
-                                                                    System.out.println("Escribe la nueva categoría del proyecto "+aux);
-                                                                    categoria[aux] = s.nextLine();
-                                                                }
-                                                                case 3 -> {
-                                                                    System.out.println("Escribe la nueva cantidad a financiar");
-                                                                    financiacionTotal[aux] = Integer.parseInt(s.nextLine());
-                                                                }
-                                                                case 4 -> {
-                                                                    System.out.println("Escribe la nueva cantidad financiada hasta el momento");
-                                                                    financiado[aux] = Integer.parseInt(s.nextLine());
-                                                                }
-                                                                case 5 -> {
-                                                                    System.out.println("Escribe la nueva fecha de apertura de inversiones (Formato --/--/----)");
-                                                                    fechaApertura[aux] = s.nextLine();
-                                                                }
-                                                                case 6 -> {
-                                                                    System.out.println("Escribe la nueva fecha de cierre de inversiones (Formato --/--/----)");
-                                                                    fechaCierre[aux] = s.nextLine();
-                                                                }
-                                                                case 7 -> {
-                                                                    menuEleccionRecompensa();
-                                                                    opcion = Integer.parseInt(s.nextLine());
-                                                                    switch (opcion) {
-                                                                        case 1 -> {
+                                                if (contadorProyectos==0){
+                                                    System.out.println("No hay ningún proyecto creado actualmente");
+                                                }else {
+                                                    System.out.println("0. Salir");
+                                                    System.out.println("Elige un proyecto para modificar");
+                                                    opcion = Integer.parseInt(s.nextLine());
+                                                    int aux = opcion;
+                                                    if (opcion == 0) {
+                                                        System.out.println("Ha salido del menú modificar proyecto");
+                                                    } else {
+                                                        menuModificarProyecto();
+                                                        opcion = Integer.parseInt(s.nextLine());
+                                                        switch (opcion) {
+                                                            case 1 -> {
+                                                                System.out.println("Escribe el nuevo nombre del proyecto " + aux);
+                                                                proyecto[aux] = s.nextLine();
+                                                            }
+                                                            case 2 -> {
+                                                                System.out.println("Escribe la nueva categoría del proyecto " + aux);
+                                                                categoria[aux] = s.nextLine();
+                                                            }
+                                                            case 3 -> {
+                                                                System.out.println("Escribe la nueva cantidad a financiar");
+                                                                financiacionTotal[aux] = Integer.parseInt(s.nextLine());
+                                                            }
+                                                            case 4 -> {
+                                                                System.out.println("Escribe la nueva cantidad financiada hasta el momento");
+                                                                financiado[aux] = Integer.parseInt(s.nextLine());
+                                                            }
+                                                            case 5 -> {
+                                                                System.out.println("Escribe la nueva fecha de apertura de inversiones (Formato --/--/----)");
+                                                                fechaApertura[aux] = s.nextLine();
+                                                            }
+                                                            case 6 -> {
+                                                                System.out.println("Escribe la nueva fecha de cierre de inversiones (Formato --/--/----)");
+                                                                fechaCierre[aux] = s.nextLine();
+                                                            }
+                                                            case 7 -> {
+                                                                menuEleccionRecompensa();
+                                                                opcion = Integer.parseInt(s.nextLine());
+                                                                switch (opcion) {
+                                                                    case 1 -> {
+                                                                        modificarRecompensa();
+                                                                        opcion = Integer.parseInt(s.nextLine());
+                                                                        if (opcion == 1) {
+                                                                            System.out.println("Escribe la nueva recompensa ofrecida");
+                                                                            recompensa1proy[aux] = s.nextLine();
+                                                                        } else if (opcion == 2) {
+                                                                            System.out.println("Escribe la nueva descripción");
+                                                                            descripcion1proy[aux] = s.nextLine();
+                                                                        } else if (opcion == 3) {
+                                                                            System.out.println("Escribe el nuevo precio");
+                                                                            precio1proy[aux] = Integer.parseInt(s.nextLine());
+                                                                        } else if (opcion == 4) {
+                                                                            System.out.println("Ha salido del menú modificar recompensa 1");
+                                                                        } else {
+                                                                            System.out.println("Esa opción no se encuentra en el menú");
+                                                                        }
+                                                                    }
+                                                                    case 2 -> {
+                                                                        if (!recompensa2proy[aux].equals("")) {
                                                                             modificarRecompensa();
                                                                             opcion = Integer.parseInt(s.nextLine());
                                                                             if (opcion == 1) {
                                                                                 System.out.println("Escribe la nueva recompensa ofrecida");
-                                                                                recompensa1proy[aux] = s.nextLine();
+                                                                                recompensa2proy[aux] = s.nextLine();
                                                                             } else if (opcion == 2) {
                                                                                 System.out.println("Escribe la nueva descripción");
-                                                                                descripcion1proy[aux] = s.nextLine();
+                                                                                descripcion2proy[aux] = s.nextLine();
                                                                             } else if (opcion == 3) {
                                                                                 System.out.println("Escribe el nuevo precio");
-                                                                                precio1proy[aux] = Integer.parseInt(s.nextLine());
+                                                                                precio2proy[aux] = Integer.parseInt(s.nextLine());
                                                                             } else if (opcion == 4) {
-                                                                                System.out.println("Ha salido del menú modificar recompensa 1");
+                                                                                System.out.println("Ha salido del menú modificar recompensa 2");
                                                                             } else {
                                                                                 System.out.println("Esa opción no se encuentra en el menú");
                                                                             }
+                                                                        } else {
+                                                                            System.out.println("No existe esta recompensa todavía");
                                                                         }
-                                                                        case 2 -> {
-                                                                            if (!recompensa2proy[aux].equals("")) {
-                                                                                modificarRecompensa();
-                                                                                opcion = Integer.parseInt(s.nextLine());
-                                                                                if (opcion == 1) {
-                                                                                    System.out.println("Escribe la nueva recompensa ofrecida");
-                                                                                    recompensa2proy[aux] = s.nextLine();
-                                                                                } else if (opcion == 2) {
-                                                                                    System.out.println("Escribe la nueva descripción");
-                                                                                    descripcion2proy[aux] = s.nextLine();
-                                                                                } else if (opcion == 3) {
-                                                                                    System.out.println("Escribe el nuevo precio");
-                                                                                    precio2proy[aux] = Integer.parseInt(s.nextLine());
-                                                                                } else if (opcion == 4) {
-                                                                                    System.out.println("Ha salido del menú modificar recompensa 2");
-                                                                                } else {
-                                                                                    System.out.println("Esa opción no se encuentra en el menú");
-                                                                                }
-                                                                            } else {
-                                                                                System.out.println("No existe esta recompensa todavía");
-                                                                            }
-                                                                        }
-                                                                        case 3 -> {
-                                                                            if (!recompensa3proy[aux].equals("")) {
-                                                                                modificarRecompensa();
-                                                                                opcion = Integer.parseInt(s.nextLine());
-                                                                                if (opcion == 1) {
-                                                                                    System.out.println("Escribe la nueva recompensa ofrecida");
-                                                                                    recompensa3proy[aux] = s.nextLine();
-                                                                                } else if (opcion == 2) {
-                                                                                    System.out.println("Escribe la nueva descripción");
-                                                                                    descripcion3proy[aux] = s.nextLine();
-                                                                                } else if (opcion == 3) {
-                                                                                    System.out.println("Escribe el nuevo precio");
-                                                                                    precio3proy[aux] = Integer.parseInt(s.nextLine());
-                                                                                } else if (opcion == 4) {
-                                                                                    System.out.println("Ha salido del menú modificar recompensa 3");
-                                                                                } else {
-                                                                                    System.out.println("Esa opción no se encuentra en el menú");
-                                                                                }
-                                                                            } else {
-                                                                                System.out.println("No existe esta recompensa todavía");
-                                                                            }
-                                                                        }
-                                                                        case 4 -> {
-                                                                            System.out.println("Ha salido de la modificación de las Recompensas");
-                                                                        }
-                                                                        default ->
-                                                                                System.out.println("Esa opción no se encuentra en el menú");
                                                                     }
+                                                                    case 3 -> {
+                                                                        if (!recompensa3proy[aux].equals("")) {
+                                                                            modificarRecompensa();
+                                                                            opcion = Integer.parseInt(s.nextLine());
+                                                                            if (opcion == 1) {
+                                                                                System.out.println("Escribe la nueva recompensa ofrecida");
+                                                                                recompensa3proy[aux] = s.nextLine();
+                                                                            } else if (opcion == 2) {
+                                                                                System.out.println("Escribe la nueva descripción");
+                                                                                descripcion3proy[aux] = s.nextLine();
+                                                                            } else if (opcion == 3) {
+                                                                                System.out.println("Escribe el nuevo precio");
+                                                                                precio3proy[aux] = Integer.parseInt(s.nextLine());
+                                                                            } else if (opcion == 4) {
+                                                                                System.out.println("Ha salido del menú modificar recompensa 3");
+                                                                            } else {
+                                                                                System.out.println("Esa opción no se encuentra en el menú");
+                                                                            }
+                                                                        } else {
+                                                                            System.out.println("No existe esta recompensa todavía");
+                                                                        }
+                                                                    }
+                                                                    case 4 -> {
+                                                                        System.out.println("Ha salido de la modificación de las Recompensas");
+                                                                    }
+                                                                    default ->
+                                                                            System.out.println("Esa opción no se encuentra en el menú");
                                                                 }
-                                                                case 8 -> {
-                                                                    System.out.println("Ha salido del menú Modificar Proyecto "+aux);
-                                                                }
-                                                                default ->
-                                                                        System.out.println("Esa opción no se encuentra en el menú");
                                                             }
-                                                        } else if (proyecto[aux].equals("Próximamente")){
-                                                            System.out.println("No existe el proyecto "+aux);
-                                                        } else {
-                                                        System.out.println("Esa opción no se encuentra en el menú");
+                                                            case 8 -> {
+                                                                System.out.println("Ha salido del menú Modificar Proyecto " + aux);
+                                                            }
+                                                            default ->
+                                                                    System.out.println("Esa opción no se encuentra en el menú");
+                                                        }
                                                     }
-
-                                            }while (opcion!=proyecto.length);
+                                                }
+                                            }while (opcion!=0 && contadorProyectos!=0);
                                         }
                                         case 4 ->{
                                             do {
                                                 System.out.println("Elige un proyecto para borrar");
+                                                contadorProyectos=0;
                                                 for(int k=0;k<proyecto.length;k++){
-                                                    System.out.println(k+". Proyecto "+k+" : "+proyecto[k]);
-                                                }
-                                                System.out.println(proyecto.length+".Salir");
-                                                opcion = Integer.parseInt(s.nextLine());
-                                                     if (opcion == proyecto.length) {
-                                                        System.out.println("Ha salido del menú borrar proyecto");
-                                                    }else if (!proyecto[opcion].equals("Próximamente")&&opcion<20) {
-                                                        proyecto[opcion] = "Próximamente";
-                                                        System.out.println("Ha borrado el proyecto "+opcion+" satisfactoriamente.");
-                                                    } else if (proyecto[opcion].equals("Próximamente")){
-                                                        System.out.println("No existe el proyecto "+opcion);
-                                                    } else {
-                                                    System.out.println("Esa opción no se encuentra en el menú");
+                                                    if (!proyecto[k].isEmpty()) {
+                                                        System.out.println(k+1 + ". Proyecto: " + proyecto[k]);
+                                                        contadorProyectos++;
                                                     }
-                                            }while (opcion!=proyecto.length);
+                                                }
+                                                if (contadorProyectos==0){
+                                                    System.out.println("No hay ningún proyecto creado actualmente");
+                                                }else {
+                                                    System.out.println("0. Salir");
+                                                    opcion = Integer.parseInt(s.nextLine());
+                                                    if (opcion == 0) {
+                                                        System.out.println("Ha salido del menú borrar proyecto");
+                                                    } else if (!proyecto[opcion-1].isEmpty()) {
+                                                        proyecto[opcion-1] ="";
+                                                        System.out.println("Ha borrado el proyecto " + opcion + " satisfactoriamente.");
+                                                    } else {
+                                                        System.out.println("Esa opción no se encuentra en el menú");
+                                                    }
+                                                }
+                                            }while (opcion!=0 && contadorProyectos!=0);
                                         }
                                         case 5 -> System.out.println("Pagina de proyectos cerrada");
                                         default -> System.out.println("Esa opción no existe en el menú");
@@ -807,67 +804,57 @@ public class Main {
                         switch (opcion){
                             case 1:{
                                 System.out.println("Usted ha accedido a Mis inversiones");
-                                if(inversionProyecto1Inversor1>0) {
-                                    System.out.println("Usted ha contribuido con " + inversionProyecto1Inversor1 + " € en el proyecto *****" + proyecto1 + "*****");
-                                    System.out.println("La categoria de *****" + proyecto1 + "***** es " + categoria1);
-                                    if (precio1proy1 != 0 && inversionProyecto1Inversor1 >= precio1proy1) {
-                                        System.out.println(ANSI_GREEN+"Ha conseguido la recompensa 1 del proyecto "+proyecto1+": " + recompensa1proy1+ANSI_RESET);
+                                System.out.println("Por favor introduzca usuario y contraseña para acceder a la información");
+                                usuario=s.nextLine();
+                                contrasena=s.nextLine();
+                                validarOperacion(usuario, contrasena, nombreUsuarioInversor,contrasenaUsuarioInversor);
+                                for (int i = 0; i < nombreUsuarioInversor.length; i++) {
+                                    if (usuario.equals(nombreUsuarioInversor[i])){
+                                        for (int j = 0; j < proyecto.length; j++) {
+                                            if(inversorProyectoInversion[i][j]>0) {
+                                                System.out.println("Usted ha contribuido con " + inversorProyectoInversion[i][j] + " € en el proyecto *****" + proyecto[j] + "*****");
+                                                System.out.println("La categoria de *****" + proyecto[j] + "***** es " + categoria[j]);
+                                                if (precio1proy[j]!=0 && inversorProyectoInversion[i][j] >= precio1proy[j]) {
+                                                    System.out.println(ANSI_GREEN+"Ha conseguido la recompensa 1 del proyecto "+proyecto[j]+": " + recompensa1proy[j]+ANSI_RESET);
+                                                }
+                                                if (precio2proy[j]!=0 && inversorProyectoInversion[i][j] >= precio2proy[j]){
+                                                    System.out.println(ANSI_GREEN+"Ha conseguido la recompensa 2 del proyecto "+proyecto[j]+": " + recompensa2proy[j]+ANSI_RESET);
+                                                }
+                                                if (precio3proy[j]!=0 && inversorProyectoInversion[i][j]>precio3proy[j]) {
+                                                    System.out.println(ANSI_GREEN+"Ha conseguido la recompensa 3 del proyecto "+proyecto[j]+": " + recompensa3proy[j]+ANSI_RESET);
+                                                }
+                                                contadorInversiones++;
+                                            }
+                                        }
+                                        if (contadorInversiones==0){
+                                            System.out.println("Aún no has realizado ninguna inversión.");
+                                        }
                                     }
-                                    if (precio2proy1 != 0 && inversionProyecto1Inversor1 >= precio2proy1){
-                                        System.out.println(ANSI_GREEN+"Ha conseguido la recompensa 2 del proyecto "+proyecto1+": " + recompensa2proy1+ANSI_RESET);
-                                    }
-                                    if (precio3proy1!=0 && inversionProyecto1Inversor1>precio3proy1) {
-                                        System.out.println(ANSI_GREEN+"Ha conseguido la recompensa 3 del proyecto "+proyecto1+": " + recompensa3proy1+ANSI_RESET);
-                                    }
-                                }
-                                if(inversionProyecto2Inversor1>0){
-                                    System.out.println("Usted ha contribuido con "+ inversionProyecto2Inversor1+" € en el proyecto *****"+ proyecto2+"*****");
-                                    System.out.println("La categoria de *****"+proyecto2+"***** es "+categoria2);
-                                    if (precio1proy2 != 0 && inversionProyecto2Inversor1 >= precio1proy2) {
-                                        System.out.println(ANSI_GREEN+"Ha conseguido la recompensa 1 del proyecto "+proyecto2+": "+ recompensa1proy2+ANSI_RESET);
-                                    }
-                                    if (precio2proy2 != 0 && inversionProyecto2Inversor1 >= precio2proy2){
-                                        System.out.println(ANSI_GREEN+"Ha conseguido la recompensa 2 del proyecto "+proyecto2+": "+ recompensa2proy2+ANSI_RESET);
-                                    }
-                                    if (precio3proy2!=0 && inversionProyecto2Inversor1>precio3proy2) {
-                                        System.out.println(ANSI_GREEN+"Ha conseguido la recompensa 3 del proyecto "+proyecto2+": "+ recompensa3proy2+ANSI_RESET);
-                                    }
-                                }
-                                if(inversionProyecto3Inversor1>0){
-                                    System.out.println("Usted ha contribuido con "+ inversionProyecto3Inversor1+" € en el proyecto *****"+ proyecto3+"*****");
-                                    System.out.println("La categoria de *****"+proyecto3+"***** es "+categoria3);
-                                    if (precio1proy3 != 0 && inversionProyecto3Inversor1 >= precio1proy3) {
-                                        System.out.println(ANSI_GREEN+"Ha conseguido la recompensa 1 del proyecto "+proyecto3+": "+ recompensa1proy3+ANSI_RESET);
-                                    }
-                                    if (precio2proy3 != 0 && inversionProyecto3Inversor1 >= precio2proy3){
-                                        System.out.println(ANSI_GREEN+"Ha conseguido la recompensa 2 del proyecto "+proyecto3+": "+ recompensa2proy3+ANSI_RESET);
-                                    }
-                                    if (precio3proy3!=0 && inversionProyecto3Inversor1>=precio3proy3) {
-                                        System.out.println(ANSI_GREEN+"Ha conseguido la recompensa 3 del proyecto "+proyecto3+": "+ recompensa3proy3+ANSI_RESET);
-                                    }
-                                }
-                                if (inversionProyecto3Inversor1==0&&inversionProyecto2Inversor1==0&&inversionProyecto1Inversor1==0){
-                                    System.out.println(ANSI_RED+"Aún no has realizado ninguna inversion"+ANSI_RESET);
                                 }
                                 break;
                             }
                             case 2:{
                                 System.out.println("Has accedido a proyectos");
-                                System.out.println(ANSI_GREEN+"*****PROYECTOS*****"+ANSI_RESET);
-                                System.out.println("¿Qué proyecto quiere ver?");
-                                for (int k=0;k<proyecto.length;k++){
-                                    System.out.println(k+". Proyecto "+k+" : "+proyecto[k]);
-                                }
-                                System.out.println(proyecto.length+". Salir");
+                                System.out.println("¿Qué quieres hacer?");
+                                System.out.println("1. Visualizar proyecto");
+                                System.out.println("2. Salir");
                                 opcion = Integer.parseInt(s.nextLine());
                                 switch (opcion) {
                                     case 1-> {
-                                        if (!proyecto1.equals("Próximamente")) {
-                                            visualizarProyecto(proyecto1, categoria1, financiacionTotal1, financiado1, fechaApertura1, fechaCierre1, recompensa1proy1,descripcion1proy1,precio1proy1, recompensa2proy1, descripcion2proy1, precio2proy1, recompensa3proy1, descripcion3proy1, precio3proy1);
-                                            porcentajefinanciado1=financiado1*100/financiacionTotal1;
-                                            System.out.println("Actualmente se ha financiado un "+porcentajefinanciado1+"%");
-                                            grafico(porcentajefinanciado1);
-                                            System.out.println("\n Quieres invertir en el proyecto: "+proyecto1+"? (si/no)");
+                                        System.out.println(ANSI_GREEN+"*****PROYECTOS*****"+ANSI_RESET);
+                                        for (int k=0;k<proyecto.length;k++){
+                                            if (!proyecto[k].isEmpty()) {
+                                                System.out.println(k+1 + ". Proyecto " + k + " : " + proyecto[k]);
+                                            }
+                                        }
+                                        System.out.println("Escribe el número del proyecto que desees visualizar");
+                                        numeroProyecto=Integer.parseInt(s.nextLine());
+                                        if (!proyecto[numeroProyecto-1].isEmpty()) {
+                                            visualizarProyecto(proyecto[numeroProyecto-1], categoria[numeroProyecto-1], financiacionTotal[numeroProyecto-1], financiado[numeroProyecto-1], fechaApertura[numeroProyecto-1], fechaCierre[numeroProyecto-1], recompensa1proy[numeroProyecto-1],descripcion1proy[numeroProyecto-1],precio1proy[numeroProyecto-1], recompensa2proy[numeroProyecto-1], descripcion2proy[numeroProyecto-1], precio2proy[numeroProyecto-1], recompensa3proy[numeroProyecto-1], descripcion3proy[numeroProyecto-1], precio3proy[numeroProyecto-1]);
+                                            porcentajefinanciado[numeroProyecto-1]=financiado[numeroProyecto-1]*100/financiacionTotal[numeroProyecto-1];
+                                            System.out.println("Actualmente se ha financiado un "+porcentajefinanciado[numeroProyecto-1]+"%");
+                                            grafico(porcentajefinanciado[numeroProyecto-1]);
+                                            System.out.println("\n Quieres invertir en el proyecto: "+proyecto[numeroProyecto-1]+"? (si/no)");
                                             if (s.nextLine().equalsIgnoreCase("SI")) {
                                                 System.out.println("Por favor introduzca usuario y contraseña para validar la operación");
                                                 usuario=s.nextLine();
@@ -877,12 +864,14 @@ public class Main {
                                                 intentoInversion=Integer.parseInt(s.nextLine());
                                                 inversionAceptada=false;
                                                 for (int i = 0; i < saldoInversor.length; i++) {
-                                                    if (intentoInversion<=saldoInversor[i] && intentoInversion>0){
-                                                        inversionAceptada=true;
-                                                        System.out.println(ANSI_GREEN+"Operacion realizada con exito"+ANSI_RESET);
-                                                        inversionProyecto2Inversor1+=intentoInversion;
-                                                        saldoInversor[i]-=intentoInversion;
-                                                        financiado1+=intentoInversion;
+                                                    if (usuario.equals(nombreUsuarioInversor[i])) {
+                                                        if (intentoInversion <= saldoInversor[i] && intentoInversion > 0) {
+                                                            inversionAceptada = true;
+                                                            System.out.println(ANSI_GREEN + "Operacion realizada con exito" + ANSI_RESET);
+                                                            inversorProyectoInversion[i][numeroProyecto-1]+= intentoInversion;
+                                                            saldoInversor[i] -= intentoInversion;
+                                                            financiado[numeroProyecto-1] += intentoInversion;
+                                                        }
                                                     }
                                                 }
                                                 if (!inversionAceptada){
@@ -895,75 +884,7 @@ public class Main {
                                             System.out.println("No existe el proyecto 1");
                                         }
                                     }
-                                    case 2-> {
-                                        if (!proyecto2.equals("Próximamente")) {
-                                            visualizarProyecto(proyecto2,categoria2,financiacionTotal2,financiado2,fechaApertura2,fechaCierre2,recompensa1proy2,descripcion1proy2,precio1proy2, recompensa2proy2, descripcion2proy2, precio2proy2, recompensa3proy2, descripcion3proy2, precio3proy2);
-                                            porcentajefinanciado2=financiado2*100/financiacionTotal2;
-                                            System.out.println("Actualmente se ha financiado un "+porcentajefinanciado2+"%");
-                                            grafico(porcentajefinanciado2);
-                                            System.out.println("\n Quieres invertir en el proyecto: "+proyecto2+"? (si/no)");
-                                            if (s.nextLine().equalsIgnoreCase("SI")) {
-                                                System.out.println("Por favor introduzca usuario y contraseña para validar la operación");
-                                                usuario=s.nextLine();
-                                                contrasena=s.nextLine();
-                                                validarOperacion(usuario, contrasena, nombreUsuarioInversor,contrasenaUsuarioInversor);
-                                                System.out.println("¿Cuánto desea invertir?");
-                                                intentoInversion=Integer.parseInt(s.nextLine());
-                                                inversionAceptada=false;
-                                                for (int i = 0; i < saldoInversor.length; i++) {
-                                                    if (intentoInversion<=saldoInversor[i] && intentoInversion>0){
-                                                        inversionAceptada=true;
-                                                        System.out.println(ANSI_GREEN+"Operacion realizada con exito"+ANSI_RESET);
-                                                        inversionProyecto2Inversor1+=intentoInversion;
-                                                        saldoInversor[i]-=intentoInversion;
-                                                        financiado2+=intentoInversion;
-                                                    }
-                                                }
-                                                if (!inversionAceptada){
-                                                    System.out.println(ANSI_RED+"Operación Denegada"+ANSI_RESET);
-                                                }
-                                            }else{
-                                                System.out.println("Volviendo al menú principal");
-                                            }
-                                        } else {
-                                            System.out.println("No existe el proyecto 2");
-                                        }
-                                    }
-                                    case 3-> {
-                                        if (!proyecto3.equals("Próximamente")) {
-                                            visualizarProyecto(proyecto3,categoria3,financiacionTotal3,financiado3,fechaApertura3,fechaCierre3,recompensa1proy3,descripcion1proy3,precio1proy3, recompensa2proy3, descripcion2proy3, precio2proy3, recompensa3proy3, descripcion3proy3, precio3proy3);
-                                            porcentajefinanciado3=financiado3*100/financiacionTotal3;
-                                            System.out.println("Actualmente se ha financiado un "+porcentajefinanciado3+"%");
-                                            grafico(porcentajefinanciado3);
-                                            System.out.println("\n Quieres invertir en el proyecto: "+proyecto3+"? (si/no)");
-                                            if (s.nextLine().equalsIgnoreCase("SI")) {
-                                                System.out.println("Por favor introduzca usuario y contraseña para validar la operación");
-                                                usuario=s.nextLine();
-                                                contrasena=s.nextLine();
-                                                validarOperacion(usuario, contrasena, nombreUsuarioInversor,contrasenaUsuarioInversor);
-                                                System.out.println("¿Cuánto desea invertir?");
-                                                intentoInversion=Integer.parseInt(s.nextLine());
-                                                inversionAceptada=false;
-                                                for (int i = 0; i < saldoInversor.length; i++) {
-                                                    if (intentoInversion<=saldoInversor[i] && intentoInversion>0){
-                                                        inversionAceptada=true;
-                                                        System.out.println(ANSI_GREEN+"Operacion realizada con exito"+ANSI_RESET);
-                                                        inversionProyecto2Inversor1+=intentoInversion;
-                                                        saldoInversor[i]-=intentoInversion;
-                                                        financiado3+=intentoInversion;
-                                                    }
-                                                }
-                                                if (!inversionAceptada){
-                                                    System.out.println(ANSI_RED+"Operación Denegada"+ANSI_RESET);
-                                                }
-                                            }else{
-                                                System.out.println("Volviendo al menú principal");
-                                            }
-                                        } else {
-                                            System.out.println("No existe el proyecto 3");
-                                        }
-                                    }
-                                    case 4-> System.out.println("¡Hasta pronto!");
+                                    case 2-> System.out.println("¡Hasta pronto!");
                                     default -> System.out.println("Esa opción no se encuentra en el menú");
                                 }
                                 break;

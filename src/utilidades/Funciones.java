@@ -58,9 +58,10 @@ public class Funciones {
      * @return no devuelve nada.
      */
     public static void menuBloqueo (){
-        System.out.println("Pulsa 1. Para bloquear");
-        System.out.println("Pulsa 2. Para desbloquear");
-        System.out.println("Pulsa 3. Para salir al menú principal de admin");
+        System.out.println("¿Qué quieres hacer?");
+        System.out.println("Pulsa 1. Bloquear un usuario");
+        System.out.println("Pulsa 2. Desbloquear un usuario");
+        System.out.println("Pulsa 3. Salir");
     }
 
     /**
