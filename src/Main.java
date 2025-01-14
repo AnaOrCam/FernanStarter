@@ -438,41 +438,17 @@ public class Main {
                                 }
                                 System.out.println(proyecto.length+". Salir");
                                 opcionProyectoAdmin = Integer.parseInt(s.nextLine());
-                                switch (opcionProyectoAdmin) {
-                                    case 1 -> {
-                                        if (!proyecto1.equals("Próximamente")) {
-                                            visualizarProyecto(proyecto1, categoria1, financiacionTotal1, financiado1, fechaApertura1, fechaCierre1, recompensa1proy1,descripcion1proy1,precio1proy1, recompensa2proy1, descripcion2proy1, precio2proy1, recompensa3proy1, descripcion3proy1, precio3proy1);
-                                            porcentajefinanciado1=financiado1*100/financiacionTotal1;
-                                            System.out.println("Actualmente se ha financiado un "+porcentajefinanciado1+"%");
-                                            grafico(porcentajefinanciado1);
-                                        } else {
-                                            System.out.println("No existe el proyecto 1");
-                                        }
-                                    }
-                                    case 2 -> {
-                                        if (!proyecto2.equals("Próximamente")) {
-                                            visualizarProyecto(proyecto2,categoria2,financiacionTotal2,financiado2,fechaApertura2,fechaCierre2,recompensa1proy2,descripcion1proy2,precio1proy2, recompensa2proy2, descripcion2proy2, precio2proy2, recompensa3proy2, descripcion3proy2, precio3proy2);
-                                            porcentajefinanciado2=financiado2*100/financiacionTotal2;
-                                            System.out.println("Actualmente se ha financiado un "+porcentajefinanciado2+"%");
-                                            grafico(porcentajefinanciado2);
-
-                                        } else {
-                                            System.out.println("No existe el proyecto 2");
-                                        }
-                                    }
-                                    case 3 -> {
-                                        if (!proyecto3.equals("Próximamente")) {
-                                            visualizarProyecto(proyecto3,categoria3,financiacionTotal3,financiado3,fechaApertura3,fechaCierre3,recompensa1proy3,descripcion1proy3,precio1proy3, recompensa2proy3, descripcion2proy3, precio2proy3, recompensa3proy3, descripcion3proy3, precio3proy3);
-                                            porcentajefinanciado3=financiado3*100/financiacionTotal3;
-                                            System.out.println("Actualmente se ha financiado un "+porcentajefinanciado3+"%");
-                                            grafico(porcentajefinanciado3);
-
-                                        } else {
-                                            System.out.println("No existe el proyecto 3");
-                                        }
-                                    }
-                                    case 4 -> System.out.println("¡Hasta pronto!");
-                                    default -> System.out.println("Esa opcion no se encuentra en el menú");
+                                if (opcionProyectoAdmin==proyecto.length){
+                                    System.out.println("¡Hasta pronto!");
+                                }else if (opcionProyectoAdmin<0||opcionProyectoAdmin>proyecto.length){
+                                    System.out.println("Esa opcion no se encuentra en el menú");
+                                } else if (!proyecto[opcionProyectoAdmin].equals("Próximamente")) {
+                                    visualizarProyecto(proyecto[opcionProyectoAdmin], categoria[opcionProyectoAdmin], financiacionTotal[opcionProyectoAdmin], financiado[opcionProyectoAdmin], fechaApertura[opcionProyectoAdmin], fechaCierre[opcionProyectoAdmin], recompensa1proy[opcionProyectoAdmin],descripcion1proy[opcionProyectoAdmin],precio1proy[opcionProyectoAdmin], recompensa2proy[opcionProyectoAdmin], descripcion2proy[opcionProyectoAdmin], precio2proy[opcionProyectoAdmin], recompensa3proy[opcionProyectoAdmin], descripcion3proy[opcionProyectoAdmin], precio3proy[opcionProyectoAdmin]);
+                                    porcentajefinanciado[opcionProyectoAdmin]=financiado[opcionProyectoAdmin]*100/financiacionTotal[opcionProyectoAdmin];
+                                    System.out.println("Actualmente se ha financiado un "+porcentajefinanciado[opcionProyectoAdmin]+"%");
+                                    grafico(porcentajefinanciado[opcionProyectoAdmin]);
+                                } else if (proyecto[opcionProyectoAdmin].equals("Próximamente")){
+                                    System.out.println("No existe el proyecto "+opcionProyectoAdmin);
                                 }
                                 break;
                             }
@@ -725,7 +701,7 @@ public class Main {
                                                                         System.out.println("Esa opción no se encuentra en el menú");
                                                             }
                                                         } else if (proyecto[aux].equals("Próximamente")){
-                                                            System.out.println("No existe el proyecto 1");
+                                                            System.out.println("No existe el proyecto "+aux);
                                                         } else {
                                                         System.out.println("Esa opción no se encuentra en el menú");
                                                     }
