@@ -123,8 +123,13 @@ public class Main {
                                     System.out.println("La contraseña repetida introducida es diferente. Inténtelo de nuevo");
                                 }
                             } while (!confirmarContrasena(contrasenaUsuarioInversor[i], repeticionContrasena));
-                            System.out.println("Introduzca su correo ");
-                            correoUsuarioInversor[i] = s.nextLine();
+                            do {
+                                System.out.println("Introduzca su correo ");
+                                correoUsuarioInversor[i] = s.nextLine();
+                                if (!comprobacionCorreo(correoUsuarioInversor[i])){
+                                    System.out.println("El formato del correo debe contener @");
+                                }
+                            }while(!comprobacionCorreo(correoUsuarioInversor[i]));
                             System.out.println("Introduzca el codigo de verificacion para la creacion del perfil que hemos enviado a su correo");
                             autentificacion = generarAutentificacion();
                             String asunto = "Codigo de autentificacion";
@@ -164,8 +169,13 @@ public class Main {
                                     System.out.println("La contraseña repetida introducida es diferente. Inténtelo de nuevo");
                                 }
                             } while (!confirmarContrasena(contrasenaUsuarioGestor[i], repeticionContrasena));
-                            System.out.println("Introduzca su correo ");
-                            correoUsuarioGestor[i] = s.nextLine();
+                            do {
+                                System.out.println("Introduzca su correo ");
+                                correoUsuarioGestor[i] = s.nextLine();
+                                if (!comprobacionCorreo(correoUsuarioGestor[i])){
+                                    System.out.println("El formato del correo debe contener @");
+                                }
+                            }while(!comprobacionCorreo(correoUsuarioGestor[i]));
                             creado = true;
                             System.out.println("Introduzca el codigo de verificacion para la creacion del perfil que hemos enviado a su correo");
                             autentificacion = generarAutentificacion();

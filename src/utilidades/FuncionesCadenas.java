@@ -106,5 +106,21 @@ public class FuncionesCadenas {
         }
         return fechaCorrecta;
     }
+    /**
+     * Comprueba que el correo contenga @.
+     * @author davidrn06
+     * @param correo se refiere al correo del usuario.
+     * @return devuelve true si el formato del correo es correcto.
+     */
+    public static boolean comprobacionCorreo(String correo){
+        boolean correoCorrecto;
+        if (correo.contains("@")){
+            correoCorrecto=true;
+        }else {
+            correoCorrecto=false;
+        }
+        return correoCorrecto;
+    }
+    
 
 }
