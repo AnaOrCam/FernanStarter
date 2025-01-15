@@ -72,5 +72,39 @@ public class FuncionesCadenas {
         }
         return usuarioValidado;
     }
+    /**
+     * Comprueba que la contraseña corresponde al usuario.
+     * @author davidrn06
+     * @param titulo se refiere al titulo del proyecto.
+     * @return devuelve true la longitud es correcta.
+     */
+    public static boolean comprobacionMaximosMinimosTitulos(String titulo){
+        boolean tituloCorrecto;
+        if (titulo.length()<15&&titulo.length()>3){
+            tituloCorrecto=true;
+        }else {
+            tituloCorrecto=false;
+        }
+        return tituloCorrecto;
+    }
+    /**
+     * Comprueba que la contraseña corresponde al usuario.
+     * @author davidrn06
+     * @param fecha se refiere a la fecha del proyecto.
+     * @return devuelve true si el formato de la fecha es correcto.
+     */
+    public static boolean comprobacionFechas(String fecha){
+        boolean fechaCorrecta;
+        if (fecha.length()==10){
+            if (fecha.charAt(2)=='/'&&fecha.charAt(5)=='/'){
+                fechaCorrecta=true;
+            }else {
+                fechaCorrecta=false;
+            }
+        }else {
+            fechaCorrecta=false;
+        }
+        return fechaCorrecta;
+    }
 
 }

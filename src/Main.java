@@ -10,15 +10,15 @@ public class Main {
         final String ANSI_PURPLE= "\033[35m";
         String usuario="";
         String contrasena;
-        String destinatarioAdmin="ana.oc.094@gmail.com";
+        String destinatarioAdmin="davidrosanebrera@gmail.com";
         String usuarioAdmin="administrador";
         String contrasenaAdmin="admin";
         String [] nombreUsuarioGestor = {"gestor","","","","","","","","",""};
         String [] contrasenaUsuarioGestor = {"gestor","","","","","","","","",""};
-        String [] correoUsuarioGestor = {"ana.oc.094@gmail.com","","","","","","","","",""};
+        String [] correoUsuarioGestor = {"davidrosanebrera@gmail.com","","","","","","","","",""};
         String [] nombreUsuarioInversor = {"inversor","","","","","","","","",""};
         String [] contrasenaUsuarioInversor = {"inversor","","","","","","","","",""};
-        String [] correoUsuarioInversor = {"ana.oc.094@gmail.com","","","","","","","","",""};
+        String [] correoUsuarioInversor = {"davidrosanebrera@gmail.com","","","","","","","","",""};
         String [] proyecto = {"Aloha","","","","","","","","","","","","","","","","","","",""};
         String [] categoria = {"Cine","","","","","","","","","","","","","","","","","","",""};
         int [] financiacionTotal = {500,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
@@ -109,9 +109,14 @@ public class Main {
                             System.out.println("Introduzca el nombre de usuario del nuevo perfil inversor");
                             nombreUsuarioInversor[i] = s.nextLine();
                             do {
-                                System.out.println("Introduzca la contraseña de usuario del nuevo perfil inversor");
-                                contrasenaUsuarioInversor[i] = s.nextLine();
-                                System.out.println(fortalezaContrasena(contrasenaUsuarioInversor[i]));
+                                do {
+                                    System.out.println("Introduzca la contraseña de usuario del nuevo perfil inversor");
+                                    contrasenaUsuarioInversor[i] = s.nextLine();
+                                    System.out.println(fortalezaContrasena(contrasenaUsuarioInversor[i]));
+                                    if (fortalezaContrasena(contrasenaUsuarioInversor[i]).equals("Robustez de la contraseña: Débil")){
+                                        System.out.println("La fortaleza de la contraseña no puede ser debil, para una mayor seguridad en sus datos.");
+                                    }
+                                }while(fortalezaContrasena(contrasenaUsuarioInversor[i]).equals("Robustez de la contraseña: Débil"));
                                 System.out.println("Repita la contraseña de usuario del nuevo perfil inversor");
                                 repeticionContrasena = s.nextLine();
                                 if (!confirmarContrasena(contrasenaUsuarioInversor[i], repeticionContrasena)) {
@@ -142,12 +147,17 @@ public class Main {
                     creado = false;
                     for (int i = 0; i < 10; i++) {
                         if (nombreUsuarioGestor[i].equals("") && creado == false) {
-                            System.out.println("Introduzca el nombre de usuario del nuevo perfil gestor");
-                            nombreUsuarioGestor[i] = s.nextLine();
+                                System.out.println("Introduzca el nombre de usuario del nuevo perfil gestor");
+                                nombreUsuarioGestor[i] = s.nextLine();
                             do {
-                                System.out.println("Introduzca la contraseña de usuario del nuevo perfil gestor ");
-                                contrasenaUsuarioGestor[i] = s.nextLine();
-                                System.out.println(fortalezaContrasena(contrasenaUsuarioGestor[i]));
+                                do {
+                                    System.out.println("Introduzca la contraseña de usuario del nuevo perfil gestor ");
+                                    contrasenaUsuarioGestor[i] = s.nextLine();
+                                    System.out.println(fortalezaContrasena(contrasenaUsuarioGestor[i]));
+                                    if (fortalezaContrasena(contrasenaUsuarioGestor[i]).equals("Robustez de la contraseña: Débil")){
+                                        System.out.println("La fortaleza de la contraseña no puede ser debil, para una mayor seguridad en sus datos.");
+                                    }
+                                }while (fortalezaContrasena(contrasenaUsuarioGestor[i]).equals("Robustez de la contraseña: Débil"));
                                 System.out.println("Repita la contraseña de usuario del nuevo perfil gestor ");
                                 repeticionContrasena = s.nextLine();
                                 if (!confirmarContrasena(contrasenaUsuarioGestor[i], repeticionContrasena)) {
@@ -487,18 +497,34 @@ public class Main {
                                         case 1 ->{
                                             for (int k=0;k<proyecto.length;k++){
                                                 if (proyecto[k].isEmpty()){
-                                                    System.out.println("Introduzca el nombre del proyecto");
-                                                    proyecto[k]=s.nextLine();
+                                                    do {
+                                                        System.out.println("Introduzca el nombre del proyecto");
+                                                        proyecto[k]=s.nextLine();
+                                                        if (!comprobacionMaximosMinimosTitulos(proyecto[k])){
+                                                            System.out.println("La longitud del titulo debe estar comprendida entre 4 y 15 caracteres");
+                                                        }
+                                                    }while(!comprobacionMaximosMinimosTitulos(proyecto[k]));
+
                                                     System.out.println("Introduzca la categoría del proyecto (arte, tecnología, cine, música, juegos, comida, moda…)");
                                                     categoria[k]=s.nextLine();
                                                     System.out.println("¿Cual es la cantidad necesaria para financiar este proyecto?");
                                                     financiacionTotal[k]=Integer.parseInt(s.nextLine());
                                                     System.out.println("¿Cual es la cantidad financiada hasta el momento?");
                                                     financiado[k]=Integer.parseInt(s.nextLine());
-                                                    System.out.println("Escriba la fecha de apertura para poder recibir inversiones (formato --/--/----)");
-                                                    fechaApertura[k]=s.nextLine();
-                                                    System.out.println("Escriba la fecha de cierre de inversiones (formato --/--/----)");
-                                                    fechaCierre[k]=s.nextLine();
+                                                    do {
+                                                        System.out.println("Escriba la fecha de apertura para poder recibir inversiones (formato --/--/----)");
+                                                        fechaApertura[k]=s.nextLine();
+                                                        if (!comprobacionFechas(fechaApertura[k])){
+                                                            System.out.println("El formato debe de ser --/--/----");
+                                                        }
+                                                    }while (!comprobacionFechas(fechaApertura[k]));
+                                                    do {
+                                                        System.out.println("Escriba la fecha de cierre de inversiones (formato --/--/----)");
+                                                        fechaCierre[k]=s.nextLine();
+                                                        if (!comprobacionFechas(fechaCierre[k])){
+                                                            System.out.println("El formato debe de ser --/--/----");
+                                                        }
+                                                    }while (!comprobacionFechas(fechaCierre[k]));
                                                     do {
                                                         System.out.println("¿Cuántas recompensas quieres añadir (máximo 3)?");
                                                         cantidadRecompensas[k] = Integer.parseInt(s.nextLine());
@@ -593,8 +619,13 @@ public class Main {
                                                         opcion = Integer.parseInt(s.nextLine());
                                                         switch (opcion) {
                                                             case 1 -> {
-                                                                System.out.println("Escribe el nuevo nombre del proyecto " + aux);
-                                                                proyecto[aux] = s.nextLine();
+                                                                do {
+                                                                    System.out.println("Escribe el nuevo nombre del proyecto " + aux);
+                                                                    proyecto[aux] = s.nextLine();
+                                                                    if (!comprobacionMaximosMinimosTitulos(proyecto[aux])){
+                                                                        System.out.println("La longitud del titulo debe estar comprendida entre 4 y 15 caracteres");
+                                                                    }
+                                                                }while(!comprobacionMaximosMinimosTitulos(proyecto[aux]));
                                                             }
                                                             case 2 -> {
                                                                 System.out.println("Escribe la nueva categoría del proyecto " + aux);
@@ -609,12 +640,22 @@ public class Main {
                                                                 financiado[aux] = Integer.parseInt(s.nextLine());
                                                             }
                                                             case 5 -> {
-                                                                System.out.println("Escribe la nueva fecha de apertura de inversiones (Formato --/--/----)");
-                                                                fechaApertura[aux] = s.nextLine();
+                                                                do {
+                                                                    System.out.println("Escribe la nueva fecha de apertura de inversiones (Formato --/--/----)");
+                                                                    fechaApertura[aux] = s.nextLine();
+                                                                    if (!comprobacionFechas(fechaApertura[aux])){
+                                                                        System.out.println("El formato debe de ser --/--/----");
+                                                                    }
+                                                                }while (!comprobacionFechas(fechaApertura[aux]));
                                                             }
                                                             case 6 -> {
-                                                                System.out.println("Escribe la nueva fecha de cierre de inversiones (Formato --/--/----)");
-                                                                fechaCierre[aux] = s.nextLine();
+                                                                do {
+                                                                    System.out.println("Escribe la nueva fecha de cierre de inversiones (Formato --/--/----)");
+                                                                    fechaCierre[aux] = s.nextLine();
+                                                                    if (!comprobacionFechas(fechaCierre[aux])){
+                                                                        System.out.println("El formato debe de ser --/--/----");
+                                                                    }
+                                                                }while (!comprobacionFechas(fechaCierre[aux]));
                                                             }
                                                             case 7 -> {
                                                                 menuEleccionRecompensa();
