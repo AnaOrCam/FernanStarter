@@ -98,6 +98,15 @@ public class Funciones {
 
     }
 
+    /**
+     * Permite cambiar el nombre de usuario.
+     * @author AnaOrCam
+     * @param usuarioActual se refiere al usuario activo en el momento en el que se lleva a cabo la función.
+     * @param usuario es el nombre de usuario actual (escrito por el usuario).
+     * @param nombreUsuarioGestor es el array con los usuarios creados hasta el momento.
+     * @param nuevoNombreUsuario se refiere al nuevo nombre de usuario elegido por el usuario.
+     * @return devuelve la cadena usuarioActual con el nombre de usuario cambiado.
+     */
     public static String cambiarNombreUsuario(String usuarioActual, String usuario, String[] nombreUsuarioGestor, String nuevoNombreUsuario){
         boolean usuarioCambiado = false;
         for (int i = 0; i < nombreUsuarioGestor.length; i++) {
@@ -113,6 +122,13 @@ public class Funciones {
         return usuarioActual;
     }
 
+    /**
+     * Permite cambiar la contraseña del usuario.
+     * @author AnaOrCam
+     * @param contrasenaActual se refiere a la contraseña del usuario activo.
+     * @param contrasenaUsuarioInversor es el array con las contraseñas de los usuarios registrados.
+     * @return no devuelve nada.
+     */
     public static void cambiarContrasena(String contrasenaActual, String[] contrasenaUsuarioInversor){
         Scanner s=new Scanner(System.in);
         String nuevaContrasena;
@@ -236,8 +252,8 @@ public class Funciones {
      * Añade un nuevo amigo a la lista de amigos invitados y luego muestra la lista actualizada.
      * @author AnaOrCam
      * @param usuarioActual se refiere al usuario activo en el momento en el que se lleva a cabo la función.
-     * @param amigosInvitados es la cadena con los amigos invitados hasta el momento.
-     * @param usuarios es la cadena con los usuarios creados hasta el momento.
+     * @param amigosInvitados es el array con los amigos invitados hasta el momento.
+     * @param usuarios es el array con los usuarios creados hasta el momento.
      * @return devuelve una cadena con los amigos invitados del usuario hasta el momento.
      */
     public static String [] invitarAmigo (String usuarioActual, String[] amigosInvitados, String[] usuarios){
@@ -265,10 +281,10 @@ public class Funciones {
      * Permite visualizar el saldo actual e ingresar una cantidad a ese saldo.
      * @author AnaOrCam
      * @param usuarioActual se refiere al usuario activo en el momento en el que se lleva a cabo la función.
-     * @param usuarios es la cadena con los usuarios creados hasta el momento.
-     * @param contrasenas es la cadena con las contraseñas de los usuarios creados hasta el momento.
-     * @param saldo es la cadena que contiene el saldo de los distintos usuarios.
-     * @return devuelve la cadena saldo actualizada.
+     * @param usuarios es el array con los usuarios creados hasta el momento.
+     * @param contrasenas es el array con las contraseñas de los usuarios creados hasta el momento.
+     * @param saldo es el array que contiene el saldo de los distintos usuarios.
+     * @return devuelve el array saldo actualizado.
      */
     public static int[] gestionSaldoInversor (String usuarioActual, String []usuarios, String []contrasenas, int []saldo){
         Scanner s=new Scanner(System.in);
@@ -300,7 +316,4 @@ public class Funciones {
             }
         return saldo;
     }
-
-
-
 }

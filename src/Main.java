@@ -69,7 +69,6 @@ public class Main {
         int contadorProyectos;
         String nombreUsuario;
         boolean creado;
-
         for (int i = 0; i < intentoGestor.length; i++) {
             intentoGestor[i]=3;
             intentoInversor[i]=3;
@@ -119,7 +118,7 @@ public class Main {
                                     contrasenaUsuarioInversor[i] = s.nextLine();
                                     System.out.println(fortalezaContrasena(contrasenaUsuarioInversor[i]));
                                     if (fortalezaContrasena(contrasenaUsuarioInversor[i]).equals("Robustez de la contraseña: Débil")){
-                                        System.out.println("La fortaleza de la contraseña no puede ser debil, para una mayor seguridad en sus datos.");
+                                        System.out.println("La contraseña debe tener al menos una longitud de 8 y contener mayúsculas y minúsculas.");
                                     }
                                 }while(fortalezaContrasena(contrasenaUsuarioInversor[i]).equals("Robustez de la contraseña: Débil"));
                                 System.out.println("Repita la contraseña de usuario del nuevo perfil inversor");
@@ -354,24 +353,32 @@ public class Main {
                                                 case 1:{
                                                     System.out.println("Escribe el número del usuario que quieres bloquear");
                                                     numeroUsuario=Integer.parseInt(s.nextLine());
-                                                    if(gestorbloqueado[numeroUsuario-1]){
-                                                        System.out.println("Este usuario ya esta bloqueado");
-                                                    }else {
-                                                        System.out.println(ANSI_GREEN+"Usuario bloqueado satisfactoriamente"+ANSI_RESET);
-                                                        gestorbloqueado[numeroUsuario-1]=true;
+                                                    if (!nombreUsuarioGestor[numeroUsuario-1].isEmpty()) {
+                                                        if (gestorbloqueado[numeroUsuario - 1]) {
+                                                            System.out.println("Este usuario ya esta bloqueado");
+                                                        } else {
+                                                            System.out.println(ANSI_GREEN + "Usuario bloqueado satisfactoriamente" + ANSI_RESET);
+                                                            gestorbloqueado[numeroUsuario - 1] = true;
+                                                        }
+                                                    }else{
+                                                        System.out.println("El usuario seleccionado no existe.");
                                                     }
                                                     break;
                                                 }
                                                 case 2:{
                                                     System.out.println("Escribe el número del usuario que quieres desbloquear");
                                                     numeroUsuario=Integer.parseInt(s.nextLine());
-                                                    if(!gestorbloqueado[numeroUsuario-1]){
-                                                        System.out.println("Este usuario ya esta desbloqueado");
-                                                    }else {
-                                                        System.out.println(ANSI_GREEN+"Usuario desbloqueado satisfactoriamente"+ANSI_RESET);
-                                                        gestorbloqueado[numeroUsuario-1]=false;
-                                                        intentoGestorCodigo[numeroUsuario-1]=3;
-                                                        intentoGestor[numeroUsuario-1]=3;
+                                                    if (!nombreUsuarioGestor[numeroUsuario-1].isEmpty()) {
+                                                        if (!gestorbloqueado[numeroUsuario - 1]) {
+                                                            System.out.println("Este usuario ya esta desbloqueado");
+                                                        } else {
+                                                            System.out.println(ANSI_GREEN + "Usuario desbloqueado satisfactoriamente" + ANSI_RESET);
+                                                            gestorbloqueado[numeroUsuario - 1] = false;
+                                                            intentoGestorCodigo[numeroUsuario - 1] = 3;
+                                                            intentoGestor[numeroUsuario - 1] = 3;
+                                                        }
+                                                    }else{
+                                                        System.out.println("El usuario seleccionado no existe.");
                                                     }
                                                     break;
                                                 }
@@ -385,7 +392,7 @@ public class Main {
                                         break;
                                     }
                                     case 2: {
-                                        for (int i = 0; i < nombreUsuarioGestor.length; i++) {
+                                        for (int i = 0; i < nombreUsuarioInversor.length; i++) {
                                             if (!nombreUsuarioInversor[i].isEmpty()) {
                                                 System.out.print(i+1+":"+ nombreUsuarioInversor[i] + " está ");
                                                 if (!inversorbloqueado[i]) {
@@ -401,24 +408,32 @@ public class Main {
                                             case 1: {
                                                 System.out.println("Escribe el número del usuario que quieres bloquear");
                                                 numeroUsuario=Integer.parseInt(s.nextLine());
-                                                if (inversorbloqueado[numeroUsuario-1]) {
-                                                    System.out.println("Este usuario ya esta bloqueado");
-                                                } else {
-                                                    System.out.println(ANSI_GREEN+"Usuario bloqueado satisfactoriamente"+ANSI_RESET);
-                                                    inversorbloqueado[numeroUsuario-1] = true;
+                                                if (!nombreUsuarioInversor[numeroUsuario-1].isEmpty()) {
+                                                    if (inversorbloqueado[numeroUsuario - 1]) {
+                                                        System.out.println("Este usuario ya esta bloqueado");
+                                                    } else {
+                                                        System.out.println(ANSI_GREEN + "Usuario bloqueado satisfactoriamente" + ANSI_RESET);
+                                                        inversorbloqueado[numeroUsuario - 1] = true;
+                                                    }
+                                                }else{
+                                                    System.out.println("El usuario seleccionado no existe.");
                                                 }
                                                 break;
                                             }
                                             case 2: {
                                                 System.out.println("Escribe el número del usuario que quieres desbloquear");
                                                 numeroUsuario=Integer.parseInt(s.nextLine());
-                                                if (!inversorbloqueado[numeroUsuario-1]) {
-                                                    System.out.println("Este usuario ya esta desbloqueado");
-                                                } else {
-                                                    System.out.println(ANSI_GREEN+"Usuario desbloqueado satisfactoriamente"+ANSI_RESET);
-                                                    inversorbloqueado[numeroUsuario-1] = false;
-                                                    intentoInversorCodigo[numeroUsuario-1] = 3;
-                                                    intentoInversor[numeroUsuario-1] = 3;
+                                                if (!nombreUsuarioGestor[numeroUsuario-1].isEmpty()) {
+                                                    if (!inversorbloqueado[numeroUsuario - 1]) {
+                                                        System.out.println("Este usuario ya esta desbloqueado");
+                                                    } else {
+                                                        System.out.println(ANSI_GREEN + "Usuario desbloqueado satisfactoriamente" + ANSI_RESET);
+                                                        inversorbloqueado[numeroUsuario - 1] = false;
+                                                        intentoInversorCodigo[numeroUsuario - 1] = 3;
+                                                        intentoInversor[numeroUsuario - 1] = 3;
+                                                    }
+                                                }else{
+                                                    System.out.println("El usuario seleccionado no existe.");
                                                 }
                                                 break;
                                             }
@@ -486,7 +501,7 @@ public class Main {
                                                 contrasenaAdmin=s.nextLine();
                                                 System.out.println(fortalezaContrasena(contrasenaAdmin));
                                                 if (fortalezaContrasena(contrasenaAdmin).equals("Robustez de la contraseña: Débil")){
-                                                    System.out.println("La fortaleza de la contraseña no puede ser debil, para una mayor seguridad en sus datos.");
+                                                    System.out.println("La contraseña debe tener al menos una longitud de 8 y contener mayúsculas y minúsculas.");
                                                 }
                                             }while (fortalezaContrasena(contrasenaAdmin).equals("Robustez de la contraseña: Débil"));
                                             break;

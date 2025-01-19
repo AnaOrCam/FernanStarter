@@ -1,5 +1,4 @@
 package utilidades;
-
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
