@@ -10,15 +10,15 @@ public class Main {
         final String ANSI_PURPLE= "\033[35m";
         String usuario="";
         String contrasena;
-        String destinatarioAdmin="ana.oc.094@gmail.com";
+        String destinatarioAdmin="davidrosanebrera@gmail.com";
         String usuarioAdmin="administrador";
         String contrasenaAdmin="admin";
         String [] nombreUsuarioGestor = {"gestor","","","","","","","","",""};
         String [] contrasenaUsuarioGestor = {"gestor","","","","","","","","",""};
-        String [] correoUsuarioGestor = {"ana.oc.094@gmail.com","","","","","","","","",""};
+        String [] correoUsuarioGestor = {"davidrosanebrera@gmail.com","","","","","","","","",""};
         String [] nombreUsuarioInversor = {"inversor","","","","","","","","",""};
         String [] contrasenaUsuarioInversor = {"inversor","","","","","","","","",""};
-        String [] correoUsuarioInversor = {"ana.oc.094@gmail.com","","","","","","","","",""};
+        String [] correoUsuarioInversor = {"davidrosanebrera@gmail.com","","","","","","","","",""};
         String [] proyecto = {"Aloha","","","","","","","","","","","","","","","","","","",""};
         String [] categoria = {"Cine","","","","","","","","","","","","","","","","","","",""};
         int [] financiacionTotal = {500,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
@@ -107,13 +107,15 @@ public class Main {
                     creado = false;
                     for (int i = 0; i < 10; i++) {
                         if (nombreUsuarioInversor[i].equals("") && creado == false) {
+                            boolean aux;
                             do {
                                 System.out.println("Introduzca el nombre de usuario del nuevo perfil inversor");
                                 nombreUsuario = s.nextLine();
-                                if (!usuarioNoExiste(nombreUsuario, nombreUsuarioInversor))
+                                aux=usuarioNoExiste(nombreUsuario, nombreUsuarioInversor);
+                                if (!aux)
                                     System.out.println("El nombre de usuario ya está en uso");
 
-                            }while (!usuarioNoExiste(nombreUsuario, nombreUsuarioInversor));
+                            }while (!aux);
                                 nombreUsuarioInversor[i]=nombreUsuario;
                             do {
                                 do {
@@ -159,12 +161,16 @@ public class Main {
                     creado = false;
                     for (int i = 0; i < 10; i++) {
                         if (nombreUsuarioGestor[i].equals("") && creado == false) {
+                            boolean aux;
                             do {
                                 System.out.println("Introduzca el nombre de usuario del nuevo perfil gestor");
-                                nombreUsuarioGestor[i] = s.nextLine();
-                                if (!usuarioNoExiste(nombreUsuarioGestor[i], nombreUsuarioGestor))
-                                    System.out.println("El nombre de usuario elegido ya está en uso.");
-                            }while (!usuarioNoExiste(nombreUsuarioGestor[i], nombreUsuarioGestor));
+                                nombreUsuario = s.nextLine();
+                                aux=usuarioNoExiste(nombreUsuario, nombreUsuarioGestor);
+                                if (!aux)
+                                    System.out.println("El nombre de usuario ya está en uso");
+
+                            }while (!aux);
+                            nombreUsuarioGestor[i]=nombreUsuario;
                             do {
                                 do {
                                     System.out.println("Introduzca la contraseña de usuario del nuevo perfil gestor ");
@@ -484,8 +490,14 @@ public class Main {
                                             break;
                                         }
                                         case 2:{
-                                            System.out.println("Introduzca la nueva contraseña de usuario");
-                                            contrasenaAdmin=s.nextLine();
+                                            do {
+                                                System.out.println("Introduzca la nueva contraseña de usuario");
+                                                contrasenaAdmin=s.nextLine();
+                                                System.out.println(fortalezaContrasena(contrasenaAdmin));
+                                                if (fortalezaContrasena(contrasenaAdmin).equals("Robustez de la contraseña: Débil")){
+                                                    System.out.println("La fortaleza de la contraseña no puede ser debil, para una mayor seguridad en sus datos.");
+                                                }
+                                            }while (fortalezaContrasena(contrasenaAdmin).equals("Robustez de la contraseña: Débil"));
                                             break;
                                         }
                                         case 3:{
@@ -833,11 +845,16 @@ public class Main {
                                             usuario=s.nextLine();
                                             System.out.println("Introduzca la contraseña actual");
                                             contrasenaActual=s.nextLine();
-                                            if (validarOperacion(usuarioActual,usuario, contrasenaActual, nombreUsuarioInversor,contrasenaUsuarioInversor)) {
+                                            if (validarOperacion(usuarioActual,usuario, contrasenaActual, nombreUsuarioGestor,nombreUsuarioGestor)) {
                                                 do {
-                                                    System.out.println("Introduzca la nueva contraseña");
-                                                    nuevaContrasena = s.nextLine();
-                                                    System.out.println(fortalezaContrasena(nuevaContrasena));
+                                                    do {
+                                                        System.out.println("Introduzca la nueva contraseña");
+                                                        nuevaContrasena = s.nextLine();
+                                                        System.out.println(fortalezaContrasena(nuevaContrasena));
+                                                        if (fortalezaContrasena(nuevaContrasena).equals("Robustez de la contraseña: Débil")){
+                                                            System.out.println("La fortaleza de la contraseña no puede ser debil, para una mayor seguridad en sus datos.");
+                                                        }
+                                                    }while (fortalezaContrasena(nuevaContrasena).equals("Robustez de la contraseña: Débil"));
                                                     System.out.println("Vuelve a escribir la nueva contraseña");
                                                     repeticionContrasena = s.nextLine();
                                                     if (!confirmarContrasena(nuevaContrasena, repeticionContrasena)) {
@@ -847,7 +864,7 @@ public class Main {
                                                 contrasenaCambiada = false;
                                                 for (int i = 0; i < contrasenaUsuarioGestor.length; i++) {
                                                     if (contrasenaActual.equals(contrasenaUsuarioGestor[i])) {
-                                                        contrasenaUsuarioInversor[i] = nuevaContrasena;
+                                                        contrasenaUsuarioGestor[i] = nuevaContrasena;
                                                         contrasenaCambiada = true;
                                                     }
                                                 }
@@ -1013,9 +1030,14 @@ public class Main {
                                             contrasenaActual=s.nextLine();
                                             if (validarOperacion(usuarioActual,usuario, contrasenaActual, nombreUsuarioInversor,contrasenaUsuarioInversor)) {
                                                 do {
-                                                    System.out.println("Introduzca la nueva contraseña");
-                                                    nuevaContrasena = s.nextLine();
-                                                    System.out.println(fortalezaContrasena(nuevaContrasena));
+                                                    do {
+                                                        System.out.println("Introduzca la nueva contraseña");
+                                                        nuevaContrasena = s.nextLine();
+                                                        System.out.println(fortalezaContrasena(nuevaContrasena));
+                                                        if (fortalezaContrasena(nuevaContrasena).equals("Robustez de la contraseña: Débil")){
+                                                            System.out.println("La fortaleza de la contraseña no puede ser debil, para una mayor seguridad en sus datos.");
+                                                        }
+                                                    }while(fortalezaContrasena(nuevaContrasena).equals("Robustez de la contraseña: Débil"));
                                                     System.out.println("Vuelve a escribir la nueva contraseña");
                                                     repeticionContrasena = s.nextLine();
                                                     if (!confirmarContrasena(nuevaContrasena, repeticionContrasena)) {
