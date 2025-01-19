@@ -8,6 +8,14 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 public class FuncionesCorreos {
+    /**
+     * Funcion para el envio del correo.
+     * @author davidrn06
+     * @param destinatario nombre del destinatario que recibe la autentificacion en dos factores.
+     * @param asunto asunto correspondiente al correo enviado.
+     * @param cuerpo cuerpo del correo enviado.
+     * @return no devuelve ningun valor.
+     */
     public static void enviarConGMail(String destinatario, String asunto, String cuerpo) {
         String remitente = "davidrosanebrera@gmail.com";
         String clave = "cnnu lpxh vvva enhn";

@@ -257,14 +257,13 @@ public class Main {
                                         gestorbloqueado[i] = true;
                                         System.out.println(ANSI_RED+"El usuario ha sido bloqueado. Contacte con el Administrador."+ANSI_RESET);
                                     }
+                                }else if (intentoGestor[i] <= 0||gestorbloqueado[i]==true){
+                                    gestorbloqueado[i] = true;
+                                    System.out.println(ANSI_RED+"El usuario ha sido bloqueado. Contacte con el Administrador."+ANSI_RESET);
                                 } else {
                                     System.out.println("Usuario o contraseña incorrectos");
                                     intentoGestor[i]--;
                                     System.out.println("Te quedan " + intentoGestor[i] + " intentos.");
-                                    if (intentoGestor[i] <= 0) {
-                                        gestorbloqueado[i] = true;
-                                        System.out.println(ANSI_RED+"El usuario ha sido bloqueado. Contacte con el Administrador."+ANSI_RESET);
-                                    }
                                 }
                             } else if (usuario.equals(nombreUsuarioGestor[i]) && gestorbloqueado[i]) {
                                 System.out.println("El usuario está bloqueado. Por favor contacte con el administrador");
@@ -296,14 +295,14 @@ public class Main {
                                         inversorbloqueado[i] = true;
                                         System.out.println(ANSI_RED+"El usuario ha sido bloqueado. Contacte con el Administrador."+ANSI_RESET);
                                     }
+                                } else if (intentoInversor[i] <= 0||inversorbloqueado[i] == true) {
+                                    inversorbloqueado[i] = true;
+                                    System.out.println(ANSI_RED+"El usuario ha sido bloqueado. Contacte con el Administrador."+ANSI_RESET);
                                 } else {
                                     System.out.println("Usuario o contraseña incorrectos");
                                     intentoInversor[i]--;
                                     System.out.println("Te quedan " + intentoInversor[i] + " intentos.");
-                                    if (intentoInversor[i] <= 0) {
-                                        gestorbloqueado[i] = true;
-                                        System.out.println(ANSI_RED+"El usuario ha sido bloqueado. Contacte con el Administrador."+ANSI_RESET);
-                                    }
+
                                 }
 
                             } else if (usuario.equals(nombreUsuarioInversor[i]) && inversorbloqueado[i]) {

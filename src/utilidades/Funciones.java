@@ -301,13 +301,6 @@ public class Funciones {
         return saldo;
     }
 
-    /**
-     * Funcion para el envio del correo.
-     * @author davidrn06
-     * @param destinatario nombre del destinatario que recibe la autentificacion en dos factores.
-     * @param asunto asunto correspondiente al correo enviado.
-     * @param cuerpo cuerpo del correo enviado.
-     * @return no devuelve ningun valor.
-     */
+
 
 }
