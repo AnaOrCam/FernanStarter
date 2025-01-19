@@ -187,27 +187,14 @@ public class Funciones {
                 "4. Salir");
     }
 
-    /**
-     * Menu de visualizacion de borrado de los proyectos.
-     * @author davidrn06
-     * @param proyecto1 nombre del proyecto numero 1.
-     * @param proyecto2 nombre del proyecto numero 2.
-     * @param proyecto3 nombre del proyecto numero 3.
-     * @return no devuelve ningun valor.
-     */
-    public static void borrarProyecto( String proyecto1,String proyecto2, String proyecto3){
-        System.out.println("Elija un proyecto para borrar\n" +
-                "1. Proyecto 1: " + proyecto1 + "\n" +
-                "2. Proyecto 2: " + proyecto2 + "\n" +
-                "3. Proyecto 3: " + proyecto3 + "\n" +
-                "4. Salir");
-    }
 
     /**
      * Añade un nuevo amigo a la lista de amigos invitados y luego muestra la lista actualizada.
      * @author AnaOrCam
+     * @param usuarioActual se refiere al usuario activo en el momento en el que se lleva a cabo la función.
      * @param amigosInvitados es la cadena con los amigos invitados hasta el momento.
-     * @return devuelve una cadena.
+     * @param usuarios es la cadena con los usuarios creados hasta el momento.
+     * @return devuelve una cadena con los amigos invitados del usuario hasta el momento.
      */
     public static String [] invitarAmigo (String usuarioActual, String[] amigosInvitados, String[] usuarios){
        Scanner s= new Scanner(System.in);
@@ -225,8 +212,11 @@ public class Funciones {
     /**
      * Permite visualizar el saldo actual e ingresar una cantidad a ese saldo.
      * @author AnaOrCam
-     * @param saldo numero entero que indica el saldo del usuario.
-     * @return devuelve un entero.
+     * @param usuarioActual se refiere al usuario activo en el momento en el que se lleva a cabo la función.
+     * @param usuarios es la cadena con los usuarios creados hasta el momento.
+     * @param contrasenas es la cadena con las contraseñas de los usuarios creados hasta el momento.
+     * @param saldo es la cadena que contiene el saldo de los distintos usuarios.
+     * @return devuelve la cadena saldo actualizada.
      */
     public static int[] gestionSaldoInversor (String usuarioActual, String []usuarios, String []contrasenas, int []saldo){
         Scanner s=new Scanner(System.in);

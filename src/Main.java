@@ -47,7 +47,7 @@ public class Main {
         boolean [] gestorbloqueado=new boolean [10];
         boolean [] inversorbloqueado=new boolean [10];
         String usuarioActual="";
-        String nombreUsuarioActual, contrasenaActual;
+        String contrasenaActual;
         String nuevoNombreUsuario, nuevaContrasena, repeticionContrasena;
         boolean usuarioCambiado;
         boolean contrasenaCambiada;
@@ -177,7 +177,7 @@ public class Main {
                                     contrasenaUsuarioGestor[i] = s.nextLine();
                                     System.out.println(fortalezaContrasena(contrasenaUsuarioGestor[i]));
                                     if (fortalezaContrasena(contrasenaUsuarioGestor[i]).equals("Robustez de la contraseña: Débil")){
-                                        System.out.println("La fortaleza de la contraseña no puede ser debil, para una mayor seguridad en sus datos.");
+                                        System.out.println("La contraseña debe tener al menos una longitud de 8 y contener mayúsculas y minúsculas.");
                                     }
                                 }while (fortalezaContrasena(contrasenaUsuarioGestor[i]).equals("Robustez de la contraseña: Débil"));
                                 System.out.println("Repita la contraseña de usuario del nuevo perfil gestor ");
@@ -190,7 +190,7 @@ public class Main {
                                 System.out.println("Introduzca su correo ");
                                 correoUsuarioGestor[i] = s.nextLine();
                                 if (!comprobacionCorreo(correoUsuarioGestor[i])){
-                                    System.out.println("El formato del correo debe contener @");
+                                    System.out.println("Error. Debe introducir un correo electronico");
                                 }
                             }while(!comprobacionCorreo(correoUsuarioGestor[i]));
                             creado = true;
@@ -852,7 +852,7 @@ public class Main {
                                                         nuevaContrasena = s.nextLine();
                                                         System.out.println(fortalezaContrasena(nuevaContrasena));
                                                         if (fortalezaContrasena(nuevaContrasena).equals("Robustez de la contraseña: Débil")){
-                                                            System.out.println("La fortaleza de la contraseña no puede ser debil, para una mayor seguridad en sus datos.");
+                                                            System.out.println("La contraseña debe tener al menos una longitud de 8 y contener mayúsculas y minúsculas.");
                                                         }
                                                     }while (fortalezaContrasena(nuevaContrasena).equals("Robustez de la contraseña: Débil"));
                                                     System.out.println("Vuelve a escribir la nueva contraseña");
@@ -1035,7 +1035,7 @@ public class Main {
                                                         nuevaContrasena = s.nextLine();
                                                         System.out.println(fortalezaContrasena(nuevaContrasena));
                                                         if (fortalezaContrasena(nuevaContrasena).equals("Robustez de la contraseña: Débil")){
-                                                            System.out.println("La fortaleza de la contraseña no puede ser debil, para una mayor seguridad en sus datos.");
+                                                            System.out.println("La contraseña debe tener al menos una longitud de 8 y contener mayúsculas y minúsculas.");
                                                         }
                                                     }while(fortalezaContrasena(nuevaContrasena).equals("Robustez de la contraseña: Débil"));
                                                     System.out.println("Vuelve a escribir la nueva contraseña");

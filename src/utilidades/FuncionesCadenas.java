@@ -48,7 +48,7 @@ public class FuncionesCadenas {
         }
         if (contrasena.length()>=8 && contieneNumeros && contieneMinusculas && contieneMayusculas && (contrasena.contains("@") || contrasena.contains(".") || contrasena.contains("_") || contrasena.contains("-") || contrasena.contains("*"))){
             fortaleza="Robustez de la contraseña: Fuerte";
-        } else if (contrasena.length()>=5 && contieneMinusculas && contieneMayusculas && (contrasena.contains("@") || contrasena.contains(".") || contrasena.contains("_") || contrasena.contains("-") || contrasena.contains("*"))) {
+        } else if (contrasena.length()>=8 && contieneMinusculas && contieneMayusculas) {
             fortaleza="Robustez de la contraseña: Media";
         }
         return fortaleza;
