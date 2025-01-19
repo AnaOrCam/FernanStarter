@@ -198,10 +198,18 @@ public class Funciones {
      */
     public static String [] invitarAmigo (String usuarioActual, String[] amigosInvitados, String[] usuarios){
        Scanner s= new Scanner(System.in);
+       String aux="";
        System.out.println("¿A quien quieres invitar? Introduce su email");
        for (int i = 0; i < usuarios.length; i++) {
            if (usuarioActual.equals(usuarios[i])) {
-               amigosInvitados[i] = amigosInvitados[i].concat(s.nextLine() + "\n");
+               do {
+                   System.out.println("Introduzca su correo ");
+                   aux = s.nextLine();
+                   if (!comprobacionCorreo(aux)){
+                       System.out.println("El formato del correo debe contener @");
+                   }
+               }while(!comprobacionCorreo(aux));
+               amigosInvitados[i] = amigosInvitados[i].concat(aux + "\n");
                System.out.println("Tus amigos invitados hasta la fecha son los siguientes:");
                System.out.println(amigosInvitados[i]);
            }
