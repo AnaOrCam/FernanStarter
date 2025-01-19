@@ -531,8 +531,9 @@ public class Main {
 
                                     switch (opcion) {
                                         case 1 ->{
+                                            boolean aux=false;
                                             for (int k=0;k<proyecto.length;k++){
-                                                if (proyecto[k].isEmpty()){
+                                                if (proyecto[k].isEmpty()&&aux==false){
                                                     do {
                                                         System.out.println("Introduzca el nombre del proyecto");
                                                         proyecto[k]=s.nextLine();
@@ -594,6 +595,7 @@ public class Main {
                                                             precio3proy[k] =Integer.parseInt(s.nextLine());
                                                         }
                                                     }
+                                                    aux=true;
                                                     System.out.println("Has añadido esta información en el proyecto :" +proyecto[k]);
                                                     visualizarProyecto(proyecto[k], categoria[k], financiacionTotal[k], financiado[k], fechaApertura[k], fechaCierre[k], recompensa1proy[k],descripcion1proy[k],precio1proy[k], recompensa2proy[k], descripcion2proy[k], precio2proy[k], recompensa3proy[k], descripcion3proy[k], precio3proy[k]);
                                                 }
@@ -646,7 +648,6 @@ public class Main {
                                                     System.out.println("No hay ningún proyecto creado actualmente");
                                                 }else {
                                                     System.out.println("0. Salir");
-                                                    System.out.println("Elige un proyecto para modificar");
                                                     opcion = Integer.parseInt(s.nextLine());
                                                     int aux = opcion;
                                                     if (opcion == 0) {
@@ -796,6 +797,22 @@ public class Main {
                                                         System.out.println("Ha salido del menú borrar proyecto");
                                                     } else if (!proyecto[opcion-1].isEmpty()) {
                                                         proyecto[opcion-1] ="";
+                                                        categoria[opcion-1]="";
+                                                        financiacionTotal[opcion-1]=0;
+                                                        financiado[opcion-1]=0;
+                                                        fechaApertura[opcion-1]="";
+                                                        fechaCierre[opcion-1]="";
+                                                        cantidadRecompensas[opcion-1]=0;
+                                                        recompensa1proy[opcion-1]="";
+                                                        recompensa2proy[opcion-1]="";
+                                                        recompensa3proy[opcion-1]="";
+                                                        descripcion1proy[opcion-1]="";
+                                                        descripcion2proy[opcion-1]="";
+                                                        descripcion3proy[opcion-1]="";
+                                                        precio1proy[opcion-1]=0;
+                                                        precio2proy[opcion-1]=0;
+                                                        precio3proy[opcion-1]=0;
+                                                        porcentajefinanciado[opcion-1]=0;
                                                         System.out.println("Ha borrado el proyecto " + opcion + " satisfactoriamente.");
                                                     } else {
                                                         System.out.println("Esa opción no se encuentra en el menú");
@@ -845,7 +862,7 @@ public class Main {
                                             usuario=s.nextLine();
                                             System.out.println("Introduzca la contraseña actual");
                                             contrasenaActual=s.nextLine();
-                                            if (validarOperacion(usuarioActual,usuario, contrasenaActual, nombreUsuarioGestor,nombreUsuarioGestor)) {
+                                            if (validarOperacion(usuarioActual,usuario, contrasenaActual, nombreUsuarioGestor,contrasenaUsuarioGestor)) {
                                                 do {
                                                     do {
                                                         System.out.println("Introduzca la nueva contraseña");
