@@ -1,10 +1,4 @@
 package utilidades;
-import javax.mail.Message;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.util.Properties;
 import java.util.Scanner;
 import static utilidades.FuncionesCadenas.*;
 
@@ -104,6 +98,56 @@ public class Funciones {
 
     }
 
+    public static String cambiarNombreUsuario(String usuarioActual, String usuario, String[] nombreUsuarioGestor, String nuevoNombreUsuario){
+        boolean usuarioCambiado = false;
+        for (int i = 0; i < nombreUsuarioGestor.length; i++) {
+            if (usuario.equals(nombreUsuarioGestor[i])) {
+                nombreUsuarioGestor[i] = nuevoNombreUsuario;
+                usuarioCambiado = true;
+            }
+        }
+        if (usuarioCambiado){
+            usuarioActual=nuevoNombreUsuario;
+            System.out.println("Nombre de usuario actualizado satisfactoriamente");
+        }
+        return usuarioActual;
+    }
+
+    public static void cambiarContrasena(String contrasenaActual, String[] contrasenaUsuarioInversor){
+        Scanner s=new Scanner(System.in);
+        String nuevaContrasena;
+        String repeticionContrasena;
+        boolean contrasenaCambiada;
+        do {
+            do {
+                System.out.println("Introduzca la nueva contraseña");
+                nuevaContrasena = s.nextLine();
+                System.out.println(fortalezaContrasena(nuevaContrasena));
+                if (fortalezaContrasena(nuevaContrasena).equals("Robustez de la contraseña: Débil")){
+                    System.out.println("La contraseña debe tener al menos una longitud de 8 y contener mayúsculas y minúsculas.");
+                }
+                if (nuevaContrasena.equals(contrasenaActual)){
+                    System.out.println("La nueva contraseña debe ser diferente a la actual.");
+                }
+            }while(fortalezaContrasena(nuevaContrasena).equals("Robustez de la contraseña: Débil") || nuevaContrasena.equals(contrasenaActual));
+            System.out.println("Vuelve a escribir la nueva contraseña");
+            repeticionContrasena = s.nextLine();
+            if (!confirmarContrasena(nuevaContrasena, repeticionContrasena)) {
+                System.out.println("La contraseña repetida introducida es diferente. Inténtelo de nuevo");
+            }
+        } while (!confirmarContrasena(nuevaContrasena, repeticionContrasena));
+        contrasenaCambiada = false;
+        for (int i = 0; i < contrasenaUsuarioInversor.length; i++) {
+            if (contrasenaActual.equals(contrasenaUsuarioInversor[i])) {
+                contrasenaUsuarioInversor[i] = nuevaContrasena;
+                contrasenaCambiada = true;
+            }
+        }
+        if (contrasenaCambiada) {
+            System.out.println("Contraseña actualizada satisfactoriamente");
+        }
+    }
+
     /**
      * Muestra la visualización detallada de un proyecto determinado a los usuarios.
      * @author AnaOrCam
@@ -198,7 +242,7 @@ public class Funciones {
      */
     public static String [] invitarAmigo (String usuarioActual, String[] amigosInvitados, String[] usuarios){
        Scanner s= new Scanner(System.in);
-       String aux="";
+       String aux;
        System.out.println("¿A quien quieres invitar? Introduce su email");
        for (int i = 0; i < usuarios.length; i++) {
            if (usuarioActual.equals(usuarios[i])) {
@@ -265,42 +309,5 @@ public class Funciones {
      * @param cuerpo cuerpo del correo enviado.
      * @return no devuelve ningun valor.
      */
-    public static void enviarConGMail(String destinatario, String asunto, String cuerpo) {
-        String remitente = "davidrosanebrera@gmail.com";
-        String clave = "cnnu lpxh vvva enhn";
 
-        Properties props = System.getProperties();
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.user", remitente);
-        props.put("mail.smtp.clave", clave);
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.port", "587");
-        Session session = Session.getDefaultInstance(props);
-        try {
-            MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(remitente));
-            message.setRecipients(Message.RecipientType.TO,
-            InternetAddress.parse(destinatario));
-            message.setSubject(asunto);
-            message.setContent(cuerpo, "text/html; charset=utf-8");
-            Transport transport = session.getTransport("smtp");
-            transport.connect("smtp.gmail.com", remitente, clave);
-            transport.sendMessage(message, message.getAllRecipients());
-            transport.close();
-        }
-        catch (Exception me) {
-            me.printStackTrace();
-        }
-    }
-    /**
-     * Menu para generar el codigo de autentificacion.
-     * @author davidrn06
-     * @return Devuelve el codigo de autentificacion generado para el acceso a los perfiles.
-     */
-    public static int generarAutentificacion(){
-        double autentificacionInicial =Math.random();
-        int  autentificacion =(int) (autentificacionInicial*8999+1000);
-        return autentificacion;
-    }
 }

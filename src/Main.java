@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import static utilidades.Funciones.*;
+import static utilidades.FuncionesCorreos.*;
 import static utilidades.FuncionesCadenas.*;
 public class Main {
     public static void main(String[] args) {
@@ -10,15 +11,15 @@ public class Main {
         final String ANSI_PURPLE= "\033[35m";
         String usuario="";
         String contrasena;
-        String destinatarioAdmin="davidrosanebrera@gmail.com";
+        String destinatarioAdmin="ana.oc.094@gmail.com";
         String usuarioAdmin="administrador";
         String contrasenaAdmin="admin";
         String [] nombreUsuarioGestor = {"gestor","","","","","","","","",""};
         String [] contrasenaUsuarioGestor = {"gestor","","","","","","","","",""};
-        String [] correoUsuarioGestor = {"davidrosanebrera@gmail.com","","","","","","","","",""};
+        String [] correoUsuarioGestor = {"ana.oc.094@gmail.com","","","","","","","","",""};
         String [] nombreUsuarioInversor = {"inversor","","","","","","","","",""};
         String [] contrasenaUsuarioInversor = {"inversor","","","","","","","","",""};
-        String [] correoUsuarioInversor = {"davidrosanebrera@gmail.com","","","","","","","","",""};
+        String [] correoUsuarioInversor = {"ana.oc.094@gmail.com","","","","","","","","",""};
         String [] proyecto = {"Aloha","","","","","","","","","","","","","","","","","","",""};
         String [] categoria = {"Cine","","","","","","","","","","","","","","","","","","",""};
         int [] financiacionTotal = {500,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
@@ -48,29 +49,26 @@ public class Main {
         boolean [] inversorbloqueado=new boolean [10];
         String usuarioActual="";
         String contrasenaActual;
-        String nuevoNombreUsuario, nuevaContrasena, repeticionContrasena;
-        boolean usuarioCambiado;
-        boolean contrasenaCambiada;
+        String nuevoNombreUsuario, repeticionContrasena;
         boolean usuarioExiste=false;
         boolean bienvenido;
         boolean tipoUsuarioInversor;
         boolean tipoUsuarioGestor;
         boolean inversionAceptada;
-        int admin_gestor=0;
-        int admin_inversor1=0;
-        int eleccionadmin=0;
-        int Adminconfiguracion=0;
+        int admin_gestor;
+        int admin_inversor1;
+        int eleccionadmin;
+        int Adminconfiguracion;
         int opcionConfiguracion;
         int opcion;
         int numeroProyecto;
         int intentoInversion;
-        int opcionInicial=0;
+        int opcionInicial;
         int numeroUsuario;
         int autentificacion;
-        int contadorProyectos=0;
+        int contadorProyectos;
         String nombreUsuario;
-        boolean creado=false;
-        boolean loginHecho=false;
+        boolean creado;
 
         for (int i = 0; i < intentoGestor.length; i++) {
             intentoGestor[i]=3;
@@ -89,14 +87,12 @@ public class Main {
             bienvenido=false;
             tipoUsuarioInversor=false;
             tipoUsuarioGestor=false;
-            loginHecho=false;
             System.out.println("¿Que desea hacer?");
             System.out.println("1.Crear nuevo usuario");
             System.out.println("2.Iniciar Sesion");
             System.out.println("3.Salir");
             opcionInicial=Integer.parseInt(s.nextLine());
             if (opcionInicial==1){
-
                 System.out.println(ANSI_PURPLE+"---ACCESO A CREACION DE USUARIO---"+ANSI_RESET);
                 System.out.println("Que tipo de perfil desea crear");
                 System.out.println("1.Inversor");
@@ -229,7 +225,6 @@ public class Main {
                             if (codigo == autentificacion) {
                                 System.out.println(ANSI_GREEN + "Bienvenido Administrador" + ANSI_RESET);
                                 bienvenido = true;
-                                loginHecho=true;
                                 usuarioActual="Administrador";
                             } else {
                                 System.out.println(ANSI_RED+"Acceso denegado, clave de autentificacion erronea"+ANSI_RESET);
@@ -251,7 +246,6 @@ public class Main {
                                         System.out.println(ANSI_GREEN + "Hola " + nombreUsuarioGestor[i] + ANSI_RESET);
                                         bienvenido = true;
                                         tipoUsuarioGestor = true;
-                                        loginHecho=true;
                                         intentoGestorCodigo[i] = 3;
                                         usuarioActual=nombreUsuarioGestor[i];
                                     } else {
@@ -291,7 +285,6 @@ public class Main {
                                         System.out.println(ANSI_GREEN + "Hola " + nombreUsuarioInversor[i] + ANSI_RESET);
                                         bienvenido = true;
                                         tipoUsuarioInversor = true;
-                                        loginHecho=true;
                                         intentoInversorCodigo[i] = 3;
                                         usuarioActual=nombreUsuarioInversor[i];
                                     } else {
@@ -322,7 +315,6 @@ public class Main {
                         }
                     } else {
                         System.out.println("¡Nos vemos pronto!");
-                        loginHecho=true;
                     }
                 }while (!usuario.equals("s") && !contrasena.equals("s") && !bienvenido);
 
@@ -828,7 +820,6 @@ public class Main {
                             }
                             case 2 -> {
                                 System.out.println("Ha accedido a configuración");
-
                                 do{
                                     menuConfiguracion();
                                     opcionConfiguracion=Integer.parseInt(s.nextLine());
@@ -841,17 +832,7 @@ public class Main {
                                             if (validarOperacion(usuarioActual,usuario, contrasenaActual, nombreUsuarioGestor,contrasenaUsuarioGestor)) {
                                                 System.out.println("Introduzca el nuevo nombre de usuario");
                                                 nuevoNombreUsuario = s.nextLine();
-                                                usuarioCambiado = false;
-                                                for (int i = 0; i < nombreUsuarioGestor.length; i++) {
-                                                    if (usuario.equals(nombreUsuarioGestor[i])) {
-                                                        nombreUsuarioGestor[i] = nuevoNombreUsuario;
-                                                        usuarioCambiado = true;
-                                                    }
-                                                }
-                                                if (usuarioCambiado){
-                                                    usuarioActual=nuevoNombreUsuario;
-                                                    System.out.println(ANSI_GREEN+"Nombre de usuario actualizado satisfactoriamente"+ANSI_RESET);
-                                                }
+                                                usuarioActual=cambiarNombreUsuario(usuarioActual,usuario,nombreUsuarioGestor,nuevoNombreUsuario);
                                             }else{
                                                 System.out.println(ANSI_RED+"El nombre de usuario o contraseña introducido es erróneo"+ANSI_RESET);
                                             }
@@ -863,31 +844,7 @@ public class Main {
                                             System.out.println("Introduzca la contraseña actual");
                                             contrasenaActual=s.nextLine();
                                             if (validarOperacion(usuarioActual,usuario, contrasenaActual, nombreUsuarioGestor,contrasenaUsuarioGestor)) {
-                                                do {
-                                                    do {
-                                                        System.out.println("Introduzca la nueva contraseña");
-                                                        nuevaContrasena = s.nextLine();
-                                                        System.out.println(fortalezaContrasena(nuevaContrasena));
-                                                        if (fortalezaContrasena(nuevaContrasena).equals("Robustez de la contraseña: Débil")){
-                                                            System.out.println("La contraseña debe tener al menos una longitud de 8 y contener mayúsculas y minúsculas.");
-                                                        }
-                                                    }while (fortalezaContrasena(nuevaContrasena).equals("Robustez de la contraseña: Débil"));
-                                                    System.out.println("Vuelve a escribir la nueva contraseña");
-                                                    repeticionContrasena = s.nextLine();
-                                                    if (!confirmarContrasena(nuevaContrasena, repeticionContrasena)) {
-                                                        System.out.println("La contraseña repetida introducida es diferente. Inténtelo de nuevo");
-                                                    }
-                                                } while (!confirmarContrasena(nuevaContrasena, repeticionContrasena));
-                                                contrasenaCambiada = false;
-                                                for (int i = 0; i < contrasenaUsuarioGestor.length; i++) {
-                                                    if (contrasenaActual.equals(contrasenaUsuarioGestor[i])) {
-                                                        contrasenaUsuarioGestor[i] = nuevaContrasena;
-                                                        contrasenaCambiada = true;
-                                                    }
-                                                }
-                                                if (contrasenaCambiada) {
-                                                    System.out.println(ANSI_GREEN + "Contraseña actualizada satisfactoriamente" + ANSI_RESET);
-                                                }
+                                                cambiarContrasena(contrasenaActual,contrasenaUsuarioGestor);
                                             } else {
                                                 System.out.println(ANSI_RED + "El usuario o contraseña introducidos son erróneos" + ANSI_RESET);
                                             }
@@ -1024,17 +981,7 @@ public class Main {
                                             if (validarOperacion(usuarioActual,usuario, contrasenaActual, nombreUsuarioInversor,contrasenaUsuarioInversor)) {
                                                 System.out.println("Introduzca el nuevo nombre de usuario");
                                                 nuevoNombreUsuario = s.nextLine();
-                                                usuarioCambiado = false;
-                                                for (int i = 0; i < nombreUsuarioInversor.length; i++) {
-                                                    if (usuario.equals(nombreUsuarioInversor[i])) {
-                                                        nombreUsuarioInversor[i] = nuevoNombreUsuario;
-                                                        usuarioCambiado = true;
-                                                    }
-                                                }
-                                                if (usuarioCambiado){
-                                                    usuarioActual=nuevoNombreUsuario;
-                                                    System.out.println(ANSI_GREEN+"Nombre de usuario actualizado satisfactoriamente"+ANSI_RESET);
-                                                }
+                                                usuarioActual=cambiarNombreUsuario(usuarioActual,usuario,nombreUsuarioInversor,nuevoNombreUsuario);
                                             }else{
                                                 System.out.println(ANSI_RED+"El nombre de usuario o contraseña introducido es erróneo"+ANSI_RESET);
                                             }
@@ -1046,31 +993,7 @@ public class Main {
                                             System.out.println("Introduzca la contraseña actual");
                                             contrasenaActual=s.nextLine();
                                             if (validarOperacion(usuarioActual,usuario, contrasenaActual, nombreUsuarioInversor,contrasenaUsuarioInversor)) {
-                                                do {
-                                                    do {
-                                                        System.out.println("Introduzca la nueva contraseña");
-                                                        nuevaContrasena = s.nextLine();
-                                                        System.out.println(fortalezaContrasena(nuevaContrasena));
-                                                        if (fortalezaContrasena(nuevaContrasena).equals("Robustez de la contraseña: Débil")){
-                                                            System.out.println("La contraseña debe tener al menos una longitud de 8 y contener mayúsculas y minúsculas.");
-                                                        }
-                                                    }while(fortalezaContrasena(nuevaContrasena).equals("Robustez de la contraseña: Débil"));
-                                                    System.out.println("Vuelve a escribir la nueva contraseña");
-                                                    repeticionContrasena = s.nextLine();
-                                                    if (!confirmarContrasena(nuevaContrasena, repeticionContrasena)) {
-                                                        System.out.println("La contraseña repetida introducida es diferente. Inténtelo de nuevo");
-                                                    }
-                                                } while (!confirmarContrasena(nuevaContrasena, repeticionContrasena));
-                                                contrasenaCambiada = false;
-                                                for (int i = 0; i < contrasenaUsuarioInversor.length; i++) {
-                                                    if (contrasenaActual.equals(contrasenaUsuarioInversor[i])) {
-                                                        contrasenaUsuarioInversor[i] = nuevaContrasena;
-                                                        contrasenaCambiada = true;
-                                                    }
-                                                }
-                                                if (contrasenaCambiada) {
-                                                    System.out.println(ANSI_GREEN + "Contraseña actualizada satisfactoriamente" + ANSI_RESET);
-                                                }
+                                                cambiarContrasena(contrasenaActual,contrasenaUsuarioInversor);
                                             } else {
                                                 System.out.println(ANSI_RED + "El usuario o contraseña introducidos son erróneos" + ANSI_RESET);
                                             }
