@@ -10,15 +10,15 @@ public class Main {
         final String ANSI_PURPLE= "\033[35m";
         String usuario="";
         String contrasena;
-        String destinatarioAdmin="davidrosanebrera@gmail.com";
+        String destinatarioAdmin="ana.oc.094@gmail.com";
         String usuarioAdmin="administrador";
         String contrasenaAdmin="admin";
         String [] nombreUsuarioGestor = {"gestor","","","","","","","","",""};
         String [] contrasenaUsuarioGestor = {"gestor","","","","","","","","",""};
-        String [] correoUsuarioGestor = {"davidrosanebrera@gmail.com","","","","","","","","",""};
+        String [] correoUsuarioGestor = {"ana.oc.094@gmail.com","","","","","","","","",""};
         String [] nombreUsuarioInversor = {"inversor","","","","","","","","",""};
         String [] contrasenaUsuarioInversor = {"inversor","","","","","","","","",""};
-        String [] correoUsuarioInversor = {"davidrosanebrera@gmail.com","","","","","","","","",""};
+        String [] correoUsuarioInversor = {"ana.oc.094@gmail.com","","","","","","","","",""};
         String [] proyecto = {"Aloha","","","","","","","","","","","","","","","","","","",""};
         String [] categoria = {"Cine","","","","","","","","","","","","","","","","","","",""};
         int [] financiacionTotal = {500,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
@@ -37,8 +37,7 @@ public class Main {
         int [] precio3proy = {250,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
         int [] porcentajefinanciado = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
         int [][] inversorProyectoInversion = new int[10][20];
-
-
+        int []contadorInversiones= new int [10];
         int [] intentoGestor= new int[10];
         int [] intentoInversor= new int[10];
         int [] intentoGestorCodigo= new int[10];
@@ -47,6 +46,7 @@ public class Main {
         String [] amigosInvitadosInversor= new String[10];
         boolean [] gestorbloqueado=new boolean [10];
         boolean [] inversorbloqueado=new boolean [10];
+        String usuarioActual="";
         String nombreUsuarioActual, contrasenaActual;
         String nuevoNombreUsuario, nuevaContrasena, repeticionContrasena;
         boolean usuarioCambiado;
@@ -64,11 +64,11 @@ public class Main {
         int opcion;
         int numeroProyecto;
         int intentoInversion;
-        int contadorInversiones=0;
         int opcionInicial=0;
         int numeroUsuario;
         int autentificacion;
         int contadorProyectos=0;
+        String nombreUsuario;
         boolean creado=false;
         boolean loginHecho=false;
 
@@ -81,6 +81,7 @@ public class Main {
             gestorbloqueado[i]=false;
             saldoInversor[i]=0;
             amigosInvitadosInversor[i]="";
+            contadorInversiones[i]=0;
         }
 
         System.out.println(ANSI_PURPLE+"\n**[Bienvenido a FernanStarter]**\n"+ANSI_RESET);
@@ -106,8 +107,14 @@ public class Main {
                     creado = false;
                     for (int i = 0; i < 10; i++) {
                         if (nombreUsuarioInversor[i].equals("") && creado == false) {
-                            System.out.println("Introduzca el nombre de usuario del nuevo perfil inversor");
-                            nombreUsuarioInversor[i] = s.nextLine();
+                            do {
+                                System.out.println("Introduzca el nombre de usuario del nuevo perfil inversor");
+                                nombreUsuario = s.nextLine();
+                                if (!usuarioNoExiste(nombreUsuario, nombreUsuarioInversor))
+                                    System.out.println("El nombre de usuario ya está en uso");
+
+                            }while (!usuarioNoExiste(nombreUsuario, nombreUsuarioInversor));
+                                nombreUsuarioInversor[i]=nombreUsuario;
                             do {
                                 do {
                                     System.out.println("Introduzca la contraseña de usuario del nuevo perfil inversor");
@@ -133,7 +140,7 @@ public class Main {
                             System.out.println("Introduzca el codigo de verificacion para la creacion del perfil que hemos enviado a su correo");
                             autentificacion = generarAutentificacion();
                             String asunto = "Codigo de autentificacion";
-                            String cuerpo = "Codigo de verificacion para crear sesion : " + autentificacion + "\n ";
+                            String cuerpo = "Bienvenido a FernanStarter! Codigo de verificacion para crear tu nuevo usuario: " + autentificacion + "\n ";
                             enviarConGMail(correoUsuarioInversor[i], asunto, cuerpo);
                             int verificaion = Integer.parseInt(s.nextLine());
                             if (verificaion == autentificacion) {
@@ -152,8 +159,12 @@ public class Main {
                     creado = false;
                     for (int i = 0; i < 10; i++) {
                         if (nombreUsuarioGestor[i].equals("") && creado == false) {
+                            do {
                                 System.out.println("Introduzca el nombre de usuario del nuevo perfil gestor");
                                 nombreUsuarioGestor[i] = s.nextLine();
+                                if (!usuarioNoExiste(nombreUsuarioGestor[i], nombreUsuarioGestor))
+                                    System.out.println("El nombre de usuario elegido ya está en uso.");
+                            }while (!usuarioNoExiste(nombreUsuarioGestor[i], nombreUsuarioGestor));
                             do {
                                 do {
                                     System.out.println("Introduzca la contraseña de usuario del nuevo perfil gestor ");
@@ -180,7 +191,7 @@ public class Main {
                             System.out.println("Introduzca el codigo de verificacion para la creacion del perfil que hemos enviado a su correo");
                             autentificacion = generarAutentificacion();
                             String asunto = "Codigo de autentificacion";
-                            String cuerpo = "Codigo de verificacion para crear sesion : " + autentificacion + "\n ";
+                            String cuerpo = "Bienvenido a FernanStarter! Codigo de verificacion para crear tu nuevo usuario: " + autentificacion + "\n ";
                             enviarConGMail(correoUsuarioGestor[i], asunto, cuerpo);
                             int verificaion = Integer.parseInt(s.nextLine());
                             if (verificaion == autentificacion) {
@@ -213,6 +224,7 @@ public class Main {
                                 System.out.println(ANSI_GREEN + "Bienvenido Administrador" + ANSI_RESET);
                                 bienvenido = true;
                                 loginHecho=true;
+                                usuarioActual="Administrador";
                             } else {
                                 System.out.println(ANSI_RED+"Acceso denegado, clave de autentificacion erronea"+ANSI_RESET);
                             }
@@ -235,6 +247,7 @@ public class Main {
                                         tipoUsuarioGestor = true;
                                         loginHecho=true;
                                         intentoGestorCodigo[i] = 3;
+                                        usuarioActual=nombreUsuarioGestor[i];
                                     } else {
                                         System.out.println(ANSI_RED+"Acceso denegado, clave de autentificacion errónea"+ANSI_RESET);
                                         intentoGestorCodigo[i]--;
@@ -274,6 +287,7 @@ public class Main {
                                         tipoUsuarioInversor = true;
                                         loginHecho=true;
                                         intentoInversorCodigo[i] = 3;
+                                        usuarioActual=nombreUsuarioInversor[i];
                                     } else {
                                         System.out.println(ANSI_RED+"Acceso denegado, clave de autentificacion erronea"+ANSI_RESET);
                                         intentoInversorCodigo[i]--;
@@ -586,6 +600,7 @@ public class Main {
                                                     for (int k = 0; k < proyecto.length; k++) {
                                                         if (!proyecto[k].isEmpty()) {
                                                             System.out.println(k + 1 + ". Proyecto: " + proyecto[k]);
+                                                            contadorProyectos++;
                                                         }
                                                     }
                                                     if (contadorProyectos>0) {
@@ -631,41 +646,41 @@ public class Main {
                                                             case 1 -> {
                                                                 do {
                                                                     System.out.println("Escribe el nuevo nombre del proyecto " + aux);
-                                                                    proyecto[aux] = s.nextLine();
-                                                                    if (!comprobacionMaximosMinimosTitulos(proyecto[aux])){
+                                                                    proyecto[aux-1] = s.nextLine();
+                                                                    if (!comprobacionMaximosMinimosTitulos(proyecto[aux-1])){
                                                                         System.out.println("La longitud del titulo debe estar comprendida entre 4 y 15 caracteres");
                                                                     }
-                                                                }while(!comprobacionMaximosMinimosTitulos(proyecto[aux]));
+                                                                }while(!comprobacionMaximosMinimosTitulos(proyecto[aux-1]));
                                                             }
                                                             case 2 -> {
                                                                 System.out.println("Escribe la nueva categoría del proyecto " + aux);
-                                                                categoria[aux] = s.nextLine();
+                                                                categoria[aux-1] = s.nextLine();
                                                             }
                                                             case 3 -> {
                                                                 System.out.println("Escribe la nueva cantidad a financiar");
-                                                                financiacionTotal[aux] = Integer.parseInt(s.nextLine());
+                                                                financiacionTotal[aux-1] = Integer.parseInt(s.nextLine());
                                                             }
                                                             case 4 -> {
                                                                 System.out.println("Escribe la nueva cantidad financiada hasta el momento");
-                                                                financiado[aux] = Integer.parseInt(s.nextLine());
+                                                                financiado[aux-1] = Integer.parseInt(s.nextLine());
                                                             }
                                                             case 5 -> {
                                                                 do {
                                                                     System.out.println("Escribe la nueva fecha de apertura de inversiones (Formato --/--/----)");
-                                                                    fechaApertura[aux] = s.nextLine();
-                                                                    if (!comprobacionFechas(fechaApertura[aux])){
+                                                                    fechaApertura[aux-1] = s.nextLine();
+                                                                    if (!comprobacionFechas(fechaApertura[aux-1])){
                                                                         System.out.println("El formato debe de ser --/--/----");
                                                                     }
-                                                                }while (!comprobacionFechas(fechaApertura[aux]));
+                                                                }while (!comprobacionFechas(fechaApertura[aux-1]));
                                                             }
                                                             case 6 -> {
                                                                 do {
                                                                     System.out.println("Escribe la nueva fecha de cierre de inversiones (Formato --/--/----)");
-                                                                    fechaCierre[aux] = s.nextLine();
+                                                                    fechaCierre[aux-1] = s.nextLine();
                                                                     if (!comprobacionFechas(fechaCierre[aux])){
                                                                         System.out.println("El formato debe de ser --/--/----");
                                                                     }
-                                                                }while (!comprobacionFechas(fechaCierre[aux]));
+                                                                }while (!comprobacionFechas(fechaCierre[aux-1]));
                                                             }
                                                             case 7 -> {
                                                                 menuEleccionRecompensa();
@@ -676,13 +691,13 @@ public class Main {
                                                                         opcion = Integer.parseInt(s.nextLine());
                                                                         if (opcion == 1) {
                                                                             System.out.println("Escribe la nueva recompensa ofrecida");
-                                                                            recompensa1proy[aux] = s.nextLine();
+                                                                            recompensa1proy[aux-1] = s.nextLine();
                                                                         } else if (opcion == 2) {
                                                                             System.out.println("Escribe la nueva descripción");
-                                                                            descripcion1proy[aux] = s.nextLine();
+                                                                            descripcion1proy[aux-1] = s.nextLine();
                                                                         } else if (opcion == 3) {
                                                                             System.out.println("Escribe el nuevo precio");
-                                                                            precio1proy[aux] = Integer.parseInt(s.nextLine());
+                                                                            precio1proy[aux-1] = Integer.parseInt(s.nextLine());
                                                                         } else if (opcion == 4) {
                                                                             System.out.println("Ha salido del menú modificar recompensa 1");
                                                                         } else {
@@ -690,18 +705,18 @@ public class Main {
                                                                         }
                                                                     }
                                                                     case 2 -> {
-                                                                        if (!recompensa2proy[aux].equals("")) {
+                                                                        if (!recompensa2proy[aux-1].equals("")) {
                                                                             modificarRecompensa();
                                                                             opcion = Integer.parseInt(s.nextLine());
                                                                             if (opcion == 1) {
                                                                                 System.out.println("Escribe la nueva recompensa ofrecida");
-                                                                                recompensa2proy[aux] = s.nextLine();
+                                                                                recompensa2proy[aux-1] = s.nextLine();
                                                                             } else if (opcion == 2) {
                                                                                 System.out.println("Escribe la nueva descripción");
-                                                                                descripcion2proy[aux] = s.nextLine();
+                                                                                descripcion2proy[aux-1] = s.nextLine();
                                                                             } else if (opcion == 3) {
                                                                                 System.out.println("Escribe el nuevo precio");
-                                                                                precio2proy[aux] = Integer.parseInt(s.nextLine());
+                                                                                precio2proy[aux-1] = Integer.parseInt(s.nextLine());
                                                                             } else if (opcion == 4) {
                                                                                 System.out.println("Ha salido del menú modificar recompensa 2");
                                                                             } else {
@@ -712,18 +727,18 @@ public class Main {
                                                                         }
                                                                     }
                                                                     case 3 -> {
-                                                                        if (!recompensa3proy[aux].equals("")) {
+                                                                        if (!recompensa3proy[aux-1].equals("")) {
                                                                             modificarRecompensa();
                                                                             opcion = Integer.parseInt(s.nextLine());
                                                                             if (opcion == 1) {
                                                                                 System.out.println("Escribe la nueva recompensa ofrecida");
-                                                                                recompensa3proy[aux] = s.nextLine();
+                                                                                recompensa3proy[aux-1] = s.nextLine();
                                                                             } else if (opcion == 2) {
                                                                                 System.out.println("Escribe la nueva descripción");
-                                                                                descripcion3proy[aux] = s.nextLine();
+                                                                                descripcion3proy[aux-1] = s.nextLine();
                                                                             } else if (opcion == 3) {
                                                                                 System.out.println("Escribe el nuevo precio");
-                                                                                precio3proy[aux] = Integer.parseInt(s.nextLine());
+                                                                                precio3proy[aux-1] = Integer.parseInt(s.nextLine());
                                                                             } else if (opcion == 4) {
                                                                                 System.out.println("Ha salido del menú modificar recompensa 3");
                                                                             } else {
@@ -790,48 +805,57 @@ public class Main {
                                     opcionConfiguracion=Integer.parseInt(s.nextLine());
                                     switch (opcionConfiguracion){
                                         case 1:{
-                                            System.out.println("Introduzca el nombre de usuario actual");
-                                            nombreUsuarioActual=s.nextLine();
-                                            System.out.println("Introduzca el nuevo nombre de usuario");
-                                            nuevoNombreUsuario=s.nextLine();
-                                            usuarioCambiado=false;
-                                            for (int i = 0; i < nombreUsuarioGestor.length; i++) {
-                                                if (nombreUsuarioActual.equals(nombreUsuarioGestor[i])){
-                                                    nombreUsuarioGestor[i]=nuevoNombreUsuario;
-                                                    usuarioCambiado=true;
+                                            System.out.println("Introduce tu nombre de usuario");
+                                            usuario=s.nextLine();
+                                            System.out.println("Introduzca la contraseña actual");
+                                            contrasenaActual=s.nextLine();
+                                            if (validarOperacion(usuarioActual,usuario, contrasenaActual, nombreUsuarioGestor,contrasenaUsuarioGestor)) {
+                                                System.out.println("Introduzca el nuevo nombre de usuario");
+                                                nuevoNombreUsuario = s.nextLine();
+                                                usuarioCambiado = false;
+                                                for (int i = 0; i < nombreUsuarioGestor.length; i++) {
+                                                    if (usuario.equals(nombreUsuarioGestor[i])) {
+                                                        nombreUsuarioGestor[i] = nuevoNombreUsuario;
+                                                        usuarioCambiado = true;
+                                                    }
                                                 }
-                                            }
-                                            if (usuarioCambiado){
-                                                System.out.println(ANSI_GREEN+"Nombre de usuario actualizado satisfactoriamente"+ANSI_RESET);
+                                                if (usuarioCambiado){
+                                                    usuarioActual=nuevoNombreUsuario;
+                                                    System.out.println(ANSI_GREEN+"Nombre de usuario actualizado satisfactoriamente"+ANSI_RESET);
+                                                }
                                             }else{
-                                                System.out.println(ANSI_RED+"El nombre de usuario actual introducido es erróneo"+ANSI_RESET);
+                                                System.out.println(ANSI_RED+"El nombre de usuario o contraseña introducido es erróneo"+ANSI_RESET);
                                             }
                                             break;
                                         }
                                         case 2:{
+                                            System.out.println("Introduce tu nombre de usuario");
+                                            usuario=s.nextLine();
                                             System.out.println("Introduzca la contraseña actual");
                                             contrasenaActual=s.nextLine();
-                                            do {
-                                                System.out.println("Introduzca la nueva contraseña");
-                                                nuevaContrasena=s.nextLine();
-                                                System.out.println(fortalezaContrasena(nuevaContrasena));
-                                                System.out.println("Vuelve a escribir la nueva contraseña");
-                                                repeticionContrasena = s.nextLine();
-                                                if (!confirmarContrasena(nuevaContrasena, repeticionContrasena)) {
-                                                    System.out.println("La contraseña repetida introducida es diferente. Inténtelo de nuevo");
+                                            if (validarOperacion(usuarioActual,usuario, contrasenaActual, nombreUsuarioInversor,contrasenaUsuarioInversor)) {
+                                                do {
+                                                    System.out.println("Introduzca la nueva contraseña");
+                                                    nuevaContrasena = s.nextLine();
+                                                    System.out.println(fortalezaContrasena(nuevaContrasena));
+                                                    System.out.println("Vuelve a escribir la nueva contraseña");
+                                                    repeticionContrasena = s.nextLine();
+                                                    if (!confirmarContrasena(nuevaContrasena, repeticionContrasena)) {
+                                                        System.out.println("La contraseña repetida introducida es diferente. Inténtelo de nuevo");
+                                                    }
+                                                } while (!confirmarContrasena(nuevaContrasena, repeticionContrasena));
+                                                contrasenaCambiada = false;
+                                                for (int i = 0; i < contrasenaUsuarioGestor.length; i++) {
+                                                    if (contrasenaActual.equals(contrasenaUsuarioGestor[i])) {
+                                                        contrasenaUsuarioInversor[i] = nuevaContrasena;
+                                                        contrasenaCambiada = true;
+                                                    }
                                                 }
-                                            }while(!confirmarContrasena(nuevaContrasena, repeticionContrasena));
-                                            contrasenaCambiada=false;
-                                            for (int i = 0; i < contrasenaUsuarioGestor.length; i++) {
-                                                if (contrasenaActual.equals(contrasenaUsuarioGestor[i])){
-                                                    contrasenaUsuarioGestor[i]=nuevaContrasena;
-                                                    contrasenaCambiada=true;
+                                                if (contrasenaCambiada) {
+                                                    System.out.println(ANSI_GREEN + "Contraseña actualizada satisfactoriamente" + ANSI_RESET);
                                                 }
-                                            }
-                                            if (contrasenaCambiada){
-                                                System.out.println(ANSI_GREEN+"Contraseña actualizada satisfactoriamente"+ANSI_RESET);
-                                            }else{
-                                                System.out.println(ANSI_RED+"La contraseña actual introducida es errónea"+ANSI_RESET);
+                                            } else {
+                                                System.out.println(ANSI_RED + "El usuario o contraseña introducidos son erróneos" + ANSI_RESET);
                                             }
                                             break;
                                         }
@@ -855,12 +879,8 @@ public class Main {
                         switch (opcion){
                             case 1:{
                                 System.out.println("Usted ha accedido a Mis inversiones");
-                                System.out.println("Por favor introduzca usuario y contraseña para acceder a la información");
-                                usuario=s.nextLine();
-                                contrasena=s.nextLine();
-                                validarOperacion(usuario, contrasena, nombreUsuarioInversor,contrasenaUsuarioInversor);
                                 for (int i = 0; i < nombreUsuarioInversor.length; i++) {
-                                    if (usuario.equals(nombreUsuarioInversor[i])){
+                                    if (usuarioActual.equals(nombreUsuarioInversor[i])){
                                         for (int j = 0; j < proyecto.length; j++) {
                                             if(inversorProyectoInversion[i][j]>0) {
                                                 System.out.println("Usted ha contribuido con " + inversorProyectoInversion[i][j] + " € en el proyecto *****" + proyecto[j] + "*****");
@@ -874,10 +894,10 @@ public class Main {
                                                 if (precio3proy[j]!=0 && inversorProyectoInversion[i][j]>precio3proy[j]) {
                                                     System.out.println(ANSI_GREEN+"Ha conseguido la recompensa 3 del proyecto "+proyecto[j]+": " + recompensa3proy[j]+ANSI_RESET);
                                                 }
-                                                contadorInversiones++;
+                                                contadorInversiones[i]++;
                                             }
                                         }
-                                        if (contadorInversiones==0){
+                                        if (contadorInversiones[i]==0){
                                             System.out.println("Aún no has realizado ninguna inversión.");
                                         }
                                     }
@@ -895,7 +915,7 @@ public class Main {
                                         System.out.println(ANSI_GREEN+"*****PROYECTOS*****"+ANSI_RESET);
                                         for (int k=0;k<proyecto.length;k++){
                                             if (!proyecto[k].isEmpty()) {
-                                                System.out.println(k+1 + ". Proyecto " + k + " : " + proyecto[k]);
+                                                System.out.println(k+1 + ". Proyecto: " + proyecto[k]);
                                             }
                                         }
                                         System.out.println("Escribe el número del proyecto que desees visualizar");
@@ -908,31 +928,36 @@ public class Main {
                                             System.out.println("\n Quieres invertir en el proyecto: "+proyecto[numeroProyecto-1]+"? (si/no)");
                                             if (s.nextLine().equalsIgnoreCase("SI")) {
                                                 System.out.println("Por favor introduzca usuario y contraseña para validar la operación");
-                                                usuario=s.nextLine();
-                                                contrasena=s.nextLine();
-                                                validarOperacion(usuario, contrasena, nombreUsuarioInversor,contrasenaUsuarioInversor);
-                                                System.out.println("¿Cuánto desea invertir?");
-                                                intentoInversion=Integer.parseInt(s.nextLine());
-                                                inversionAceptada=false;
-                                                for (int i = 0; i < saldoInversor.length; i++) {
-                                                    if (usuario.equals(nombreUsuarioInversor[i])) {
-                                                        if (intentoInversion <= saldoInversor[i] && intentoInversion > 0) {
-                                                            inversionAceptada = true;
-                                                            System.out.println(ANSI_GREEN + "Operacion realizada con exito" + ANSI_RESET);
-                                                            inversorProyectoInversion[i][numeroProyecto-1]+= intentoInversion;
-                                                            saldoInversor[i] -= intentoInversion;
-                                                            financiado[numeroProyecto-1] += intentoInversion;
+                                                usuario = s.nextLine();
+                                                contrasena = s.nextLine();
+                                                if (validarOperacion(usuarioActual, usuario, contrasena, nombreUsuarioInversor, contrasenaUsuarioInversor)) {
+                                                    System.out.println("¿Cuánto desea invertir?");
+                                                    intentoInversion = Integer.parseInt(s.nextLine());
+                                                    inversionAceptada = false;
+                                                    for (int i = 0; i < saldoInversor.length; i++) {
+                                                        if (usuario.equals(nombreUsuarioInversor[i])) {
+                                                            if (intentoInversion <= saldoInversor[i] && intentoInversion > 0 && intentoInversion + financiado[numeroProyecto - 1] <= financiacionTotal[numeroProyecto - 1]) {
+                                                                inversionAceptada = true;
+                                                                System.out.println(ANSI_GREEN + "Operacion realizada con exito" + ANSI_RESET);
+                                                                inversorProyectoInversion[i][numeroProyecto - 1] += intentoInversion;
+                                                                saldoInversor[i] -= intentoInversion;
+                                                                financiado[numeroProyecto - 1] += intentoInversion;
+                                                            } else if (intentoInversion + financiado[numeroProyecto - 1] > financiacionTotal[numeroProyecto - 1]) {
+                                                                System.out.println("El importe supera la cantidad que se puede financiar del proyecto");
+                                                            }
                                                         }
                                                     }
-                                                }
-                                                if (!inversionAceptada){
-                                                    System.out.println(ANSI_RED+"Operación Denegada"+ANSI_RESET);
+                                                    if (!inversionAceptada) {
+                                                        System.out.println(ANSI_RED + "Operación Denegada" + ANSI_RESET);
+                                                    }
+                                                } else {
+                                                    System.out.println("La validación ha fallado. El usuario o contraseña introducido no es correcto.");
                                                 }
                                             }else{
-                                                System.out.println("Volviendo al menú principal");
+                                                System.out.println("Volviendo al menú principal...");
                                             }
                                         } else {
-                                            System.out.println("No existe el proyecto 1");
+                                            System.out.println("No existe ese proyecto");
                                         }
                                     }
                                     case 2-> System.out.println("¡Hasta pronto!");
@@ -942,12 +967,12 @@ public class Main {
                             }
                             case 3:{
                                 do{
-                                    gestionSaldoInversor(nombreUsuarioInversor,contrasenaUsuarioInversor,saldoInversor);
+                                    gestionSaldoInversor(usuarioActual,nombreUsuarioInversor,contrasenaUsuarioInversor,saldoInversor);
                                 }while (opcion!=3);
                                 break;
                             }
                             case 4:{
-                                amigosInvitadosInversor=invitarAmigo(amigosInvitadosInversor,nombreUsuarioInversor,contrasenaUsuarioInversor);
+                                amigosInvitadosInversor=invitarAmigo(usuarioActual,amigosInvitadosInversor,nombreUsuarioInversor);
                                 break;
                             }
                             case 5:{
@@ -958,48 +983,57 @@ public class Main {
                                     opcion=Integer.parseInt(s.nextLine());
                                     switch (opcion){
                                         case 1:{
-                                            System.out.println("Introduzca el nombre de usuario actual");
-                                            nombreUsuarioActual=s.nextLine();
-                                            System.out.println("Introduzca el nuevo nombre de usuario");
-                                            nuevoNombreUsuario=s.nextLine();
-                                            usuarioCambiado=false;
-                                            for (int i = 0; i < nombreUsuarioInversor.length; i++) {
-                                                if (nombreUsuarioActual.equals(nombreUsuarioInversor[i])){
-                                                    nombreUsuarioInversor[i]=nuevoNombreUsuario;
-                                                    usuarioCambiado=true;
+                                            System.out.println("Introduce tu nombre de usuario");
+                                            usuario=s.nextLine();
+                                            System.out.println("Introduzca la contraseña actual");
+                                            contrasenaActual=s.nextLine();
+                                            if (validarOperacion(usuarioActual,usuario, contrasenaActual, nombreUsuarioInversor,contrasenaUsuarioInversor)) {
+                                                System.out.println("Introduzca el nuevo nombre de usuario");
+                                                nuevoNombreUsuario = s.nextLine();
+                                                usuarioCambiado = false;
+                                                for (int i = 0; i < nombreUsuarioInversor.length; i++) {
+                                                    if (usuario.equals(nombreUsuarioInversor[i])) {
+                                                        nombreUsuarioInversor[i] = nuevoNombreUsuario;
+                                                        usuarioCambiado = true;
+                                                    }
                                                 }
-                                            }
-                                            if (usuarioCambiado){
-                                                System.out.println(ANSI_GREEN+"Nombre de usuario actualizado satisfactoriamente"+ANSI_RESET);
+                                                if (usuarioCambiado){
+                                                    usuarioActual=nuevoNombreUsuario;
+                                                    System.out.println(ANSI_GREEN+"Nombre de usuario actualizado satisfactoriamente"+ANSI_RESET);
+                                                }
                                             }else{
-                                                System.out.println(ANSI_RED+"El nombre de usuario actual introducido es erróneo"+ANSI_RESET);
+                                                System.out.println(ANSI_RED+"El nombre de usuario o contraseña introducido es erróneo"+ANSI_RESET);
                                             }
                                             break;
                                         }
                                         case 2:{
+                                            System.out.println("Introduce tu nombre de usuario");
+                                            usuario=s.nextLine();
                                             System.out.println("Introduzca la contraseña actual");
                                             contrasenaActual=s.nextLine();
-                                            do {
-                                                System.out.println("Introduzca la nueva contraseña");
-                                                nuevaContrasena=s.nextLine();
-                                                System.out.println(fortalezaContrasena(nuevaContrasena));
-                                                System.out.println("Vuelve a escribir la nueva contraseña");
-                                                repeticionContrasena = s.nextLine();
-                                                if (!confirmarContrasena(nuevaContrasena, repeticionContrasena)) {
-                                                    System.out.println("La contraseña repetida introducida es diferente. Inténtelo de nuevo");
+                                            if (validarOperacion(usuarioActual,usuario, contrasenaActual, nombreUsuarioInversor,contrasenaUsuarioInversor)) {
+                                                do {
+                                                    System.out.println("Introduzca la nueva contraseña");
+                                                    nuevaContrasena = s.nextLine();
+                                                    System.out.println(fortalezaContrasena(nuevaContrasena));
+                                                    System.out.println("Vuelve a escribir la nueva contraseña");
+                                                    repeticionContrasena = s.nextLine();
+                                                    if (!confirmarContrasena(nuevaContrasena, repeticionContrasena)) {
+                                                        System.out.println("La contraseña repetida introducida es diferente. Inténtelo de nuevo");
+                                                    }
+                                                } while (!confirmarContrasena(nuevaContrasena, repeticionContrasena));
+                                                contrasenaCambiada = false;
+                                                for (int i = 0; i < contrasenaUsuarioInversor.length; i++) {
+                                                    if (contrasenaActual.equals(contrasenaUsuarioInversor[i])) {
+                                                        contrasenaUsuarioInversor[i] = nuevaContrasena;
+                                                        contrasenaCambiada = true;
+                                                    }
                                                 }
-                                            }while(!confirmarContrasena(nuevaContrasena, repeticionContrasena));
-                                            contrasenaCambiada=false;
-                                            for (int i = 0; i < contrasenaUsuarioInversor.length; i++) {
-                                                if (contrasenaActual.equals(contrasenaUsuarioInversor[i])){
-                                                    contrasenaUsuarioInversor[i]=nuevaContrasena;
-                                                    contrasenaCambiada=true;
+                                                if (contrasenaCambiada) {
+                                                    System.out.println(ANSI_GREEN + "Contraseña actualizada satisfactoriamente" + ANSI_RESET);
                                                 }
-                                            }
-                                            if (contrasenaCambiada){
-                                                System.out.println(ANSI_GREEN+"Contraseña actualizada satisfactoriamente"+ANSI_RESET);
-                                            }else{
-                                                System.out.println(ANSI_RED+"La contraseña actual introducida es errónea"+ANSI_RESET);
+                                            } else {
+                                                System.out.println(ANSI_RED + "El usuario o contraseña introducidos son erróneos" + ANSI_RESET);
                                             }
                                             break;
                                         }

@@ -63,10 +63,10 @@ public class FuncionesCadenas {
      * @param contrasenas se refiere a la lista de contraseñas donde se encuentra la contraseña del usuario.
      * @return devuelve true si el usuario existe y la contraseña corresponde al usuario y false en el caso contrario.
      */
-    public static boolean validarOperacion (String usuario, String contrasena, String[]usuarios, String []contrasenas){
+    public static boolean validarOperacion (String usuarioActual, String usuario, String contrasena, String[]usuarios, String []contrasenas){
         boolean usuarioValidado=false;
         for (int i = 0; i < usuarios.length; i++) {
-            if (usuario.equals(usuarios[i]) && contrasena.equals(contrasenas[i])){
+            if (usuarioActual.equals(usuario) && usuario.equals(usuarios[i]) && contrasena.equals(contrasenas[i])){
                 usuarioValidado=true;
             }
         }
@@ -120,6 +120,13 @@ public class FuncionesCadenas {
             correoCorrecto=false;
         }
         return correoCorrecto;
+    }
+
+    public static boolean usuarioNoExiste(String nombreUsuario, String[] array){
+        for (int i = 0; i < array.length ; i++) {
+            if (nombreUsuario.equals(array[i])) return false;
+        }
+        return true;
     }
     
 

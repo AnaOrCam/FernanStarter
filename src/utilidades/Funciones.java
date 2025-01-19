@@ -186,23 +186,7 @@ public class Funciones {
                 "3. Precio\n" +
                 "4. Salir");
     }
-    /**
-     * Menu de visualizacion de los proyectos.
-     * @author davidrn06
-     * @param proyecto nombre de los  proyectos .
-     * @param ANSI_GREEN asignacion de color verde.
-     * @param ANSI_RESET asignacion de color predeterminado.
-     * @return no devuelve ningun valor.
-     */
-    public static void verProyecto(String [] proyecto,String ANSI_GREEN, String ANSI_RESET){
-        System.out.println("Has accedido a proyectos");
-        System.out.println(ANSI_GREEN+"*****PROYECTOS*****"+ANSI_RESET);
-        System.out.println("¿Qué proyecto quiere ver?");
-                for( int i=0;i< proyecto.length;i++){
-                    System.out.println(i+". Proyecto "+i+" : "+proyecto[i]);
-        }
-        System.out.println(proyecto.length+". Salir");
-    }
+
     /**
      * Menu de visualizacion de borrado de los proyectos.
      * @author davidrn06
@@ -225,23 +209,16 @@ public class Funciones {
      * @param amigosInvitados es la cadena con los amigos invitados hasta el momento.
      * @return devuelve una cadena.
      */
-    public static String [] invitarAmigo (String[] amigosInvitados, String[] usuarios, String []contrasenas){
-        Scanner s=new Scanner (System.in);
-        System.out.println("Introduce usuario y contraseña para validar la operación");
-        String usuario=s.nextLine();
-        String contrasena=s.nextLine();
-        if (validarOperacion(usuario,contrasena,usuarios,contrasenas)) {
-            System.out.println("¿A quien quieres invitar? Introduce su email");
-            for (int i = 0; i < usuarios.length; i++) {
-                if (usuario.equals(usuarios[i])) {
-                    amigosInvitados[i] = amigosInvitados[i].concat(s.nextLine() + "\n");
-                    System.out.println("Tus amigos invitados hasta la fecha son los siguientes:");
-                    System.out.println(amigosInvitados[i]);
-                }
-            }
-        }else{
-            System.out.println("La autenticación ha fallado.");
-        }
+    public static String [] invitarAmigo (String usuarioActual, String[] amigosInvitados, String[] usuarios){
+       Scanner s= new Scanner(System.in);
+       System.out.println("¿A quien quieres invitar? Introduce su email");
+       for (int i = 0; i < usuarios.length; i++) {
+           if (usuarioActual.equals(usuarios[i])) {
+               amigosInvitados[i] = amigosInvitados[i].concat(s.nextLine() + "\n");
+               System.out.println("Tus amigos invitados hasta la fecha son los siguientes:");
+               System.out.println(amigosInvitados[i]);
+           }
+       }
         return amigosInvitados;
     }
 
@@ -251,34 +228,34 @@ public class Funciones {
      * @param saldo numero entero que indica el saldo del usuario.
      * @return devuelve un entero.
      */
-    public static int[] gestionSaldoInversor (String []usuarios, String []contrasenas, int []saldo){
+    public static int[] gestionSaldoInversor (String usuarioActual, String []usuarios, String []contrasenas, int []saldo){
         Scanner s=new Scanner(System.in);
-        System.out.println("Por favor introzuca usuario y contraseña para acceder a la cartera digital");
-        String usuario=s.nextLine();
-        String contrasena=s.nextLine();
-        if (validarOperacion(usuario, contrasena, usuarios, contrasenas)) {
             System.out.println("¿Qué quieres hacer?\n 1.Mostrar mi saldo actual\n 2.Añadir saldo\n 3.Salir");
             int opcion = Integer.parseInt(s.nextLine());
             for (int i = 0; i < usuarios.length; i++) {
-                if (usuario.equals(usuarios[i]) && contrasena.equals(contrasenas[i])) {
+                if (usuarioActual.equals(usuarios[i])) {
                     switch (opcion) {
                         case 1 -> {
                             System.out.println("Tu saldo actual es:");
                             System.out.println(saldo[i] + "€");
                         }
                         case 2 -> {
-                            System.out.println("Cuánto quieres añadir?");
-                            saldo[i] += Integer.parseInt(s.nextLine());
-                            System.out.println("Operación realizada satisfactoriamente.");
+                            System.out.println("Introduce usuario y contraseña para validar la operación");
+                            String usuario = s.nextLine();
+                            String contrasena = s.nextLine();
+                            if (validarOperacion(usuarioActual, usuario, contrasena, usuarios, contrasenas)) {
+                                System.out.println("Cuánto quieres añadir?");
+                                saldo[i] += Integer.parseInt(s.nextLine());
+                                System.out.println("Operación realizada satisfactoriamente.");
+                            }else{
+                                System.out.println("La autenticacion ha fallado. El usuario o contraseña introducido no es correcto.");
+                            }
                         }
                         case 3 -> System.out.println("Saliendo de Cartera Digital");
                         default -> System.out.println("Esa opción no se encuentra en el menú");
                     }
                 }
             }
-        }else{
-            System.out.println("La autenticación ha fallado.");
-        }
         return saldo;
     }
 
