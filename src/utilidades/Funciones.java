@@ -316,4 +316,16 @@ public class Funciones {
             }
         return saldo;
     }
+    public static void menuInicial(){
+        System.out.println("Indica que desea realizar");
+        System.out.println("1.Crear un usuario");
+        System.out.println("2.Iniciar Sesion");
+        System.out.println("3.Cerrar el programa");
+    }
+    public static void eleccionUsuarioACrear(){
+        System.out.println("Que tipo de usuario desea crear");
+        System.out.println("1.Inversor");
+        System.out.println("2.Gestor");
+        System.out.println("3.Administrador");
+    }
 }

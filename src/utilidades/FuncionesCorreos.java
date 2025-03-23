@@ -17,7 +17,7 @@ public class FuncionesCorreos {
      */
     public static void enviarConGMail(String destinatario, String asunto, String cuerpo) {
         String remitente = "davidrosanebrera@gmail.com";
-        String clave = "cnnu lpxh vvva enhn";
+        String clave = "ldes vjpg axbu vhbe";
 
         Properties props = System.getProperties();
         props.put("mail.smtp.host", "smtp.gmail.com");

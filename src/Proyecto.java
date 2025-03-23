@@ -1,10 +1,12 @@
 import java.util.Date;
+import java.util.LinkedList;
 
 public class Proyecto implements Invertible{
     private String nombre;
     private Date fechaApertura;
     private Date fechaCierre;
-    private Recompensa [] arrayRecompensas;
+    private LinkedList<Recompensa> listaRecompensas = new LinkedList<Recompensa>();
+
     private int numRecompensas;
 
 
@@ -12,18 +14,17 @@ public class Proyecto implements Invertible{
         this.nombre=nombre;
         this.fechaApertura=fechaApertura;
         this.fechaCierre=fechaCierre;
-        arrayRecompensas=new Recompensa[numeroRecompensas];
         numRecompensas=0;
     }
 
     public void insertaRecompensa(Recompensa nueva){
-        arrayRecompensas[numRecompensas++]=nueva;
+        listaRecompensas.add(nueva);
     }
 
     public void eliminaRecompensa(Recompensa aEliminar){
-        for (int i=0;i<numRecompensas;i++){
-            if (arrayRecompensas[i].getIdRecompensa()==aEliminar.getIdRecompensa()){
-                arrayRecompensas[i]=null;
+        for (Recompensa aux:listaRecompensas){
+            if (aux==aEliminar){
+                listaRecompensas.remove(aux);
             }
         }
     }
