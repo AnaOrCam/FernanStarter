@@ -6,8 +6,8 @@ public class Gestor extends Usuario implements Bloqueable{
     private int idGestor;
     public Gestor(String nombre, String correo, String contrasena){
         super( nombre, correo, contrasena);
-        idGestor=ids;
-        ids++;
+        idGestor=getIds();
+        sumaid();
     }
     public LinkedList<Proyecto> getProyectosCreados() {
         return proyectosCreados;

@@ -10,4 +10,10 @@ public class VistaUsuario {
             System.out.println(mostrar);
         }
     }
+    public void comprobacionCorrecta(){
+        System.out.println("La comprobación ha sido satisfactoria");
+    }
+    public void comprobacionIncorrecta(){
+        System.out.println("Ha ocurrido un error. Contraseña incorrecta");
+    }
 }

@@ -17,7 +17,9 @@ public class GestionUsuarios {
         }
         return false;
     }
-
+    public boolean comprobarContrasenaMaestra(String contraseniaMaestraAComprobar){
+        return Administrador.comprobarContrasenaMaestra(contraseniaMaestraAComprobar);
+    }
 
 
 }

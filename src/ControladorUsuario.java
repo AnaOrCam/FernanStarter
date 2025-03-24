@@ -14,4 +14,8 @@ public class ControladorUsuario {
     public boolean buscaUsuario(String nombre){
        return modelo.buscaUsuario(nombre);
     }
+    public void comprobarContrasenaMaestra(String contrasenaMaestraAComprobar){
+        if (modelo.comprobarContrasenaMaestra(contrasenaMaestraAComprobar)) vista.comprobacionCorrecta();
+        else vista.comprobacionIncorrecta();
+    }
 }

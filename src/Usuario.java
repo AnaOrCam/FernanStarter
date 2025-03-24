@@ -2,8 +2,15 @@ public abstract class Usuario {
     private String nombre;
     private String correo;
     private String contrasena;
-    public static int ids=0;
+    private static int ids=1;
 
+
+    public static int getIds() {
+        return ids;
+    }
+    public static void sumaid(){
+        ids++;
+    }
     public String getNombre() {
         return nombre;
     }
@@ -33,7 +40,5 @@ public abstract class Usuario {
         this.correo=correo;
         this.contrasena=contrasena;
     }
-    public static String getContraseniaMaestra(String contrasenia){
-        return "awdw";
-    }
+
 }
