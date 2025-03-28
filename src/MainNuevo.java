@@ -68,7 +68,7 @@ public class MainNuevo {
                             int verificaion = Integer.parseInt(s.nextLine());
                             if (verificaion == autentificacion) {
                                 System.out.println("Usuario creado con exito");
-                                Inversor nuevo=new Inversor(nombreAux,correoAux,contraseniaAux);
+                                Inversor nuevo=new Inversor(nombreAux,correoAux,contraseniaAux,TipoUsuario.INVERSOR);
                                 controladorUsuario.aniadirUsuario(nuevo);
                                  nombreAux="";
                                  correoAux="";
@@ -124,7 +124,7 @@ public class MainNuevo {
                             int verificaion = Integer.parseInt(s.nextLine());
                             if (verificaion == autentificacion) {
                                 System.out.println("Usuario creado con exito");
-                                Inversor nuevo=new Inversor(nombreAux,correoAux,contraseniaAux);
+                                Inversor nuevo=new Inversor(nombreAux,correoAux,contraseniaAux, TipoUsuario.GESTOR);
                                 controladorUsuario.aniadirUsuario(nuevo);
                                 nombreAux="";
                                 correoAux="";
@@ -178,7 +178,7 @@ public class MainNuevo {
                             int verificaion = Integer.parseInt(s.nextLine());
                             if (verificaion == autentificacion) {
                                 System.out.println("Usuario creado con exito");
-                                Inversor nuevo=new Inversor(nombreAux,correoAux,contraseniaAux);
+                                Administrador nuevo=new Administrador(nombreAux,correoAux,contraseniaAux, TipoUsuario.ADMINISTRADOR);
                                 controladorUsuario.aniadirUsuario(nuevo);
                                 nombreAux="";
                                 correoAux="";

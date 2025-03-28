@@ -6,16 +6,26 @@ public class ControladorUsuario {
         this.vista=vista;
     }
     public void aniadirUsuario(Usuario nuevo){
-        modelo.aniadirUsuario( nuevo);
+        modelo.aniadirUsuario(nuevo);
+        vista.operacionSatisfactoria();
     }
     public void muestraUsuarios(){
         vista.muestraUsuarios(modelo.getUsuarios());
     }
-    public boolean buscaUsuario(String nombre){
-       return modelo.buscaUsuario(nombre);
+    public void buscaUsuario(String correo){
+       if (modelo.buscaUsuario(correo)!=null) vista.muestraUsuario(modelo.buscaUsuario(correo));
+       else vista.comprobacionIncorrecta();
     }
     public void comprobarContrasenaMaestra(String contrasenaMaestraAComprobar){
         if (modelo.comprobarContrasenaMaestra(contrasenaMaestraAComprobar)) vista.comprobacionCorrecta();
         else vista.comprobacionIncorrecta();
+    }
+    public void bloquearUsuario(Usuario usuario){
+        if (modelo.bloquearUsuario(usuario)) vista.operacionSatisfactoria();
+        else vista.operacionFallida();
+    }
+    public void desbloquearUsuario(Usuario usuario){
+        if (modelo.desbloquearUsuario(usuario)) vista.operacionSatisfactoria();
+        else vista.operacionFallida();
     }
 }

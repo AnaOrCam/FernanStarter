@@ -1,14 +1,16 @@
 import java.util.LinkedList;
 
 public class Inversor extends Usuario implements Bloqueable{
-    private LinkedList<Inversion> proyectosInvertidos = new LinkedList<Inversion>();
+    private LinkedList<Inversion> proyectosInvertidos;
     private int cantidadFinanciadaTotal;
     private boolean bloqueado;
     private  int idInversor;
-    public Inversor(String nombre,String correo,String contrasena){
-        super( nombre, correo, contrasena);
+    public Inversor(String nombre,String correo,String contrasena, TipoUsuario tipoUsuario){
+        super( nombre, correo, contrasena, tipoUsuario);
         idInversor=getIds();
         sumaid();
+        bloqueado=false;
+        proyectosInvertidos=new LinkedList<>();
     }
 
     public LinkedList<Inversion> getProyectosInvertidos() {
@@ -31,9 +33,6 @@ public class Inversor extends Usuario implements Bloqueable{
         return bloqueado;
     }
 
-    public void setBloqueado(boolean bloqueado) {
-        this.bloqueado = bloqueado;
-    }
 
     public int getIdInversor() {
         return idInversor;
@@ -42,4 +41,12 @@ public class Inversor extends Usuario implements Bloqueable{
     public void setIdInversor(int idInversor) {
         this.idInversor = idInversor;
     }
+    public void bloquearUsuario() {
+        this.bloqueado=true;
+    }
+
+    public void desbloquearUsuario(){
+        this.bloqueado=false;
+    }
+
 }

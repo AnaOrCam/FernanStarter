@@ -2,9 +2,15 @@ public abstract class Usuario {
     private String nombre;
     private String correo;
     private String contrasena;
+    private TipoUsuario tipoUsuario;
     private static int ids=1;
 
-
+    public Usuario(String nombre, String correo, String contrasena, TipoUsuario tipoUsuario){
+        this.nombre=nombre;
+        this.correo=correo;
+        this.contrasena=contrasena;
+        this.tipoUsuario=tipoUsuario;
+    }
     public static int getIds() {
         return ids;
     }
@@ -35,10 +41,14 @@ public abstract class Usuario {
         this.contrasena = contrasena;
     }
 
-    public Usuario(String nombre, String correo, String contrasena){
-        this.nombre=nombre;
-        this.correo=correo;
-        this.contrasena=contrasena;
+    public TipoUsuario getTipoUsuario() {
+        return tipoUsuario;
     }
+
+    public String toString(){
+        return "Nombre: "+nombre+"\nCuenta tipo "+tipoUsuario+"\nCorreo: "+correo;
+    }
+
+
 
 }

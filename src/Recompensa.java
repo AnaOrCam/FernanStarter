@@ -49,10 +49,12 @@ public class Recompensa {
         this.id = id;
     }
 
-    public Recompensa(){
-
-   }
    public int getIdRecompensa(){
        return id;
    }
+
+   public String toString(){
+       return "Nombre: "+nombre+"\nDescripción de la recompensa: "+descripcion+"\nImporte: "+importe;
+   }
+
 }

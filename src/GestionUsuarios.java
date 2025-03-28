@@ -1,25 +1,26 @@
-import java.util.LinkedList;
+import java.util.HashMap;
+import java.util.List;
 
 public class GestionUsuarios {
-    private LinkedList<Usuario> usuarios = new LinkedList<Usuario>();
+    private HashMap<String,Usuario> usuarios = new HashMap<>();
 
     public void aniadirUsuario(Usuario nuevo){
-        usuarios.add(nuevo);
+        usuarios.put(nuevo.getCorreo(), nuevo);
     }
-    public LinkedList<Usuario> getUsuarios(){
-        return  usuarios;
+    public HashMap<String,Usuario> getUsuarios(){
+        return usuarios;
     }
-    public boolean buscaUsuario(String nombre){
-        for (Usuario buscar: usuarios){
-            if (buscar.getNombre().equals(nombre)){
-                return true;
-            }
+
+    public Usuario buscaUsuario(String correo){
+        List <Usuario> listaUsuarios=List.copyOf(usuarios.values());
+        for (int i = 0; i < listaUsuarios.size(); i++) {
+            if (listaUsuarios.get(i).getCorreo().equals(correo)) return listaUsuarios.get(i);
         }
-        return false;
+        return null;
     }
     public boolean comprobarContrasenaMaestra(String contraseniaMaestraAComprobar){
         return Administrador.comprobarContrasenaMaestra(contraseniaMaestraAComprobar);
     }
-
+    
 
 }
