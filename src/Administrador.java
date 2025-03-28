@@ -15,4 +15,5 @@ public class Administrador extends Usuario{
     public String toString(){
        return super.toString();
     }
+
 }

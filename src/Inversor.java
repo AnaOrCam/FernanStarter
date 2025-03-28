@@ -40,4 +40,8 @@ public class Inversor extends Usuario implements Bloqueable{
         this.bloqueado=false;
     }
 
+    public void insertarProyectoInvertido(Inversion inversion){
+        proyectosInvertidos.add(inversion);
+    }
+
 }

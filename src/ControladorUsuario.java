@@ -35,4 +35,9 @@ public class ControladorUsuario {
     public boolean compruebaCorreoExistente(String correo){
         return modelo.compruebaCorreoExistente(correo);
     }
+
+    public void insertarInversion(Inversion inversion, Usuario usuario){
+        if (modelo.insertarInversion(inversion,usuario)) vista.operacionSatisfactoria();
+        else vista.operacionFallida();
+    }
 }

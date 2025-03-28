@@ -5,15 +5,17 @@ public class Proyecto implements Invertible{
     private String nombre;
     private Date fechaApertura;
     private Date fechaCierre;
+    private int cantidadInvertidaActual;
+    private int cantidadAInvertirTotal;
     private LinkedList<Recompensa> listaRecompensas;
-    private int numRecompensas;
 
 
-    public Proyecto(int numeroRecompensas,String nombre,Date fechaApertura,Date fechaCierre){
+    public Proyecto(int numeroRecompensas,String nombre,Date fechaApertura,Date fechaCierre, int cantidadAInvertirTotal){
         this.nombre=nombre;
         this.fechaApertura=fechaApertura;
         this.fechaCierre=fechaCierre;
-        numRecompensas=0;
+        this.cantidadInvertidaActual=0;
+        this.cantidadAInvertirTotal=cantidadAInvertirTotal;
         listaRecompensas=new LinkedList<>();
     }
 
@@ -45,20 +47,20 @@ public class Proyecto implements Invertible{
         return listaRecompensas;
     }
 
-    public void setListaRecompensas(LinkedList<Recompensa> listaRecompensas) {
-        this.listaRecompensas = listaRecompensas;
-    }
 
     public void insertaRecompensa(Recompensa nueva){
         listaRecompensas.add(nueva);
     }
 
-    public void eliminaRecompensa(Recompensa aEliminar){
-        for (Recompensa aux:listaRecompensas){
-            if (aux==aEliminar){
+    public void eliminaRecompensa(Recompensa aEliminar) {
+        for (Recompensa aux : listaRecompensas) {
+            if (aux == aEliminar) {
                 listaRecompensas.remove(aux);
             }
         }
+    }
+    public void aumentaInversion(int cantidadAAumentar){
+        cantidadInvertidaActual+=cantidadAAumentar;
     }
 
 

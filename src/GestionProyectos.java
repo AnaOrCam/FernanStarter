@@ -14,6 +14,12 @@ public class GestionProyectos {
     public void insertarProyecto(Proyecto proyecto){
         proyectos.add(proyecto);
     }
+    public Proyecto buscaProyecto(String nombre){
+        for(Proyecto e: proyectos){
+            if (e.getNombre().equalsIgnoreCase(nombre)) return e;
+        }
+        return null;
+    }
 
     public LinkedList<Recompensa> getListaRecompensas(){
         for (int i = 0; i < proyectos.size(); i++) {

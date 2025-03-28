@@ -15,4 +15,8 @@ public class ControladorProyectos {
         modelo.insertarProyecto(proyecto);
         vista.proyectoInsertadoCorrectamente(proyecto);
     }
+    public void insertarRecompensa(Recompensa recompensa, String nombreProyecto){
+        Proyecto aux=modelo.buscaProyecto(nombreProyecto);
+        aux.insertaRecompensa(recompensa);
+    }
 }

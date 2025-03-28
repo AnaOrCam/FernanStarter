@@ -70,5 +70,13 @@ public class GestionUsuarios {
         }
         return   false;
     }
+    public boolean insertarInversion(Inversion inversion, Usuario usuario){
+        if (usuario.getTipoUsuario()==TipoUsuario.INVERSOR){
+            Inversor aux=(Inversor) usuario;
+            aux.insertarProyectoInvertido(inversion);
+            return true;
+        }
+        return false;
+    }
 
 }
