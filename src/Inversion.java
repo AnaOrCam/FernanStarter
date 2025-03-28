@@ -2,10 +2,12 @@ public class Inversion {
     private Proyecto proyecto;
     private float cantidadInvertida;
     private Inversor inversor;
-    public Inversion(Proyecto proyecto, float cantidadInvertida, Inversor inversor){
+    private Recompensa recompensaElegida;
+    public Inversion(Proyecto proyecto, float cantidadInvertida, Inversor inversor, Recompensa recompensaElegida){
         this.proyecto=proyecto;
         this.cantidadInvertida=cantidadInvertida;
         this.inversor=inversor;
+        this.recompensaElegida=recompensaElegida;
     }
     public void aumentaInversion(int cantidadAAumentar){
         cantidadInvertida+=cantidadAAumentar;
