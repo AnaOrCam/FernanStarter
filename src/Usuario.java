@@ -3,7 +3,6 @@ public abstract class Usuario {
     private String correo;
     private String contrasena;
     private TipoUsuario tipoUsuario;
-    private static int ids=1;
 
     public Usuario(String nombre, String correo, String contrasena, TipoUsuario tipoUsuario){
         this.nombre=nombre;
@@ -11,12 +10,7 @@ public abstract class Usuario {
         this.contrasena=contrasena;
         this.tipoUsuario=tipoUsuario;
     }
-    public static int getIds() {
-        return ids;
-    }
-    public static void sumaid(){
-        ids++;
-    }
+
     public String getNombre() {
         return nombre;
     }

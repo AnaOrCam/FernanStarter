@@ -29,18 +29,18 @@ public class MainNuevo {
                     switch (opcionGeneral){
                         //CREACION INVERSOR
                         case 1:{
-                            boolean aux;
-                            do {
+                            boolean aux=false;
                                 System.out.println("Introduzca el nombre de usuario del nuevo perfil Inversor");
                                 nombreAux = s.nextLine();
-                                aux=controladorUsuario.buscaUsuario(nombreAux);
-                                if (aux)
-                                    System.out.println("El nombre de usuario ya está en uso");
-
-                            }while (aux);
                             do {
+                                do{
                                 System.out.println("Introduzca su correo ");
                                 correoAux = s.nextLine();
+                                    aux=controladorUsuario.compruebaCorreoExistente(correoAux);
+                                    if (aux){
+                                        System.out.println("El nombre de correo ya existe");
+                                    }
+                                }while(aux);
                                 if (!comprobacionCorreo(correoAux)){
                                     System.out.println("El formato del correo debe contener @");
                                 }
@@ -84,18 +84,18 @@ public class MainNuevo {
                         }
                         //CREACION GESTOR
                         case 2:{
-                            boolean aux;
-                            do {
+                            boolean aux =false;
                                 System.out.println("Introduzca el nombre de usuario del nuevo perfil Gestor");
                                 nombreAux = s.nextLine();
-                                aux=controladorUsuario.buscaUsuario(nombreAux);
-                                if (aux)
-                                    System.out.println("El nombre de usuario ya está en uso");
-
-                            }while (aux);
                             do {
-                                System.out.println("Introduzca su correo ");
-                                correoAux = s.nextLine();
+                                do{
+                                    System.out.println("Introduzca su correo ");
+                                    correoAux = s.nextLine();
+                                    aux=controladorUsuario.compruebaCorreoExistente(correoAux);
+                                    if (aux){
+                                        System.out.println("El nombre de correo ya existe");
+                                    }
+                                }while(aux);
                                 if (!comprobacionCorreo(correoAux)){
                                     System.out.println("El formato del correo debe contener @");
                                 }
@@ -139,18 +139,18 @@ public class MainNuevo {
                         }
                         //CREACION ADMINSITRADOR
                         case 3:{
-                            boolean aux;
-                            do {
+                            boolean aux=false;
                                 System.out.println("Introduzca el nombre de usuario del nuevo perfil Administrador");
                                 nombreAux = s.nextLine();
-                                aux=controladorUsuario.buscaUsuario(nombreAux);
-                                if (aux)
-                                    System.out.println("El nombre de usuario ya está en uso");
-
-                            }while (aux);
                             do {
-                                System.out.println("Introduzca su correo ");
-                                correoAux = s.nextLine();
+                                do{
+                                    System.out.println("Introduzca su correo ");
+                                    correoAux = s.nextLine();
+                                    aux=controladorUsuario.compruebaCorreoExistente(correoAux);
+                                    if (aux){
+                                        System.out.println("El nombre de correo ya existe");
+                                    }
+                                }while(aux);
                                 if (!comprobacionCorreo(correoAux)){
                                     System.out.println("El formato del correo debe contener @");
                                 }
@@ -194,11 +194,13 @@ public class MainNuevo {
                     }
                     break;
                 }
+                //Iniciar Sesion
                 case 2:{
-                    String nombreAux="";
+                    String correoAux="";
                     String contraseniaAunx="";
-                    System.out.println("Introduzca nombre");
-                    nombreAux=s.nextLine();
+                    System.out.println("Introduzca correo");
+                    correoAux=s.nextLine();
+
 
                     break;
                 }

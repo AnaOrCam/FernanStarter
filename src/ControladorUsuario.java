@@ -21,11 +21,18 @@ public class ControladorUsuario {
         else vista.comprobacionIncorrecta();
     }
     public void bloquearUsuario(Usuario usuario){
-        if (modelo.bloquearUsuario(usuario)) vista.operacionSatisfactoria();
-        else vista.operacionFallida();
+        if (modelo.bloquearUsuario(usuario)){
+            vista.operacionSatisfactoria();
+        }else vista.operacionFallida();
+
     }
     public void desbloquearUsuario(Usuario usuario){
-        if (modelo.desbloquearUsuario(usuario)) vista.operacionSatisfactoria();
-        else vista.operacionFallida();
+        if (modelo.desbloquearUsuario(usuario)){
+            vista.operacionSatisfactoria();
+        }else vista.operacionFallida();
+
+    }
+    public boolean compruebaCorreoExistente(String correo){
+        return modelo.compruebaCorreoExistente(correo);
     }
 }

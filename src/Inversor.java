@@ -4,11 +4,8 @@ public class Inversor extends Usuario implements Bloqueable{
     private LinkedList<Inversion> proyectosInvertidos;
     private int cantidadFinanciadaTotal;
     private boolean bloqueado;
-    private  int idInversor;
     public Inversor(String nombre,String correo,String contrasena, TipoUsuario tipoUsuario){
         super( nombre, correo, contrasena, tipoUsuario);
-        idInversor=getIds();
-        sumaid();
         bloqueado=false;
         proyectosInvertidos=new LinkedList<>();
     }
@@ -34,13 +31,7 @@ public class Inversor extends Usuario implements Bloqueable{
     }
 
 
-    public int getIdInversor() {
-        return idInversor;
-    }
 
-    public void setIdInversor(int idInversor) {
-        this.idInversor = idInversor;
-    }
     public void bloquearUsuario() {
         this.bloqueado=true;
     }
