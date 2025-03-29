@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 public class GestionUsuarios {
@@ -78,5 +79,38 @@ public class GestionUsuarios {
         }
         return false;
     }
-
+    public boolean compruebaCredenciales(String correo,String contrasena){
+        List <Usuario> listaUsuarios=List.copyOf(usuarios.values());
+        for (int i = 0; i < listaUsuarios.size(); i++) {
+            if (listaUsuarios.get(i).getCorreo().equals(correo)&&listaUsuarios.get(i).getContrasena().equals(contrasena)) return true;
+        }
+        return false;
+    }
+    public Usuario buscaUsuarioCorreoYContrasena(String correo,String contrasena){
+        List <Usuario> listaUsuarios=List.copyOf(usuarios.values());
+        for (int i = 0; i < listaUsuarios.size(); i++) {
+            if (listaUsuarios.get(i).getCorreo().equals(correo)&&listaUsuarios.get(i).getContrasena().equals(contrasena)) return listaUsuarios.get(i);
+        }
+        return null;
+    }
+    public LinkedList<Proyecto> getProyectosCreadosPorGestor(Gestor aux){
+        return aux.getProyectosCreados();
+    }
+    public void insertarProyectoCreadorPorGestor(Gestor gestor,Proyecto proyecto){
+        gestor.anadirProyecto(proyecto);
+    }
+    public Proyecto buscarProyectoCreadoPorGestor(String nombre,Gestor gestor){
+        for (int i=0;i<gestor.getProyectosCreados().size();i++){
+            if (gestor.getProyectosCreados().get(i).getNombre().equals(nombre)) {
+                return gestor.getProyectosCreados().get(i);
+            }
+        }
+        return null;
+    }
+    public LinkedList<Recompensa> getRecompensasProyecto(Proyecto aux){
+        return aux.getListaRecompensas();
+    }
+    public void borrarProyecto(Gestor gestor,Proyecto aux){
+        gestor.getProyectosCreados().remove(aux);
+    }
 }

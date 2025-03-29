@@ -19,4 +19,20 @@ public class ControladorProyectos {
         Proyecto aux=modelo.buscaProyecto(nombreProyecto);
         aux.insertaRecompensa(recompensa);
     }
+    public void insertarRecompensa(Recompensa recompensa, Proyecto proyecto){
+        Proyecto aux=proyecto;
+        aux.insertaRecompensa(recompensa);
+    }
+    public boolean compruebaProyectoExiste(String nombre){
+        return modelo.compruebaProyectoExiste(nombre);
+    }
+    public Proyecto buscarProyecto(String nombre){
+        return modelo.buscaProyecto(nombre);
+    }
+    public void muestratipos(){
+        vista.muestraTipos();
+    }
+    public void borrarProyecto(Proyecto aux){
+        modelo.borrarProyecto(aux);
+    }
 }

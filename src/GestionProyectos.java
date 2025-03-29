@@ -27,4 +27,13 @@ public class GestionProyectos {
         }
         return null;
     }
+    public boolean compruebaProyectoExiste(String nombre){
+        for (int i = 0; i < proyectos.size(); i++) {
+            if (proyectos.get(i).getNombre().equals(nombre))return true;
+        }
+        return false;
+    }
+    public void borrarProyecto(Proyecto aux){
+        proyectos.remove(aux);
+    }
 }

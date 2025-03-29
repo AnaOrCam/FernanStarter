@@ -1,22 +1,58 @@
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.LinkedList;
 
 public class Proyecto implements Invertible{
     private String nombre;
-    private Date fechaApertura;
-    private Date fechaCierre;
+    private LocalDate fechaApertura;
+    private LocalDate fechaCierre;
     private int cantidadInvertidaActual;
     private int cantidadAInvertirTotal;
     private LinkedList<Recompensa> listaRecompensas;
+    private String descripcion;
+    private TematicaProyecto tematicaProyecto;
 
-
-    public Proyecto(int numeroRecompensas,String nombre,Date fechaApertura,Date fechaCierre, int cantidadAInvertirTotal){
+    public Proyecto(int numeroRecompensas,String nombre,LocalDate fechaApertura,LocalDate fechaCierre, int cantidadAInvertirTotal,String descripcion,TematicaProyecto tematicaProyecto){
         this.nombre=nombre;
         this.fechaApertura=fechaApertura;
         this.fechaCierre=fechaCierre;
         this.cantidadInvertidaActual=0;
         this.cantidadAInvertirTotal=cantidadAInvertirTotal;
+        this.descripcion=descripcion;
+        this.tematicaProyecto=tematicaProyecto;
         listaRecompensas=new LinkedList<>();
+    }
+
+    public int getCantidadInvertidaActual() {
+        return cantidadInvertidaActual;
+    }
+
+    public TematicaProyecto getTematicaProyecto() {
+        return tematicaProyecto;
+    }
+
+    public void setTematicaProyecto(TematicaProyecto tematicaProyecto) {
+        this.tematicaProyecto = tematicaProyecto;
+    }
+
+    public void setCantidadInvertidaActual(int cantidadInvertidaActual) {
+        this.cantidadInvertidaActual = cantidadInvertidaActual;
+    }
+
+    public int getCantidadAInvertirTotal() {
+        return cantidadAInvertirTotal;
+    }
+
+    public void setCantidadAInvertirTotal(int cantidadAInvertirTotal) {
+        this.cantidadAInvertirTotal = cantidadAInvertirTotal;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getNombre() {
@@ -27,19 +63,19 @@ public class Proyecto implements Invertible{
         this.nombre = nombre;
     }
 
-    public Date getFechaApertura() {
+    public LocalDate getFechaApertura() {
         return fechaApertura;
     }
 
-    public void setFechaApertura(Date fechaApertura) {
+    public void setFechaApertura(LocalDate fechaApertura) {
         this.fechaApertura = fechaApertura;
     }
 
-    public Date getFechaCierre() {
+    public LocalDate getFechaCierre() {
         return fechaCierre;
     }
 
-    public void setFechaCierre(Date fechaCierre) {
+    public void setFechaCierre(LocalDate fechaCierre) {
         this.fechaCierre = fechaCierre;
     }
 
@@ -65,6 +101,6 @@ public class Proyecto implements Invertible{
 
 
     public String toString(){
-        return "Proyecto "+nombre+"\nFecha de apertura: "+fechaApertura+" - "+"Fecha de cierre: "+fechaCierre;
+        return "Proyecto "+nombre+"\nFecha de apertura: "+fechaApertura+" - "+"Fecha de cierre: "+fechaCierre+"\nDescripcion: "+descripcion;
     }
 }

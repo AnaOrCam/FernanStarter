@@ -32,5 +32,8 @@ public class Gestor extends Usuario implements Bloqueable{
     public String toString(){
         return super.toString();
     }
+    public void  anadirProyecto(Proyecto proyecto){
+        proyectosCreados.add(proyecto);
+    }
 
 }
