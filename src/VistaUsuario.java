@@ -2,6 +2,7 @@
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class VistaUsuario {
     private String textoVerde;
@@ -19,7 +20,10 @@ public class VistaUsuario {
     public void muestraUsuarios(HashMap<String,Usuario> usuarios){
         List<Usuario> listaUsuarios=List.copyOf(usuarios.values());
         for (Usuario mostrar:listaUsuarios){
-            System.out.println(mostrar);
+            if (!mostrar.getTipoUsuario().equals(TipoUsuario.ADMINISTRADOR)){
+                System.out.println(mostrar);
+                System.out.println("-------------------------------");
+            }
         }
     }
     public void comprobacionCorrecta(){
@@ -38,7 +42,7 @@ public class VistaUsuario {
         System.out.println(usuario);
     }
     public void credencialesValidas(String correo){
-        System.out.println("Las credenciales para su cuenta con correo "+correo+" son validas"+ textoVerde +" \n Iniciando Sesion..."+ resetColorTexto);
+        System.out.println("Las credenciales para su cuenta con correo "+correo+" son validas"+ textoVerde + resetColorTexto);
     }
     public void credencialesNoValidas(){
         System.out.println(textoRojo +"Las credenciales no coinciden"+ resetColorTexto);
@@ -56,7 +60,7 @@ public class VistaUsuario {
                         "Fecha de apertura de inversiones: " + proyecto.getFechaApertura() + "\n" +
                         "Fecha de cierre de inversiones: " + proyecto.getFechaCierre());
         for(int i=0;i<proyecto.getListaRecompensas().size();i++){
-            System.out.println("Recompensa "+i+" Nombre "+proyecto.getListaRecompensas().get(i).getNombre()+"\nDescripcion: "+proyecto.getListaRecompensas().get(i).getDescripcion()+" Importe: "+proyecto.getListaRecompensas().get(i).getImporte());
+            System.out.println("Recompensa "+(i+1)+" Nombre "+proyecto.getListaRecompensas().get(i).getNombre()+"\nDescripcion: "+proyecto.getListaRecompensas().get(i).getDescripcion()+" Importe: "+proyecto.getListaRecompensas().get(i).getImporte());
         }
     }
 
@@ -78,5 +82,19 @@ public class VistaUsuario {
     public void mostrarSaldo(float saldo){
         System.out.println("Saldo actual: "+saldo);
     }
+    public void muestraRecompensas(LinkedList<Recompensa>  recompensas){
+        int i=1;
+        for (Recompensa aux:recompensas){
+            System.out.println(i+"."+aux);
+            i++;
+        }
+    }
+    public void muestraUsuario(HashMap<String,Usuario> usuarios){
+        System.out.println("Estos son los correos de los usuarios disponibles");
+        for (Map.Entry usuario: usuarios.entrySet()){
+            System.out.println(usuario.getKey());
+        }
+    }
+
 
 }

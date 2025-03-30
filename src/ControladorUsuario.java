@@ -18,6 +18,9 @@ public class ControladorUsuario {
        if (modelo.buscaUsuario(correo)!=null) vista.muestraUsuario(modelo.buscaUsuario(correo));
        else vista.comprobacionIncorrecta();
     }
+    public Usuario getUsuario(String correo){
+        return modelo.buscaUsuario(correo);
+    }
     public void comprobarContrasenaMaestra(String contrasenaMaestraAComprobar){
         if (modelo.comprobarContrasenaMaestra(contrasenaMaestraAComprobar)) vista.comprobacionCorrecta();
         else vista.comprobacionIncorrecta();
@@ -97,5 +100,23 @@ public class ControladorUsuario {
     public void mostrarSaldoInversor(Inversor inversor){
         vista.mostrarSaldo(inversor.getSaldo());
     }
-
+    public void mostrarRecompensas(Proyecto proyecto){
+        vista.muestraRecompensas(modelo.getRecompensasProyecto(proyecto));
+    }
+    public void operacionFallida(){
+        vista.operacionFallida();
+    }
+    public Recompensa buscaRecompensa(int numRecompensa,Proyecto proyectoDeRecompensa){
+       return modelo.buscaRecompensa(numRecompensa,proyectoDeRecompensa);
+    }
+    public void operacionSatisfactoria(){
+        vista.operacionSatisfactoria();
+    }
+    public void muestraUsuarios(Usuario usuario){
+        if (usuario.getTipoUsuario().equals(TipoUsuario.ADMINISTRADOR)){
+           vista.muestraUsuarios(modelo.usuarios());
+        }else {
+            vista.operacionFallida();
+        }
+    }
 }

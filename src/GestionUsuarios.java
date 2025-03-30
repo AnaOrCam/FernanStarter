@@ -130,4 +130,14 @@ public class GestionUsuarios {
     public void borrarProyecto(Gestor gestor,Proyecto aux){
         gestor.getProyectosCreados().remove(aux);
     }
+    public LinkedList<Recompensa>  getRecompensasProyectoGestor(Proyecto proyecto){
+        return proyecto.getListaRecompensas();
+    }
+    public Recompensa buscaRecompensa(int numRecompensa,Proyecto proyectoDeRecompensa){
+        LinkedList<Recompensa>  recompensas=proyectoDeRecompensa.getListaRecompensas();
+        return recompensas.get(numRecompensa);
+    }
+    public HashMap<String,Usuario> usuarios(){
+        return usuarios;
+    }
 }

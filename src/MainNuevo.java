@@ -222,7 +222,9 @@ public class MainNuevo {
                         switch (tipoIniciado){
                             case GESTOR :{
                                 Gestor gestor=(Gestor) usuarioActual;
-                                do {
+                                if (gestor.isBloqueado()){
+                                    System.out.println("Este perfil esta bloqueado");
+                                }else do {
                                     System.out.println("¿Qué quieres hacer?\n" +
                                             "1. Crear un nuevo proyecto\n" +
                                             "2. Vista detallada de mis proyectos\n" +
@@ -273,7 +275,7 @@ public class MainNuevo {
                                             controladorUsuario.getProyectosCreadosPorGestor(gestor);
                                             System.out.println("Escribe el nombre del  proyecto a visualizar (0 Para salir)");
                                             String opcionaux=s.nextLine();
-                                            if (opcionaux!="0"){
+                                            if (!opcionaux.equals("0")){
                                                 controladorUsuario.vistaDetalladaProyectoCreado(opcionaux,gestor);
                                                 if (modeloUsuarios.buscarProyectoCreadoPorGestor(opcionaux,gestor)!=null) {
                                                     controladorProyectos.mostrarGraficoFinanciacion(controladorUsuario.buscaProyectoCreadoGestor(opcionaux, gestor));
@@ -289,7 +291,7 @@ public class MainNuevo {
                                             controladorUsuario.getProyectosCreadosPorGestor(gestor);
                                             System.out.println("Escribe el nombre del  proyecto a modificar(0 Para salir)");
                                             String opcionaux=s.nextLine();
-                                            if (opcionaux!="0"){
+                                            if (!opcionaux.equals("0")){
                                                Proyecto auxiliarUsuarios= controladorUsuario.buscaProyectoCreadoGestor(opcionaux,gestor);
                                                Proyecto auxiliarProyectos=controladorProyectos.buscarProyecto(opcionaux);
                                                if (auxiliarUsuarios!=null){
@@ -343,7 +345,52 @@ public class MainNuevo {
                                                             break;
                                                         }case 7:{
                                                             System.out.println("Estas son las recompensas");
+                                                            controladorUsuario.mostrarRecompensas(auxiliarUsuarios);
                                                             //todo
+                                                            System.out.println("Introduzca el numero de la recompensa a modificar");
+                                                            int recompensaAModificar=Integer.parseInt(s.nextLine());
+                                                            Recompensa auxUsuario=controladorUsuario.buscaRecompensa(recompensaAModificar-1,auxiliarUsuarios);
+                                                            Recompensa auxProyecto=controladorProyectos.buscarRecompensa(auxUsuario.getNombre(),auxiliarProyectos);
+                                                            System.out.println("Elije que desea modificar:\n" +
+                                                                    "1.Nombre\n" +
+                                                                    "2.Descripcion\n" +
+                                                                    "3.Importe\n" +
+                                                                    "4.Borrar Recompensa");
+                                                            opcion=Integer.parseInt(s.nextLine());
+                                                            switch (opcion){
+                                                                case  1:{
+                                                                    System.out.println("Introduce el nuevo nombre de la recompensa elegida");
+                                                                    auxUsuario.setNombre(s.nextLine());
+                                                                    auxProyecto.setNombre(auxUsuario.getNombre());
+                                                                    System.out.println(auxUsuario);
+                                                                    break;
+                                                                }
+                                                                case  2:{
+                                                                    System.out.println("Introduce la nueva descripcion");
+                                                                    auxUsuario.setDescripcion(s.nextLine());
+                                                                    auxProyecto.setDescripcion(auxUsuario.getDescripcion());
+                                                                    System.out.println(auxUsuario);
+                                                                    break;
+                                                                }
+                                                                case 3:{
+                                                                    System.out.println("Introduce el nuevo importe");
+                                                                    auxUsuario.setImporte(Float.parseFloat(s.nextLine()));
+                                                                    auxProyecto.setImporte(auxUsuario.getImporte());
+                                                                    System.out.println(auxUsuario);
+                                                                    break;
+                                                                }
+                                                                case  4:{
+                                                                    auxiliarUsuarios.getListaRecompensas().remove(auxUsuario);
+                                                                    auxiliarProyectos.getListaRecompensas().remove(auxProyecto);
+                                                                    controladorUsuario.operacionSatisfactoria();
+                                                                }
+                                                                default :{
+                                                                    controladorUsuario.operacionFallida();
+                                                                    break;
+                                                                }
+                                                            }
+
+                                                            break;
                                                         }
                                                     }
                                                }else {
@@ -357,11 +404,37 @@ public class MainNuevo {
                                             controladorUsuario.getProyectosCreadosPorGestor(gestor);
                                             System.out.println("Escribe el nombre del  proyecto para borrar (0 Para salir)");
                                             String opcionaux=s.nextLine();
-                                            if (opcionaux!="0"){
+                                            if (!opcionaux.equals("0")){
                                                 Proyecto auxiliarUsuarios= controladorUsuario.buscaProyectoCreadoGestor(opcionaux,gestor);
                                                 Proyecto auxiliarProyectos=controladorProyectos.buscarProyecto(opcionaux);
                                                 controladorProyectos.borrarProyecto(auxiliarProyectos);
                                                 controladorUsuario.borrarProyecto(gestor,auxiliarUsuarios);
+                                            }
+                                            break;
+                                        }
+                                        case 5:{
+                                            System.out.println("Has accedido a la configuracion ");
+                                            System.out.println("Elije opcion:\n" +
+                                                    "1.Cambiar Nombre\n" +
+                                                    "2.Cambiar Contraseña");
+                                            opcion=Integer.parseInt(s.nextLine());
+                                            switch (opcion){
+                                                case 1:{
+                                                    System.out.println("Introduce el nuevo nombre");
+                                                    gestor.setNombre(s.nextLine());
+                                                    controladorUsuario.operacionSatisfactoria();
+                                                    System.out.println(gestor);
+                                                    break;
+                                                }
+                                                case 2:{
+                                                    System.out.println("Introduce la nueva contraseña");
+                                                    gestor.setContrasena(s.nextLine());
+                                                    controladorUsuario.operacionSatisfactoria();
+                                                    break;
+                                                }
+                                                default:{
+                                                    controladorUsuario.operacionFallida();
+                                                }
                                             }
                                             break;
                                         }
@@ -372,7 +445,9 @@ public class MainNuevo {
                             }
                             case INVERSOR:{
                                 Inversor inversor=(Inversor) usuarioActual;
-                                do {
+                                if (inversor.isBloqueado()){
+                                    System.out.println("Este perfil esta bloqueado");
+                                }else do {
                                     Funciones.menuInversor();
                                     opcion = Integer.parseInt(s.nextLine());
                                     switch (opcion) {
@@ -457,9 +532,32 @@ public class MainNuevo {
                                             }
                                         }
                                         case 5 -> {
-
+                                            System.out.println("Has accedido a la configuracion ");
+                                            System.out.println("Elije opcion:\n" +
+                                                    "1.Cambiar Nombre\n" +
+                                                    "2.Cambiar Contraseña");
+                                            opcion=Integer.parseInt(s.nextLine());
+                                            switch (opcion){
+                                                case 1:{
+                                                    System.out.println("Introduce el nuevo nombre");
+                                                    inversor.setNombre(s.nextLine());
+                                                    controladorUsuario.operacionSatisfactoria();
+                                                    System.out.println(inversor);
+                                                    break;
+                                                }
+                                                case 2:{
+                                                    System.out.println("Introduce la nueva contraseña");
+                                                    inversor.setContrasena(s.nextLine());
+                                                    controladorUsuario.operacionSatisfactoria();
+                                                    break;
+                                                }
+                                                default:{
+                                                    controladorUsuario.operacionFallida();
+                                                }
+                                            }
+                                            break;
                                         }
-                                        case 6 -> System.out.println("Cerrando sesión...");
+                                        case 6 -> System.out.println("Cerrando sesión...") ;
                                         default -> System.out.println("Esa opción no se encuentra en el menú");
                                     }
                                 }while (opcion!=6);
@@ -468,6 +566,109 @@ public class MainNuevo {
                             }
                             case ADMINISTRADOR:{
                                 Administrador admin=(Administrador) usuarioActual;
+                                menuAdministrador();
+                                opcion=Integer.parseInt(s.nextLine());
+                                switch (opcion){
+                                    case 1:{
+                                        menuBloqueo();
+                                        opcion=Integer.parseInt(s.nextLine());
+                                        switch (opcion){
+                                            case 1:{
+                                                controladorUsuario.muestraUsuarios(admin);
+                                                System.out.println("Escribe el correo del usuario que deseas bloquear");
+                                                Usuario aBloquear=controladorUsuario.getUsuario(s.nextLine());
+                                                if (aBloquear.getTipoUsuario()==(TipoUsuario.INVERSOR)){
+                                                    Inversor inversor=(Inversor) aBloquear;
+                                                    if (inversor.isBloqueado()){
+                                                        System.out.println("Este usuario ya se encuentra bloqueado");
+                                                    }else {
+                                                        controladorUsuario.bloquearUsuario(inversor);
+                                                        controladorUsuario.operacionSatisfactoria();
+                                                    }
+                                                }else if (aBloquear.getTipoUsuario()==(TipoUsuario.GESTOR)){
+                                                    Gestor gestor=(Gestor) aBloquear;
+                                                    if (gestor.isBloqueado()){
+                                                        System.out.println("Este usuario ya se encuentra bloqueado");
+                                                    }else {
+                                                        controladorUsuario.bloquearUsuario(gestor);
+                                                        controladorUsuario.operacionSatisfactoria();
+                                                    }
+                                                }else controladorUsuario.operacionFallida();
+                                                break;
+                                            }
+                                            case 2:{
+                                                controladorUsuario.muestraUsuarios(admin);
+                                                System.out.println("Escribe el correo del usuario que deseas desbloquear");
+                                                Usuario aDesBloquear=controladorUsuario.getUsuario(s.nextLine());
+                                                if (aDesBloquear.getTipoUsuario()==(TipoUsuario.INVERSOR)){
+                                                    Inversor inversor=(Inversor) aDesBloquear;
+                                                    if (!inversor.isBloqueado()){
+                                                        System.out.println("Este usuario ya se encuentra desbloqueado");
+                                                    }else {
+                                                        controladorUsuario.desbloquearUsuario(inversor);
+                                                        controladorUsuario.operacionSatisfactoria();
+                                                    }
+                                                }else if (aDesBloquear.getTipoUsuario()==(TipoUsuario.GESTOR)){
+                                                    Gestor gestor=(Gestor) aDesBloquear;
+                                                    if (!gestor.isBloqueado()){
+                                                        System.out.println("Este usuario ya se encuentra desbloqueado");
+                                                    }else {
+                                                        controladorUsuario.desbloquearUsuario(gestor);
+                                                        controladorUsuario.operacionSatisfactoria();
+                                                    }
+                                                }else controladorUsuario.operacionFallida();
+                                                break;
+                                            } case 3:{
+                                                System.out.println("Saliendo del menu de bloqueo/desbloqueo");
+                                                break;
+                                            }
+                                            default:{
+                                                controladorUsuario.operacionFallida();
+                                            }
+                                        }
+
+                                    break;
+                                    }
+                                    case 2:{
+                                        controladorProyectos.mostrarProyectosConGrafico();
+                                        break;
+                                    }
+                                    case  3:{
+                                        System.out.println("Has accedido a la configuracion ");
+                                        System.out.println("Elije opcion:\n" +
+                                                "1.Cambiar Nombre\n" +
+                                                "2.Cambiar Contraseña");
+                                        opcion=Integer.parseInt(s.nextLine());
+                                        switch (opcion){
+                                            case 1:{
+                                                System.out.println("Introduce el nuevo nombre");
+                                                admin.setNombre(s.nextLine());
+                                                controladorUsuario.operacionSatisfactoria();
+                                                System.out.println(admin);
+                                                break;
+                                            }
+                                            case 2:{
+                                                System.out.println("Introduce la nueva contraseña");
+                                                admin.setContrasena(s.nextLine());
+                                                controladorUsuario.operacionSatisfactoria();
+                                                break;
+                                            }
+                                            default:{
+                                                controladorUsuario.operacionFallida();
+                                            }
+                                        }
+                                        break;
+
+                                    }
+                                    case 4:{
+                                        System.out.println("Cerrando Sesion...");
+                                        break;
+                                    }
+                                    default:{
+                                        controladorUsuario.operacionFallida();
+                                        break;
+                                    }
+                                }
 
                                 break;
                             }
@@ -482,5 +683,6 @@ public class MainNuevo {
             }
         }while (opcionInicial!=3);
         controladorUsuario.muestraUsuarios();
+
     }
 }

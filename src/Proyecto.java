@@ -118,4 +118,8 @@ public class Proyecto implements Invertible{
     public String toString(){
         return "Proyecto "+nombre+"\nFecha de apertura: "+fechaApertura+" - "+"Fecha de cierre: "+fechaCierre+"\nDescripcion: "+descripcion;
     }
+    public boolean equals(Proyecto proyecto){
+        return  this.nombre.equals(proyecto.nombre) ;
+    }
+
 }
