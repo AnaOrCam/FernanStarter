@@ -1,5 +1,4 @@
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.LinkedList;
 
 public class Proyecto implements Invertible{
@@ -35,8 +34,8 @@ public class Proyecto implements Invertible{
         this.tematicaProyecto = tematicaProyecto;
     }
 
-    public void setCantidadInvertidaActual(int cantidadInvertidaActual) {
-        this.cantidadInvertidaActual = cantidadInvertidaActual;
+    public void aniadirFinanciacion(float cantidad) {
+        this.cantidadInvertidaActual+=cantidad;
     }
 
     public int getCantidadAInvertirTotal() {
@@ -95,8 +94,24 @@ public class Proyecto implements Invertible{
             }
         }
     }
-    public void aumentaInversion(int cantidadAAumentar){
-        cantidadInvertidaActual+=cantidadAAumentar;
+    public LinkedList<Recompensa> getListaDeRecompensasAElegir(float cantidad, Proyecto proyecto){
+        LinkedList<Recompensa> listaRecompensasAElegir=new LinkedList<>();
+        for (int i = 0; i < listaRecompensas.size(); i++) {
+            if (cantidad>=listaRecompensas.get(i).getImporte()) listaRecompensasAElegir.add(listaRecompensas.get(i));
+        }
+        return listaRecompensasAElegir;
+    }
+    public Recompensa buscarRecompensa (String nombre){
+        for (int i = 0; i < listaRecompensas.size(); i++) {
+            if (listaRecompensas.get(i).getNombre().equalsIgnoreCase(nombre)) return listaRecompensas.get(i);
+        }
+        return null;
+    }
+
+    public int calcularPorcentajeFinanciado(Proyecto proyecto){
+        final int PORCENTAJE_FINANCIACION_TOTAL=100;
+        int porcentajeFinanciadoActual= cantidadInvertidaActual*PORCENTAJE_FINANCIACION_TOTAL/cantidadAInvertirTotal;
+        return porcentajeFinanciadoActual;
     }
 
 

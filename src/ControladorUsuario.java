@@ -1,8 +1,8 @@
-import java.util.LinkedList;
-
 public class ControladorUsuario {
-    private GestionUsuarios modelo=new GestionUsuarios();
-    private VistaUsuario vista =new VistaUsuario();
+    private GestionUsuarios modelo;
+    private VistaUsuario vista;
+
+
     public  ControladorUsuario(GestionUsuarios modelo,VistaUsuario vista){
         this.modelo=modelo;
         this.vista=vista;
@@ -38,9 +38,12 @@ public class ControladorUsuario {
         return modelo.compruebaCorreoExistente(correo);
     }
 
-    public void insertarInversion(Inversion inversion, Usuario usuario){
-        if (modelo.insertarInversion(inversion,usuario)) vista.operacionSatisfactoria();
-        else vista.operacionFallida();
+    public boolean insertarInversion(Inversion inversion, Usuario usuario,float cantidad){
+        if (modelo.insertarInversion(inversion,usuario,cantidad)){
+            vista.operacionSatisfactoria();
+            return true;
+        }
+        return false;
     }
     public boolean compruebaCredenciales(String correo,String contrasenia){
         return modelo.compruebaCredenciales(correo,contrasenia);
@@ -58,8 +61,9 @@ public class ControladorUsuario {
     public void gestorAnadirProyecto(Gestor gestor, Proyecto proyecto){
         modelo.insertarProyectoCreadorPorGestor(gestor,proyecto);
     }
-    public void vistaDetalladaProyecto(String nombre,Gestor gestor){
-        vista.vistaDetalladaProyecto(modelo.buscarProyectoCreadoPorGestor(nombre,gestor));
+    public void vistaDetalladaProyectoCreado(String nombre, Gestor gestor){
+        if (modelo.buscarProyectoCreadoPorGestor(nombre, gestor)!=null) vista.vistaDetalladaProyecto(modelo.buscarProyectoCreadoPorGestor(nombre,gestor));
+        else vista.operacionFallida();
     }
     public Proyecto buscaProyectoCreadoGestor(String nombre,Gestor gestor){
        return modelo.buscarProyectoCreadoPorGestor(nombre,gestor);
@@ -68,7 +72,30 @@ public class ControladorUsuario {
         modelo.borrarProyecto(gestor,aux);
         vista.operacionSatisfactoria();
     }
+    public void ingresarSaldo(float saldo, Inversor inversor){
+        modelo.ingresarSaldo(saldo,inversor);
+        vista.operacionSatisfactoria();
+    }
+    public boolean invitarAmigo(String amigo, Inversor usuario){
+        if (modelo.invitarAmigo(amigo,usuario)) {
+            return true;
+        }
+        return false;
+    }
+    public void mostrarAmigos(Inversor usuario){
+        vista.mostrarAmigosInvitados(usuario.getAmigosInvitados());
+    }
 
-
+    public boolean mostrarInversiones(Inversor inversor){
+        if (!inversor.getProyectosInvertidos().isEmpty()){
+            vista.mostrarProyecosInvertidos(inversor.getProyectosInvertidos());
+            vista.mostrarInvertidoTotal(inversor.getInvertidoTotal());
+            return true;
+        }
+        return false;
+    }
+    public void mostrarSaldoInversor(Inversor inversor){
+        vista.mostrarSaldo(inversor.getSaldo());
+    }
 
 }

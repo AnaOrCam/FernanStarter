@@ -1,15 +1,30 @@
 import java.util.LinkedList;
 
 public class VistaProyecto {
-    private final String ANSI_GREEN= "\033[32m";
-    private final String ANSI_RED="\033[31m";
-    private final String ANSI_RESET= "\033[0m";
-    private final String ANSI_PURPLE= "\033[35m";
+    private String textoVerde;
+    private String textoRojo;
+    private String resetColorTexto;
+    private String textoMorado;
+    private String textoGris;
 
+    public VistaProyecto(String verde, String rojo, String reset, String morado, String gris){
+        this.textoVerde =verde;
+        this.textoRojo =rojo;
+        this.resetColorTexto =reset;
+        this.textoMorado =morado;
+        this.textoGris=gris;
+    }
     public void muestraListaProyectos(LinkedList listaProyectos, LinkedList listaRecompensas){
         for (int i = 0; i < listaProyectos.size(); i++) {
             System.out.println(listaProyectos.get(i));
             muestraRecompensas(listaRecompensas);
+        }
+    }
+    public void muestraListaProyectosConGrafica(LinkedList<Proyecto> listaProyectos, LinkedList listaRecompensas){
+        for (int i = 0; i < listaProyectos.size(); i++) {
+            System.out.println(listaProyectos.get(i));
+            muestraRecompensas(listaRecompensas);
+            grafico(listaProyectos.get(i).calcularPorcentajeFinanciado(listaProyectos.get(i)));
         }
     }
 
@@ -20,7 +35,7 @@ public class VistaProyecto {
     }
 
     public void proyectoInsertadoCorrectamente(Proyecto proyecto){
-        System.out.println(ANSI_GREEN+"Proyecto añadido correctamente"+ANSI_RESET);
+        System.out.println(textoVerde +"Proyecto añadido correctamente"+ resetColorTexto);
         muestraProyecto(proyecto);
     }
     public void muestraProyecto(Proyecto proyecto){
@@ -45,6 +60,37 @@ public class VistaProyecto {
             System.out.println("-" + tipo);
             i++;
         }
+    }
 
+    public void mostrarRecompensasAElegir(LinkedList listaRecompensas){
+        for (Object e: listaRecompensas){
+            System.out.println(e);
+        }
+    }
+
+    /**
+     * Genera un gráfico de porcentaje de proyecto financiado.
+     * @author AnaOrCam
+     * @param porcentajeFinanciado es el porcentaje financiado hasta el momento en el proyecto.
+     * @return no devuelve nada.
+     */
+    public void grafico (int porcentajeFinanciado){
+        for (int i = 1; i <=8; i++) {
+            System.out.printf("|");
+            if (i>=3 && i<=5){
+                for (int j = 0; j <= porcentajeFinanciado; j++) {
+                    System.out.printf(textoVerde+"█"+resetColorTexto);
+                }
+                for (int j = porcentajeFinanciado +1; j <=100 ; j++) {
+                    System.out.printf(textoGris+"█"+resetColorTexto);
+                }
+            }
+            if (i==8){
+                for (int j = 0; j < 100; j++) {
+                    System.out.printf("_");
+                }
+            }
+            System.out.println();
+        }
     }
 }

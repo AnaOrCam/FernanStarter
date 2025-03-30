@@ -1,36 +1,59 @@
+import utilidades.FuncionesCadenas;
+
 import java.util.LinkedList;
 
 public class Inversor extends Usuario implements Bloqueable{
     private LinkedList<Inversion> proyectosInvertidos;
-    private int cantidadFinanciadaTotal;
+    private LinkedList<String> amigosInvitados;
+    private float invertidoTotal;
+    private float saldo;
     private boolean bloqueado;
+
+
     public Inversor(String nombre,String correo,String contrasena, TipoUsuario tipoUsuario){
         super( nombre, correo, contrasena, tipoUsuario);
         bloqueado=false;
+        invertidoTotal =0;
+        saldo=0;
         proyectosInvertidos=new LinkedList<>();
+        amigosInvitados=new LinkedList<>();
     }
 
     public LinkedList<Inversion> getProyectosInvertidos() {
         return proyectosInvertidos;
     }
 
-    public void setProyectosInvertidos(LinkedList<Inversion> proyectosInvertidos) {
-        this.proyectosInvertidos = proyectosInvertidos;
+    public LinkedList<String> getAmigosInvitados() {
+        return amigosInvitados;
     }
 
-    public int getCantidadFinanciadaTotal() {
-        return cantidadFinanciadaTotal;
+    public float getSaldo() {
+        return saldo;
     }
 
-    public void setCantidadFinanciadaTotal(int cantidadFinanciadaTotal) {
-        this.cantidadFinanciadaTotal = cantidadFinanciadaTotal;
+    public float getInvertidoTotal() {
+        return invertidoTotal;
+    }
+
+    public void setInvertidoTotal(int invertidoTotal) {
+        this.invertidoTotal = invertidoTotal;
     }
 
     public boolean isBloqueado() {
         return bloqueado;
     }
 
+    public boolean invitarAmigo(String amigo){
+        if (FuncionesCadenas.comprobacionCorreo(amigo)){
+            amigosInvitados.add(amigo);
+            return true;
+        }
+        return false;
+    }
 
+    public void ingresarSaldo(float saldo){
+        this.saldo+=saldo;
+    }
 
     public void bloquearUsuario() {
         this.bloqueado=true;
@@ -40,8 +63,14 @@ public class Inversor extends Usuario implements Bloqueable{
         this.bloqueado=false;
     }
 
-    public void insertarProyectoInvertido(Inversion inversion){
-        proyectosInvertidos.add(inversion);
+    public boolean aniadirProyectoInvertido(Inversion inversion, float cantidad){
+        if (cantidad<=saldo) {
+            proyectosInvertidos.add(inversion);
+            invertidoTotal += inversion.getCantidadInvertida();
+            saldo-=cantidad;
+            return true;
+        }
+        return false;
     }
 
 }

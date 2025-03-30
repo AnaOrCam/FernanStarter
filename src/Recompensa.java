@@ -54,7 +54,7 @@ public class Recompensa {
    }
 
    public String toString(){
-       return "Nombre: "+nombre+"\nDescripción de la recompensa: "+descripcion+"\nImporte: "+importe;
+       return nombre+"\nDescripción de la recompensa: "+descripcion+"\nImporte: "+importe;
    }
 
 }

@@ -71,11 +71,16 @@ public class GestionUsuarios {
         }
         return   false;
     }
-    public boolean insertarInversion(Inversion inversion, Usuario usuario){
+    public void ingresarSaldo(float saldo, Inversor inversor){
+        inversor.ingresarSaldo(saldo);
+    }
+    public boolean insertarInversion(Inversion inversion, Usuario usuario, float cantidad){
         if (usuario.getTipoUsuario()==TipoUsuario.INVERSOR){
             Inversor aux=(Inversor) usuario;
-            aux.insertarProyectoInvertido(inversion);
-            return true;
+            if (cantidad<=aux.getSaldo()) {
+                aux.aniadirProyectoInvertido(inversion,cantidad);
+                return true;
+            }
         }
         return false;
     }
@@ -85,6 +90,10 @@ public class GestionUsuarios {
             if (listaUsuarios.get(i).getCorreo().equals(correo)&&listaUsuarios.get(i).getContrasena().equals(contrasena)) return true;
         }
         return false;
+    }
+    public boolean compruebaCredenciales2(String correo,String contrasena){
+        if (usuarios.containsKey(correo) && usuarios.get(correo).equals(contrasena)) return true;
+        else return false;
     }
     public Usuario buscaUsuarioCorreoYContrasena(String correo,String contrasena){
         List <Usuario> listaUsuarios=List.copyOf(usuarios.values());
@@ -96,9 +105,11 @@ public class GestionUsuarios {
     public LinkedList<Proyecto> getProyectosCreadosPorGestor(Gestor aux){
         return aux.getProyectosCreados();
     }
+
     public void insertarProyectoCreadorPorGestor(Gestor gestor,Proyecto proyecto){
         gestor.anadirProyecto(proyecto);
     }
+
     public Proyecto buscarProyectoCreadoPorGestor(String nombre,Gestor gestor){
         for (int i=0;i<gestor.getProyectosCreados().size();i++){
             if (gestor.getProyectosCreados().get(i).getNombre().equals(nombre)) {
@@ -107,6 +118,12 @@ public class GestionUsuarios {
         }
         return null;
     }
+
+    public boolean invitarAmigo(String amigo, Inversor inversor){
+        if (inversor.invitarAmigo(amigo)) return true;
+        return false;
+    }
+
     public LinkedList<Recompensa> getRecompensasProyecto(Proyecto aux){
         return aux.getListaRecompensas();
     }

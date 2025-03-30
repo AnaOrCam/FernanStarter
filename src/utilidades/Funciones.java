@@ -5,35 +5,6 @@ import static utilidades.FuncionesCadenas.*;
 public class Funciones {
 
     /**
-     * Genera un gráfico de porcentaje de proyecto financiado.
-     * @author AnaOrCam
-     * @param porcentajefinanciado es el porcentaje financiado hasta el momento en el proyecto.
-     * @return no devuelve nada.
-     */
-    public static void grafico (int porcentajefinanciado){
-        final String ANSI_GREEN= "\033[32m";
-        final String ANSI_GREY= "\033[37m";
-        final String ANSI_RESET= "\033[0m";
-        for (int i = 1; i <=8; i++) {
-            System.out.printf("|");
-            if (i>=3 && i<=5){
-                for (int j = 0; j <=porcentajefinanciado; j++) {
-                    System.out.printf(ANSI_GREEN+"█"+ANSI_RESET);
-                }
-                for (int j=porcentajefinanciado+1; j <=100 ; j++) {
-                    System.out.printf(ANSI_GREY+"█"+ANSI_RESET);
-                }
-            }
-            if (i==8){
-                for (int j = 0; j < 100; j++) {
-                    System.out.printf("_");
-                }
-            }
-            System.out.println();
-        }
-    }
-
-    /**
      * Muestra el menú principal del usuario Administrador.
      * @author AnaOrCam
      * @return no devuelve nada.

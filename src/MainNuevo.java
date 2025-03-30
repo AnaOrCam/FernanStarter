@@ -1,3 +1,5 @@
+import utilidades.Funciones;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -6,16 +8,22 @@ import static utilidades.FuncionesCorreos.*;
 import static utilidades.FuncionesCadenas.*;
 public class MainNuevo {
     public static void main(String[] args) {
+        final String ANSI_GREEN= "\033[32m";
+        final String ANSI_RED="\033[31m";
+        final String ANSI_RESET= "\033[0m";
+        final String ANSI_PURPLE= "\033[35m";
+        final String ANSI_GREY= "\033[37m";
+
         Scanner s=new Scanner(System.in);
         GestionProyectos modeloProyectos= new GestionProyectos();
-        VistaProyecto vistaProyectos=new VistaProyecto();
+        VistaProyecto vistaProyectos=new VistaProyecto("\033[32m","\033[31m","\033[0m","\033[35m","\033[37m");
         ControladorProyectos controladorProyectos=new ControladorProyectos(modeloProyectos,vistaProyectos);
         GestionUsuarios modeloUsuarios=new GestionUsuarios();
-        VistaUsuario vistaUsuario=new VistaUsuario();
+        VistaUsuario vistaUsuario=new VistaUsuario("\033[32m","\033[31m","\033[0m","\033[35m");
         ControladorUsuario controladorUsuario=new ControladorUsuario(modeloUsuarios,vistaUsuario);
         int opcionInicial=0;
         DateTimeFormatter formatoES = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        System.out.println("Bienvenido a FernanStarter");
+        System.out.println(ANSI_PURPLE+"Bienvenido a FernanStarter"+ANSI_RESET);
         do {
             menuInicial();
             //Iniciar,Crear,Cerrar
@@ -208,13 +216,12 @@ public class MainNuevo {
                     controladorUsuario.compruebaCredenciales(correoAux,contraseniaAunx);
                     if (controladorUsuario.compruebaCredenciales(correoAux,contraseniaAunx)){
                         controladorUsuario.credencialesValidasNoValidas(correoAux,contraseniaAunx);
-                        Usuario aux=controladorUsuario.getUsuarioIniciado(correoAux,contraseniaAunx);
+                        Usuario usuarioActual =controladorUsuario.getUsuarioIniciado(correoAux,contraseniaAunx);
                         TipoUsuario tipoIniciado=controladorUsuario.getUsuarioIniciado(correoAux,contraseniaAunx).getTipoUsuario();
                         int opcion;
                         switch (tipoIniciado){
                             case GESTOR :{
-
-                                Gestor gestor=(Gestor) aux;
+                                Gestor gestor=(Gestor) usuarioActual;
                                 do {
                                     System.out.println("¿Qué quieres hacer?\n" +
                                             "1. Crear un nuevo proyecto\n" +
@@ -243,7 +250,7 @@ public class MainNuevo {
                                             int cantidadAInvertir=Integer.parseInt(s.nextLine());
                                             System.out.println("Elije la tematica del proyecto");
                                             controladorProyectos.muestratipos();
-                                            TematicaProyecto tematicaProyecto=TematicaProyecto.valueOf(s.nextLine());
+                                            TematicaProyecto tematicaProyecto=TematicaProyecto.valueOf(s.nextLine().toUpperCase());
                                             System.out.println("El numero inicial de recompensas");
                                             int numRecompensas=Integer.parseInt(s.nextLine());
                                             Proyecto nuevo =new Proyecto(numRecompensas,nombreNuevo,fechaInicio,fechaCierre,cantidadAInvertir,descripcion,tematicaProyecto);
@@ -264,12 +271,16 @@ public class MainNuevo {
                                         case 2:{
                                             System.out.println("Estos son tus proyectos");
                                             controladorUsuario.getProyectosCreadosPorGestor(gestor);
-                                            System.out.println("Escribe el nombre del  proyecto a visualizar(0 Para salir)");
+                                            System.out.println("Escribe el nombre del  proyecto a visualizar (0 Para salir)");
                                             String opcionaux=s.nextLine();
                                             if (opcionaux!="0"){
-                                                controladorUsuario.vistaDetalladaProyecto(opcionaux,gestor);
+                                                controladorUsuario.vistaDetalladaProyectoCreado(opcionaux,gestor);
+                                                if (modeloUsuarios.buscarProyectoCreadoPorGestor(opcionaux,gestor)!=null) {
+                                                    controladorProyectos.mostrarGraficoFinanciacion(controladorUsuario.buscaProyectoCreadoGestor(opcionaux, gestor));
+                                                }else{
+                                                    System.out.println("El nombre introducido no corresponde a ningún proyecto.");
+                                                }
                                             }
-                                            //todo mostrar  grafica de financiacion
 
                                             break;
                                         }
@@ -313,10 +324,10 @@ public class MainNuevo {
                                                             auxiliarProyectos.setCantidadAInvertirTotal(nuevaCantidad);
                                                             break;
                                                         }case 4:{
-                                                            System.out.println("Elije la nueva cantidad invertuda actual");
+                                                            System.out.println("Elije la nueva cantidad invertuda usuarioActual");
                                                             int nuevaCantidad=Integer.parseInt(s.nextLine());
-                                                            auxiliarUsuarios.setCantidadInvertidaActual(nuevaCantidad);
-                                                            auxiliarProyectos.setCantidadInvertidaActual(nuevaCantidad);
+                                                            auxiliarUsuarios.aniadirFinanciacion(nuevaCantidad);
+                                                            auxiliarProyectos.aniadirFinanciacion(nuevaCantidad);
                                                             break;
                                                         }case 5:{
                                                             System.out.println("Fecha nueva de apertura");
@@ -360,22 +371,112 @@ public class MainNuevo {
                                 break;
                             }
                             case INVERSOR:{
-                                Inversor inversor=(Inversor) aux;
+                                Inversor inversor=(Inversor) usuarioActual;
+                                do {
+                                    Funciones.menuInversor();
+                                    opcion = Integer.parseInt(s.nextLine());
+                                    switch (opcion) {
+                                        case 1 -> {
+                                            if (!controladorUsuario.mostrarInversiones(inversor)) System.out.println("No tienes ninguna inversión hasta la fecha.");
+                                        }
+                                        case 2 -> {
+                                            System.out.println("------PROYECTOS------");
+                                            if (controladorProyectos.mostrarProyectosConGrafico()){
+                                                System.out.println("¿Quieres hacer una inversión? (si/no)");
+                                                if (s.nextLine().equalsIgnoreCase("si")) {
+                                                    System.out.println("Introduce el nombre del proyecto en el que quieres invertir:");
+                                                    String nombre=s.nextLine();
+                                                    if (controladorProyectos.buscarProyecto(nombre)!=null){
+                                                        Proyecto proyectoAux=controladorProyectos.buscarProyecto(nombre);
+                                                        System.out.println("¿Què cantidad quieres invertir?");
+                                                        float cantidad=Float.parseFloat(s.nextLine());
+                                                        if (controladorProyectos.siRecompensa(cantidad,proyectoAux)) {
+                                                            System.out.println("¡Enhorabuena! Por tu inversión puedes elegir entre las siguientes recompensas: ");
+                                                            controladorProyectos.mostrarRecompensasAElegir(cantidad, proyectoAux);
+                                                            boolean recompensaValida = false;
+                                                            String eleccion;
+                                                            do {
+                                                                System.out.println("Escribe el nombre de la recompensa que deseas elegir: ");
+                                                                eleccion = s.nextLine();
+                                                                if (controladorProyectos.buscarRecompensa(eleccion, proyectoAux) != null) {
+                                                                    recompensaValida = true;
+                                                                } else {
+                                                                    System.out.println("El nombre introducido no corresponde a ninguna recompensa. Por favor introduzca una recompensa válida.");
+                                                                }
+                                                            } while (!recompensaValida);
+                                                            Recompensa recompensaAux = controladorProyectos.buscarRecompensa(eleccion, proyectoAux);
+                                                            Inversion inversionAux = new Inversion(nombre, cantidad, inversor, recompensaAux);
 
+                                                            if (controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)) {
+                                                                controladorProyectos.aniadirFinanciacionAProyecto(cantidad, proyectoAux);
+                                                            } else {
+                                                                System.out.println("No se ha podido realizar la operación. Saldo insuficiente");
+                                                            }
+                                                        }else{
+                                                            Inversion inversionAux = new Inversion(nombre, cantidad, inversor);
+                                                            if (controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)) {
+                                                                controladorProyectos.aniadirFinanciacionAProyecto(cantidad, proyectoAux);
+                                                            } else {
+                                                                System.out.println("No se ha podido realizar la operación. Saldo insuficiente");
+                                                            }
+                                                        }
+                                                    }else{
+                                                        System.out.println("El nombre introducido no corresponde a ningún proyecto.");
+                                                    }
+                                                }
+                                            }else{
+                                                System.out.println("No hay proyectos disponibles.");
+                                            }
+
+                                        }
+                                        case 3 -> {
+                                            System.out.println("Bienvenido a tu cartera digital ¿Qúe quieres hacer?" +
+                                                    "\n1. Mostrar saldo" +
+                                                    "\n2. Ingresar saldo a mi cuenta" +
+                                                    "\n3. Salir");
+                                            int opcionCartera=Integer.parseInt(s.nextLine());
+                                            switch (opcionCartera){
+                                                case 1-> controladorUsuario.mostrarSaldoInversor(inversor);
+                                                case 2-> {
+                                                    System.out.println("¿Cuánto quieres ingresar?");
+                                                    float cantidad=Float.parseFloat(s.nextLine());
+                                                    controladorUsuario.ingresarSaldo(cantidad,inversor);
+                                                }
+                                                case 3-> System.out.println("Saliendo de cartera digital...");
+                                                default -> System.out.println("Esa opción no se encuentra en el menú");
+                                            }
+                                        }
+                                        case 4 -> {
+                                            System.out.println("¿A quien quieres invitar? Introduce su email");
+                                            String amigo = s.nextLine();
+                                            if (controladorUsuario.invitarAmigo(amigo,inversor)){
+                                                System.out.println("Tus amigos invitados hasta la fecha son los siguientes:");
+                                                controladorUsuario.mostrarAmigos(inversor);
+                                            }else{
+                                                System.out.println("No se ha podido realizar la invitación. El formato introducido no es un correo electrónico.");
+                                            }
+                                        }
+                                        case 5 -> {
+
+                                        }
+                                        case 6 -> System.out.println("Cerrando sesión...");
+                                        default -> System.out.println("Esa opción no se encuentra en el menú");
+                                    }
+                                }while (opcion!=6);
 
                                 break;
                             }
                             case ADMINISTRADOR:{
-                                Administrador admin=(Administrador) aux;
+                                Administrador admin=(Administrador) usuarioActual;
 
                                 break;
                             }
                         }
-                    }else System.out.println("Sus credenciales no son validas");
+                    }else System.out.println("Sus credenciales no son válidas");
                     break;
                 }
                 case 3:{
-                    System.out.println("Saliendo de FernanStarter");
+                    System.out.println(ANSI_PURPLE+"Saliendo de FernanStarter"+ANSI_RESET);
                     break;
                 }
             }
