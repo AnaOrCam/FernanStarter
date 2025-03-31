@@ -23,6 +23,7 @@ public class VistaProyecto {
     public void muestraListaProyectosConGrafica(LinkedList<Proyecto> listaProyectos, LinkedList listaRecompensas){
         for (int i = 0; i < listaProyectos.size(); i++) {
             System.out.println(listaProyectos.get(i));
+            System.out.println("Recompensas:");
             muestraRecompensas(listaRecompensas);
             grafico(listaProyectos.get(i).calcularPorcentajeFinanciado(listaProyectos.get(i)));
         }

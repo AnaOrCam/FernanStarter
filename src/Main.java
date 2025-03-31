@@ -484,7 +484,7 @@ public class Main {
                                                                 controladorUsuario.disminuirInversion(inversor,id,cantidad);
                                                                 if (!controladorUsuario.getNombreProyecto(id,inversor).equalsIgnoreCase("")) {
                                                                     Proyecto proyectoAuxiliar = controladorProyectos.buscarProyecto(controladorUsuario.getNombreProyecto(id, inversor));
-                                                                    controladorProyectos.aniadirFinanciacionAProyecto(cantidad, proyectoAuxiliar);
+                                                                    controladorProyectos.restarFinanciacionAProyecto(cantidad, proyectoAuxiliar);
                                                                 }
                                                             }
                                                             case 3 ->

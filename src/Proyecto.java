@@ -119,7 +119,7 @@ public class Proyecto{
 
 
     public String toString(){
-        return "Proyecto "+nombre+"\nFecha de apertura: "+fechaApertura+" - "+"Fecha de cierre: "+fechaCierre+"\nDescripcion: "+descripcion+"\nTiempo restante: " + (getTiempoRestanteParaInvertir(LocalDate.now(),fechaCierre)>0?tiempoRestanteParaInvertir(LocalDate.now(),fechaCierre):"No queda tiempo");
+        return "Proyecto "+nombre+"\nFecha de apertura: "+fechaApertura+" - "+"Fecha de cierre: "+fechaCierre+"\nDescripcion: "+descripcion+"\nCantidad invertida: "+cantidadInvertidaActual+"\nFinanciación total del proyecto: "+cantidadAInvertirTotal+"\nTiempo restante: " + (getTiempoRestanteParaInvertir(LocalDate.now(),fechaCierre)>0?tiempoRestanteParaInvertir(LocalDate.now(),fechaCierre):"No queda tiempo");
     }
     public boolean equals(Proyecto proyecto){
         return  this.nombre.equals(proyecto.nombre) ;
