@@ -1,9 +1,9 @@
-import utilidades.Funciones;
+import utilidades.FuncionesMenus;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-import static utilidades.Funciones.*;
+import static utilidades.FuncionesMenus.*;
 import static utilidades.FuncionesCorreos.*;
 import static utilidades.FuncionesCadenas.*;
 public class Main {
@@ -426,7 +426,7 @@ public class Main {
                                 if (inversor.isBloqueado()){
                                     System.out.println("Este perfil esta bloqueado. Contacta con un administrador");
                                 }else do {
-                                    Funciones.menuInversor();
+                                    FuncionesMenus.menuInversor();
                                     opcion = Integer.parseInt(s.nextLine());
                                     switch (opcion) {
                                         case 1 -> {

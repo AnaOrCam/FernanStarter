@@ -1,8 +1,6 @@
 package utilidades;
-import java.util.Scanner;
-import static utilidades.FuncionesCadenas.*;
 
-public class Funciones {
+public class FuncionesMenus {
 
     /**
      * Muestra el menú principal del usuario Administrador.
@@ -99,16 +97,28 @@ public class Funciones {
                 "4. Salir");
     }
 
+    /**
+     * Muestra el menú inicial de la aplicación.
+     * @author AnaOrCam
+     * @return no devuelve nada.
+     */
     public static void menuInicial(){
         System.out.println("Indica que desea realizar");
         System.out.println("1.Crear un usuario");
         System.out.println("2.Iniciar Sesion");
         System.out.println("3.Cerrar el programa");
     }
+
+    /**
+     * Muestra el menú de elección del tipo de usuario a crear.
+     * @author AnaOrCam
+     * @return no devuelve nada.
+     */
     public static void eleccionUsuarioACrear(){
         System.out.println("Que tipo de usuario desea crear");
         System.out.println("1.Inversor");
         System.out.println("2.Gestor");
         System.out.println("3.Administrador");
     }
+
 }

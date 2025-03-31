@@ -1,5 +1,7 @@
 package utilidades;
 
+import java.time.LocalDate;
+
 public class FuncionesCadenas {
 
     /**
@@ -55,7 +57,7 @@ public class FuncionesCadenas {
     }
 
     /**
-     * Comprueba que la contraseña corresponde al usuario.
+     * Comprueba que el título del proyecto tiene una longitud entre 4 y 14 caracteres.
      * @author davidrn06
      * @param titulo se refiere al titulo del proyecto.
      * @return devuelve true la longitud es correcta.
@@ -71,25 +73,6 @@ public class FuncionesCadenas {
     }
 
     /**
-     * Comprueba que la contraseña corresponde al usuario.
-     * @author davidrn06
-     * @param fecha se refiere a la fecha del proyecto.
-     * @return devuelve true si el formato de la fecha es correcto.
-     */
-    public static boolean comprobacionFechas(String fecha){
-        boolean fechaCorrecta;
-        if (fecha.length()==10){
-            if (fecha.charAt(2)=='/'&&fecha.charAt(5)=='/'){
-                fechaCorrecta=true;
-            }else {
-                fechaCorrecta=false;
-            }
-        }else {
-            fechaCorrecta=false;
-        }
-        return fechaCorrecta;
-    }
-    /**
      * Comprueba que el correo contenga @.
      * @author davidrn06
      * @param correo se refiere al correo del usuario.
@@ -104,7 +87,4 @@ public class FuncionesCadenas {
         }
         return correoCorrecto;
     }
-
-
-
 }
