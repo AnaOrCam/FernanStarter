@@ -218,7 +218,7 @@ public class Main {
                     if (controladorUsuario.compruebaCredenciales(correoAux,contraseniaAunx)){
                         System.out.println("Hemos enviado un código a tu correo. Introduce la autentificación");
                          autentificacion = generarAutentificacion();
-                        String asunto = "Codigo de autentificacion";
+                        String asunto = "Codigo de Verificacion";
                         String cuerpo = "Codigo de verificacion para el inicio de sesion : " + autentificacion + "\n Bienvenido a FernanStarter";
                         enviarConGMail(correoAux, asunto, cuerpo);
                          codigo = Integer.parseInt(s.nextLine());
@@ -280,100 +280,107 @@ public class Main {
                                             break;
                                         }
                                         case 2:{
-                                            System.out.println("Estos son tus proyectos");
-                                            controladorUsuario.getProyectosCreadosPorGestor(gestor);
-                                            System.out.println("Escribe el nombre del  proyecto a visualizar (0 Para salir)");
-                                            String opcionaux=s.nextLine();
-                                            if (!opcionaux.equals("0")){
-                                                controladorUsuario.vistaDetalladaProyectoCreado(opcionaux,gestor);
-                                                if (modeloUsuarios.buscarProyectoCreadoPorGestor(opcionaux,gestor)!=null) {
-                                                    controladorProyectos.mostrarGraficoFinanciacion(controladorUsuario.buscaProyectoCreadoGestor(opcionaux, gestor));
-                                                }else{
-                                                    System.out.println("El nombre introducido no corresponde a ningún proyecto.");
+                                            if (controladorUsuario.getProyectosCreadosPorGestorSinVista(gestor).size()>0){
+                                                System.out.println("Estos son tus proyectos");
+                                                controladorUsuario.getProyectosCreadosPorGestor(gestor);
+                                                System.out.println("Escribe el nombre del  proyecto a visualizar (0 Para salir)");
+                                                String opcionaux=s.nextLine();
+                                                if (!opcionaux.equals("0")){
+                                                    controladorUsuario.vistaDetalladaProyectoCreado(opcionaux,gestor);
+                                                    if (controladorUsuario.buscaProyectoCreadoGestor(opcionaux,gestor)!=null) {
+                                                        controladorProyectos.mostrarGraficoFinanciacion(controladorUsuario.buscaProyectoCreadoGestor(opcionaux, gestor));
+                                                    }else{
+                                                        System.out.println("El nombre introducido no corresponde a ningún proyecto.");
+                                                    }
                                                 }
+                                            }else {
+                                                System.out.println("No hay proyectos creados por este perfil");
                                             }
 
                                             break;
                                         }
                                         case 3:{
-                                            System.out.println("Estos son tus proyectos");
-                                            controladorUsuario.getProyectosCreadosPorGestor(gestor);
-                                            System.out.println("Escribe el nombre del  proyecto a modificar(0 Para salir)");
-                                            String opcionaux=s.nextLine();
-                                            if (!opcionaux.equals("0")){
-                                               Proyecto auxiliarUsuarios= controladorUsuario.buscaProyectoCreadoGestor(opcionaux,gestor);
-                                               Proyecto auxiliarProyectos=controladorProyectos.buscarProyecto(opcionaux);
-                                               if (auxiliarUsuarios!=null){
-                                                   System.out.println("Qué quieres modificar?\n" +
-                                                           "1. Nombre\n" +
-                                                           "2. Categoría\n" +
-                                                           "3. Cantidad a financiar\n" +
-                                                           "4. Cantidad financiada hasta el momento\n" +
-                                                           "5. Fecha de apertura de inversiones\n" +
-                                                           "6. Fecha de cierre de inversiones\n" +
-                                                           "7. Añadir Recompensa" );
-                                                   opcion=Integer.parseInt(s.nextLine());
-                                                    switch (opcion){
-                                                        case 1:{
-                                                            System.out.println("Introduce el nuevo nombre");
-                                                            String nombreNuevo=s.nextLine();
-                                                            auxiliarUsuarios.setNombre(nombreNuevo);
-                                                            auxiliarProyectos.setNombre(nombreNuevo);
-                                                            break;
-                                                        }
-                                                        case 2:{
-                                                            System.out.println("Elije la nueva tematica del proyecto");
-                                                            controladorProyectos.muestratipos();
-                                                            auxiliarUsuarios.setTematicaProyecto(TematicaProyecto.valueOf(s.nextLine()));
-                                                            auxiliarProyectos.setTematicaProyecto(TematicaProyecto.valueOf(s.nextLine()));
-                                                            break;
-                                                        }
-                                                        case 3:{
-                                                            System.out.println("Elije la nueva cantidad a financiar");
-                                                            int nuevaCantidad=Integer.parseInt(s.nextLine());
-                                                            auxiliarUsuarios.setCantidadAInvertirTotal(nuevaCantidad);
-                                                            auxiliarProyectos.setCantidadAInvertirTotal(nuevaCantidad);
-                                                            break;
-                                                        }case 4:{
-                                                            System.out.println("Elije la nueva cantidad invertuda usuarioActual");
-                                                            int nuevaCantidad=Integer.parseInt(s.nextLine());
-                                                            auxiliarUsuarios.aniadirFinanciacion(nuevaCantidad);
-                                                            auxiliarProyectos.aniadirFinanciacion(nuevaCantidad);
-                                                            break;
-                                                        }case 5:{
-                                                            System.out.println("Fecha nueva de apertura");
-                                                            LocalDate fechaInicionueva = LocalDate.parse(s.nextLine(), formatoES);
-                                                            auxiliarUsuarios.setFechaApertura(fechaInicionueva);
-                                                            auxiliarProyectos.setFechaApertura(fechaInicionueva);
-                                                            break;
-                                                        }case 6:{
-                                                            System.out.println("Fecha cierre de apertura");
-                                                            LocalDate fechaCierreNueva = LocalDate.parse(s.nextLine(), formatoES);
-                                                            auxiliarUsuarios.setFechaApertura(fechaCierreNueva);
-                                                            auxiliarProyectos.setFechaApertura(fechaCierreNueva);
-                                                            break;
-                                                        }case 7:{
-                                                            System.out.println("Estas son las recompensas");
-                                                            controladorUsuario.mostrarRecompensas(auxiliarUsuarios);
-                                                            System.out.println("¿Desea añadir una recompensa?(Si/No)");
-                                                            if (s.nextLine().equalsIgnoreCase("Si")){
-                                                                System.out.println("Introduce el nombre de la recompensa ");
-                                                                String nombreRecompensa=s.nextLine();
-                                                                System.out.println("Introduce una breve descripccion");
-                                                                String descripcionRecompensa=s.nextLine();
-                                                                System.out.println("Introduce el importe para conseguirla");
-                                                                float importe=Float.parseFloat(s.nextLine());
-                                                                Recompensa nueva=new Recompensa(nombreRecompensa,descripcionRecompensa,importe);
-                                                                controladorProyectos.insertarRecompensa(nueva,auxiliarProyectos);
-                                                                controladorUsuario.operacionSatisfactoria();
+                                            if (controladorUsuario.getProyectosCreadosPorGestorSinVista(gestor).size()>0){
+                                                System.out.println("Estos son tus proyectos");
+                                                controladorUsuario.getProyectosCreadosPorGestor(gestor);
+                                                System.out.println("Escribe el nombre del  proyecto a modificar(0 Para salir)");
+                                                String opcionaux=s.nextLine();
+                                                if (!opcionaux.equals("0")){
+                                                    Proyecto auxiliarUsuarios= controladorUsuario.buscaProyectoCreadoGestor(opcionaux,gestor);
+                                                    Proyecto auxiliarProyectos=controladorProyectos.buscarProyecto(opcionaux);
+                                                    if (auxiliarUsuarios!=null){
+                                                        System.out.println("Qué quieres modificar?\n" +
+                                                                "1. Nombre\n" +
+                                                                "2. Categoría\n" +
+                                                                "3. Cantidad a financiar\n" +
+                                                                "4. Cantidad financiada hasta el momento\n" +
+                                                                "5. Fecha de apertura de inversiones\n" +
+                                                                "6. Fecha de cierre de inversiones\n" +
+                                                                "7. Añadir Recompensa" );
+                                                        opcion=Integer.parseInt(s.nextLine());
+                                                        switch (opcion){
+                                                            case 1:{
+                                                                System.out.println("Introduce el nuevo nombre");
+                                                                String nombreNuevo=s.nextLine();
+                                                                auxiliarUsuarios.setNombre(nombreNuevo);
+                                                                auxiliarProyectos.setNombre(nombreNuevo);
+                                                                break;
                                                             }
-                                                            //todo
-                                                            break;
+                                                            case 2:{
+                                                                System.out.println("Elije la nueva tematica del proyecto");
+                                                                controladorProyectos.muestratipos();
+                                                                auxiliarUsuarios.setTematicaProyecto(TematicaProyecto.valueOf(s.nextLine()));
+                                                                auxiliarProyectos.setTematicaProyecto(TematicaProyecto.valueOf(s.nextLine()));
+                                                                break;
+                                                            }
+                                                            case 3:{
+                                                                System.out.println("Elije la nueva cantidad a financiar");
+                                                                int nuevaCantidad=Integer.parseInt(s.nextLine());
+                                                                auxiliarUsuarios.setCantidadAInvertirTotal(nuevaCantidad);
+                                                                auxiliarProyectos.setCantidadAInvertirTotal(nuevaCantidad);
+                                                                break;
+                                                            }case 4:{
+                                                                System.out.println("Elije la nueva cantidad invertuda usuarioActual");
+                                                                int nuevaCantidad=Integer.parseInt(s.nextLine());
+                                                                auxiliarUsuarios.aniadirFinanciacion(nuevaCantidad);
+                                                                auxiliarProyectos.aniadirFinanciacion(nuevaCantidad);
+                                                                break;
+                                                            }case 5:{
+                                                                System.out.println("Fecha nueva de apertura");
+                                                                LocalDate fechaInicionueva = LocalDate.parse(s.nextLine(), formatoES);
+                                                                auxiliarUsuarios.setFechaApertura(fechaInicionueva);
+                                                                auxiliarProyectos.setFechaApertura(fechaInicionueva);
+                                                                break;
+                                                            }case 6:{
+                                                                System.out.println("Fecha cierre de apertura");
+                                                                LocalDate fechaCierreNueva = LocalDate.parse(s.nextLine(), formatoES);
+                                                                auxiliarUsuarios.setFechaApertura(fechaCierreNueva);
+                                                                auxiliarProyectos.setFechaApertura(fechaCierreNueva);
+                                                                break;
+                                                            }case 7:{
+                                                                System.out.println("Estas son las recompensas");
+                                                                controladorUsuario.mostrarRecompensas(auxiliarUsuarios);
+                                                                System.out.println("¿Desea añadir una recompensa?(Si/No)");
+                                                                if (s.nextLine().equalsIgnoreCase("Si")){
+                                                                    System.out.println("Introduce el nombre de la recompensa ");
+                                                                    String nombreRecompensa=s.nextLine();
+                                                                    System.out.println("Introduce una breve descripccion");
+                                                                    String descripcionRecompensa=s.nextLine();
+                                                                    System.out.println("Introduce el importe para conseguirla");
+                                                                    float importe=Float.parseFloat(s.nextLine());
+                                                                    Recompensa nueva=new Recompensa(nombreRecompensa,descripcionRecompensa,importe);
+                                                                    controladorProyectos.insertarRecompensa(nueva,auxiliarProyectos);
+                                                                    controladorUsuario.operacionSatisfactoria();
+                                                                }
+                                                                break;
+                                                            }
                                                         }
+                                                    }else {
+                                                        System.out.println("Proyecto no encontrado");
                                                     }
-                                               }else {
-                                                   System.out.println("Proyecto no encontrado");
-                                               }
+                                                }
+                                            }else {
+                                                System.out.println("No hay proyectos creados por este perfil");
                                             }
                                         break;
                                         }

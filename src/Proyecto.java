@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 import java.util.LinkedList;
-
+import static utilidades.FuncionesFechas.*;
 public class Proyecto implements Invertible{
     private String nombre;
     private LocalDate fechaApertura;
@@ -116,7 +116,7 @@ public class Proyecto implements Invertible{
 
 
     public String toString(){
-        return "Proyecto "+nombre+"\nFecha de apertura: "+fechaApertura+" - "+"Fecha de cierre: "+fechaCierre+"\nDescripcion: "+descripcion;
+        return "Proyecto "+nombre+"\nFecha de apertura: "+fechaApertura+" - "+"Fecha de cierre: "+fechaCierre+"\nDescripcion: "+descripcion+"\nTiempo restante: " + (getTiempoRestanteParaInvertir(LocalDate.now(),fechaCierre)>0?tiempoRestanteParaInvertir(LocalDate.now(),fechaCierre):"No queda tiempo");
     }
     public boolean equals(Proyecto proyecto){
         return  this.nombre.equals(proyecto.nombre) ;

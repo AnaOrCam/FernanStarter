@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 public class ControladorUsuario {
     private GestionUsuarios modelo;
     private VistaUsuario vista;
@@ -75,6 +77,9 @@ public class ControladorUsuario {
     }
     public void getProyectosCreadosPorGestor(Gestor aux){
        vista.muestraProyectosGestor(modelo.getProyectosCreadosPorGestor(aux));
+    }
+    public LinkedList<Proyecto> getProyectosCreadosPorGestorSinVista(Gestor aux){
+        return modelo.getProyectosCreadosPorGestor(aux);
     }
     public void gestorAnadirProyecto(Gestor gestor, Proyecto proyecto){
         modelo.insertarProyectoCreadorPorGestor(gestor,proyecto);

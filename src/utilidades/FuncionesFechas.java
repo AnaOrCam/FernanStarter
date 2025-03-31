@@ -67,11 +67,19 @@ public class FuncionesFechas {
      */
     public static String tiempoRestanteParaInvertir (LocalDate fecha, LocalDate fecha2){
         long diferenciaDias= ChronoUnit.DAYS.between(fecha,fecha2);
-        long diferenciaHoras= ChronoUnit.HOURS.between(fecha,fecha2);
-        long diferenciaMinutos= ChronoUnit.MINUTES.between(fecha,fecha2);
-        long diferenciaSegundos= ChronoUnit.SECONDS.between(fecha,fecha2);
 
-        return "Quedan "+diferenciaDias+", "+diferenciaHoras+", "+diferenciaMinutos+" y "+diferenciaSegundos+
-                " para invertir en este proyecto";
+        return "Quedan "+diferenciaDias+" días para invertir en este proyecto";
+    }
+    /**
+     * Devuelve el numero de dias restantes , aplicable posteriormente a operador ternario
+     * @author davidrn06
+     * @param fecha se refiere a la fecha actual.
+     * @param fecha2 se refiere a la fecha de cierre del proyecto.
+     * @return devuelve el tiempo de diferencia en formato String.
+     */
+    public static long getTiempoRestanteParaInvertir(LocalDate fecha, LocalDate fecha2){
+        long diferenciaDias= ChronoUnit.DAYS.between(fecha,fecha2);
+        return  diferenciaDias;
+
     }
 }
