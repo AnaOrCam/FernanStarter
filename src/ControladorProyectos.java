@@ -65,8 +65,8 @@ public class ControladorProyectos {
         modelo.borrarProyecto(aux);
     }
 
-    public void aniadirFinanciacionAProyecto(float cantidad, Proyecto proyecto){
-        modelo.aniadirFinanciacionAProyecto(cantidad, proyecto);
+    public boolean aniadirFinanciacionAProyecto(float cantidad, Proyecto proyecto){
+        return modelo.aniadirFinanciacionAProyecto(cantidad, proyecto);
     }
     public void restarFinanciacionAProyecto(float cantidad, Proyecto proyecto){
         modelo.restarFinanciacionAProyecto(cantidad, proyecto);

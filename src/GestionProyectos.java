@@ -21,8 +21,8 @@ public class GestionProyectos {
         return null;
     }
 
-    public void aniadirFinanciacionAProyecto(float cantidad, Proyecto proyecto){
-        proyecto.aniadirFinanciacion(cantidad);
+    public boolean aniadirFinanciacionAProyecto(float cantidad, Proyecto proyecto){
+        return (proyecto.aniadirFinanciacion(cantidad));
     }
     public void restarFinanciacionAProyecto(float cantidad, Proyecto proyecto){
         proyecto.restarFinanciacion(cantidad);

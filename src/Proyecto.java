@@ -34,8 +34,12 @@ public class Proyecto{
         this.tematicaProyecto = tematicaProyecto;
     }
 
-    public void aniadirFinanciacion(float cantidad) {
-        this.cantidadInvertidaActual+=cantidad;
+    public boolean aniadirFinanciacion(float cantidad) {
+        if (cantidadInvertidaActual+cantidad<=cantidadAInvertirTotal) {
+            this.cantidadInvertidaActual += cantidad;
+            return true;
+        }
+        return false;
     }
     public void restarFinanciacion(float cantidad) {
         this.cantidadInvertidaActual-=cantidad;
@@ -119,7 +123,10 @@ public class Proyecto{
 
 
     public String toString(){
-        return "Proyecto "+nombre+"\nFecha de apertura: "+fechaApertura+" - "+"Fecha de cierre: "+fechaCierre+"\nDescripcion: "+descripcion+"\nCantidad invertida: "+cantidadInvertidaActual+"\nFinanciación total del proyecto: "+cantidadAInvertirTotal+"\nTiempo restante: " + (getTiempoRestanteParaInvertir(LocalDate.now(),fechaCierre)>0?tiempoRestanteParaInvertir(LocalDate.now(),fechaCierre):"No queda tiempo");
+        return "Proyecto "+nombre+"\nFecha de apertura: "+fechaApertura+" - "+"Fecha de cierre: "+fechaCierre+
+                "\nDescripcion: "+descripcion+"\nCantidad invertida: "+cantidadInvertidaActual+
+                "\nFinanciación total del proyecto: "+cantidadAInvertirTotal+
+                "\nTiempo restante: " + (getTiempoRestanteParaInvertir(LocalDate.now(),fechaCierre)>0?tiempoRestanteParaInvertir(LocalDate.now(),fechaCierre):"No queda tiempo");
     }
     public boolean equals(Proyecto proyecto){
         return  this.nombre.equals(proyecto.nombre) ;

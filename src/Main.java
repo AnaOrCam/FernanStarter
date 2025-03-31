@@ -456,24 +456,27 @@ public class Main {
                                                                 if (controladorUsuario.aumentarInversion(inversor,id,cantidad)){
                                                                     if (!controladorUsuario.getNombreProyecto(id,inversor).equalsIgnoreCase("")) {
                                                                         Proyecto proyectoAuxiliar =controladorProyectos.buscarProyecto(controladorUsuario.getNombreProyecto(id,inversor));
-                                                                        controladorProyectos.aniadirFinanciacionAProyecto(cantidad,proyectoAuxiliar);
-                                                                        float cantidadInvertidaTrasModificacion= controladorUsuario.getCantidadInvertidaEnInversion(id,inversor);
-                                                                        if (controladorProyectos.siRecompensa(cantidadInvertidaTrasModificacion, proyectoAuxiliar)) {
-                                                                            System.out.println("¡Enhorabuena! Por tu nueva inversión puedes modificar tu recompensa: ");
-                                                                            controladorProyectos.mostrarRecompensasAElegir(cantidadInvertidaTrasModificacion, proyectoAuxiliar);
-                                                                            boolean recompensaValida = false;
-                                                                            String eleccion;
-                                                                            do {
-                                                                                System.out.println("Escribe el nombre de la recompensa que deseas elegir: ");
-                                                                                eleccion = s.nextLine();
-                                                                                if (controladorProyectos.buscarRecompensa(eleccion, proyectoAuxiliar) != null) {
-                                                                                    recompensaValida = true;
-                                                                                } else {
-                                                                                    System.out.println("El nombre introducido no corresponde a ninguna recompensa. Por favor introduzca una recompensa válida.");
-                                                                                }
-                                                                            } while (!recompensaValida);
-                                                                            Recompensa recompensaAuxiliar = controladorProyectos.buscarRecompensa(eleccion, proyectoAuxiliar);
-                                                                            controladorUsuario.setRecompensaElegida(id,inversor,recompensaAuxiliar);
+                                                                        if (controladorProyectos.aniadirFinanciacionAProyecto(cantidad,proyectoAuxiliar)) {
+                                                                            float cantidadInvertidaTrasModificacion = controladorUsuario.getCantidadInvertidaEnInversion(id, inversor);
+                                                                            if (controladorProyectos.siRecompensa(cantidadInvertidaTrasModificacion, proyectoAuxiliar)) {
+                                                                                System.out.println("¡Enhorabuena! Por tu nueva inversión puedes modificar tu recompensa: ");
+                                                                                controladorProyectos.mostrarRecompensasAElegir(cantidadInvertidaTrasModificacion, proyectoAuxiliar);
+                                                                                boolean recompensaValida = false;
+                                                                                String eleccion;
+                                                                                do {
+                                                                                    System.out.println("Escribe el nombre de la recompensa que deseas elegir: ");
+                                                                                    eleccion = s.nextLine();
+                                                                                    if (controladorProyectos.buscarRecompensa(eleccion, proyectoAuxiliar) != null) {
+                                                                                        recompensaValida = true;
+                                                                                    } else {
+                                                                                        System.out.println("El nombre introducido no corresponde a ninguna recompensa. Por favor introduzca una recompensa válida.");
+                                                                                    }
+                                                                                } while (!recompensaValida);
+                                                                                Recompensa recompensaAuxiliar = controladorProyectos.buscarRecompensa(eleccion, proyectoAuxiliar);
+                                                                                controladorUsuario.setRecompensaElegida(id, inversor, recompensaAuxiliar);
+                                                                            }
+                                                                        }else{
+                                                                            System.out.println("No se puede realizar la inversión. Limite sobrepasado.");
                                                                         }
                                                                     }else{
                                                                         System.out.println("Ha ocurrido un error.");
@@ -527,19 +530,23 @@ public class Main {
                                                             } while (!recompensaValida);
                                                             Recompensa recompensaAux = controladorProyectos.buscarRecompensa(eleccion, proyectoAux);
                                                             Inversion inversionAux = new Inversion(nombre, cantidad, inversor, recompensaAux);
-
-                                                            if (controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)) {
-                                                                controladorProyectos.aniadirFinanciacionAProyecto(cantidad, proyectoAux);
-                                                            } else {
-                                                                System.out.println("No se ha podido realizar la operación. Saldo insuficiente");
+                                                            if (controladorProyectos.aniadirFinanciacionAProyecto(cantidad, proyectoAux)) {
+                                                                if (!controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)) {
+                                                                    System.out.println("No se ha podido realizar la operación. Saldo insuficiente");
+                                                                }
+                                                            }else{
+                                                                System.out.println(ANSI_RED+"No se ha podido realizar la inversión. Supera la de inversión total del proyecto."+ANSI_RESET);
                                                             }
                                                         }else{
                                                             Inversion inversionAux = new Inversion(nombre, cantidad, inversor);
-                                                            if (controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)) {
-                                                                controladorProyectos.aniadirFinanciacionAProyecto(cantidad, proyectoAux);
-                                                            } else {
-                                                                System.out.println("No se ha podido realizar la operación. Saldo insuficiente");
+                                                            if (controladorProyectos.aniadirFinanciacionAProyecto(cantidad, proyectoAux)){
+                                                                if (!controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)) {
+                                                                    System.out.println(ANSI_RED+"No se ha podido realizar la operación. Saldo insuficiente"+ANSI_RESET);
+                                                                }
+                                                            }else{
+                                                                System.out.println(ANSI_RED+"No se ha podido realizar la inversión. Supera la de inversión total del proyecto."+ANSI_RESET);
                                                             }
+
                                                         }
                                                     }else{
                                                         System.out.println("El nombre introducido no corresponde a ningún proyecto.");
