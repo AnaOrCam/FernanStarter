@@ -6,7 +6,7 @@ import java.util.Scanner;
 import static utilidades.Funciones.*;
 import static utilidades.FuncionesCorreos.*;
 import static utilidades.FuncionesCadenas.*;
-public class MainNuevo {
+public class Main {
     public static void main(String[] args) {
         final String ANSI_GREEN= "\033[32m";
         final String ANSI_RED="\033[31m";
@@ -302,7 +302,7 @@ public class MainNuevo {
                                                            "4. Cantidad financiada hasta el momento\n" +
                                                            "5. Fecha de apertura de inversiones\n" +
                                                            "6. Fecha de cierre de inversiones\n" +
-                                                           "7. Recompensas" );
+                                                           "7. Añadir Recompensa" );
                                                    opcion=Integer.parseInt(s.nextLine());
                                                     switch (opcion){
                                                         case 1:{
@@ -346,50 +346,19 @@ public class MainNuevo {
                                                         }case 7:{
                                                             System.out.println("Estas son las recompensas");
                                                             controladorUsuario.mostrarRecompensas(auxiliarUsuarios);
-                                                            //todo
-                                                            System.out.println("Introduzca el numero de la recompensa a modificar");
-                                                            int recompensaAModificar=Integer.parseInt(s.nextLine());
-                                                            Recompensa auxUsuario=controladorUsuario.buscaRecompensa(recompensaAModificar-1,auxiliarUsuarios);
-                                                            Recompensa auxProyecto=controladorProyectos.buscarRecompensa(auxUsuario.getNombre(),auxiliarProyectos);
-                                                            System.out.println("Elije que desea modificar:\n" +
-                                                                    "1.Nombre\n" +
-                                                                    "2.Descripcion\n" +
-                                                                    "3.Importe\n" +
-                                                                    "4.Borrar Recompensa");
-                                                            opcion=Integer.parseInt(s.nextLine());
-                                                            switch (opcion){
-                                                                case  1:{
-                                                                    System.out.println("Introduce el nuevo nombre de la recompensa elegida");
-                                                                    auxUsuario.setNombre(s.nextLine());
-                                                                    auxProyecto.setNombre(auxUsuario.getNombre());
-                                                                    System.out.println(auxUsuario);
-                                                                    break;
-                                                                }
-                                                                case  2:{
-                                                                    System.out.println("Introduce la nueva descripcion");
-                                                                    auxUsuario.setDescripcion(s.nextLine());
-                                                                    auxProyecto.setDescripcion(auxUsuario.getDescripcion());
-                                                                    System.out.println(auxUsuario);
-                                                                    break;
-                                                                }
-                                                                case 3:{
-                                                                    System.out.println("Introduce el nuevo importe");
-                                                                    auxUsuario.setImporte(Float.parseFloat(s.nextLine()));
-                                                                    auxProyecto.setImporte(auxUsuario.getImporte());
-                                                                    System.out.println(auxUsuario);
-                                                                    break;
-                                                                }
-                                                                case  4:{
-                                                                    auxiliarUsuarios.getListaRecompensas().remove(auxUsuario);
-                                                                    auxiliarProyectos.getListaRecompensas().remove(auxProyecto);
-                                                                    controladorUsuario.operacionSatisfactoria();
-                                                                }
-                                                                default :{
-                                                                    controladorUsuario.operacionFallida();
-                                                                    break;
-                                                                }
+                                                            System.out.println("¿Desea añadir una recompensa?(Si/No)");
+                                                            if (s.nextLine().equalsIgnoreCase("Si")){
+                                                                System.out.println("Introduce el nombre de la recompensa ");
+                                                                String nombreRecompensa=s.nextLine();
+                                                                System.out.println("Introduce una breve descripccion");
+                                                                String descripcionRecompensa=s.nextLine();
+                                                                System.out.println("Introduce el importe para conseguirla");
+                                                                float importe=Float.parseFloat(s.nextLine());
+                                                                Recompensa nueva=new Recompensa(nombreRecompensa,descripcionRecompensa,importe);
+                                                                controladorProyectos.insertarRecompensa(nueva,auxiliarProyectos);
+                                                                controladorUsuario.operacionSatisfactoria();
                                                             }
-
+                                                            //todo
                                                             break;
                                                         }
                                                     }
