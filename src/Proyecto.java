@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 import java.util.LinkedList;
 import static utilidades.FuncionesFechas.*;
-public class Proyecto implements Invertible{
+public class Proyecto{
     private String nombre;
     private LocalDate fechaApertura;
     private LocalDate fechaCierre;
@@ -36,6 +36,9 @@ public class Proyecto implements Invertible{
 
     public void aniadirFinanciacion(float cantidad) {
         this.cantidadInvertidaActual+=cantidad;
+    }
+    public void restarFinanciacion(float cantidad) {
+        this.cantidadInvertidaActual-=cantidad;
     }
 
     public int getCantidadAInvertirTotal() {

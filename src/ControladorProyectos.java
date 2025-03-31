@@ -68,6 +68,9 @@ public class ControladorProyectos {
     public void aniadirFinanciacionAProyecto(float cantidad, Proyecto proyecto){
         modelo.aniadirFinanciacionAProyecto(cantidad, proyecto);
     }
+    public void restarFinanciacionAProyecto(float cantidad, Proyecto proyecto){
+        modelo.restarFinanciacionAProyecto(cantidad, proyecto);
+    }
 
     public void mostrarGraficoFinanciacion(Proyecto proyecto){
         vista.grafico(modelo.calcularPorcentajeFinanciado(proyecto));

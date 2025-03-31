@@ -438,7 +438,67 @@ public class Main {
                                     opcion = Integer.parseInt(s.nextLine());
                                     switch (opcion) {
                                         case 1 -> {
-                                            if (!controladorUsuario.mostrarInversiones(inversor)) System.out.println("No tienes ninguna inversión hasta la fecha.");
+                                            if (controladorUsuario.mostrarInversiones(inversor)) {
+                                                System.out.println("¿Quieres modificar la cantidad de alguna inversión? (si/no)");
+                                                String respuesta=s.nextLine();
+                                                if (respuesta.equalsIgnoreCase("si")){
+                                                    System.out.println("Escribe la ID de la inversión que quieres modificar:");
+                                                    int id=Integer.parseInt(s.nextLine());
+                                                    if (controladorUsuario.siExisteInversion(id,inversor)) {
+                                                        System.out.println("Escribe la cantidad:");
+                                                        float cantidad = Float.parseFloat(s.nextLine());
+                                                        System.out.println("¿Qué quieres hacer?:\n1. Aumentar la inversión" +
+                                                                "\n2. Disminuir la inversión" +
+                                                                "\n3. Salir" +
+                                                                "\nNota: Ten en cuenta que no se podrán disminuir las inversiones que tengan una recompensa.");
+                                                        switch (Integer.parseInt(s.nextLine())) {
+                                                            case 1 -> {
+                                                                if (controladorUsuario.aumentarInversion(inversor,id,cantidad)){
+                                                                    if (!controladorUsuario.getNombreProyecto(id,inversor).equalsIgnoreCase("")) {
+                                                                        Proyecto proyectoAuxiliar =controladorProyectos.buscarProyecto(controladorUsuario.getNombreProyecto(id,inversor));
+                                                                        controladorProyectos.aniadirFinanciacionAProyecto(cantidad,proyectoAuxiliar);
+                                                                        float cantidadInvertidaTrasModificacion= controladorUsuario.getCantidadInvertidaEnInversion(id,inversor);
+                                                                        if (controladorProyectos.siRecompensa(cantidadInvertidaTrasModificacion, proyectoAuxiliar)) {
+                                                                            System.out.println("¡Enhorabuena! Por tu nueva inversión puedes modificar tu recompensa: ");
+                                                                            controladorProyectos.mostrarRecompensasAElegir(cantidadInvertidaTrasModificacion, proyectoAuxiliar);
+                                                                            boolean recompensaValida = false;
+                                                                            String eleccion;
+                                                                            do {
+                                                                                System.out.println("Escribe el nombre de la recompensa que deseas elegir: ");
+                                                                                eleccion = s.nextLine();
+                                                                                if (controladorProyectos.buscarRecompensa(eleccion, proyectoAuxiliar) != null) {
+                                                                                    recompensaValida = true;
+                                                                                } else {
+                                                                                    System.out.println("El nombre introducido no corresponde a ninguna recompensa. Por favor introduzca una recompensa válida.");
+                                                                                }
+                                                                            } while (!recompensaValida);
+                                                                            Recompensa recompensaAuxiliar = controladorProyectos.buscarRecompensa(eleccion, proyectoAuxiliar);
+                                                                            controladorUsuario.setRecompensaElegida(id,inversor,recompensaAuxiliar);
+                                                                        }
+                                                                    }else{
+                                                                        System.out.println("Ha ocurrido un error.");
+                                                                    }
+                                                                }
+                                                            }
+                                                            case 2 -> {
+                                                                controladorUsuario.disminuirInversion(inversor,id,cantidad);
+                                                                if (!controladorUsuario.getNombreProyecto(id,inversor).equalsIgnoreCase("")) {
+                                                                    Proyecto proyectoAuxiliar = controladorProyectos.buscarProyecto(controladorUsuario.getNombreProyecto(id, inversor));
+                                                                    controladorProyectos.aniadirFinanciacionAProyecto(cantidad, proyectoAuxiliar);
+                                                                }
+                                                            }
+                                                            case 3 ->
+                                                                    System.out.println("Saliendo de modificación de inversión...");
+                                                            default ->
+                                                                    System.out.println("La opción escrita no corresponde a ninguna opción del menú");
+                                                        }
+                                                    }else{
+                                                        System.out.println(ANSI_RED+"ID de inversión incorrecta"+ANSI_RESET);
+                                                    }
+                                                }
+                                            }else{
+                                                System.out.println("No tienes ninguna inversión hasta la fecha.");
+                                            }
                                         }
                                         case 2 -> {
                                             System.out.println("------PROYECTOS------");

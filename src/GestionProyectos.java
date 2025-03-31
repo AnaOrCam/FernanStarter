@@ -24,6 +24,9 @@ public class GestionProyectos {
     public void aniadirFinanciacionAProyecto(float cantidad, Proyecto proyecto){
         proyecto.aniadirFinanciacion(cantidad);
     }
+    public void restarFinanciacionAProyecto(float cantidad, Proyecto proyecto){
+        proyecto.restarFinanciacion(cantidad);
+    }
 
     public int calcularPorcentajeFinanciado(Proyecto proyecto){
         return proyecto.calcularPorcentajeFinanciado(proyecto);

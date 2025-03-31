@@ -84,6 +84,38 @@ public class GestionUsuarios {
         }
         return false;
     }
+    public Recompensa getRecompensaInversion(Inversor inversor, int idInversion){
+        return inversor.buscarInversionPorId(idInversion).getRecompensaElegida();
+    }
+
+    public boolean siExisteInversion (int idInversion, Inversor inversor){
+        if (inversor.buscarInversionPorId(idInversion)!=null) return true;
+        return false;
+    }
+
+    public String getNombreProyecto (int idInversion, Inversor inversor){
+        if (inversor.buscarInversionPorId(idInversion)!=null) return inversor.buscarInversionPorId(idInversion).getNombreProyecto();
+        return "";
+    }
+
+    public float getCantidadInvertidaEnInversion(int idInversion, Inversor inversor){
+        return inversor.getCantidadInvertidaEnInversion(idInversion);
+    }
+
+    public void setRecompensaElegidaEnInversion(int idInversion, Inversor inversor,Recompensa recompensa){
+         inversor.setRecompensaElegida(idInversion,recompensa);
+    }
+
+    public boolean aumentarInversion(int idInversion, float cantidad, Inversor inversor){
+        if (inversor.aumentarInversion(idInversion,cantidad)) return true;
+        return false;
+    }
+
+    public boolean disminuirInversion(int idInversion, float cantidad, Inversor inversor){
+        if (inversor.disminuirInversion(idInversion,cantidad)) return true;
+        return false;
+    }
+
     public boolean compruebaCredenciales(String correo,String contrasena){
         List <Usuario> listaUsuarios=List.copyOf(usuarios.values());
         for (int i = 0; i < listaUsuarios.size(); i++) {

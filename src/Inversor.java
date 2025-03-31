@@ -74,6 +74,53 @@ public class Inversor extends Usuario implements Bloqueable{
         }
         return false;
     }
+
+    public Inversion buscarInversionPorId(int idInversion){
+        for (int i = 0; i < proyectosInvertidos.size(); i++) {
+            if (proyectosInvertidos.get(i).getIdInversion()== idInversion) return proyectosInvertidos.get(i);
+        }
+        return null;
+    }
+
+    public void setRecompensaElegida(int idInversion, Recompensa recompensa){
+        if (buscarInversionPorId(idInversion)!=null){
+            Inversion inversionAModificar= buscarInversionPorId(idInversion);
+            inversionAModificar.setRecompensaElegida(recompensa);
+        }
+    }
+    public boolean aumentarInversion(int idInversion, float cantidad){
+        if (buscarInversionPorId(idInversion)!=null){
+            Inversion inversionAModificar= buscarInversionPorId(idInversion);
+            if (saldo>=cantidad) {
+                inversionAModificar.aumentaInversion(cantidad);
+                invertidoTotal+=cantidad;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean disminuirInversion(int idInversion, float cantidad){
+        if (buscarInversionPorId(idInversion)!=null){
+            Inversion inversionAModificar= buscarInversionPorId(idInversion);
+            if (inversionAModificar.getRecompensaElegida()==null && inversionAModificar.getCantidadInvertida()>cantidad) {
+                inversionAModificar.disminuyeInversion(cantidad);
+                saldo += cantidad;
+                invertidoTotal-=cantidad;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public float getCantidadInvertidaEnInversion(int idInversion){
+        float cantidadInvertida=0;
+        for (int i = 0; i < proyectosInvertidos.size(); i++) {
+            cantidadInvertida=proyectosInvertidos.get(i).getCantidadInvertida();
+        }
+        return cantidadInvertida;
+    }
+
     public void sumaIntentos(){
         intentos++;
         if (intentos==3){

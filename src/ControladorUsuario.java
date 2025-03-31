@@ -117,6 +117,41 @@ public class ControladorUsuario {
         }
         return false;
     }
+
+    public boolean aumentarInversion(Inversor inversor, int idInversion, float cantidad){
+        if (modelo.aumentarInversion(idInversion,cantidad,inversor)) {
+            return true;
+        }
+        return false;
+    }
+
+    public void disminuirInversion(Inversor inversor, int idInversion, float cantidad){
+        if (modelo.disminuirInversion(idInversion,cantidad,inversor)) vista.operacionSatisfactoria();
+        else vista.operacionFallida();
+    }
+
+    public Recompensa getRecompensaDeInversion(Inversor inversor, int idInversion){
+        return modelo.getRecompensaInversion(inversor, idInversion);
+    }
+
+    public boolean siExisteInversion(int idInversion, Inversor inversor){
+        if (modelo.siExisteInversion(idInversion, inversor)) return true;
+        return false;
+    }
+
+    public String getNombreProyecto (int idInversion, Inversor inversor){
+        return modelo.getNombreProyecto(idInversion,inversor);
+    }
+
+    public float getCantidadInvertidaEnInversion(int idInversion, Inversor inversor){
+        return modelo.getCantidadInvertidaEnInversion(idInversion,inversor);
+    }
+
+    public void setRecompensaElegida(int idInversion, Inversor inversor, Recompensa recompensa){
+        modelo.setRecompensaElegidaEnInversion(idInversion,inversor,recompensa);
+        vista.operacionSatisfactoria();
+    }
+
     public void mostrarSaldoInversor(Inversor inversor){
         vista.mostrarSaldo(inversor.getSaldo());
     }
