@@ -140,4 +140,13 @@ public class GestionUsuarios {
     public HashMap<String,Usuario> usuarios(){
         return usuarios;
     }
+    public boolean compruebaExistenUsuario(){
+        List <Usuario> listaUsuarios=List.copyOf(usuarios.values());
+        for (int i = 0; i < listaUsuarios.size(); i++) {
+            if (listaUsuarios.get(i).getTipoUsuario()==TipoUsuario.INVERSOR||listaUsuarios.get(i).getTipoUsuario()==TipoUsuario.GESTOR){
+                return true;
+            }
+        }
+        return false;
+    }
 }

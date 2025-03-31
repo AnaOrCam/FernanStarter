@@ -119,4 +119,7 @@ public class ControladorUsuario {
             vista.operacionFallida();
         }
     }
+    public Boolean compruebaExistenUsuarios(){
+        return modelo.compruebaExistenUsuario();
+    }
 }

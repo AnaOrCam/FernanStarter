@@ -44,14 +44,14 @@ public class MainNuevo {
                                 System.out.println("Introduzca el nombre de usuario del nuevo perfil Inversor");
                                 nombreAux = s.nextLine();
                             do {
-                              //  do{
+                                do{
                                 System.out.println("Introduzca su correo ");
                                 correoAux = s.nextLine();
                                     aux=controladorUsuario.compruebaCorreoExistente(correoAux);
                                     if (aux){
                                         System.out.println("El nombre de correo ya existe");
                                     }
-                                //}while(aux);
+                                }while(aux);
                                 if (!comprobacionCorreo(correoAux)){
                                     System.out.println("El formato del correo debe contener @");
                                 }
@@ -99,14 +99,14 @@ public class MainNuevo {
                                 System.out.println("Introduzca el nombre de usuario del nuevo perfil Gestor");
                                 nombreAux = s.nextLine();
                             do {
-                              //  do{
+                                do{
                                     System.out.println("Introduzca su correo ");
                                     correoAux = s.nextLine();
                                     aux=controladorUsuario.compruebaCorreoExistente(correoAux);
                                     if (aux){
                                         System.out.println("El nombre de correo ya existe");
                                     }
-                              //  }while(aux);
+                                }while(aux);
                                 if (!comprobacionCorreo(correoAux)){
                                     System.out.println("El formato del correo debe contener @");
                                 }
@@ -154,14 +154,14 @@ public class MainNuevo {
                                 System.out.println("Introduzca el nombre de usuario del nuevo perfil Administrador");
                                 nombreAux = s.nextLine();
                             do {
-                               // do{
+                                do{
                                     System.out.println("Introduzca su correo ");
                                     correoAux = s.nextLine();
                                     aux=controladorUsuario.compruebaCorreoExistente(correoAux);
                                     if (aux){
                                         System.out.println("El nombre de correo ya existe");
                                     }
-                                //}while(aux);
+                                }while(aux);
                                 if (!comprobacionCorreo(correoAux)){
                                     System.out.println("El formato del correo debe contener @");
                                 }
@@ -566,109 +566,123 @@ public class MainNuevo {
                             }
                             case ADMINISTRADOR:{
                                 Administrador admin=(Administrador) usuarioActual;
-                                menuAdministrador();
-                                opcion=Integer.parseInt(s.nextLine());
-                                switch (opcion){
-                                    case 1:{
-                                        menuBloqueo();
-                                        opcion=Integer.parseInt(s.nextLine());
-                                        switch (opcion){
-                                            case 1:{
-                                                controladorUsuario.muestraUsuarios(admin);
-                                                System.out.println("Escribe el correo del usuario que deseas bloquear");
-                                                Usuario aBloquear=controladorUsuario.getUsuario(s.nextLine());
-                                                if (aBloquear.getTipoUsuario()==(TipoUsuario.INVERSOR)){
-                                                    Inversor inversor=(Inversor) aBloquear;
-                                                    if (inversor.isBloqueado()){
-                                                        System.out.println("Este usuario ya se encuentra bloqueado");
+                                opcion=0;
+                                do {
+                                    menuAdministrador();
+                                    opcion=Integer.parseInt(s.nextLine());
+                                    switch (opcion){
+                                        case 1:{
+                                            menuBloqueo();
+                                            opcion=Integer.parseInt(s.nextLine());
+                                            switch (opcion){
+                                                case 1:{
+                                                    if (controladorUsuario.compruebaExistenUsuarios()){
+                                                        controladorUsuario.muestraUsuarios(admin);
+                                                        System.out.println("Escribe el correo del usuario que deseas bloquear");
+                                                        Usuario aBloquear=controladorUsuario.getUsuario(s.nextLine());
+                                                        if (aBloquear.getTipoUsuario()==(TipoUsuario.INVERSOR)){
+                                                            Inversor inversor=(Inversor) aBloquear;
+                                                            if (inversor.isBloqueado()){
+                                                                System.out.println("Este usuario ya se encuentra bloqueado");
+                                                            }else {
+                                                                controladorUsuario.bloquearUsuario(inversor);
+                                                                controladorUsuario.operacionSatisfactoria();
+                                                            }
+                                                        }else if (aBloquear.getTipoUsuario()==(TipoUsuario.GESTOR)){
+                                                            Gestor gestor=(Gestor) aBloquear;
+                                                            if (gestor.isBloqueado()){
+                                                                System.out.println("Este usuario ya se encuentra bloqueado");
+                                                            }else {
+                                                                controladorUsuario.bloquearUsuario(gestor);
+                                                                controladorUsuario.operacionSatisfactoria();
+                                                            }
+                                                        }else controladorUsuario.operacionFallida();
                                                     }else {
-                                                        controladorUsuario.bloquearUsuario(inversor);
-                                                        controladorUsuario.operacionSatisfactoria();
+                                                        System.out.println("No hay usuarios creados");
                                                     }
-                                                }else if (aBloquear.getTipoUsuario()==(TipoUsuario.GESTOR)){
-                                                    Gestor gestor=(Gestor) aBloquear;
-                                                    if (gestor.isBloqueado()){
-                                                        System.out.println("Este usuario ya se encuentra bloqueado");
+                                                    break;
+                                                }
+                                                case 2:{
+                                                    if (controladorUsuario.compruebaExistenUsuarios()){
+                                                        controladorUsuario.muestraUsuarios(admin);
+                                                        System.out.println("Escribe el correo del usuario que deseas desbloquear");
+                                                        Usuario aDesBloquear=controladorUsuario.getUsuario(s.nextLine());
+                                                        if (aDesBloquear.getTipoUsuario()==(TipoUsuario.INVERSOR)){
+                                                            Inversor inversor=(Inversor) aDesBloquear;
+                                                            if (!inversor.isBloqueado()){
+                                                                System.out.println("Este usuario ya se encuentra desbloqueado");
+                                                            }else {
+                                                                controladorUsuario.desbloquearUsuario(inversor);
+                                                                controladorUsuario.operacionSatisfactoria();
+                                                            }
+                                                        }else if (aDesBloquear.getTipoUsuario()==(TipoUsuario.GESTOR)){
+                                                            Gestor gestor=(Gestor) aDesBloquear;
+                                                            if (!gestor.isBloqueado()){
+                                                                System.out.println("Este usuario ya se encuentra desbloqueado");
+                                                            }else {
+                                                                controladorUsuario.desbloquearUsuario(gestor);
+                                                                controladorUsuario.operacionSatisfactoria();
+                                                            }
+                                                        }else controladorUsuario.operacionFallida();
                                                     }else {
-                                                        controladorUsuario.bloquearUsuario(gestor);
-                                                        controladorUsuario.operacionSatisfactoria();
+                                                        System.out.println("No hay usuarios creados");
                                                     }
-                                                }else controladorUsuario.operacionFallida();
-                                                break;
-                                            }
-                                            case 2:{
-                                                controladorUsuario.muestraUsuarios(admin);
-                                                System.out.println("Escribe el correo del usuario que deseas desbloquear");
-                                                Usuario aDesBloquear=controladorUsuario.getUsuario(s.nextLine());
-                                                if (aDesBloquear.getTipoUsuario()==(TipoUsuario.INVERSOR)){
-                                                    Inversor inversor=(Inversor) aDesBloquear;
-                                                    if (!inversor.isBloqueado()){
-                                                        System.out.println("Este usuario ya se encuentra desbloqueado");
-                                                    }else {
-                                                        controladorUsuario.desbloquearUsuario(inversor);
-                                                        controladorUsuario.operacionSatisfactoria();
-                                                    }
-                                                }else if (aDesBloquear.getTipoUsuario()==(TipoUsuario.GESTOR)){
-                                                    Gestor gestor=(Gestor) aDesBloquear;
-                                                    if (!gestor.isBloqueado()){
-                                                        System.out.println("Este usuario ya se encuentra desbloqueado");
-                                                    }else {
-                                                        controladorUsuario.desbloquearUsuario(gestor);
-                                                        controladorUsuario.operacionSatisfactoria();
-                                                    }
-                                                }else controladorUsuario.operacionFallida();
-                                                break;
-                                            } case 3:{
-                                                System.out.println("Saliendo del menu de bloqueo/desbloqueo");
-                                                break;
-                                            }
-                                            default:{
-                                                controladorUsuario.operacionFallida();
-                                            }
-                                        }
 
-                                    break;
-                                    }
-                                    case 2:{
-                                        controladorProyectos.mostrarProyectosConGrafico();
-                                        break;
-                                    }
-                                    case  3:{
-                                        System.out.println("Has accedido a la configuracion ");
-                                        System.out.println("Elije opcion:\n" +
-                                                "1.Cambiar Nombre\n" +
-                                                "2.Cambiar Contraseña");
-                                        opcion=Integer.parseInt(s.nextLine());
-                                        switch (opcion){
-                                            case 1:{
-                                                System.out.println("Introduce el nuevo nombre");
-                                                admin.setNombre(s.nextLine());
-                                                controladorUsuario.operacionSatisfactoria();
-                                                System.out.println(admin);
-                                                break;
+                                                    break;
+                                                } case 3:{
+                                                    System.out.println("Saliendo del menu de bloqueo/desbloqueo");
+                                                    break;
+                                                }
+                                                default:{
+                                                    controladorUsuario.operacionFallida();
+                                                }
                                             }
-                                            case 2:{
-                                                System.out.println("Introduce la nueva contraseña");
-                                                admin.setContrasena(s.nextLine());
-                                                controladorUsuario.operacionSatisfactoria();
-                                                break;
-                                            }
-                                            default:{
-                                                controladorUsuario.operacionFallida();
-                                            }
+                                            break;
                                         }
-                                        break;
+                                        case 2:{
+                                            if (!controladorProyectos.mostrarProyectosConGrafico()){
+                                                System.out.println("No hay proyectos disponibles");
+                                            }
+                                            break;
+                                        }
+                                        case  3:{
+                                            System.out.println("Has accedido a la configuracion ");
+                                            System.out.println("Elije opcion:\n" +
+                                                    "1.Cambiar Nombre\n" +
+                                                    "2.Cambiar Contraseña");
+                                            opcion=Integer.parseInt(s.nextLine());
+                                            switch (opcion){
+                                                case 1:{
+                                                    System.out.println("Introduce el nuevo nombre");
+                                                    admin.setNombre(s.nextLine());
+                                                    controladorUsuario.operacionSatisfactoria();
+                                                    System.out.println(admin);
+                                                    break;
+                                                }
+                                                case 2:{
+                                                    System.out.println("Introduce la nueva contraseña");
+                                                    admin.setContrasena(s.nextLine());
+                                                    controladorUsuario.operacionSatisfactoria();
+                                                    break;
+                                                }
+                                                default:{
+                                                    controladorUsuario.operacionFallida();
+                                                }
+                                            }
+                                            break;
 
+                                        }
+                                        case 4:{
+                                            System.out.println("Cerrando Sesion...");
+                                            break;
+                                        }
+                                        default:{
+                                            controladorUsuario.operacionFallida();
+                                            break;
+                                        }
                                     }
-                                    case 4:{
-                                        System.out.println("Cerrando Sesion...");
-                                        break;
-                                    }
-                                    default:{
-                                        controladorUsuario.operacionFallida();
-                                        break;
-                                    }
-                                }
+                                }while(opcion!=4);
+
 
                                 break;
                             }
