@@ -52,8 +52,23 @@ public class ControladorUsuario {
         return modelo.compruebaCredenciales(correo,contrasenia);
     }
     public void credencialesValidasNoValidas(String correo,String contrasenia){
-        if (compruebaCredenciales(correo,contrasenia))vista.credencialesValidas(correo);
-        else vista.credencialesNoValidas();
+        if (compruebaCredenciales(correo,contrasenia)){
+            if (modelo.buscaUsuario(correo).getTipoUsuario()==TipoUsuario.INVERSOR){
+                Inversor aux= (Inversor) modelo.buscaUsuario(correo);
+                if (!aux.isBloqueado()){
+                    vista.credencialesValidas(correo);
+                }
+            }
+            if (modelo.buscaUsuario(correo).getTipoUsuario()==TipoUsuario.GESTOR){
+                Gestor aux= (Gestor) modelo.buscaUsuario(correo);
+                if (!aux.isBloqueado()){
+                    vista.credencialesValidas(correo);
+                }
+            }
+            if (modelo.buscaUsuario(correo).getTipoUsuario()==TipoUsuario.ADMINISTRADOR){
+                vista.credencialesValidas(correo);
+            }
+        } else vista.credencialesNoValidas();
     }
     public Usuario getUsuarioIniciado(String correo,String contrasenia){
         return modelo.buscaUsuarioCorreoYContrasena(correo,contrasenia);

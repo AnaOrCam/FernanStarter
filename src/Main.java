@@ -207,14 +207,23 @@ public class Main {
                 }
                 //Iniciar Sesion
                 case 2:{
+                    int autentificacion=0;
+                    int codigo=0;
                     String correoAux="";
                     String contraseniaAunx="";
                     System.out.println("Introduzca correo");
                     correoAux=s.nextLine();
                     System.out.println("Introduzca la contraseña asociada a su correo");
                     contraseniaAunx=s.nextLine();
-                    controladorUsuario.compruebaCredenciales(correoAux,contraseniaAunx);
                     if (controladorUsuario.compruebaCredenciales(correoAux,contraseniaAunx)){
+                        System.out.println("Hemos enviado un código a tu correo. Introduce la autentificación");
+                         autentificacion = generarAutentificacion();
+                        String asunto = "Codigo de autentificacion";
+                        String cuerpo = "Codigo de verificacion para el inicio de sesion : " + autentificacion + "\n Bienvenido a FernanStarter";
+                        enviarConGMail(correoAux, asunto, cuerpo);
+                         codigo = Integer.parseInt(s.nextLine());
+                    }
+                    if (controladorUsuario.compruebaCredenciales(correoAux,contraseniaAunx)&&codigo == autentificacion){
                         controladorUsuario.credencialesValidasNoValidas(correoAux,contraseniaAunx);
                         Usuario usuarioActual =controladorUsuario.getUsuarioIniciado(correoAux,contraseniaAunx);
                         TipoUsuario tipoIniciado=controladorUsuario.getUsuarioIniciado(correoAux,contraseniaAunx).getTipoUsuario();
@@ -223,7 +232,7 @@ public class Main {
                             case GESTOR :{
                                 Gestor gestor=(Gestor) usuarioActual;
                                 if (gestor.isBloqueado()){
-                                    System.out.println("Este perfil esta bloqueado");
+                                    System.out.println("Este perfil esta bloqueado. Contacta con un administrador");
                                 }else do {
                                     System.out.println("¿Qué quieres hacer?\n" +
                                             "1. Crear un nuevo proyecto\n" +
@@ -415,7 +424,7 @@ public class Main {
                             case INVERSOR:{
                                 Inversor inversor=(Inversor) usuarioActual;
                                 if (inversor.isBloqueado()){
-                                    System.out.println("Este perfil esta bloqueado");
+                                    System.out.println("Este perfil esta bloqueado. Contacta con un administrador");
                                 }else do {
                                     Funciones.menuInversor();
                                     opcion = Integer.parseInt(s.nextLine());
@@ -656,7 +665,19 @@ public class Main {
                                 break;
                             }
                         }
-                    }else System.out.println("Sus credenciales no son válidas");
+                    }else if (controladorUsuario.getUsuario(correoAux)!=null){
+                        System.out.println("Sus credenciales no son válidas");
+                        if (controladorUsuario.getUsuario(correoAux).getTipoUsuario()==TipoUsuario.INVERSOR){
+                            Inversor aux=(Inversor) controladorUsuario.getUsuario(correoAux);
+                            aux.sumaIntentos();
+                        }
+                        if (controladorUsuario.getUsuario(correoAux).getTipoUsuario()==TipoUsuario.GESTOR){
+                            Gestor aux=(Gestor) controladorUsuario.getUsuario(correoAux);
+                            aux.sumaIntentos();
+                        }
+                    }else{
+                        System.out.println("Sus credenciales no son válidas");
+                    }
                     break;
                 }
                 case 3:{

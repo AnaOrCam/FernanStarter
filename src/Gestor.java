@@ -3,11 +3,13 @@ import java.util.LinkedList;
 public class Gestor extends Usuario implements Bloqueable{
     private LinkedList<Proyecto> proyectosCreados;
     private boolean bloqueado;
+    private int intentos;
     public Gestor(String nombre, String correo, String contrasena, TipoUsuario tipoUsuario){
         super( nombre, correo, contrasena, tipoUsuario);
 
         bloqueado=false;
         proyectosCreados=new LinkedList<>();
+        intentos=0;
     }
     public LinkedList<Proyecto> getProyectosCreados() {
         return proyectosCreados;
@@ -34,6 +36,12 @@ public class Gestor extends Usuario implements Bloqueable{
     }
     public void  anadirProyecto(Proyecto proyecto){
         proyectosCreados.add(proyecto);
+    }
+    public void sumaIntentos(){
+        intentos++;
+        if (intentos==3){
+            bloquearUsuario();
+        }
     }
 
 }

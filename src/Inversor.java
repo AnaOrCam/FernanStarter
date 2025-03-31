@@ -8,6 +8,7 @@ public class Inversor extends Usuario implements Bloqueable{
     private float invertidoTotal;
     private float saldo;
     private boolean bloqueado;
+    private int intentos;
 
 
     public Inversor(String nombre,String correo,String contrasena, TipoUsuario tipoUsuario){
@@ -17,6 +18,7 @@ public class Inversor extends Usuario implements Bloqueable{
         saldo=0;
         proyectosInvertidos=new LinkedList<>();
         amigosInvitados=new LinkedList<>();
+        intentos=0;
     }
 
     public LinkedList<Inversion> getProyectosInvertidos() {
@@ -71,6 +73,12 @@ public class Inversor extends Usuario implements Bloqueable{
             return true;
         }
         return false;
+    }
+    public void sumaIntentos(){
+        intentos++;
+        if (intentos==3){
+            bloquearUsuario();
+        }
     }
 
 }
