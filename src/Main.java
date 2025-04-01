@@ -339,8 +339,9 @@ public class Main {
                                                             case 2:{
                                                                 System.out.println("Elije la nueva tematica del proyecto");
                                                                 controladorProyectos.muestratipos();
-                                                                auxiliarUsuarios.setTematicaProyecto(TematicaProyecto.valueOf(s.nextLine()));
-                                                                auxiliarProyectos.setTematicaProyecto(TematicaProyecto.valueOf(s.nextLine()));
+                                                                String aux=s.nextLine();
+                                                                auxiliarUsuarios.setTematicaProyecto(TematicaProyecto.valueOf(aux.toUpperCase()));
+                                                                auxiliarProyectos.setTematicaProyecto(TematicaProyecto.valueOf(aux.toUpperCase()));
                                                                 break;
                                                             }
                                                             case 3:{
@@ -648,7 +649,6 @@ public class Main {
                                                                 System.out.println("Este usuario ya se encuentra bloqueado");
                                                             }else {
                                                                 controladorUsuario.bloquearUsuario(inversor);
-                                                                controladorUsuario.operacionSatisfactoria();
                                                             }
                                                         }else if (aBloquear.getTipoUsuario()==(TipoUsuario.GESTOR)){
                                                             Gestor gestor=(Gestor) aBloquear;
@@ -656,7 +656,6 @@ public class Main {
                                                                 System.out.println("Este usuario ya se encuentra bloqueado");
                                                             }else {
                                                                 controladorUsuario.bloquearUsuario(gestor);
-                                                                controladorUsuario.operacionSatisfactoria();
                                                             }
                                                         }else controladorUsuario.operacionFallida();
                                                     }else {
@@ -675,7 +674,6 @@ public class Main {
                                                                 System.out.println("Este usuario ya se encuentra desbloqueado");
                                                             }else {
                                                                 controladorUsuario.desbloquearUsuario(inversor);
-                                                                controladorUsuario.operacionSatisfactoria();
                                                             }
                                                         }else if (aDesBloquear.getTipoUsuario()==(TipoUsuario.GESTOR)){
                                                             Gestor gestor=(Gestor) aDesBloquear;
@@ -683,7 +681,6 @@ public class Main {
                                                                 System.out.println("Este usuario ya se encuentra desbloqueado");
                                                             }else {
                                                                 controladorUsuario.desbloquearUsuario(gestor);
-                                                                controladorUsuario.operacionSatisfactoria();
                                                             }
                                                         }else controladorUsuario.operacionFallida();
                                                     }else {
