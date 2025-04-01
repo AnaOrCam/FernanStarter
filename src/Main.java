@@ -15,7 +15,6 @@ public class Main {
         final String ANSI_RESET= "\033[0m";
         final String ANSI_PURPLE= "\033[35m";
         final String ANSI_GREY= "\033[37m";
-        
 
         Scanner s=new Scanner(System.in);
         GestionProyectos modeloProyectos= new GestionProyectos();

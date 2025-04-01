@@ -27,20 +27,10 @@ public class FuncionesMenus {
         System.out.println("Pulsa 3. Salir");
     }
 
-    /**
-     * Muestra el menú principal del usuario Gestor.
-     * @author AnaOrCam
-     * @return no devuelve nada.
-     */
-    public static void menuGestor (){
-        System.out.println("Elije opción:\n" +
-                "1. Mis proyectos\n"+
-                "2. Configuración\n" +
-                "3. Cerrar Sesión\n");
-    }
+
 
     /**
-     * Muestra el menú principal de los usuarios Inversor1 e Inversor2.
+     * Muestra el menú principal de los usuarios Inversor.
      * @author AnaOrCam
      * @return no devuelve nada.
      */
@@ -54,48 +44,9 @@ public class FuncionesMenus {
                 "6. Cerrar Sesión\n");
     }
 
-    /**
-     * Muestra el menú de configuración de los usuarios.
-     * @author AnaOrCam
-     * @return no devuelve nada.
-     */
-    public static void menuConfiguracion (){
-        System.out.println("Seleccione opción");
-        System.out.println("1. Cambiar nombre de usuario");
-        System.out.println("2. Cambiar contraseña de usuario");
-        System.out.println("3. Salir");
-    }
 
 
-    /**
-     * Muestra el menú de modificación de las características de un proyecto en el usuario Gestor.
-     * @author AnaOrCam
-     * @return no devuelve nada.
-     */
-    public static void menuModificarProyecto (){
-        System.out.println("Qué quieres modificar?\n" +
-                "1. Nombre\n" +
-                "2. Categoría\n" +
-                "3. Cantidad a financiar\n" +
-                "4. Cantidad financiada hasta el momento\n" +
-                "5. Fecha de apertura de inversiones\n" +
-                "6. Fecha de cierre de inversiones\n" +
-                "7. Recompensas\n" +
-                "8. Salir");
-    }
 
-    /**
-     * Muestra el menú de modificación de la recompensa de un proyecto.
-     * @author AnaOrCam
-     * @return no devuelve nada.
-     */
-    public static void modificarRecompensa (){
-        System.out.println("¿Qué quiere modificar?\n" +
-                "1. Objeto de la recompensa\n" +
-                "2. Descripción\n" +
-                "3. Precio\n" +
-                "4. Salir");
-    }
 
     /**
      * Muestra el menú inicial de la aplicación.
