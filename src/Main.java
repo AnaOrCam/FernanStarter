@@ -1,6 +1,8 @@
+import utilidades.FuncionesFechas;
 import utilidades.FuncionesMenus;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import static utilidades.FuncionesMenus.*;
@@ -23,7 +25,6 @@ public class Main {
         VistaUsuario vistaUsuario=new VistaUsuario("\033[32m","\033[31m","\033[0m","\033[35m");
         ControladorUsuario controladorUsuario=new ControladorUsuario(modeloUsuarios,vistaUsuario);
         int opcionInicial=0;
-        DateTimeFormatter formatoES = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         System.out.println(ANSI_PURPLE+"Bienvenido a FernanStarter"+ANSI_RESET);
         do {
             menuInicial();
@@ -252,10 +253,19 @@ public class Main {
                                                 System.out.println("Introduce el nombre del proyecto");
                                                 nombreNuevo=s.nextLine();
                                             }while (controladorProyectos.compruebaProyectoExiste(nombreNuevo));
-                                            System.out.println("Introduce la fecha de apertura formato yyyy/MM/dd");
-                                            LocalDate fechaInicio = LocalDate.parse(s.nextLine(), formatoES);
-                                            System.out.println("Introduce la fecha de cierre formato yyyy/MM/dd");
-                                            LocalDate fechaCierre = LocalDate.parse(s.nextLine(), formatoES);
+                                            System.out.println("Introduce la fecha de apertura formato dd/mm/aaaa");
+                                            LocalDate fechaInicio = FuncionesFechas.parsearStringALocalDate(s.nextLine());
+                                            System.out.println("Introduce la fecha de cierre formato dd/mm/aaaa");
+                                            LocalDate fechaCierre = FuncionesFechas.parsearStringALocalDate(s.nextLine());
+                                            boolean fechaCierrePosterior=false;
+                                            do {
+                                                if (FuncionesFechas.fechaPosterior(fechaInicio, fechaCierre)) fechaCierrePosterior=true;
+                                                else{
+                                                    System.out.println("La fecha de cierre es anterior a la fecha de inicio. Por favor escribe de nuevo las fechas de inicio y cierre en formato dd/mm/aaaa");
+                                                    fechaInicio = FuncionesFechas.parsearStringALocalDate(s.nextLine());
+                                                    fechaCierre = FuncionesFechas.parsearStringALocalDate(s.nextLine());
+                                                }
+                                            }while(!fechaCierrePosterior);
                                             System.out.println("Introduce la descripcion del proyecto");
                                             String descripcion=s.nextLine();
                                             System.out.println("Introduce la cantidad total a invertir");
@@ -348,13 +358,13 @@ public class Main {
                                                                 break;
                                                             }case 5:{
                                                                 System.out.println("Fecha nueva de apertura");
-                                                                LocalDate fechaInicionueva = LocalDate.parse(s.nextLine(), formatoES);
+                                                                LocalDate fechaInicionueva = FuncionesFechas.parsearStringALocalDate(s.nextLine());
                                                                 auxiliarUsuarios.setFechaApertura(fechaInicionueva);
                                                                 auxiliarProyectos.setFechaApertura(fechaInicionueva);
                                                                 break;
                                                             }case 6:{
                                                                 System.out.println("Fecha cierre de apertura");
-                                                                LocalDate fechaCierreNueva = LocalDate.parse(s.nextLine(), formatoES);
+                                                                LocalDate fechaCierreNueva = FuncionesFechas.parsearStringALocalDate(s.nextLine());
                                                                 auxiliarUsuarios.setFechaApertura(fechaCierreNueva);
                                                                 auxiliarProyectos.setFechaApertura(fechaCierreNueva);
                                                                 break;

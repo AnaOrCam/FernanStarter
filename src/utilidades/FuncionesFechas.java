@@ -1,24 +1,10 @@
 package utilidades;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 public class FuncionesFechas {
-    /**
-     * Comprueba que la fecha es de una longitud de 10 caracteres y que sigue el formato fecha con barras.
-     * @author davidrn06
-     * @param fecha se refiere a la fecha del proyecto.
-     * @return devuelve true si el formato de la fecha es correcto.
-     */
-    private static boolean comprobacionFormatoFecha(String fecha){
-
-        if (fecha.length()==10 && (fecha.charAt(2)=='/'&&fecha.charAt(5)=='/')){
-            return true;
-        }
-        return false;
-    }
 
     /**
      * Comprueba si la fecha de cierre de un proyecto es posterior a la fecha de apertura.
@@ -28,35 +14,29 @@ public class FuncionesFechas {
      * @return devuelve true si la fecha de cierre del proyecto es posterior a la fecha de apertura.
      */
     public static boolean fechaPosterior(LocalDate fecha1, LocalDate fecha2){
-
-        if (fecha2.isAfter(fecha1)){
-            return true;
-        }
-        return false;
+        return fecha2.isAfter(fecha1);
     }
 
     /**
-     * Transforma la fecha en de formato String a LocalDate.
+     * Transforma la fecha en de formato String a LocalDateTime.
      * @author AnaOrCam
      * @param fecha se refiere a la fecha introducida en formato String.
-     * @return devuelve la fecha en formato LocalDate.
+     * @return devuelve la fecha en formato LocalDateTime.
      */
-    public static LocalDate parsearStringALocalDate (String fecha){
-        if (comprobacionFormatoFecha(fecha)){
-            DateTimeFormatter formatoFechaApp=DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            return LocalDate.parse(fecha,formatoFechaApp);
-        }
-        return null;
+    public static LocalDate parsearStringALocalDate(String fecha){
+        DateTimeFormatter formatoFechaApp=DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return LocalDate.parse(fecha,formatoFechaApp);
+
     }
 
     /**
-     * Transforma la fecha de formato LocalDate a String.
+     * Transforma la fecha de formato LocalDateTime a String.
      * @author AnaOrCam
      * @param fecha se refiere a la fecha introducida en formato LocalDate.
      * @return devuelve la fecha en formato String.
      */
-    public static String parsearLocalDateAString (LocalDate fecha){
-        return fecha.toString();
+    public static String parsearLocalDateAString(LocalDate fecha){
+        return fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
     /**
@@ -68,8 +48,11 @@ public class FuncionesFechas {
      */
     public static String tiempoRestanteParaInvertir (LocalDate fecha, LocalDate fecha2){
         long diferenciaDias= ChronoUnit.DAYS.between(fecha,fecha2);
+     //   long diferenciaHoras= ChronoUnit.HOURS.between(fecha2,fecha);
+     //   long diferenciaMinutos= ChronoUnit.MINUTES.between(fecha2,fecha);
+     //   long diferenciaSegundos= ChronoUnit.SECONDS.between(fecha2,fecha);
 
-        return "Quedan "+diferenciaDias+" días para invertir en este proyecto";
+        return "Quedan "+diferenciaDias+" dias para invertir en este proyecto";
     }
     /**
      * Devuelve el numero de dias restantes , aplicable posteriormente a operador ternario
