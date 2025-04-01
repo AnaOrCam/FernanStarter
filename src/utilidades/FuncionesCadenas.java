@@ -1,5 +1,7 @@
 package utilidades;
 
+import java.time.LocalDate;
+
 public class FuncionesCadenas {
 
     /**
@@ -55,25 +57,7 @@ public class FuncionesCadenas {
     }
 
     /**
-     * Comprueba que la contraseña corresponde al usuario.
-     * @author AnaOrCam
-     * @param usuario se refiere al nombre de usuario dado por el usuario.
-     * @param contrasena se refiere a la contraseña dada por el usuario.
-     * @param usuarios se refiere a la lista de usuarios donde se encuentra el nombre de usuario del usuario.
-     * @param contrasenas se refiere a la lista de contraseñas donde se encuentra la contraseña del usuario.
-     * @return devuelve true si el usuario existe y la contraseña corresponde al usuario y false en el caso contrario.
-     */
-    public static boolean validarOperacion (String usuarioActual, String usuario, String contrasena, String[]usuarios, String []contrasenas){
-        boolean usuarioValidado=false;
-        for (int i = 0; i < usuarios.length; i++) {
-            if (usuarioActual.equals(usuario) && usuario.equals(usuarios[i]) && contrasena.equals(contrasenas[i])){
-                usuarioValidado=true;
-            }
-        }
-        return usuarioValidado;
-    }
-    /**
-     * Comprueba que la contraseña corresponde al usuario.
+     * Comprueba que el título del proyecto tiene una longitud entre 4 y 14 caracteres.
      * @author davidrn06
      * @param titulo se refiere al titulo del proyecto.
      * @return devuelve true la longitud es correcta.
@@ -87,25 +71,7 @@ public class FuncionesCadenas {
         }
         return tituloCorrecto;
     }
-    /**
-     * Comprueba que la contraseña corresponde al usuario.
-     * @author davidrn06
-     * @param fecha se refiere a la fecha del proyecto.
-     * @return devuelve true si el formato de la fecha es correcto.
-     */
-    public static boolean comprobacionFechas(String fecha){
-        boolean fechaCorrecta;
-        if (fecha.length()==10){
-            if (fecha.charAt(2)=='/'&&fecha.charAt(5)=='/'){
-                fechaCorrecta=true;
-            }else {
-                fechaCorrecta=false;
-            }
-        }else {
-            fechaCorrecta=false;
-        }
-        return fechaCorrecta;
-    }
+
     /**
      * Comprueba que el correo contenga @.
      * @author davidrn06
@@ -121,13 +87,4 @@ public class FuncionesCadenas {
         }
         return correoCorrecto;
     }
-
-    public static boolean usuarioNoExiste(String nombreUsuario, String[] array){
-        for (int i = 0; i < array.length ; i++) {
-            if (nombreUsuario.equals(array[i])) return false;
-        }
-        return true;
-    }
-
-
 }
