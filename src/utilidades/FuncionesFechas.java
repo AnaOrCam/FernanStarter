@@ -21,7 +21,7 @@ public class FuncionesFechas {
      * Transforma la fecha en de formato String a LocalDateTime.
      * @author AnaOrCam
      * @param fecha se refiere a la fecha introducida en formato String.
-     * @return devuelve la fecha en formato LocalDateTime.
+     * @return devuelve la fecha en formato LocalDate.
      */
     public static LocalDate parsearStringALocalDate(String fecha){
         DateTimeFormatter formatoFechaApp=DateTimeFormatter.ofPattern("dd/MM/yyyy");
