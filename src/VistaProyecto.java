@@ -35,7 +35,7 @@ public class VistaProyecto {
     public void muestraListaProyectos(LinkedList listaProyectos, LinkedList listaRecompensas){
         for (int i = 0; i < listaProyectos.size(); i++) {
             System.out.println(listaProyectos.get(i));
-            muestraRecompensas(listaRecompensas);
+            muestraRecompensas((Proyecto)listaProyectos.get(i));
         }
     }
 
@@ -50,7 +50,7 @@ public class VistaProyecto {
         for (int i = 0; i < listaProyectos.size(); i++) {
             System.out.println(listaProyectos.get(i));
             System.out.println("Recompensas:");
-            muestraRecompensas(listaRecompensas);
+            muestraRecompensas(listaProyectos.get(i));
             grafico(listaProyectos.get(i).calcularPorcentajeFinanciado(listaProyectos.get(i)));
         }
     }
@@ -58,10 +58,11 @@ public class VistaProyecto {
     /**
      * Muestra la lista de recompensas.
      * @author AnaOrcam
-     * @param listaRecompensas se refiere a la LinkedList que contiene la lista de recompensas.
+     * @param proyecto se refiere al proyecto que contiene la lista de recompensas.
      * @return no devuelve nada.
      */
-    private void muestraRecompensas(LinkedList listaRecompensas){
+    private void muestraRecompensas(Proyecto proyecto){
+        LinkedList<Recompensa>listaRecompensas=proyecto.getListaRecompensas();
         for (Object e: listaRecompensas){
             System.out.println(e);
         }
