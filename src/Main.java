@@ -827,7 +827,7 @@ public class Main {
                                                     System.out.println("Introduce la contraseña para validar la operación:");
                                                     String contrasena=s.nextLine();
                                                     if (controladorUsuario.eliminarUsuario(admin,contrasena)) {
-                                                        opcion = 6;
+                                                        opcion = 4;
                                                     }
                                                     break;
                                                 }
