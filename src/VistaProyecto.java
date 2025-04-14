@@ -25,14 +25,17 @@ public class VistaProyecto {
         this.textoGris=gris;
     }
 
+    public void operacionFallida(){
+        System.out.println(textoRojo+"Error. La operación no ha podido realizarse"+resetColorTexto);
+    }
+
     /**
      * Muestra la lista de proyectos.
      * @author AnaOrcam
      * @param listaProyectos se refiere a la LinkedList que contiene la lista de proyectos.
-     * @param listaRecompensas se refiere a la LinkedList que contiene la lista de recompensas.
      * @return no devuelve nada.
      */
-    public void muestraListaProyectos(LinkedList listaProyectos, LinkedList listaRecompensas){
+    public void muestraListaProyectos(LinkedList listaProyectos){
         for (int i = 0; i < listaProyectos.size(); i++) {
             System.out.println(listaProyectos.get(i));
             muestraRecompensas((Proyecto)listaProyectos.get(i));
@@ -43,10 +46,9 @@ public class VistaProyecto {
      * Muestra la lista de proyectos con la gráfica.
      * @author AnaOrcam
      * @param listaProyectos se refiere a la LinkedList que contiene la lista de proyectos.
-     * @param listaRecompensas se refiere a la LinkedList que contiene la lista de recompensas.
      * @return no devuelve nada.
      */
-    public void muestraListaProyectosConGrafica(LinkedList<Proyecto> listaProyectos, LinkedList listaRecompensas){
+    public void muestraListaProyectosConGrafica(LinkedList<Proyecto> listaProyectos){
         for (int i = 0; i < listaProyectos.size(); i++) {
             System.out.println(listaProyectos.get(i));
             System.out.println("Recompensas:");

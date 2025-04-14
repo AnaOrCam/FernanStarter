@@ -23,6 +23,17 @@ public class ControladorUsuario {
         modelo.aniadirUsuario(nuevo);
         vista.operacionSatisfactoria();
     }
+
+    public boolean eliminarUsuario(Usuario usuario, String contrasena){
+        if (modelo.compruebaCredenciales2(usuario.getCorreo(),contrasena)) {
+            modelo.eliminarUsuario(usuario);
+            vista.operacionSatisfactoria();
+            return true;
+        }
+        vista.comprobacionIncorrecta();
+        return false;
+    }
+
     /**
      * Muestra usuarios en la vista pasados desde el modelo
      * @author davidrn06
@@ -238,12 +249,23 @@ public class ControladorUsuario {
      */
     public boolean mostrarInversiones(Inversor inversor){
         if (!inversor.getProyectosInvertidos().isEmpty()){
-            vista.mostrarProyecosInvertidos(inversor.getProyectosInvertidos());
+            vista.mostrarProyectosInvertidos(inversor.getProyectosInvertidos());
             vista.mostrarInvertidoTotal(inversor.getInvertidoTotal());
             return true;
         }
         return false;
     }
+
+    public boolean mostrarInversionesOrdenadas(Inversor inversor){
+        if (!inversor.getProyectosInvertidos().isEmpty()){
+            LinkedList<Inversion>listaOrdenadaInversiones=new LinkedList<>(inversor.ordenarPorCantidadInvertida());
+            vista.mostrarProyectosInvertidos(listaOrdenadaInversiones);
+            vista.mostrarInvertidoTotal(inversor.getInvertidoTotal());
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Aumenta inversiones
      * @author AnaOrCam

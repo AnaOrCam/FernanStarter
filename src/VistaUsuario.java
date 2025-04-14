@@ -153,7 +153,7 @@ public class VistaUsuario {
      * @param listaInversiones se refiere a la LinkedList que contiene las inversiones de un inversor.
      * @return no devuelve nada.
      */
-    public void mostrarProyecosInvertidos(LinkedList listaInversiones){
+    public void mostrarProyectosInvertidos(LinkedList listaInversiones){
         for (Object e: listaInversiones) {
             System.out.println(e);
         }

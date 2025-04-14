@@ -1,7 +1,12 @@
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.List;
 
 public class GestionProyectos {
     private LinkedList<Proyecto> proyectos;
+
+
     /**
      * Constructor de gestion de proyecto
      * @author AnaOrCam
@@ -37,6 +42,39 @@ public class GestionProyectos {
         }
         return null;
     }
+
+    public List<Proyecto> ordenarPorImporteFinanciado(LinkedList<Proyecto> proyectos){
+        List<Proyecto> listaProyectos=proyectos.stream().toList();
+        return listaProyectos
+                .stream()
+                .sorted((o1,o2) -> o1.getCantidadInvertidaActual()-o2.getCantidadInvertidaActual())
+                .toList();
+    }
+
+    public List<Proyecto> ordenarPorCantidadAFinanciar(LinkedList<Proyecto> proyectos){
+        List<Proyecto> listaProyectos=proyectos.stream().toList();
+        return listaProyectos
+                .stream()
+                .sorted((o1,o2) -> o1.getCantidadAInvertirTotal()-o2.getCantidadAInvertirTotal())
+                .toList();
+    }
+
+    public List<Proyecto> ordenarPorFechaApertura(LinkedList<Proyecto> proyectos){
+        List<Proyecto> listaProyectos=proyectos.stream().toList();
+        return listaProyectos
+                .stream()
+                .sorted((o1,o2) -> o1.getFechaApertura().compareTo(o2.getFechaApertura()))
+                .toList();
+    }
+
+    public List<Proyecto> ordenarPorFechaCierre(LinkedList<Proyecto> proyectos){
+        List<Proyecto> listaProyectos=proyectos.stream().toList();
+        return listaProyectos
+                .stream()
+                .sorted((o1,o2) -> o1.getFechaCierre().compareTo(o2.getFechaCierre()))
+                .toList();
+    }
+
     /**
      * Añade financiaciona un proyecto
      * @author AnaOrCam

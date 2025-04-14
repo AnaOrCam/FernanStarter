@@ -1,3 +1,4 @@
+import java.util.LinkedList;
 
 public class ControladorProyectos {
 
@@ -21,11 +22,43 @@ public class ControladorProyectos {
      */
     public boolean mostrarProyectos(){
         if (!modelo.getProyectos().isEmpty()) {
-            vista.muestraListaProyectos(modelo.getProyectos(), modelo.getListaRecompensas());
+            vista.muestraListaProyectos(modelo.getProyectos());
             return true;
         }
         return false;
     }
+
+    public LinkedList<Proyecto> getListaProyectos(){
+        return modelo.getProyectos();
+    }
+
+    public void ordenarProyectos(LinkedList<Proyecto> proyectos, int tipoOrden){
+        //Tipo orden:
+        // 1. Por cantidad invertida
+        // 2. Por cantidad a financiar
+        // 2. Por fecha de apertura
+        // 3. Por fecha de cierre
+        switch (tipoOrden){
+            case 1->{
+                LinkedList<Proyecto> listaOrdenada = new LinkedList<>(modelo.ordenarPorImporteFinanciado(proyectos));
+                vista.muestraListaProyectos(listaOrdenada);
+            }
+            case 2->{
+                LinkedList<Proyecto> listaOrdenada = new LinkedList<>(modelo.ordenarPorCantidadAFinanciar(proyectos));
+                vista.muestraListaProyectos(listaOrdenada);
+            }
+            case 3->{
+                LinkedList<Proyecto> listaOrdenada= new LinkedList<>(modelo.ordenarPorFechaApertura(proyectos));
+                vista.muestraListaProyectos(listaOrdenada);
+            }
+            case 4->{
+                LinkedList<Proyecto> listaOrdenada= new LinkedList<>(modelo.ordenarPorFechaCierre(proyectos));
+                vista.muestraListaProyectos(listaOrdenada);
+            }
+            default -> vista.operacionFallida();
+        }
+    }
+
     /**
      * Metodo que muestra proyectos con grafico
      * @author AnaOrCam
@@ -33,7 +66,7 @@ public class ControladorProyectos {
      */
     public boolean mostrarProyectosConGrafico(){
         if (!modelo.getProyectos().isEmpty()) {
-            vista.muestraListaProyectosConGrafica(modelo.getProyectos(), modelo.getListaRecompensas());
+            vista.muestraListaProyectosConGrafica(modelo.getProyectos());
             return true;
         }
         return false;
@@ -48,12 +81,12 @@ public class ControladorProyectos {
         vista.proyectoInsertadoCorrectamente(proyecto);
     }
     /**
-     * Metodo que insertar recompensa en un proyecto
+     * Metodo que inserta recompensa en un proyecto
      * @author AnaOrCam
      * @param nombreProyecto nombre del proyecto en el que se va a insertar
      * @param  recompensa recompensa que va a ser insertada
      */
-    public void insertarRecompensa(Recompensa recompensa, String nombreProyecto){
+    public void insertarRecompensaPorNombre(Recompensa recompensa, String nombreProyecto){
         Proyecto aux=modelo.buscaProyecto(nombreProyecto);
         aux.insertaRecompensa(recompensa);
     }

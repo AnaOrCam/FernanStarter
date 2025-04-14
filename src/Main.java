@@ -2,8 +2,7 @@ import utilidades.FuncionesFechas;
 import utilidades.FuncionesMenus;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
 import java.util.Scanner;
 import static utilidades.FuncionesMenus.*;
 import static utilidades.FuncionesCorreos.*;
@@ -293,6 +292,31 @@ public class Main {
                                             if (controladorUsuario.getProyectosCreadosPorGestorSinVista(gestor).size()>0){
                                                 System.out.println("Estos son tus proyectos");
                                                 controladorUsuario.getProyectosCreadosPorGestor(gestor);
+                                                System.out.println("¿Quieres ordenarlos?\n1. Si\n2. No");
+                                                int opcionOrden=Integer.parseInt(s.nextLine());
+                                                if (opcionOrden==1){
+                                                    FuncionesMenus.menuOrdenProyectos();
+                                                    LinkedList<Proyecto>proyectosCreadosPorGestor=controladorUsuario.getProyectosCreadosPorGestorSinVista(gestor);
+                                                    opcionOrden=Integer.parseInt(s.nextLine());
+                                                    switch (opcionOrden){
+                                                        case 1->{
+                                                            controladorProyectos.ordenarProyectos(proyectosCreadosPorGestor,1);
+                                                        }
+                                                        case 2->{
+                                                            controladorProyectos.ordenarProyectos(proyectosCreadosPorGestor,2);
+                                                        }
+                                                        case 3->{
+                                                            controladorProyectos.ordenarProyectos(proyectosCreadosPorGestor,3);
+                                                        }
+                                                        case 4->{
+                                                            controladorProyectos.ordenarProyectos(proyectosCreadosPorGestor,4);
+                                                        }
+                                                        case 5-> System.out.println("Saliendo...");
+                                                        default -> System.out.println("Esa opción no se encuentra en el menú");
+                                                    };
+                                                }else if(opcion!=2){
+                                                    System.out.println("Esa opción no se encuentra en el menú");
+                                                }
                                                 System.out.println("Escribe el nombre del  proyecto a visualizar (0 Para salir)");
                                                 String opcionaux=s.nextLine();
                                                 if (!opcionaux.equals("0")){
@@ -412,7 +436,8 @@ public class Main {
                                             System.out.println("Has accedido a la configuracion ");
                                             System.out.println("Elije opcion:\n" +
                                                     "1.Cambiar Nombre\n" +
-                                                    "2.Cambiar Contraseña");
+                                                    "2.Cambiar Contraseña\n" +
+                                                    "3.Eliminar cuenta");
                                             opcion=Integer.parseInt(s.nextLine());
                                             switch (opcion){
                                                 case 1:{
@@ -426,6 +451,14 @@ public class Main {
                                                     System.out.println("Introduce la nueva contraseña");
                                                     gestor.setContrasena(s.nextLine());
                                                     controladorUsuario.operacionSatisfactoria();
+                                                    break;
+                                                }
+                                                case 3:{
+                                                    System.out.println("Introduce la contraseña para validar la operación:");
+                                                    String contrasena=s.nextLine();
+                                                    if (controladorUsuario.eliminarUsuario(gestor,contrasena)) {
+                                                        opcion = 6;
+                                                    }
                                                     break;
                                                 }
                                                 default:{
@@ -449,8 +482,13 @@ public class Main {
                                     switch (opcion) {
                                         case 1 -> {
                                             if (controladorUsuario.mostrarInversiones(inversor)) {
-                                                System.out.println("¿Quieres modificar la cantidad de alguna inversión? (si/no)");
+                                                System.out.println("¿Quieres ordenar las inversiones por cantidad invertida? (si/no)");
                                                 String respuesta=s.nextLine();
+                                                if (respuesta.equalsIgnoreCase("si")){
+                                                    controladorUsuario.mostrarInversionesOrdenadas(inversor);
+                                                }
+                                                System.out.println("¿Quieres modificar la cantidad de alguna inversión? (si/no)");
+                                                respuesta=s.nextLine();
                                                 if (respuesta.equalsIgnoreCase("si")){
                                                     System.out.println("Escribe la ID de la inversión que quieres modificar:");
                                                     int id=Integer.parseInt(s.nextLine());
@@ -516,6 +554,31 @@ public class Main {
                                         case 2 -> {
                                             System.out.println("------PROYECTOS------");
                                             if (controladorProyectos.mostrarProyectosConGrafico()){
+                                                System.out.println("¿Quieres ordenarlos?\n1. Si\n2. No");
+                                                int opcionOrden=Integer.parseInt(s.nextLine());
+                                                if (opcionOrden==1){
+                                                    FuncionesMenus.menuOrdenProyectos();
+                                                    LinkedList<Proyecto>listaProyectos=controladorProyectos.getListaProyectos();
+                                                    opcionOrden=Integer.parseInt(s.nextLine());
+                                                    switch (opcionOrden){
+                                                        case 1->{
+                                                            controladorProyectos.ordenarProyectos(listaProyectos,1);
+                                                        }
+                                                        case 2->{
+                                                            controladorProyectos.ordenarProyectos(listaProyectos,2);
+                                                        }
+                                                        case 3->{
+                                                            controladorProyectos.ordenarProyectos(listaProyectos,3);
+                                                        }
+                                                        case 4->{
+                                                            controladorProyectos.ordenarProyectos(listaProyectos,4);
+                                                        }
+                                                        case 5-> System.out.println("Saliendo...");
+                                                        default -> System.out.println("Esa opción no se encuentra en el menú");
+                                                    }
+                                                }else if(opcion!=2){
+                                                    System.out.println("Esa opción no se encuentra en el menú");
+                                                }
                                                 System.out.println("¿Quieres hacer una inversión? (si/no)");
                                                 if (s.nextLine().equalsIgnoreCase("si")) {
                                                     System.out.println("Introduce el nombre del proyecto en el que quieres invertir:");
@@ -598,7 +661,8 @@ public class Main {
                                             System.out.println("Has accedido a la configuracion ");
                                             System.out.println("Elije opcion:\n" +
                                                     "1.Cambiar Nombre\n" +
-                                                    "2.Cambiar Contraseña");
+                                                    "2.Cambiar Contraseña\n" +
+                                                    "3.Eliminar cuenta");
                                             opcion=Integer.parseInt(s.nextLine());
                                             switch (opcion){
                                                 case 1:{
@@ -612,6 +676,14 @@ public class Main {
                                                     System.out.println("Introduce la nueva contraseña");
                                                     inversor.setContrasena(s.nextLine());
                                                     controladorUsuario.operacionSatisfactoria();
+                                                    break;
+                                                }
+                                                case 3:{
+                                                    System.out.println("Introduce la contraseña para validar la operación:");
+                                                    String contrasena=s.nextLine();
+                                                    if (controladorUsuario.eliminarUsuario(inversor,contrasena)) {
+                                                        opcion = 6;
+                                                    }
                                                     break;
                                                 }
                                                 default:{
@@ -701,6 +773,32 @@ public class Main {
                                         case 2:{
                                             if (!controladorProyectos.mostrarProyectosConGrafico()){
                                                 System.out.println("No hay proyectos disponibles");
+                                            }else{
+                                                System.out.println("¿Quieres ordenarlos?\n1. Si\n2. No");
+                                                int opcionOrden=Integer.parseInt(s.nextLine());
+                                                if (opcionOrden==1){
+                                                    FuncionesMenus.menuOrdenProyectos();
+                                                    LinkedList<Proyecto>listaProyectos=controladorProyectos.getListaProyectos();
+                                                    opcionOrden=Integer.parseInt(s.nextLine());
+                                                    switch (opcionOrden){
+                                                        case 1->{
+                                                            controladorProyectos.ordenarProyectos(listaProyectos,1);
+                                                        }
+                                                        case 2->{
+                                                            controladorProyectos.ordenarProyectos(listaProyectos,2);
+                                                        }
+                                                        case 3->{
+                                                            controladorProyectos.ordenarProyectos(listaProyectos,3);
+                                                        }
+                                                        case 4->{
+                                                            controladorProyectos.ordenarProyectos(listaProyectos,4);
+                                                        }
+                                                        case 5-> System.out.println("Saliendo...");
+                                                        default -> System.out.println("Esa opción no se encuentra en el menú");
+                                                    }
+                                                }else if(opcion!=2){
+                                                    System.out.println("Esa opción no se encuentra en el menú");
+                                                }
                                             }
                                             break;
                                         }
@@ -708,7 +806,8 @@ public class Main {
                                             System.out.println("Has accedido a la configuracion ");
                                             System.out.println("Elije opcion:\n" +
                                                     "1.Cambiar Nombre\n" +
-                                                    "2.Cambiar Contraseña");
+                                                    "2.Cambiar Contraseña\n" +
+                                                    "3.Eliminar cuenta");
                                             opcion=Integer.parseInt(s.nextLine());
                                             switch (opcion){
                                                 case 1:{
@@ -722,6 +821,14 @@ public class Main {
                                                     System.out.println("Introduce la nueva contraseña");
                                                     admin.setContrasena(s.nextLine());
                                                     controladorUsuario.operacionSatisfactoria();
+                                                    break;
+                                                }
+                                                case 3:{
+                                                    System.out.println("Introduce la contraseña para validar la operación:");
+                                                    String contrasena=s.nextLine();
+                                                    if (controladorUsuario.eliminarUsuario(admin,contrasena)) {
+                                                        opcion = 6;
+                                                    }
                                                     break;
                                                 }
                                                 default:{

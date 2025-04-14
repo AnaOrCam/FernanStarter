@@ -12,6 +12,11 @@ public class GestionUsuarios {
     public void aniadirUsuario(Usuario nuevo){
         usuarios.put(nuevo.getCorreo(), nuevo);
     }
+
+    public void eliminarUsuario(Usuario usuario){
+        usuarios.remove(usuario.getCorreo(), usuario);
+    }
+
     /**
      * Devuelve el diccionario de usuarios
      * @author AnaOrCam
@@ -222,8 +227,11 @@ public class GestionUsuarios {
         return false;
     }
     public boolean compruebaCredenciales2(String correo,String contrasena){
-        if (usuarios.containsKey(correo) && usuarios.get(correo).equals(contrasena)) return true;
-        else return false;
+        if (usuarios.containsKey(correo)){
+            Usuario aux=usuarios.get(correo);
+            return aux.getContrasena().equals(contrasena);
+        }
+        return false;
     }
     /**
      * Busca un usuario segun su correo y contraseña

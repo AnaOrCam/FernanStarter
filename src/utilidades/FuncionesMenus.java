@@ -27,7 +27,14 @@ public class FuncionesMenus {
         System.out.println("Pulsa 3. Salir");
     }
 
-
+    public static void menuOrdenProyectos(){
+        System.out.println("¿Cómo quieres ordenar los proyectos?\n" +
+                "1. Por cantidad invertida\n" +
+                "2. Por cantidad a financiar\n"+
+                "3. Por fecha de apertura\n" +
+                "4. Por fecha de cierre\n" +
+                "5. Salir");
+    }
 
     /**
      * Muestra el menú principal de los usuarios Inversor.

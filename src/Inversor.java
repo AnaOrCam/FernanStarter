@@ -1,6 +1,7 @@
 import utilidades.FuncionesCadenas;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Inversor extends Usuario implements Bloqueable{
     private LinkedList<Inversion> proyectosInvertidos;
@@ -36,6 +37,16 @@ public class Inversor extends Usuario implements Bloqueable{
      */
     public LinkedList<Inversion> getProyectosInvertidos() {
         return proyectosInvertidos;
+    }
+
+    public List<Inversion> ordenarPorCantidadInvertida(){
+        List<Inversion> listaOrdenada=proyectosInvertidos.stream().toList();
+        listaOrdenada
+                .stream()
+                .sorted((o1,o2)->(int)o1.getCantidadInvertida()-(int)o2.getCantidadInvertida())
+                .toList();
+
+        return listaOrdenada;
     }
 
     /**
