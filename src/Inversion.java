@@ -1,4 +1,6 @@
-public class Inversion implements Invertible{
+import java.io.Serializable;
+
+public class Inversion implements Invertible , Serializable {
     private String nombreProyecto;
     private float cantidadInvertida;
     private Inversor inversor;

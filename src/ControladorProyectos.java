@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class ControladorProyectos {
+public class ControladorProyectos implements Serializable {
 
     private GestionProyectos modelo;
     private VistaProyecto vista;

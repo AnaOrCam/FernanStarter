@@ -1,9 +1,10 @@
 import utilidades.FuncionesCadenas;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Inversor extends Usuario implements Bloqueable{
+public class Inversor extends Usuario implements Bloqueable, Serializable {
     private LinkedList<Inversion> proyectosInvertidos;
     private LinkedList<String> amigosInvitados;
     private float invertidoTotal;

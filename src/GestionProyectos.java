@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class GestionProyectos {
+public class GestionProyectos implements Serializable {
     private LinkedList<Proyecto> proyectos;
 
 

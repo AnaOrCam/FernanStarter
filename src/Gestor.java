@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class Gestor extends Usuario implements Bloqueable{
+public class Gestor extends Usuario implements Bloqueable, Serializable {
     private LinkedList<Proyecto> proyectosCreados;
     private boolean bloqueado;
     private int intentos;

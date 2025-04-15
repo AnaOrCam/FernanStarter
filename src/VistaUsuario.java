@@ -1,9 +1,10 @@
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-public class VistaUsuario {
+public class VistaUsuario implements Serializable {
     private String textoVerde;
     private String textoRojo;
     private String resetColorTexto;

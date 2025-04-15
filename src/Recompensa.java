@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Recompensa {
+public class Recompensa implements Serializable {
     private String nombre;
     private String descripcion;
     private float importe;

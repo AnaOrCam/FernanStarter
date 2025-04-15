@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import static utilidades.FuncionesFechas.*;
-public class Proyecto{
+public class Proyecto implements Serializable {
     private String nombre;
     private LocalDate fechaApertura;
     private LocalDate fechaCierre;

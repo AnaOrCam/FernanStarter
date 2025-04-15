@@ -1,6 +1,8 @@
+import java.io.Serializable;
+import java.util.HashMap;
 import java.util.LinkedList;
 
-public class ControladorUsuario {
+public class ControladorUsuario implements Serializable {
     private GestionUsuarios modelo;
     private VistaUsuario vista;
 
@@ -40,6 +42,9 @@ public class ControladorUsuario {
      */
     public void muestraUsuarios(){
         vista.muestraUsuarios(modelo.getUsuarios());
+    }
+    public HashMap<String,Usuario> getUsuarios(){
+       return modelo.getUsuarios();
     }
     /**
      * Busca usuarios por su correo

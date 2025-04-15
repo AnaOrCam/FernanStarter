@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class VistaProyecto {
+public class VistaProyecto implements Serializable {
     private String textoVerde;
     private String textoRojo;
     private String resetColorTexto;

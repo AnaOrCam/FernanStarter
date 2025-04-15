@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-public class GestionUsuarios {
+public class GestionUsuarios implements Serializable {
     private HashMap<String,Usuario> usuarios = new HashMap<>();
     /**
      * Añade un usuario nuevo a la lista
