@@ -5,12 +5,13 @@ import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
+import java.util.Properties;
 import java.util.Scanner;
 import static utilidades.FuncionesMenus.*;
 import static utilidades.FuncionesCorreos.*;
 import static utilidades.FuncionesCadenas.*;
 public class Main {
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args){
         final String ANSI_GREEN= "\033[32m";
         final String ANSI_RED="\033[31m";
         final String ANSI_RESET= "\033[0m";
@@ -24,17 +25,24 @@ public class Main {
         VistaUsuario vistaUsuario=new VistaUsuario("\033[32m","\033[31m","\033[0m","\033[35m");
         ControladorProyectos controladorProyectos=new ControladorProyectos(modeloProyectos,vistaProyectos);
         ControladorUsuario controladorUsuario=new ControladorUsuario(modeloUsuarios,vistaUsuario);
+        Properties properties=new Properties();
 
-        File archivoUsuarios = new File("./src/Datos/RecuperacionUsuarios.txt");
-        File archivoProyectos = new File("./src/Datos/RecuperacionProyectos.txt");
+        try {
+            File archivoUsuarios = new File("./src/Datos/RecuperacionUsuarios.txt");
+            File archivoProyectos = new File("./src/Datos/RecuperacionProyectos.txt");
 
-        if (archivoUsuarios.length() != 0 && archivoProyectos.length() != 0) {
-            ObjectInputStream ois=new ObjectInputStream(new FileInputStream(archivoUsuarios));
-            ObjectInputStream ois2=new ObjectInputStream(new FileInputStream(archivoProyectos));
-             controladorUsuario=(ControladorUsuario) ois.readObject();
-             controladorProyectos= (ControladorProyectos) ois2.readObject();
-            ois.close();
-            ois2.close();
+            if (archivoUsuarios.length() != 0 && archivoProyectos.length() != 0) {
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivoUsuarios));
+                ObjectInputStream ois2 = new ObjectInputStream(new FileInputStream(archivoProyectos));
+                controladorUsuario = (ControladorUsuario) ois.readObject();
+                controladorProyectos = (ControladorProyectos) ois2.readObject();
+                ois.close();
+                ois2.close();
+            }
+        }catch (ClassNotFoundException e){
+            e.printStackTrace();
+        }catch (IOException e){
+            e.printStackTrace();
         }
 
         int opcionInicial=0;
@@ -245,9 +253,18 @@ public class Main {
                         Usuario usuarioActual =controladorUsuario.getUsuarioIniciado(correoAux,contraseniaAunx);
                         TipoUsuario tipoIniciado=controladorUsuario.getUsuarioIniciado(correoAux,contraseniaAunx).getTipoUsuario();
                         int opcion;
-                        BufferedWriter bw =new BufferedWriter(new FileWriter("./src/Logs/Logs.csv",true));
-                        bw.write("Inicio de Sesión;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
-                        bw.close();
+                        try {
+                            BufferedWriter bw = new BufferedWriter(new FileWriter("./src/Logs/Logs.csv", true));
+                            bw.write("Inicio de Sesión;" + usuarioActual.getCorreo() + ";" + LocalDateTime.now() + "\n");
+                            bw.close();
+                            properties.load(new FileReader("./src/Datos/setup.properties"));
+                            if (properties.containsKey(usuarioActual.getCorreo())){
+                                System.out.println("Hola "+usuarioActual.getNombre()+"! La última vez que iniciaste sesión fue en "+properties.getProperty(usuarioActual.getCorreo()));
+                            }
+                        }catch (IOException e){
+                            System.out.println("Error");
+                            e.printStackTrace();
+                        }
                         switch (tipoIniciado){
                             case GESTOR :{
                                 Gestor gestor=(Gestor) usuarioActual;
@@ -306,9 +323,14 @@ public class Main {
                                             }
                                             controladorProyectos.insertarProyecto(nuevo);
                                             controladorUsuario.gestorAnadirProyecto(gestor,nuevo);
-                                            BufferedWriter bw2 =new BufferedWriter(new FileWriter("./src/Logs/Logs.csv",true));
-                                            bw2.write("Nuevo Proyecto;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
-                                            bw2.close();
+                                            try {
+                                                BufferedWriter bw2 = new BufferedWriter(new FileWriter("./src/Logs/Logs.csv", true));
+                                                bw2.write("Nuevo Proyecto;" + usuarioActual.getCorreo() + ";" + LocalDateTime.now() + "\n");
+                                                bw2.close();
+                                            }catch (IOException e){
+                                            System.out.println("Error");
+                                            e.printStackTrace();
+                                        }
                                             break;
                                         }
                                         case 2:{
@@ -433,9 +455,14 @@ public class Main {
                                                                 break;
                                                             }
                                                         }
+                                                        try{
                                                         BufferedWriter bw2 =new BufferedWriter(new FileWriter("./src/Logs/Logs.csv",true));
                                                         bw2.write("Modificacion Proyecto;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
                                                         bw2.close();
+                                                        }catch (IOException e){
+                                                            System.out.println("Error");
+                                                            e.printStackTrace();
+                                                        }
                                                     }else {
                                                         System.out.println("Proyecto no encontrado");
                                                     }
@@ -455,9 +482,14 @@ public class Main {
                                                 Proyecto auxiliarProyectos=controladorProyectos.buscarProyecto(opcionaux);
                                                 controladorProyectos.borrarProyecto(auxiliarProyectos);
                                                 controladorUsuario.borrarProyecto(gestor,auxiliarUsuarios);
+                                                try{
                                                 BufferedWriter bw2 =new BufferedWriter(new FileWriter("./src/Logs/Logs.csv",true));
                                                 bw2.write("Eliminación Proyecto;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
                                                 bw2.close();
+                                                }catch (IOException e){
+                                                    System.out.println("Error");
+                                                    e.printStackTrace();
+                                                }
                                             }
                                             break;
                                         }
@@ -497,9 +529,14 @@ public class Main {
                                             break;
                                         } case 6:{
                                             System.out.println("Cerrando Sesion");
+                                            try{
                                             BufferedWriter bw2 =new BufferedWriter(new FileWriter("./src/Logs/Logs.csv",true));
                                             bw2.write("Cerrando Sesión;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
                                             bw2.close();
+                                            }catch (IOException e){
+                                                System.out.println("Error");
+                                                e.printStackTrace();
+                                            }
                                             break;
                                         }
 
@@ -623,9 +660,14 @@ public class Main {
                                                         System.out.println("¿Què cantidad quieres invertir?");
                                                         float cantidad=Float.parseFloat(s.nextLine());
                                                         if (controladorProyectos.siRecompensa(cantidad,proyectoAux)) {
+                                                            try{
                                                             BufferedWriter bw2 =new BufferedWriter(new FileWriter("./src/Logs/Logs.csv",true));
                                                             bw2.write("Inversion Realizada;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
                                                             bw2.close();
+                                                            }catch (IOException e){
+                                                                System.out.println("Error");
+                                                                e.printStackTrace();
+                                                            }
                                                             System.out.println("¡Enhorabuena! Por tu inversión puedes elegir entre las siguientes recompensas: ");
                                                             controladorProyectos.mostrarRecompensasAElegir(cantidad, proyectoAux);
                                                             boolean recompensaValida = false;
@@ -642,6 +684,7 @@ public class Main {
                                                             Recompensa recompensaAux = controladorProyectos.buscarRecompensa(eleccion, proyectoAux);
                                                             Inversion inversionAux = new Inversion(nombre, cantidad, inversor, recompensaAux);
                                                             if (controladorProyectos.aniadirFinanciacionAProyecto(cantidad, proyectoAux)) {
+                                                                sdfghjkhjg
                                                                 if (!controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)) {
                                                                     System.out.println("No se ha podido realizar la operación. Saldo insuficiente");
                                                                 }
@@ -651,6 +694,7 @@ public class Main {
                                                         }else{
                                                             Inversion inversionAux = new Inversion(nombre, cantidad, inversor);
                                                             if (controladorProyectos.aniadirFinanciacionAProyecto(cantidad, proyectoAux)){
+                                                                edrfgthyujk
                                                                 if (!controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)) {
                                                                     System.out.println(ANSI_RED+"No se ha podido realizar la operación. Saldo insuficiente"+ANSI_RESET);
                                                                 }
@@ -732,9 +776,14 @@ public class Main {
                                         }
                                         case 6 ->{
                                             System.out.println("Cerrando sesión...") ;
-                                            BufferedWriter bw2 =new BufferedWriter(new FileWriter("./src/Logs/Logs.csv",true));
-                                            bw2.write("Cerrando Sesión;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
-                                            bw2.close();
+                                            try {
+                                                BufferedWriter bw2 = new BufferedWriter(new FileWriter("./src/Logs/Logs.csv", true));
+                                                bw2.write("Cerrando Sesión;" + usuarioActual.getCorreo() + ";" + LocalDateTime.now() + "\n");
+                                                bw2.close();
+                                            }catch (IOException e){
+                                                System.out.println("Error");
+                                                e.printStackTrace();
+                                            }
                                         }
                                         default -> System.out.println("Esa opción no se encuentra en el menú");
                                     }
@@ -883,9 +932,14 @@ public class Main {
                                         }
                                         case 4:{
                                             System.out.println("Cerrando Sesion...");
-                                            BufferedWriter bw2 =new BufferedWriter(new FileWriter("./src/Logs/Logs.csv",true));
-                                            bw2.write("Cerrando Sesión;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
-                                            bw2.close();
+                                            try {
+                                                BufferedWriter bw2 = new BufferedWriter(new FileWriter("./src/Logs/Logs.csv", true));
+                                                bw2.write("Cerrando Sesión;" + usuarioActual.getCorreo() + ";" + LocalDateTime.now() + "\n");
+                                                bw2.close();
+                                            }catch (IOException e){
+                                                System.out.println("Error");
+                                                e.printStackTrace();
+                                            }
                                             break;
                                         }
                                         default:{
@@ -899,6 +953,14 @@ public class Main {
                                 break;
                             }
                         }
+                        try {
+                            String fecha=FuncionesFechas.parsearLocalDateAString(LocalDate.now())+" "+LocalDateTime.now().getHour()+":"+LocalDateTime.now().getMinute();
+                            properties.setProperty(usuarioActual.getCorreo(), fecha);
+                            properties.store(new FileWriter("./src/Datos/setup.properties"), "Sistema actualizado");
+                        }catch (IOException e){
+                            System.out.println("Error al guardar el archivo Properties");
+                        }
+
                     }else if (controladorUsuario.getUsuario(correoAux)!=null){
                         System.out.println("Sus credenciales no son válidas");
                         if (controladorUsuario.getUsuario(correoAux).getTipoUsuario()==TipoUsuario.INVERSOR){

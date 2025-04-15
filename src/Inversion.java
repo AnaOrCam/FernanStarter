@@ -101,11 +101,11 @@ public class Inversion implements Invertible , Serializable {
     /**
      * Sobreescribe el metodo toString
      * @author AnaOrCam
-     * @return  la cadena de con los datos de la inversion
+     * @return  la cadena de con los Datos de la inversion
      */
     public String toString(){
         if (recompensaElegida==null){
-            return "Proyecto: "+nombreProyecto+" - ID de inversión: "+idInversion+"\nCantidad invertida: "+cantidadInvertida;
-        }else return "Proyecto: "+nombreProyecto+" - ID de inversión: "+idInversion+"\nCantidad invertida: "+cantidadInvertida+" - Recompensa elegida: "+recompensaElegida;
+            return "Proyecto: "+nombreProyecto+" - ID de inversión: "+idInversion+"\nCantidad invertida: "+cantidadInvertida+"\nInversor: "+inversor;
+        }else return "Proyecto: "+nombreProyecto+" - ID de inversión: "+idInversion+"\nCantidad invertida: "+cantidadInvertida+" - Recompensa elegida: "+recompensaElegida+"\nInversor: "+inversor;
     }
 }

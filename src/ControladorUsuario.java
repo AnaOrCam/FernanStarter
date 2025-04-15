@@ -26,6 +26,13 @@ public class ControladorUsuario implements Serializable {
         vista.operacionSatisfactoria();
     }
 
+    /**
+     * Elimina usuario si se produce la identificacion correctamente
+     * @author AnaOrCam
+     * @param usuario objeto usuario que se eliminara
+     * @param contrasena con la que se identifica como el usuario actual y confirma la operacion
+     * @return true si se elimina
+     */
     public boolean eliminarUsuario(Usuario usuario, String contrasena){
         if (modelo.compruebaCredenciales2(usuario.getCorreo(),contrasena)) {
             modelo.eliminarUsuario(usuario);
@@ -261,6 +268,12 @@ public class ControladorUsuario implements Serializable {
         return false;
     }
 
+    /**
+     * Muestra las inversiones realizadas por un inversor ordenadas por cantidad invertida
+     * @author AnaOrCam
+     * @param inversor inversor de las inversiones que se muestran
+     * @return true si hay alguna inversion
+     */
     public boolean mostrarInversionesOrdenadas(Inversor inversor){
         if (!inversor.getProyectosInvertidos().isEmpty()){
             LinkedList<Inversion>listaOrdenadaInversiones=new LinkedList<>(inversor.ordenarPorCantidadInvertida());
@@ -298,9 +311,6 @@ public class ControladorUsuario implements Serializable {
         else vista.operacionFallida();
     }
 
-    public Recompensa getRecompensaDeInversion(Inversor inversor, int idInversion){
-        return modelo.getRecompensaInversion(inversor, idInversion);
-    }
     /**
      * Comprueba si una inversion existe
      * @author AnaOrCam

@@ -29,10 +29,21 @@ public class ControladorProyectos implements Serializable {
         return false;
     }
 
+    /**
+     * Metodo que devuelve la lista de proyectos
+     * @author AnaOrCam
+     * @return devuelve una Linkedlist con los proyectos existentes
+     */
     public LinkedList<Proyecto> getListaProyectos(){
         return modelo.getProyectos();
     }
 
+    /**
+     * Metodo que ordena los proyectos según fecha de apertura, fecha de cierre, cantidad a financiar o importe financiado.
+     * @author AnaOrCam
+     * @param proyectos se refiere a la Linkedlist que contiene los proyectos.
+     * @param tipoOrden se refiere al criterio de orden que se seguira basado en un numero entero.
+     */
     public void ordenarProyectos(LinkedList<Proyecto> proyectos, int tipoOrden){
         //Tipo orden:
         // 1. Por cantidad invertida
