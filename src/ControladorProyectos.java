@@ -29,6 +29,9 @@ public class ControladorProyectos implements Serializable {
         }
         return false;
     }
+    public void muestraProyectoUnicoConGrafico(Proyecto aux){
+        vista.muestraProyectoConGrafica(aux);
+    }
 
     /**
      * Getter de la lista de inversiones.

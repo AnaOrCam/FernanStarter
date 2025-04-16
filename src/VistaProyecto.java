@@ -41,6 +41,7 @@ public class VistaProyecto implements Serializable {
         for (int i = 0; i < listaProyectos.size(); i++) {
             System.out.println(listaProyectos.get(i));
             muestraRecompensas((Proyecto)listaProyectos.get(i));
+            System.out.println("----------------------------------");
         }
     }
 
@@ -57,6 +58,14 @@ public class VistaProyecto implements Serializable {
             muestraRecompensas(listaProyectos.get(i));
             grafico(listaProyectos.get(i).calcularPorcentajeFinanciado(listaProyectos.get(i)));
         }
+    }
+    public void muestraProyectoConGrafica(Proyecto aux){
+            System.out.println(aux);
+            if (!aux.getListaRecompensas().isEmpty()){
+                System.out.println("Recompensas:");
+                muestraRecompensas(aux);
+            }
+            grafico(aux.calcularPorcentajeFinanciado(aux));
     }
 
     /**

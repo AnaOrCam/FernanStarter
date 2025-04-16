@@ -54,6 +54,42 @@ public class Main {
             //Iniciar,Crear,Cerrar
              opcionInicial=Integer.parseInt(s.nextLine());
             switch (opcionInicial){
+                case 3:{
+                    try{
+                        properties.load(new FileReader("./src/Datos/setup.properties"));
+                    }catch (FileNotFoundException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    if (properties.getProperty("invitado").equalsIgnoreCase("si")){
+                        if (!controladorProyectos.getListaProyectos().isEmpty()){
+                            System.out.println(ANSI_GREEN+"Estos son los proyectos disponibles"+ANSI_RESET);
+                            controladorProyectos.mostrarProyectos();
+                            int opAux;
+                            do {
+                                System.out.println("¿Desea ver la vista detallada de algun proyecto?");
+                                System.out.println("1. Si");
+                                System.out.println("2. No");
+                                 opAux=Integer.parseInt(s.nextLine());
+                                if (opAux==1){
+                                    System.out.println("Introduzca el nombre del proyecto que desea visualizar");
+                                    String nombreAux=s.nextLine();
+                                    if (controladorProyectos.buscarProyecto(nombreAux)!=null){
+                                        controladorProyectos.muestraProyectoUnicoConGrafico(controladorProyectos.buscarProyecto(nombreAux));
+                                    }else {
+                                        System.out.println("Proyecto no existente");
+                                    }
+                                }
+                            }while(opAux==1);
+                        }else {
+                            System.out.println(ANSI_RED+"Actualmente no hay proyectos disponibles"+ANSI_RESET);
+                        }
+                    }else{
+                        System.out.println("El modo invitado no esta disponible");
+                    }
+                    break;
+                }
                 //Creacion
                 case 1:{
                     String nombreAux="";
@@ -987,12 +1023,12 @@ public class Main {
                     }
                     break;
                 }
-                case 3:{
+                case 4:{
                     System.out.println(ANSI_PURPLE+"Saliendo de FernanStarter"+ANSI_RESET);
                     break;
                 }
             }
-        }while (opcionInicial!=3);
+        }while (opcionInicial!=4);
         try{
             ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream("./src/Datos/RecuperacionUsuarios.txt"));
             oos.writeObject(controladorUsuario);

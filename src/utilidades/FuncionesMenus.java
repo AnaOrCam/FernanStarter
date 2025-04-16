@@ -64,7 +64,8 @@ public class FuncionesMenus {
         System.out.println("Indica que desea realizar");
         System.out.println("1.Crear un usuario");
         System.out.println("2.Iniciar Sesion");
-        System.out.println("3.Cerrar el programa");
+        System.out.println("3.Modo Invitado");
+        System.out.println("4.Cerrar el programa");
     }
 
     /**
