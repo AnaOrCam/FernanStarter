@@ -195,12 +195,15 @@ public class GestionUsuarios implements Serializable {
      * @param idInversion id de la inversion realizada
      * @param inversor inversor que ha realizado la inversion
      * @param cantidad cantidad para aumentar
-     * @return true si se a podido realizar la inversion
      */
-    public boolean aumentarInversion(int idInversion, float cantidad, Inversor inversor){
-        if (inversor.aumentarInversion(idInversion,cantidad)) return true;
-        return false;
+    public void aumentarInversion(int idInversion, float cantidad, Inversor inversor){
+        inversor.aumentarInversion(idInversion,cantidad);
     }
+
+    public boolean comprobarInversionYSaldo(int idInversion,float cantidad, Inversor inversor){
+        return inversor.comprobarInversionYSaldo(idInversion,cantidad);
+    }
+
     /**
      * Disminuye la inversion
      * @author AnaOrCam

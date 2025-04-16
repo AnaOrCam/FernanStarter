@@ -367,7 +367,15 @@ public class Main {
                                                 if (!opcionaux.equals("0")){
                                                     controladorUsuario.vistaDetalladaProyectoCreado(opcionaux,gestor);
                                                     if (controladorUsuario.buscaProyectoCreadoGestor(opcionaux,gestor)!=null) {
-                                                        controladorProyectos.mostrarGraficoFinanciacion(controladorUsuario.buscaProyectoCreadoGestor(opcionaux, gestor));
+                                                        Proyecto proyectoAuxiliar=controladorUsuario.buscaProyectoCreadoGestor(opcionaux, gestor);
+                                                        controladorProyectos.mostrarGraficoFinanciacion(proyectoAuxiliar);
+                                                        if (!controladorProyectos.getListaInversiones(proyectoAuxiliar).isEmpty()) {
+                                                            System.out.println("--------LISTA DE INVERSIONES--------");
+                                                            controladorProyectos.mostrarInversiones(proyectoAuxiliar);
+                                                            System.out.println("¿Quieres ordenar las inversiones por el nombre del inversor? (si/no)");
+                                                            String respuesta=s.nextLine();
+                                                            if (respuesta.equalsIgnoreCase("si")) controladorProyectos.ordenarYMostrarInversionesPorNombreInversor(proyectoAuxiliar);
+                                                        }
                                                     }else{
                                                         System.out.println("El nombre introducido no corresponde a ningún proyecto.");
                                                     }
@@ -573,10 +581,12 @@ public class Main {
                                                                 "\nNota: Ten en cuenta que no se podrán disminuir las inversiones que tengan una recompensa.");
                                                         switch (Integer.parseInt(s.nextLine())) {
                                                             case 1 -> {
-                                                                if (controladorUsuario.aumentarInversion(inversor,id,cantidad)){
+                                                                if (controladorUsuario.comprobarInversionYSaldo(id,cantidad,inversor)){
                                                                     if (!controladorUsuario.getNombreProyecto(id,inversor).equalsIgnoreCase("")) {
                                                                         Proyecto proyectoAuxiliar =controladorProyectos.buscarProyecto(controladorUsuario.getNombreProyecto(id,inversor));
-                                                                        if (controladorProyectos.aniadirFinanciacionAProyecto(cantidad,proyectoAuxiliar)) {
+                                                                        if (controladorProyectos.comprobarCantidadFinanciada(proyectoAuxiliar,cantidad)) {
+                                                                            controladorUsuario.aumentarInversion(inversor,id,cantidad);
+                                                                            controladorProyectos.aniadirFinanciacionAProyecto(cantidad,proyectoAuxiliar);
                                                                             float cantidadInvertidaTrasModificacion = controladorUsuario.getCantidadInvertidaEnInversion(id, inversor);
                                                                             if (controladorProyectos.siRecompensa(cantidadInvertidaTrasModificacion, proyectoAuxiliar)) {
                                                                                 System.out.println("¡Enhorabuena! Por tu nueva inversión puedes modificar tu recompensa: ");
@@ -683,21 +693,22 @@ public class Main {
                                                             } while (!recompensaValida);
                                                             Recompensa recompensaAux = controladorProyectos.buscarRecompensa(eleccion, proyectoAux);
                                                             Inversion inversionAux = new Inversion(nombre, cantidad, inversor, recompensaAux);
-                                                            if (controladorProyectos.aniadirFinanciacionAProyecto(cantidad, proyectoAux)) {
-                                                                sdfghjkhjg
-                                                                if (!controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)) {
-                                                                    System.out.println("No se ha podido realizar la operación. Saldo insuficiente");
-                                                                }
+                                                            if (controladorProyectos.comprobarCantidadFinanciada(proyectoAux,cantidad) && controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)) {
+                                                                controladorProyectos.aniadirFinanciacionAProyecto(cantidad, proyectoAux);
+                                                                controladorProyectos.insertarInversion(inversionAux, proyectoAux);
+
+                                                            }else if(!controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)){
+                                                                System.out.println("No se ha podido realizar la operación. Saldo insuficiente");
                                                             }else{
                                                                 System.out.println(ANSI_RED+"No se ha podido realizar la inversión. Supera la de inversión total del proyecto."+ANSI_RESET);
                                                             }
                                                         }else{
                                                             Inversion inversionAux = new Inversion(nombre, cantidad, inversor);
-                                                            if (controladorProyectos.aniadirFinanciacionAProyecto(cantidad, proyectoAux)){
-                                                                edrfgthyujk
-                                                                if (!controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)) {
-                                                                    System.out.println(ANSI_RED+"No se ha podido realizar la operación. Saldo insuficiente"+ANSI_RESET);
-                                                                }
+                                                            if (controladorProyectos.comprobarCantidadFinanciada(proyectoAux,cantidad) && controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)){
+                                                                controladorProyectos.aniadirFinanciacionAProyecto(cantidad, proyectoAux);
+                                                                controladorProyectos.insertarInversion(inversionAux,proyectoAux);
+                                                            }else if(!controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)){
+                                                                System.out.println("No se ha podido realizar la operación. Saldo insuficiente");
                                                             }else{
                                                                 System.out.println(ANSI_RED+"No se ha podido realizar la inversión. Supera la de inversión total del proyecto."+ANSI_RESET);
                                                             }

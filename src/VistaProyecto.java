@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.List;
 
 public class VistaProyecto implements Serializable {
     private String textoVerde;
@@ -69,6 +70,16 @@ public class VistaProyecto implements Serializable {
         for (Object e: listaRecompensas){
             System.out.println(e);
         }
+    }
+
+    /**
+     * Muestra la lista de inversiones.
+     * @author AnaOrcam
+     * @param listaInversiones se refiere a la lista de inversiones que contiene un proyecto.
+     * @return no devuelve nada.
+     */
+    public void muestraInversiones(List<Inversion> listaInversiones){
+        listaInversiones.forEach(System.out::println);
     }
 
     /**

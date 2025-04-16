@@ -177,14 +177,23 @@ public class Inversor extends Usuario implements Bloqueable, Serializable {
      * @author AnaOrCam
      * @param idInversion se refiere al atributo id de Inversion.
      * @param cantidad se refiere a la cantidad que se sumará a la inversión.
-     * @return devuelve true si el saldo es mayor o igual a la cantidad y ha podido realizarse la operación y false en caso contrario.
      */
-    public boolean aumentarInversion(int idInversion, float cantidad){
-        if (buscarInversionPorId(idInversion)!=null){
+    public void aumentarInversion(int idInversion, float cantidad){
             Inversion inversionAModificar= buscarInversionPorId(idInversion);
-            if (saldo>=cantidad) {
-                inversionAModificar.aumentaInversion(cantidad);
-                invertidoTotal+=cantidad;
+            inversionAModificar.aumentaInversion(cantidad);
+            invertidoTotal+=cantidad;
+    }
+
+    /**
+     * Comprueba que el saldo es mayor a la inversion que se desea hacer y que el id de la inversion no apunta a un objeto nulo.
+     * @author AnaOrCam
+     * @param idInversion se refiere al atributo id de Inversion.
+     * @param cantidad se refiere a la cantidad que se desea invertir.
+     * @return devuelve true si el objeto con la id existe y si el saldo es mayor o igual a la cantidad a invertir y false en el canso contrario.
+     */
+    public boolean comprobarInversionYSaldo(int idInversion,float cantidad){
+        if (buscarInversionPorId(idInversion)!=null) {
+            if (saldo >= cantidad) {
                 return true;
             }
         }

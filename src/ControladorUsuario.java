@@ -290,14 +290,16 @@ public class ControladorUsuario implements Serializable {
      * @param inversor usuario del que se aumenta la inversion
      * @param cantidad  cantidad a aumentar
      * @param idInversion id de la inversion en la que se aumenta
-     * @return true si se puede aumentar
      */
-    public boolean aumentarInversion(Inversor inversor, int idInversion, float cantidad){
-        if (modelo.aumentarInversion(idInversion,cantidad,inversor)) {
-            return true;
-        }
-        return false;
+    public void aumentarInversion(Inversor inversor, int idInversion, float cantidad){
+       modelo.aumentarInversion(idInversion,cantidad,inversor);
+
     }
+
+    public boolean comprobarInversionYSaldo(int idInversion,float cantidad, Inversor inversor){
+        return modelo.comprobarInversionYSaldo(idInversion, cantidad,inversor);
+    }
+
     /**
      * Disminuye inversiones
      * @author AnaOrCam

@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.List;
 
 public class ControladorProyectos implements Serializable {
 
@@ -27,6 +28,15 @@ public class ControladorProyectos implements Serializable {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Getter de la lista de inversiones.
+     * @author anaOrCam
+     * @return devuelve la Linkedlist que contiene las inversiones realizadas.
+     */
+    public LinkedList<Inversion> getListaInversiones(Proyecto proyecto) {
+        return modelo.getListaInversiones(proyecto);
     }
 
     /**
@@ -72,6 +82,24 @@ public class ControladorProyectos implements Serializable {
     }
 
     /**
+     * Ordena y muestra la lista de inversiones por el nombre del inversor.
+     * @author anaOrCam
+     * @param proyecto se refiere al proyecto que contiene la lista de inversiones.
+     */
+    public void ordenarYMostrarInversionesPorNombreInversor(Proyecto proyecto){
+        vista.muestraInversiones(modelo.ordenarInversionesPorNombreInversor(proyecto));
+    }
+
+    /**
+     * Ordena y muestra la lista de inversiones por el nombre del inversor.
+     * @author anaOrCam
+     * @param proyecto se refiere al proyecto que contiene la lista de inversiones.
+     */
+    public void mostrarInversiones(Proyecto proyecto){
+        vista.muestraInversiones(modelo.getListaInversiones(proyecto));
+    }
+
+    /**
      * Metodo que muestra proyectos con grafico
      * @author AnaOrCam
      * @return true si devuelve algo desde el modelo.
@@ -92,6 +120,17 @@ public class ControladorProyectos implements Serializable {
         modelo.insertarProyecto(proyecto);
         vista.proyectoInsertadoCorrectamente(proyecto);
     }
+
+    /**
+     * Inserta una inversión en la lista de inversiones
+     * @author AnaOrCam
+     * @param  proyecto proyecto al que pertenece la inversion
+     * @param  inversion inversion que va a ser insertada
+     */
+    public void insertarInversion(Inversion inversion, Proyecto proyecto){
+        modelo.insertarInversion(inversion,proyecto);
+    }
+
     /**
      * Metodo que inserta recompensa en un proyecto
      * @author AnaOrCam
@@ -150,11 +189,21 @@ public class ControladorProyectos implements Serializable {
      * @author AnaOrCam
      * @param cantidad cantidad a añadir
      * @param proyecto  proyecto en el que se va a añadir la financiacion
-     * @return devuelve true si se ha podido añadir
      */
-    public boolean aniadirFinanciacionAProyecto(float cantidad, Proyecto proyecto){
-        return modelo.aniadirFinanciacionAProyecto(cantidad, proyecto);
+    public void aniadirFinanciacionAProyecto(float cantidad, Proyecto proyecto){
+         modelo.aniadirFinanciacionAProyecto(cantidad, proyecto);
     }
+
+    /**
+     * Comprueba que el importe que se pasa por parametro mas lo actualmente invertido en el proyecto supera el total a invertir.
+     * @author AnaOrCam
+     * @param cantidad se refiere cantidad a comprobar.
+     * @return devuelve true si no supera la cantidad y false si por el contrario, la supera.
+     */
+    public boolean comprobarCantidadFinanciada(Proyecto proyecto, float cantidad){
+        return modelo.comprobarCantidadFinanciada(proyecto,cantidad);
+    }
+
     /**
      * Resta financiacion a un proyecto
      * @author AnaOrCam

@@ -1,6 +1,4 @@
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,6 +29,17 @@ public class GestionProyectos implements Serializable {
     public void insertarProyecto(Proyecto proyecto){
         proyectos.add(proyecto);
     }
+
+    /**
+     * Inserta una inversión en la lista de inversiones
+     * @author AnaOrCam
+     * @param  proyecto proyecto al que pertenece la inversion
+     * @param  inversion inversion que va a ser insertada
+     */
+    public void insertarInversion(Inversion inversion, Proyecto proyecto){
+        proyecto.insertarInversion(inversion);
+    }
+
     /**
      * Busca un proyecto por su nombre
      * @author AnaOrCam
@@ -81,11 +90,40 @@ public class GestionProyectos implements Serializable {
      * @author AnaOrCam
      * @param cantidad cantidad que se va a añadir
      * @param proyecto proyecto en el que se va a añadir
-     * @return devuelve true si se añade
      */
-    public boolean aniadirFinanciacionAProyecto(float cantidad, Proyecto proyecto){
-        return (proyecto.aniadirFinanciacion(cantidad));
+    public void aniadirFinanciacionAProyecto(float cantidad, Proyecto proyecto){
+            proyecto.aniadirFinanciacion(cantidad);
     }
+
+    /**
+     * Comprueba que el importe que se pasa por parametro mas lo actualmente invertido en el proyecto supera el total a invertir.
+     * @author AnaOrCam
+     * @param cantidad se refiere cantidad a comprobar.
+     * @return devuelve true si no supera la cantidad y false si por el contrario, la supera.
+     */
+    public boolean comprobarCantidadFinanciada(Proyecto proyecto, float cantidad){
+        return proyecto.comprobacionImporteFinanciacion(cantidad);
+    }
+
+    /**
+     * Getter de la lista de inversiones.
+     * @author anaOrCam
+     * @return devuelve la Linkedlist que contiene las inversiones realizadas.
+     */
+    public LinkedList<Inversion> getListaInversiones(Proyecto proyecto) {
+        return proyecto.getListaInversiones();
+    }
+
+    /**
+     * Ordena la lista de inversiones por el nombre del inversor.
+     * @author anaOrCam
+     * @param proyecto se refiere al proyecto que contiene la lista de inversiones.
+     * @return devuelve la lista ordenada en formato List.
+     */
+    public List<Inversion> ordenarInversionesPorNombreInversor(Proyecto proyecto){
+        return proyecto.ordenarInversionesPorNombreInversor();
+    }
+
     /**
      * Resta financiacion a un proyecto
      * @author AnaOrCam

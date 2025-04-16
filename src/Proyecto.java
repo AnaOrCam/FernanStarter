@@ -1,6 +1,8 @@
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.LinkedList;
+import java.util.List;
+
 import static utilidades.FuncionesFechas.*;
 public class Proyecto implements Serializable {
     private String nombre;
@@ -9,6 +11,7 @@ public class Proyecto implements Serializable {
     private int cantidadInvertidaActual;
     private int cantidadAInvertirTotal;
     private LinkedList<Recompensa> listaRecompensas;
+    private LinkedList<Inversion> listaInversiones;
     private String descripcion;
     private TematicaProyecto tematicaProyecto;
 
@@ -22,7 +25,6 @@ public class Proyecto implements Serializable {
      * @param cantidadAInvertirTotal se refiere al atributo cantidadAInvertirTotal del objeto en tipo int.
      * @param descripcion se refiere a la descripción del proyecto en formato TipoUsuario.
      * @param tematicaProyecto se refiere al atributo tematicaProyecto del objeto en formato TematicaProyecto.
-     * @return no devuelve nada.
      */
     public Proyecto(int numeroRecompensas,String nombre,LocalDate fechaApertura,LocalDate fechaCierre, int cantidadAInvertirTotal,String descripcion,TematicaProyecto tematicaProyecto){
         this.nombre=nombre;
@@ -33,6 +35,7 @@ public class Proyecto implements Serializable {
         this.descripcion=descripcion;
         this.tematicaProyecto=tematicaProyecto;
         listaRecompensas=new LinkedList<>();
+        listaInversiones=new LinkedList<>();
     }
 
     /**
@@ -57,31 +60,66 @@ public class Proyecto implements Serializable {
      * Modifica el atributo tematicaProyecto.
      * @author davidrn06
      * @param tematicaProyecto se refiere al atributo tematicaProyecto que sustituirá an antiguo de tipo TematicaProyecto.
-     * @return no devuelve nada.
      */
     public void setTematicaProyecto(TematicaProyecto tematicaProyecto) {
         this.tematicaProyecto = tematicaProyecto;
     }
 
     /**
-     * Añade financiación si la cantidad a añadir no supera el importe total de inversión del proyecto.
+     * Comprueba que el importe que se pasa por parametro mas lo actualmente invertido en el proyecto supera el total a invertir.
+     * @author AnaOrCam
+     * @param cantidad se refiere cantidad a comprobar.
+     * @return devuelve true si no supera la cantidad y false si por el contrario, la supera.
+     */
+    public boolean comprobacionImporteFinanciacion(float cantidad){
+        if (cantidadInvertidaActual+cantidad<=cantidadAInvertirTotal) return true;
+        return false;
+    }
+    /**
+     * Añade financiación al importe total a invertir del proyecto.
      * @author AnaOrCam
      * @param cantidad se refiere cantidad a añadir a la financiación del proyecto de tipo float.
-     * @return true si ha podido realizar y false en caso contrario.
      */
-    public boolean aniadirFinanciacion(float cantidad) {
-        if (cantidadInvertidaActual+cantidad<=cantidadAInvertirTotal) {
-            this.cantidadInvertidaActual += cantidad;
-            return true;
-        }
-        return false;
+    public void aniadirFinanciacion(float cantidad) {
+        this.cantidadInvertidaActual += cantidad;
+    }
+
+    /**
+     * Getter de la lista de inversiones.
+     * @author anaOrCam
+     * @return devuelve la Linkedlist que contiene las inversiones realizadas.
+     */
+    public LinkedList<Inversion> getListaInversiones() {
+        return listaInversiones;
+    }
+
+    /**
+     * Ordena la lista de inversiones por el nombre del inversor.
+     * @author anaOrCam
+     * @return devuelve la lista ordenada en formato List.
+     */
+    public List<Inversion> ordenarInversionesPorNombreInversor(){
+        List<Inversion> listaOrdenada=listaInversiones.stream().toList();
+        listaOrdenada
+                .stream()
+                .sorted((o1,o2)->o1.getInversor().getNombre().compareTo(o2.getInversor().getNombre()))
+                .toList();
+        return listaOrdenada;
+    }
+
+    /**
+     * Añade una inversion a la lista de inversiones.
+     * @author AnaOrCam
+     * @param inversion se refiere al objeto inversion que se añadirá a la lista.
+     */
+    public void insertarInversion(Inversion inversion){
+        listaInversiones.add(inversion);
     }
 
     /**
      * Resta financiación a un proyecto.
      * @author davidrn06
      * @param cantidad se refiere al atributo cantidad a restar a la financiación del proyecto de tipo float.
-     * @return no devuelve nada.
      */
     public void restarFinanciacion(float cantidad) {
         this.cantidadInvertidaActual-=cantidad;
@@ -100,7 +138,6 @@ public class Proyecto implements Serializable {
      * Modifica el atributo cantidadAInvertirTotal.
      * @author davidrn06
      * @param cantidadAInvertirTotal se refiere al atributo cantidadAInvertirTotal nuevo que sustituirá al anterior de tipo int.
-     * @return no devuelve nada.
      */
     public void setCantidadAInvertirTotal(int cantidadAInvertirTotal) {
         this.cantidadAInvertirTotal = cantidadAInvertirTotal;
@@ -119,7 +156,6 @@ public class Proyecto implements Serializable {
      * Modifica el atributo nombre.
      * @author AnaOrCam
      * @param nombre se refiere al atributo nombre nuevo que sustituirá al anterior de tipo String.
-     * @return no devuelve nada.
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -138,7 +174,6 @@ public class Proyecto implements Serializable {
      * Modifica el atributo fechaApertura.
      * @author AnaOrCam
      * @param fechaApertura se refiere al atributo fechaApertura nuevo que sustituirá al anterior de tipo LocalDate.
-     * @return no devuelve nada.
      */
     public void setFechaApertura(LocalDate fechaApertura) {
         this.fechaApertura = fechaApertura;
@@ -166,7 +201,6 @@ public class Proyecto implements Serializable {
      * Añade recompensas a la lista de recompensas del proyecto.
      * @author davidrn06
      * @param nueva se refiere a la nueva recompensa que se incluira en la lista de recompensas.
-     * @return no devuelve nada.
      */
     public void insertaRecompensa(Recompensa nueva){
         listaRecompensas.add(nueva);
