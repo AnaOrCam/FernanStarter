@@ -101,7 +101,7 @@ public class Inversion implements Invertible , Serializable {
     /**
      * Sobreescribe el metodo toString
      * @author AnaOrCam
-     * @return  la cadena de con los Datos de la inversion
+     * @return  la cadena de con los datos de la inversion
      */
     public String toString(){
         if (recompensaElegida==null){

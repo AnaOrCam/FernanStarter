@@ -300,6 +300,10 @@ public class ControladorUsuario implements Serializable {
         return modelo.comprobarInversionYSaldo(idInversion, cantidad,inversor);
     }
 
+    public LinkedList<String> getListaInversionesResumenCSV(Inversor inversor){
+        return inversor.getProyectosInvertidosResumenCSV();
+    }
+
     /**
      * Disminuye inversiones
      * @author AnaOrCam

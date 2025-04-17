@@ -204,6 +204,10 @@ public class GestionUsuarios implements Serializable {
         return inversor.comprobarInversionYSaldo(idInversion,cantidad);
     }
 
+    public LinkedList<String> getListaInversionesResumenCSV(Inversor inversor){
+        return inversor.getProyectosInvertidosResumenCSV();
+    }
+
     /**
      * Disminuye la inversion
      * @author AnaOrCam

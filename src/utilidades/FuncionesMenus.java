@@ -12,7 +12,9 @@ public class FuncionesMenus {
                 "1. Panel de control\n" +
                 "2. Proyectos\n" +
                 "3. Configuración\n" +
-                "4. Cerrar Sesión\n");
+                "4. Configuración del programa\n"+
+                "5. Enviar resumen de inversiones\n"+
+                "6. Cerrar Sesión\n");
     }
 
     /**
@@ -50,10 +52,6 @@ public class FuncionesMenus {
                 "5. Configuración\n"+
                 "6. Cerrar Sesión\n");
     }
-
-
-
-
 
     /**
      * Muestra el menú inicial de la aplicación.

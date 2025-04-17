@@ -1,12 +1,13 @@
+import utilidades.FuncionesCadenas;
+import utilidades.FuncionesCorreos;
 import utilidades.FuncionesFechas;
 import utilidades.FuncionesMenus;
 
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.LinkedList;
-import java.util.Properties;
-import java.util.Scanner;
+import java.util.*;
+
 import static utilidades.FuncionesMenus.*;
 import static utilidades.FuncionesCorreos.*;
 import static utilidades.FuncionesCadenas.*;
@@ -28,8 +29,9 @@ public class Main {
         Properties properties=new Properties();
 
         try {
-            File archivoUsuarios = new File("./src/Datos/RecuperacionUsuarios.txt");
-            File archivoProyectos = new File("./src/Datos/RecuperacionProyectos.txt");
+            properties.load(new FileReader("./src/datos/setup.properties"));
+            File archivoUsuarios = new File(properties.getProperty("recuperacionUsuarios"));
+            File archivoProyectos = new File(properties.getProperty("recuperacionProyectos"));
 
             if (archivoUsuarios.length() != 0 && archivoProyectos.length() != 0) {
                 ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivoUsuarios));
@@ -55,13 +57,6 @@ public class Main {
              opcionInicial=Integer.parseInt(s.nextLine());
             switch (opcionInicial){
                 case 3:{
-                    try{
-                        properties.load(new FileReader("./src/Datos/setup.properties"));
-                    }catch (FileNotFoundException e) {
-                        throw new RuntimeException(e);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
                     if (properties.getProperty("invitado").equalsIgnoreCase("si")){
                         if (!controladorProyectos.getListaProyectos().isEmpty()){
                             System.out.println(ANSI_GREEN+"Estos son los proyectos disponibles"+ANSI_RESET);
@@ -290,10 +285,9 @@ public class Main {
                         TipoUsuario tipoIniciado=controladorUsuario.getUsuarioIniciado(correoAux,contraseniaAunx).getTipoUsuario();
                         int opcion;
                         try {
-                            BufferedWriter bw = new BufferedWriter(new FileWriter("./src/Logs/Logs.csv", true));
+                            BufferedWriter bw = new BufferedWriter(new FileWriter(properties.getProperty("logs"), true));
                             bw.write("Inicio de Sesión;" + usuarioActual.getCorreo() + ";" + LocalDateTime.now() + "\n");
                             bw.close();
-                            properties.load(new FileReader("./src/Datos/setup.properties"));
                             if (properties.containsKey(usuarioActual.getCorreo())){
                                 System.out.println("Hola "+usuarioActual.getNombre()+"! La última vez que iniciaste sesión fue en "+properties.getProperty(usuarioActual.getCorreo()));
                             }
@@ -360,7 +354,7 @@ public class Main {
                                             controladorProyectos.insertarProyecto(nuevo);
                                             controladorUsuario.gestorAnadirProyecto(gestor,nuevo);
                                             try {
-                                                BufferedWriter bw2 = new BufferedWriter(new FileWriter("./src/Logs/Logs.csv", true));
+                                                BufferedWriter bw2 = new BufferedWriter(new FileWriter(properties.getProperty("logs"), true));
                                                 bw2.write("Nuevo Proyecto;" + usuarioActual.getCorreo() + ";" + LocalDateTime.now() + "\n");
                                                 bw2.close();
                                             }catch (IOException e){
@@ -500,7 +494,7 @@ public class Main {
                                                             }
                                                         }
                                                         try{
-                                                        BufferedWriter bw2 =new BufferedWriter(new FileWriter("./src/Logs/Logs.csv",true));
+                                                        BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
                                                         bw2.write("Modificacion Proyecto;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
                                                         bw2.close();
                                                         }catch (IOException e){
@@ -527,7 +521,7 @@ public class Main {
                                                 controladorProyectos.borrarProyecto(auxiliarProyectos);
                                                 controladorUsuario.borrarProyecto(gestor,auxiliarUsuarios);
                                                 try{
-                                                BufferedWriter bw2 =new BufferedWriter(new FileWriter("./src/Logs/Logs.csv",true));
+                                                BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
                                                 bw2.write("Eliminación Proyecto;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
                                                 bw2.close();
                                                 }catch (IOException e){
@@ -574,7 +568,7 @@ public class Main {
                                         } case 6:{
                                             System.out.println("Cerrando Sesion");
                                             try{
-                                            BufferedWriter bw2 =new BufferedWriter(new FileWriter("./src/Logs/Logs.csv",true));
+                                            BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
                                             bw2.write("Cerrando Sesión;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
                                             bw2.close();
                                             }catch (IOException e){
@@ -707,7 +701,7 @@ public class Main {
                                                         float cantidad=Float.parseFloat(s.nextLine());
                                                         if (controladorProyectos.siRecompensa(cantidad,proyectoAux)) {
                                                             try{
-                                                            BufferedWriter bw2 =new BufferedWriter(new FileWriter("./src/Logs/Logs.csv",true));
+                                                            BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
                                                             bw2.write("Inversion Realizada;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
                                                             bw2.close();
                                                             }catch (IOException e){
@@ -824,7 +818,7 @@ public class Main {
                                         case 6 ->{
                                             System.out.println("Cerrando sesión...") ;
                                             try {
-                                                BufferedWriter bw2 = new BufferedWriter(new FileWriter("./src/Logs/Logs.csv", true));
+                                                BufferedWriter bw2 = new BufferedWriter(new FileWriter(properties.getProperty("logs"), true));
                                                 bw2.write("Cerrando Sesión;" + usuarioActual.getCorreo() + ";" + LocalDateTime.now() + "\n");
                                                 bw2.close();
                                             }catch (IOException e){
@@ -966,7 +960,7 @@ public class Main {
                                                     System.out.println("Introduce la contraseña para validar la operación:");
                                                     String contrasena=s.nextLine();
                                                     if (controladorUsuario.eliminarUsuario(admin,contrasena)) {
-                                                        opcion = 4;
+                                                        opcion = 6;
                                                     }
                                                     break;
                                                 }
@@ -978,9 +972,61 @@ public class Main {
 
                                         }
                                         case 4:{
+                                            System.out.println("----Bienvenido a la configuración de FernanStarter----\n" +
+                                                    "¿Qué quieres hacer?\n" +
+                                                    "1. Mostrar configuración guardada en el archivo Properties\n" +
+                                                    "2. Mostrar últimas conexiones de los usuarios");
+                                            int opcionConf=Integer.parseInt(s.nextLine());
+                                            switch (opcionConf){
+                                                case 1->{
+                                                    for (Object e: properties.stringPropertyNames()){
+                                                        if (!FuncionesCadenas.comprobacionCorreo(e.toString())) System.out.println(e+" - "+properties.get(e));
+                                                    }
+                                                }
+                                                case 2->{
+                                                    for (Object e: properties.stringPropertyNames()){
+                                                        if (FuncionesCadenas.comprobacionCorreo(e.toString())) System.out.println(e+" - "+properties.get(e));
+                                                    }
+                                                }
+                                                default-> System.out.println("Esa opción no se encuentra en el menú");
+                                            }
+                                            break;
+                                        }
+                                        case 5:{
+                                            for (Object obj: properties.stringPropertyNames()){
+                                                if (FuncionesCadenas.comprobacionCorreo(obj.toString())) {
+                                                    Usuario aux=controladorUsuario.getUsuario(obj.toString());
+                                                    if (aux != null) {
+                                                        if (aux.getTipoUsuario() == TipoUsuario.INVERSOR) {
+                                                            if (!controladorUsuario.getListaInversionesResumenCSV((Inversor) aux).isEmpty()) {
+                                                                LinkedList<String> listaInversiones = controladorUsuario.getListaInversionesResumenCSV((Inversor) aux);
+                                                                try {
+                                                                    BufferedWriter bw = new BufferedWriter(new FileWriter("./src/datos/resumenInversion" + aux.getNombre() + ".csv"));
+                                                                    for (String linea : listaInversiones) {
+                                                                        bw.write(linea + "\n");
+                                                                    }
+                                                                    bw.close();
+                                                                    properties.setProperty("resumenInversion" + aux.getNombre(), "./src/datos/resumenInversion" + aux.getNombre() + ".csv");
+
+                                                                    String asunto = "Resumen de tus inversiones en FernanStarter";
+                                                                    String cuerpo = "Aquí tienes un resumen de tus inversiones en FernanStarter ¡Te esperamos!";
+                                                                    FuncionesCorreos.enviarArchivosConGMail(aux.getCorreo(), asunto, cuerpo, properties.getProperty("resumenInversion" + aux.getNombre()));
+
+                                                                } catch (IOException e) {
+                                                                    System.out.println("Error");
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            controladorUsuario.operacionSatisfactoria();
+                                            break;
+                                        }
+                                        case 6:{
                                             System.out.println("Cerrando Sesion...");
                                             try {
-                                                BufferedWriter bw2 = new BufferedWriter(new FileWriter("./src/Logs/Logs.csv", true));
+                                                BufferedWriter bw2 = new BufferedWriter(new FileWriter(properties.getProperty("logs"), true));
                                                 bw2.write("Cerrando Sesión;" + usuarioActual.getCorreo() + ";" + LocalDateTime.now() + "\n");
                                                 bw2.close();
                                             }catch (IOException e){
@@ -994,7 +1040,7 @@ public class Main {
                                             break;
                                         }
                                     }
-                                }while(opcion!=4);
+                                }while(opcion!=6);
 
 
                                 break;
@@ -1003,7 +1049,7 @@ public class Main {
                         try {
                             String fecha=FuncionesFechas.parsearLocalDateAString(LocalDate.now())+" "+LocalDateTime.now().getHour()+":"+LocalDateTime.now().getMinute();
                             properties.setProperty(usuarioActual.getCorreo(), fecha);
-                            properties.store(new FileWriter("./src/Datos/setup.properties"), "Sistema actualizado");
+                            properties.store(new FileWriter("./src/datos/setup.properties"), "Sistema actualizado");
                         }catch (IOException e){
                             System.out.println("Error al guardar el archivo Properties");
                         }
@@ -1030,10 +1076,10 @@ public class Main {
             }
         }while (opcionInicial!=4);
         try{
-            ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream("./src/Datos/RecuperacionUsuarios.txt"));
+            ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(properties.getProperty("recuperacionUsuarios")));
             oos.writeObject(controladorUsuario);
             oos.close();
-            ObjectOutputStream oos2=new ObjectOutputStream(new FileOutputStream("./src/Datos/RecuperacionProyectos.txt"));
+            ObjectOutputStream oos2=new ObjectOutputStream(new FileOutputStream(properties.getProperty("recuperacionProyectos")));
             oos2.writeObject(controladorProyectos);
             oos2.close();
             System.out.println("Fichero cifrado");

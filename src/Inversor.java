@@ -40,6 +40,18 @@ public class Inversor extends Usuario implements Bloqueable, Serializable {
         return proyectosInvertidos;
     }
 
+    public LinkedList<String> getProyectosInvertidosResumenCSV() {
+        LinkedList<String> resumenInversiones=new LinkedList<>();
+        for (int i = 0; i < proyectosInvertidos.size() ; i++) {
+            if (proyectosInvertidos.get(i).getRecompensaElegida() != null) {
+                resumenInversiones.add(proyectosInvertidos.get(i).getNombreProyecto() + ";" + proyectosInvertidos.get(i).getIdInversion() + ";" + proyectosInvertidos.get(i).getCantidadInvertida() + ";" + proyectosInvertidos.get(i).getRecompensaElegida().getNombre());
+            }else{
+                resumenInversiones.add(proyectosInvertidos.get(i).getNombreProyecto() + ";" + proyectosInvertidos.get(i).getIdInversion() + ";" + proyectosInvertidos.get(i).getCantidadInvertida());
+            }
+        }
+        return resumenInversiones;
+    }
+
     public List<Inversion> ordenarPorCantidadInvertida(){
         List<Inversion> listaOrdenada=proyectosInvertidos.stream().toList();
         listaOrdenada
