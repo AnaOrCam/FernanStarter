@@ -704,6 +704,23 @@ public class Main {
                                                         Proyecto proyectoAux=controladorProyectos.buscarProyecto(nombre);
                                                         System.out.println("¿Què cantidad quieres invertir?");
                                                         float cantidad=Float.parseFloat(s.nextLine());
+                                                        int id;
+                                                        boolean repetida=false;
+                                                        do{
+                                                            System.out.println("Asigna una id a la inversion");
+                                                             id=Integer.parseInt(s.nextLine());
+                                                             LinkedList<Inversion> aux =inversor.getProyectosInvertidos();
+                                                             for (Inversion a:aux){
+                                                                 if (a.getIdInversion()==id){
+                                                                     repetida=true;
+                                                                     System.out.println("Id en uso");
+                                                                     break;
+                                                                 }else {
+                                                                     repetida=false;
+                                                                 }
+                                                             }
+                                                        }while(repetida);
+
                                                         if (controladorProyectos.siRecompensa(cantidad,proyectoAux)) {
                                                             try{
                                                             BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
@@ -727,7 +744,7 @@ public class Main {
                                                                 }
                                                             } while (!recompensaValida);
                                                             Recompensa recompensaAux = controladorProyectos.buscarRecompensa(eleccion, proyectoAux);
-                                                            Inversion inversionAux = new Inversion(nombre, cantidad, inversor, recompensaAux);
+                                                            Inversion inversionAux = new Inversion(nombre, cantidad, inversor, recompensaAux,id);
                                                             if (controladorProyectos.comprobarCantidadFinanciada(proyectoAux,cantidad) && controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)) {
                                                                 controladorProyectos.aniadirFinanciacionAProyecto(cantidad, proyectoAux);
                                                                 controladorProyectos.insertarInversion(inversionAux, proyectoAux);
@@ -738,7 +755,7 @@ public class Main {
                                                                 System.out.println(ANSI_RED+"No se ha podido realizar la inversión. Supera la de inversión total del proyecto."+ANSI_RESET);
                                                             }
                                                         }else{
-                                                            Inversion inversionAux = new Inversion(nombre, cantidad, inversor);
+                                                            Inversion inversionAux = new Inversion(nombre, cantidad, inversor,id);
                                                             if (controladorProyectos.comprobarCantidadFinanciada(proyectoAux,cantidad) && controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)){
                                                                 controladorProyectos.aniadirFinanciacionAProyecto(cantidad, proyectoAux);
                                                                 controladorProyectos.insertarInversion(inversionAux,proyectoAux);
