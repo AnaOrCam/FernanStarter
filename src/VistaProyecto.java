@@ -26,7 +26,10 @@ public class VistaProyecto implements Serializable {
         this.textoMorado =morado;
         this.textoGris=gris;
     }
-
+    /**
+     * Muestra mensaje de operacion fallida
+     * @author AnaOrCam
+     */
     public void operacionFallida(){
         System.out.println(textoRojo+"Error. La operación no ha podido realizarse"+resetColorTexto);
     }
@@ -59,6 +62,11 @@ public class VistaProyecto implements Serializable {
             grafico(listaProyectos.get(i).calcularPorcentajeFinanciado(listaProyectos.get(i)));
         }
     }
+    /**
+     * Muestra la lista de proyectos con la gráfica.
+     * @author davidrn06
+     * @param aux se refiere a la LinkedList que contiene la lista de proyectos.
+     */
     public void muestraProyectoConGrafica(Proyecto aux){
             System.out.println(aux);
             if (!aux.getListaRecompensas().isEmpty()){

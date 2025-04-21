@@ -29,6 +29,11 @@ public class ControladorProyectos implements Serializable {
         }
         return false;
     }
+    /**
+     * Muestra un proyecto con su grafico de inversion
+     * @author davidrn06
+     * @param aux proyecto del que se quiere saber informacion
+     */
     public void muestraProyectoUnicoConGrafico(Proyecto aux){
         vista.muestraProyectoConGrafica(aux);
     }

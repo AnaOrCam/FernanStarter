@@ -52,7 +52,12 @@ public class GestionProyectos implements Serializable {
         }
         return null;
     }
-
+    /**
+     * Ordena una lista de proyectos segun el importe financiado
+     * @author AnaOrCam
+     * @param proyectos lista de proyectos
+     * @return lista resultante
+     */
     public List<Proyecto> ordenarPorImporteFinanciado(LinkedList<Proyecto> proyectos){
         List<Proyecto> listaProyectos=proyectos.stream().toList();
         return listaProyectos
@@ -60,7 +65,12 @@ public class GestionProyectos implements Serializable {
                 .sorted((o1,o2) -> o1.getCantidadInvertidaActual()-o2.getCantidadInvertidaActual())
                 .toList();
     }
-
+    /**
+     * Ordena una lista de proyectos segun la cantidad a financiar
+     * @author AnaOrCam
+     * @param proyectos lista de proyectos
+     * @return lista resultante
+     */
     public List<Proyecto> ordenarPorCantidadAFinanciar(LinkedList<Proyecto> proyectos){
         List<Proyecto> listaProyectos=proyectos.stream().toList();
         return listaProyectos
@@ -68,7 +78,12 @@ public class GestionProyectos implements Serializable {
                 .sorted((o1,o2) -> o1.getCantidadAInvertirTotal()-o2.getCantidadAInvertirTotal())
                 .toList();
     }
-
+    /**
+     * Ordena una lista de proyectos segun la fecha de apertura
+     * @author AnaOrCam
+     * @param proyectos lista de proyectos
+     * @return lista resultante
+     */
     public List<Proyecto> ordenarPorFechaApertura(LinkedList<Proyecto> proyectos){
         List<Proyecto> listaProyectos=proyectos.stream().toList();
         return listaProyectos
@@ -76,7 +91,12 @@ public class GestionProyectos implements Serializable {
                 .sorted((o1,o2) -> o1.getFechaApertura().compareTo(o2.getFechaApertura()))
                 .toList();
     }
-
+    /**
+     * Ordena una lista de proyectos segun la fecha de cierre
+     * @author AnaOrCam
+     * @param proyectos lista de proyectos
+     * @return lista resultante
+     */
     public List<Proyecto> ordenarPorFechaCierre(LinkedList<Proyecto> proyectos){
         List<Proyecto> listaProyectos=proyectos.stream().toList();
         return listaProyectos

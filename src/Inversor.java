@@ -39,7 +39,11 @@ public class Inversor extends Usuario implements Bloqueable, Serializable {
     public LinkedList<Inversion> getProyectosInvertidos() {
         return proyectosInvertidos;
     }
-
+    /**
+     * Devuelve la lista de proyectos invertidos en formato CSV
+     * @author AnaOrCam
+     * @return lista resultante
+     */
     public LinkedList<String> getProyectosInvertidosResumenCSV() {
         LinkedList<String> resumenInversiones=new LinkedList<>();
         for (int i = 0; i < proyectosInvertidos.size() ; i++) {
@@ -51,7 +55,11 @@ public class Inversor extends Usuario implements Bloqueable, Serializable {
         }
         return resumenInversiones;
     }
-
+    /**
+     * Ordena una lista de proyectos segun la cantidad invertida de un inversor
+     * @author AnaOrCam
+     * @return lista resultante
+     */
     public List<Inversion> ordenarPorCantidadInvertida(){
         List<Inversion> listaOrdenada=proyectosInvertidos.stream().toList();
         listaOrdenada

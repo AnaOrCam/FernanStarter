@@ -555,9 +555,14 @@ public class Main {
                                                 case 3:{
                                                     System.out.println("Introduce la contraseña para validar la operación:");
                                                     String contrasena=s.nextLine();
-                                                    if (controladorUsuario.eliminarUsuario(gestor,contrasena)) {
-                                                        opcion = 6;
+                                                    if (controladorUsuario.getProyectosCreadosPorGestorSinVista(gestor).isEmpty()) {
+                                                        if (controladorUsuario.eliminarUsuario(gestor,contrasena)) {
+                                                            opcion = 6;
+                                                        }
+                                                    }else{
+                                                        System.out.println("Esta cuenta tiene proyectos creados , por lo que no puede ser eliminada");
                                                     }
+
                                                     break;
                                                 }
                                                 default:{
@@ -1007,12 +1012,24 @@ public class Main {
                                                                     }
                                                                     bw.close();
                                                                     properties.setProperty("resumenInversion" + aux.getNombre(), "./src/datos/resumenInversion" + aux.getNombre() + ".csv");
-
+                                                                    BufferedReader br = new BufferedReader(new FileReader("./src/datos/resumenInversion" + aux.getNombre() + ".csv"));
+                                                                    String linea="";
                                                                     String asunto = "Resumen de tus inversiones en FernanStarter";
-                                                                    String cuerpo = "Aquí tienes un resumen de tus inversiones en FernanStarter ¡Te esperamos!";
-                                                                    FuncionesCorreos.enviarArchivosConGMail(aux.getCorreo(), asunto, cuerpo, properties.getProperty("resumenInversion" + aux.getNombre()));
+                                                                    String cuerpo = "Aquí tienes un resumen de tus inversiones en FernanStarter ¡Te esperamos!\n";
+
+                                                                    while((linea= br.readLine())!=null){
+                                                                        String[]partes=linea.split(";");
+                                                                        cuerpo+="-Proyecto: "+partes[0]+" Id de inversion: "+partes[1]+" Cantidad Invertida: "+ partes[2];
+                                                                        if (partes.length==4){
+                                                                            cuerpo+="Recompensa Elegida: "+partes[3]+"\n";
+                                                                        }
+
+                                                                    }
+
+                                                                    FuncionesCorreos.enviarConGMail(aux.getCorreo(),asunto,cuerpo);
 
                                                                 } catch (IOException e) {
+                                                                    e.printStackTrace();
                                                                     System.out.println("Error");
                                                                 }
                                                             }
