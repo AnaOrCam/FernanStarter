@@ -1,6 +1,7 @@
 import utilidades.FuncionesCadenas;
 
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -62,12 +63,11 @@ public class Inversor extends Usuario implements Bloqueable, Serializable {
      */
     public List<Inversion> ordenarPorCantidadInvertida(){
         List<Inversion> listaOrdenada=proyectosInvertidos.stream().toList();
-        listaOrdenada
+        return listaOrdenada
                 .stream()
-                .sorted((o1,o2)->(int)o1.getCantidadInvertida()-(int)o2.getCantidadInvertida())
+                .sorted((o1,o2) ->Integer.compare((int) o1.getCantidadInvertida(), (int)o2.getCantidadInvertida()))
                 .toList();
 
-        return listaOrdenada;
     }
 
     /**
