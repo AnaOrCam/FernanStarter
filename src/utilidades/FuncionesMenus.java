@@ -12,7 +12,9 @@ public class FuncionesMenus {
                 "1. Panel de control\n" +
                 "2. Proyectos\n" +
                 "3. Configuración\n" +
-                "4. Cerrar Sesión\n");
+                "4. Configuración del programa\n"+
+                "5. Enviar resumen de inversiones\n"+
+                "6. Cerrar Sesión\n");
     }
 
     /**
@@ -27,7 +29,14 @@ public class FuncionesMenus {
         System.out.println("Pulsa 3. Salir");
     }
 
-
+    public static void menuOrdenProyectos(){
+        System.out.println("¿Cómo quieres ordenar los proyectos?\n" +
+                "1. Por cantidad invertida\n" +
+                "2. Por cantidad a financiar\n"+
+                "3. Por fecha de apertura\n" +
+                "4. Por fecha de cierre\n" +
+                "5. Salir");
+    }
 
     /**
      * Muestra el menú principal de los usuarios Inversor.
@@ -44,10 +53,6 @@ public class FuncionesMenus {
                 "6. Cerrar Sesión\n");
     }
 
-
-
-
-
     /**
      * Muestra el menú inicial de la aplicación.
      * @author AnaOrCam
@@ -57,7 +62,8 @@ public class FuncionesMenus {
         System.out.println("Indica que desea realizar");
         System.out.println("1.Crear un usuario");
         System.out.println("2.Iniciar Sesion");
-        System.out.println("3.Cerrar el programa");
+        System.out.println("3.Modo Invitado");
+        System.out.println("4.Cerrar el programa");
     }
 
     /**

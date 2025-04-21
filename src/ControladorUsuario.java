@@ -1,6 +1,8 @@
+import java.io.Serializable;
+import java.util.HashMap;
 import java.util.LinkedList;
 
-public class ControladorUsuario {
+public class ControladorUsuario implements Serializable {
     private GestionUsuarios modelo;
     private VistaUsuario vista;
 
@@ -23,12 +25,33 @@ public class ControladorUsuario {
         modelo.aniadirUsuario(nuevo);
         vista.operacionSatisfactoria();
     }
+
+    /**
+     * Elimina usuario si se produce la identificacion correctamente
+     * @author AnaOrCam
+     * @param usuario objeto usuario que se eliminara
+     * @param contrasena con la que se identifica como el usuario actual y confirma la operacion
+     * @return true si se elimina
+     */
+    public boolean eliminarUsuario(Usuario usuario, String contrasena){
+        if (modelo.compruebaCredenciales2(usuario.getCorreo(),contrasena)) {
+            modelo.eliminarUsuario(usuario);
+            vista.operacionSatisfactoria();
+            return true;
+        }
+        vista.comprobacionIncorrecta();
+        return false;
+    }
+
     /**
      * Muestra usuarios en la vista pasados desde el modelo
      * @author davidrn06
      */
     public void muestraUsuarios(){
         vista.muestraUsuarios(modelo.getUsuarios());
+    }
+    public HashMap<String,Usuario> getUsuarios(){
+       return modelo.getUsuarios();
     }
     /**
      * Busca usuarios por su correo
@@ -238,26 +261,49 @@ public class ControladorUsuario {
      */
     public boolean mostrarInversiones(Inversor inversor){
         if (!inversor.getProyectosInvertidos().isEmpty()){
-            vista.mostrarProyecosInvertidos(inversor.getProyectosInvertidos());
+            vista.mostrarProyectosInvertidos(inversor.getProyectosInvertidos());
             vista.mostrarInvertidoTotal(inversor.getInvertidoTotal());
             return true;
         }
         return false;
     }
+
+    /**
+     * Muestra las inversiones realizadas por un inversor ordenadas por cantidad invertida
+     * @author AnaOrCam
+     * @param inversor inversor de las inversiones que se muestran
+     * @return true si hay alguna inversion
+     */
+    public boolean mostrarInversionesOrdenadas(Inversor inversor){
+        if (!inversor.getProyectosInvertidos().isEmpty()){
+            LinkedList<Inversion>listaOrdenadaInversiones=new LinkedList<>(inversor.ordenarPorCantidadInvertida());
+            vista.mostrarProyectosInvertidos(listaOrdenadaInversiones);
+            vista.mostrarInvertidoTotal(inversor.getInvertidoTotal());
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Aumenta inversiones
      * @author AnaOrCam
      * @param inversor usuario del que se aumenta la inversion
      * @param cantidad  cantidad a aumentar
      * @param idInversion id de la inversion en la que se aumenta
-     * @return true si se puede aumentar
      */
-    public boolean aumentarInversion(Inversor inversor, int idInversion, float cantidad){
-        if (modelo.aumentarInversion(idInversion,cantidad,inversor)) {
-            return true;
-        }
-        return false;
+    public void aumentarInversion(Inversor inversor, int idInversion, float cantidad){
+       modelo.aumentarInversion(idInversion,cantidad,inversor);
+
     }
+
+    public boolean comprobarInversionYSaldo(int idInversion,float cantidad, Inversor inversor){
+        return modelo.comprobarInversionYSaldo(idInversion, cantidad,inversor);
+    }
+
+    public LinkedList<String> getListaInversionesResumenCSV(Inversor inversor){
+        return inversor.getProyectosInvertidosResumenCSV();
+    }
+
     /**
      * Disminuye inversiones
      * @author AnaOrCam
@@ -271,9 +317,6 @@ public class ControladorUsuario {
         else vista.operacionFallida();
     }
 
-    public Recompensa getRecompensaDeInversion(Inversor inversor, int idInversion){
-        return modelo.getRecompensaInversion(inversor, idInversion);
-    }
     /**
      * Comprueba si una inversion existe
      * @author AnaOrCam

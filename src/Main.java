@@ -1,15 +1,18 @@
+import utilidades.FuncionesCadenas;
+import utilidades.FuncionesCorreos;
 import utilidades.FuncionesFechas;
 import utilidades.FuncionesMenus;
 
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
+import java.util.*;
+
 import static utilidades.FuncionesMenus.*;
 import static utilidades.FuncionesCorreos.*;
 import static utilidades.FuncionesCadenas.*;
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args){
         final String ANSI_GREEN= "\033[32m";
         final String ANSI_RED="\033[31m";
         final String ANSI_RESET= "\033[0m";
@@ -19,17 +22,69 @@ public class Main {
         Scanner s=new Scanner(System.in);
         GestionProyectos modeloProyectos= new GestionProyectos();
         VistaProyecto vistaProyectos=new VistaProyecto("\033[32m","\033[31m","\033[0m","\033[35m","\033[37m");
-        ControladorProyectos controladorProyectos=new ControladorProyectos(modeloProyectos,vistaProyectos);
         GestionUsuarios modeloUsuarios=new GestionUsuarios();
         VistaUsuario vistaUsuario=new VistaUsuario("\033[32m","\033[31m","\033[0m","\033[35m");
+        ControladorProyectos controladorProyectos=new ControladorProyectos(modeloProyectos,vistaProyectos);
         ControladorUsuario controladorUsuario=new ControladorUsuario(modeloUsuarios,vistaUsuario);
+        Properties properties=new Properties();
+
+        try {
+            properties.load(new FileReader("./src/datos/setup.properties"));
+            File archivoUsuarios = new File(properties.getProperty("recuperacionUsuarios"));
+            File archivoProyectos = new File(properties.getProperty("recuperacionProyectos"));
+
+            if (archivoUsuarios.length() != 0 && archivoProyectos.length() != 0) {
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivoUsuarios));
+                ObjectInputStream ois2 = new ObjectInputStream(new FileInputStream(archivoProyectos));
+                controladorUsuario = (ControladorUsuario) ois.readObject();
+                controladorProyectos = (ControladorProyectos) ois2.readObject();
+                ois.close();
+                ois2.close();
+            }
+        }catch (ClassNotFoundException e){
+            e.printStackTrace();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
         int opcionInicial=0;
+        controladorUsuario.muestraUsuarios();
+        controladorProyectos.mostrarProyectos();
         System.out.println(ANSI_PURPLE+"Bienvenido a FernanStarter"+ANSI_RESET);
         do {
             menuInicial();
             //Iniciar,Crear,Cerrar
              opcionInicial=Integer.parseInt(s.nextLine());
             switch (opcionInicial){
+                case 3:{
+                    if (properties.getProperty("invitado").equalsIgnoreCase("si")){
+                        if (!controladorProyectos.getListaProyectos().isEmpty()){
+                            System.out.println(ANSI_GREEN+"Estos son los proyectos disponibles"+ANSI_RESET);
+                            controladorProyectos.mostrarProyectos();
+                            int opAux;
+                            do {
+                                System.out.println("¿Desea ver la vista detallada de algun proyecto?");
+                                System.out.println("1. Si");
+                                System.out.println("2. No");
+                                 opAux=Integer.parseInt(s.nextLine());
+                                if (opAux==1){
+                                    System.out.println("Introduzca el nombre del proyecto que desea visualizar");
+                                    String nombreAux=s.nextLine();
+                                    if (controladorProyectos.buscarProyecto(nombreAux)!=null){
+                                        controladorProyectos.muestraProyectoUnicoConGrafico(controladorProyectos.buscarProyecto(nombreAux));
+                                    }else {
+                                        System.out.println("Proyecto no existente");
+                                    }
+                                }
+                            }while(opAux==1);
+                        }else {
+                            System.out.println(ANSI_RED+"Actualmente no hay proyectos disponibles"+ANSI_RESET);
+                        }
+                    }else{
+                        System.out.println("El modo invitado no esta disponible");
+                    }
+                    break;
+                }
                 //Creacion
                 case 1:{
                     String nombreAux="";
@@ -229,6 +284,17 @@ public class Main {
                         Usuario usuarioActual =controladorUsuario.getUsuarioIniciado(correoAux,contraseniaAunx);
                         TipoUsuario tipoIniciado=controladorUsuario.getUsuarioIniciado(correoAux,contraseniaAunx).getTipoUsuario();
                         int opcion;
+                        try {
+                            BufferedWriter bw = new BufferedWriter(new FileWriter(properties.getProperty("logs"), true));
+                            bw.write("Inicio de Sesión;" + usuarioActual.getCorreo() + ";" + LocalDateTime.now() + "\n");
+                            bw.close();
+                            if (properties.containsKey(usuarioActual.getCorreo())){
+                                System.out.println("Hola "+usuarioActual.getNombre()+"! La última vez que iniciaste sesión fue en "+properties.getProperty(usuarioActual.getCorreo()));
+                            }
+                        }catch (IOException e){
+                            System.out.println("Error");
+                            e.printStackTrace();
+                        }
                         switch (tipoIniciado){
                             case GESTOR :{
                                 Gestor gestor=(Gestor) usuarioActual;
@@ -287,18 +353,59 @@ public class Main {
                                             }
                                             controladorProyectos.insertarProyecto(nuevo);
                                             controladorUsuario.gestorAnadirProyecto(gestor,nuevo);
+                                            try {
+                                                BufferedWriter bw2 = new BufferedWriter(new FileWriter(properties.getProperty("logs"), true));
+                                                bw2.write("Nuevo Proyecto;" + usuarioActual.getCorreo() + ";" + LocalDateTime.now() + "\n");
+                                                bw2.close();
+                                            }catch (IOException e){
+                                            System.out.println("Error");
+                                            e.printStackTrace();
+                                        }
                                             break;
                                         }
                                         case 2:{
                                             if (controladorUsuario.getProyectosCreadosPorGestorSinVista(gestor).size()>0){
                                                 System.out.println("Estos son tus proyectos");
                                                 controladorUsuario.getProyectosCreadosPorGestor(gestor);
+                                                System.out.println("¿Quieres ordenarlos?\n1. Si\n2. No");
+                                                int opcionOrden=Integer.parseInt(s.nextLine());
+                                                if (opcionOrden==1){
+                                                    FuncionesMenus.menuOrdenProyectos();
+                                                    LinkedList<Proyecto>proyectosCreadosPorGestor=controladorUsuario.getProyectosCreadosPorGestorSinVista(gestor);
+                                                    opcionOrden=Integer.parseInt(s.nextLine());
+                                                    switch (opcionOrden){
+                                                        case 1->{
+                                                            controladorProyectos.ordenarProyectos(proyectosCreadosPorGestor,1);
+                                                        }
+                                                        case 2->{
+                                                            controladorProyectos.ordenarProyectos(proyectosCreadosPorGestor,2);
+                                                        }
+                                                        case 3->{
+                                                            controladorProyectos.ordenarProyectos(proyectosCreadosPorGestor,3);
+                                                        }
+                                                        case 4->{
+                                                            controladorProyectos.ordenarProyectos(proyectosCreadosPorGestor,4);
+                                                        }
+                                                        case 5-> System.out.println("Saliendo...");
+                                                        default -> System.out.println("Esa opción no se encuentra en el menú");
+                                                    };
+                                                }else if(opcion!=2){
+                                                    System.out.println("Esa opción no se encuentra en el menú");
+                                                }
                                                 System.out.println("Escribe el nombre del  proyecto a visualizar (0 Para salir)");
                                                 String opcionaux=s.nextLine();
                                                 if (!opcionaux.equals("0")){
                                                     controladorUsuario.vistaDetalladaProyectoCreado(opcionaux,gestor);
                                                     if (controladorUsuario.buscaProyectoCreadoGestor(opcionaux,gestor)!=null) {
-                                                        controladorProyectos.mostrarGraficoFinanciacion(controladorUsuario.buscaProyectoCreadoGestor(opcionaux, gestor));
+                                                        Proyecto proyectoAuxiliar=controladorUsuario.buscaProyectoCreadoGestor(opcionaux, gestor);
+                                                        controladorProyectos.mostrarGraficoFinanciacion(proyectoAuxiliar);
+                                                        if (!controladorProyectos.getListaInversiones(proyectoAuxiliar).isEmpty()) {
+                                                            System.out.println("--------LISTA DE INVERSIONES--------");
+                                                            controladorProyectos.mostrarInversiones(proyectoAuxiliar);
+                                                            System.out.println("¿Quieres ordenar las inversiones por el nombre del inversor? (si/no)");
+                                                            String respuesta=s.nextLine();
+                                                            if (respuesta.equalsIgnoreCase("si")) controladorProyectos.ordenarYMostrarInversionesPorNombreInversor(proyectoAuxiliar);
+                                                        }
                                                     }else{
                                                         System.out.println("El nombre introducido no corresponde a ningún proyecto.");
                                                     }
@@ -386,6 +493,14 @@ public class Main {
                                                                 break;
                                                             }
                                                         }
+                                                        try{
+                                                        BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
+                                                        bw2.write("Modificacion Proyecto;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                                        bw2.close();
+                                                        }catch (IOException e){
+                                                            System.out.println("Error");
+                                                            e.printStackTrace();
+                                                        }
                                                     }else {
                                                         System.out.println("Proyecto no encontrado");
                                                     }
@@ -405,6 +520,14 @@ public class Main {
                                                 Proyecto auxiliarProyectos=controladorProyectos.buscarProyecto(opcionaux);
                                                 controladorProyectos.borrarProyecto(auxiliarProyectos);
                                                 controladorUsuario.borrarProyecto(gestor,auxiliarUsuarios);
+                                                try{
+                                                BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
+                                                bw2.write("Eliminación Proyecto;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                                bw2.close();
+                                                }catch (IOException e){
+                                                    System.out.println("Error");
+                                                    e.printStackTrace();
+                                                }
                                             }
                                             break;
                                         }
@@ -412,7 +535,8 @@ public class Main {
                                             System.out.println("Has accedido a la configuracion ");
                                             System.out.println("Elije opcion:\n" +
                                                     "1.Cambiar Nombre\n" +
-                                                    "2.Cambiar Contraseña");
+                                                    "2.Cambiar Contraseña\n" +
+                                                    "3.Eliminar cuenta");
                                             opcion=Integer.parseInt(s.nextLine());
                                             switch (opcion){
                                                 case 1:{
@@ -428,9 +552,33 @@ public class Main {
                                                     controladorUsuario.operacionSatisfactoria();
                                                     break;
                                                 }
+                                                case 3:{
+                                                    System.out.println("Introduce la contraseña para validar la operación:");
+                                                    String contrasena=s.nextLine();
+                                                    if (controladorUsuario.getProyectosCreadosPorGestorSinVista(gestor).isEmpty()) {
+                                                        if (controladorUsuario.eliminarUsuario(gestor,contrasena)) {
+                                                            opcion = 6;
+                                                        }
+                                                    }else{
+                                                        System.out.println("Esta cuenta tiene proyectos creados , por lo que no puede ser eliminada");
+                                                    }
+
+                                                    break;
+                                                }
                                                 default:{
                                                     controladorUsuario.operacionFallida();
                                                 }
+                                            }
+                                            break;
+                                        } case 6:{
+                                            System.out.println("Cerrando Sesion");
+                                            try{
+                                            BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
+                                            bw2.write("Cerrando Sesión;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                            bw2.close();
+                                            }catch (IOException e){
+                                                System.out.println("Error");
+                                                e.printStackTrace();
                                             }
                                             break;
                                         }
@@ -449,8 +597,13 @@ public class Main {
                                     switch (opcion) {
                                         case 1 -> {
                                             if (controladorUsuario.mostrarInversiones(inversor)) {
-                                                System.out.println("¿Quieres modificar la cantidad de alguna inversión? (si/no)");
+                                                System.out.println("¿Quieres ordenar las inversiones por cantidad invertida? (si/no)");
                                                 String respuesta=s.nextLine();
+                                                if (respuesta.equalsIgnoreCase("si")){
+                                                    controladorUsuario.mostrarInversionesOrdenadas(inversor);
+                                                }
+                                                System.out.println("¿Quieres modificar la cantidad de alguna inversión? (si/no)");
+                                                respuesta=s.nextLine();
                                                 if (respuesta.equalsIgnoreCase("si")){
                                                     System.out.println("Escribe la ID de la inversión que quieres modificar:");
                                                     int id=Integer.parseInt(s.nextLine());
@@ -463,10 +616,12 @@ public class Main {
                                                                 "\nNota: Ten en cuenta que no se podrán disminuir las inversiones que tengan una recompensa.");
                                                         switch (Integer.parseInt(s.nextLine())) {
                                                             case 1 -> {
-                                                                if (controladorUsuario.aumentarInversion(inversor,id,cantidad)){
+                                                                if (controladorUsuario.comprobarInversionYSaldo(id,cantidad,inversor)){
                                                                     if (!controladorUsuario.getNombreProyecto(id,inversor).equalsIgnoreCase("")) {
                                                                         Proyecto proyectoAuxiliar =controladorProyectos.buscarProyecto(controladorUsuario.getNombreProyecto(id,inversor));
-                                                                        if (controladorProyectos.aniadirFinanciacionAProyecto(cantidad,proyectoAuxiliar)) {
+                                                                        if (controladorProyectos.comprobarCantidadFinanciada(proyectoAuxiliar,cantidad)) {
+                                                                            controladorUsuario.aumentarInversion(inversor,id,cantidad);
+                                                                            controladorProyectos.aniadirFinanciacionAProyecto(cantidad,proyectoAuxiliar);
                                                                             float cantidadInvertidaTrasModificacion = controladorUsuario.getCantidadInvertidaEnInversion(id, inversor);
                                                                             if (controladorProyectos.siRecompensa(cantidadInvertidaTrasModificacion, proyectoAuxiliar)) {
                                                                                 System.out.println("¡Enhorabuena! Por tu nueva inversión puedes modificar tu recompensa: ");
@@ -516,6 +671,31 @@ public class Main {
                                         case 2 -> {
                                             System.out.println("------PROYECTOS------");
                                             if (controladorProyectos.mostrarProyectosConGrafico()){
+                                                System.out.println("¿Quieres ordenarlos?\n1. Si\n2. No");
+                                                int opcionOrden=Integer.parseInt(s.nextLine());
+                                                if (opcionOrden==1){
+                                                    FuncionesMenus.menuOrdenProyectos();
+                                                    LinkedList<Proyecto>listaProyectos=controladorProyectos.getListaProyectos();
+                                                    opcionOrden=Integer.parseInt(s.nextLine());
+                                                    switch (opcionOrden){
+                                                        case 1->{
+                                                            controladorProyectos.ordenarProyectos(listaProyectos,1);
+                                                        }
+                                                        case 2->{
+                                                            controladorProyectos.ordenarProyectos(listaProyectos,2);
+                                                        }
+                                                        case 3->{
+                                                            controladorProyectos.ordenarProyectos(listaProyectos,3);
+                                                        }
+                                                        case 4->{
+                                                            controladorProyectos.ordenarProyectos(listaProyectos,4);
+                                                        }
+                                                        case 5-> System.out.println("Saliendo...");
+                                                        default -> System.out.println("Esa opción no se encuentra en el menú");
+                                                    }
+                                                }else if(opcion!=2){
+                                                    System.out.println("Esa opción no se encuentra en el menú");
+                                                }
                                                 System.out.println("¿Quieres hacer una inversión? (si/no)");
                                                 if (s.nextLine().equalsIgnoreCase("si")) {
                                                     System.out.println("Introduce el nombre del proyecto en el que quieres invertir:");
@@ -524,7 +704,32 @@ public class Main {
                                                         Proyecto proyectoAux=controladorProyectos.buscarProyecto(nombre);
                                                         System.out.println("¿Què cantidad quieres invertir?");
                                                         float cantidad=Float.parseFloat(s.nextLine());
+                                                        int id;
+                                                        boolean repetida=false;
+                                                        do{
+                                                            System.out.println("Asigna una id a la inversion");
+                                                             id=Integer.parseInt(s.nextLine());
+                                                             LinkedList<Inversion> aux =inversor.getProyectosInvertidos();
+                                                             for (Inversion a:aux){
+                                                                 if (a.getIdInversion()==id){
+                                                                     repetida=true;
+                                                                     System.out.println("Id en uso");
+                                                                     break;
+                                                                 }else {
+                                                                     repetida=false;
+                                                                 }
+                                                             }
+                                                        }while(repetida);
+
                                                         if (controladorProyectos.siRecompensa(cantidad,proyectoAux)) {
+                                                            try{
+                                                            BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
+                                                            bw2.write("Inversion Realizada;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                                            bw2.close();
+                                                            }catch (IOException e){
+                                                                System.out.println("Error");
+                                                                e.printStackTrace();
+                                                            }
                                                             System.out.println("¡Enhorabuena! Por tu inversión puedes elegir entre las siguientes recompensas: ");
                                                             controladorProyectos.mostrarRecompensasAElegir(cantidad, proyectoAux);
                                                             boolean recompensaValida = false;
@@ -539,20 +744,23 @@ public class Main {
                                                                 }
                                                             } while (!recompensaValida);
                                                             Recompensa recompensaAux = controladorProyectos.buscarRecompensa(eleccion, proyectoAux);
-                                                            Inversion inversionAux = new Inversion(nombre, cantidad, inversor, recompensaAux);
-                                                            if (controladorProyectos.aniadirFinanciacionAProyecto(cantidad, proyectoAux)) {
-                                                                if (!controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)) {
-                                                                    System.out.println("No se ha podido realizar la operación. Saldo insuficiente");
-                                                                }
+                                                            Inversion inversionAux = new Inversion(nombre, cantidad, inversor, recompensaAux,id);
+                                                            if (controladorProyectos.comprobarCantidadFinanciada(proyectoAux,cantidad) && controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)) {
+                                                                controladorProyectos.aniadirFinanciacionAProyecto(cantidad, proyectoAux);
+                                                                controladorProyectos.insertarInversion(inversionAux, proyectoAux);
+
+                                                            }else if(!controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)){
+                                                                System.out.println("No se ha podido realizar la operación. Saldo insuficiente");
                                                             }else{
                                                                 System.out.println(ANSI_RED+"No se ha podido realizar la inversión. Supera la de inversión total del proyecto."+ANSI_RESET);
                                                             }
                                                         }else{
-                                                            Inversion inversionAux = new Inversion(nombre, cantidad, inversor);
-                                                            if (controladorProyectos.aniadirFinanciacionAProyecto(cantidad, proyectoAux)){
-                                                                if (!controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)) {
-                                                                    System.out.println(ANSI_RED+"No se ha podido realizar la operación. Saldo insuficiente"+ANSI_RESET);
-                                                                }
+                                                            Inversion inversionAux = new Inversion(nombre, cantidad, inversor,id);
+                                                            if (controladorProyectos.comprobarCantidadFinanciada(proyectoAux,cantidad) && controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)){
+                                                                controladorProyectos.aniadirFinanciacionAProyecto(cantidad, proyectoAux);
+                                                                controladorProyectos.insertarInversion(inversionAux,proyectoAux);
+                                                            }else if(!controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)){
+                                                                System.out.println("No se ha podido realizar la operación. Saldo insuficiente");
                                                             }else{
                                                                 System.out.println(ANSI_RED+"No se ha podido realizar la inversión. Supera la de inversión total del proyecto."+ANSI_RESET);
                                                             }
@@ -598,7 +806,8 @@ public class Main {
                                             System.out.println("Has accedido a la configuracion ");
                                             System.out.println("Elije opcion:\n" +
                                                     "1.Cambiar Nombre\n" +
-                                                    "2.Cambiar Contraseña");
+                                                    "2.Cambiar Contraseña\n" +
+                                                    "3.Eliminar cuenta");
                                             opcion=Integer.parseInt(s.nextLine());
                                             switch (opcion){
                                                 case 1:{
@@ -614,13 +823,31 @@ public class Main {
                                                     controladorUsuario.operacionSatisfactoria();
                                                     break;
                                                 }
+                                                case 3:{
+                                                    System.out.println("Introduce la contraseña para validar la operación:");
+                                                    String contrasena=s.nextLine();
+                                                    if (controladorUsuario.eliminarUsuario(inversor,contrasena)) {
+                                                        opcion = 6;
+                                                    }
+                                                    break;
+                                                }
                                                 default:{
                                                     controladorUsuario.operacionFallida();
                                                 }
                                             }
                                             break;
                                         }
-                                        case 6 -> System.out.println("Cerrando sesión...") ;
+                                        case 6 ->{
+                                            System.out.println("Cerrando sesión...") ;
+                                            try {
+                                                BufferedWriter bw2 = new BufferedWriter(new FileWriter(properties.getProperty("logs"), true));
+                                                bw2.write("Cerrando Sesión;" + usuarioActual.getCorreo() + ";" + LocalDateTime.now() + "\n");
+                                                bw2.close();
+                                            }catch (IOException e){
+                                                System.out.println("Error");
+                                                e.printStackTrace();
+                                            }
+                                        }
                                         default -> System.out.println("Esa opción no se encuentra en el menú");
                                     }
                                 }while (opcion!=6);
@@ -701,6 +928,32 @@ public class Main {
                                         case 2:{
                                             if (!controladorProyectos.mostrarProyectosConGrafico()){
                                                 System.out.println("No hay proyectos disponibles");
+                                            }else{
+                                                System.out.println("¿Quieres ordenarlos?\n1. Si\n2. No");
+                                                int opcionOrden=Integer.parseInt(s.nextLine());
+                                                if (opcionOrden==1){
+                                                    FuncionesMenus.menuOrdenProyectos();
+                                                    LinkedList<Proyecto>listaProyectos=controladorProyectos.getListaProyectos();
+                                                    opcionOrden=Integer.parseInt(s.nextLine());
+                                                    switch (opcionOrden){
+                                                        case 1->{
+                                                            controladorProyectos.ordenarProyectos(listaProyectos,1);
+                                                        }
+                                                        case 2->{
+                                                            controladorProyectos.ordenarProyectos(listaProyectos,2);
+                                                        }
+                                                        case 3->{
+                                                            controladorProyectos.ordenarProyectos(listaProyectos,3);
+                                                        }
+                                                        case 4->{
+                                                            controladorProyectos.ordenarProyectos(listaProyectos,4);
+                                                        }
+                                                        case 5-> System.out.println("Saliendo...");
+                                                        default -> System.out.println("Esa opción no se encuentra en el menú");
+                                                    }
+                                                }else if(opcion!=2){
+                                                    System.out.println("Esa opción no se encuentra en el menú");
+                                                }
                                             }
                                             break;
                                         }
@@ -708,7 +961,8 @@ public class Main {
                                             System.out.println("Has accedido a la configuracion ");
                                             System.out.println("Elije opcion:\n" +
                                                     "1.Cambiar Nombre\n" +
-                                                    "2.Cambiar Contraseña");
+                                                    "2.Cambiar Contraseña\n" +
+                                                    "3.Eliminar cuenta");
                                             opcion=Integer.parseInt(s.nextLine());
                                             switch (opcion){
                                                 case 1:{
@@ -724,6 +978,14 @@ public class Main {
                                                     controladorUsuario.operacionSatisfactoria();
                                                     break;
                                                 }
+                                                case 3:{
+                                                    System.out.println("Introduce la contraseña para validar la operación:");
+                                                    String contrasena=s.nextLine();
+                                                    if (controladorUsuario.eliminarUsuario(admin,contrasena)) {
+                                                        opcion = 6;
+                                                    }
+                                                    break;
+                                                }
                                                 default:{
                                                     controladorUsuario.operacionFallida();
                                                 }
@@ -732,7 +994,79 @@ public class Main {
 
                                         }
                                         case 4:{
+                                            System.out.println("----Bienvenido a la configuración de FernanStarter----\n" +
+                                                    "¿Qué quieres hacer?\n" +
+                                                    "1. Mostrar configuración guardada en el archivo Properties\n" +
+                                                    "2. Mostrar últimas conexiones de los usuarios");
+                                            int opcionConf=Integer.parseInt(s.nextLine());
+                                            switch (opcionConf){
+                                                case 1->{
+                                                    for (Object e: properties.stringPropertyNames()){
+                                                        if (!FuncionesCadenas.comprobacionCorreo(e.toString())) System.out.println(e+" - "+properties.get(e));
+                                                    }
+                                                }
+                                                case 2->{
+                                                    for (Object e: properties.stringPropertyNames()){
+                                                        if (FuncionesCadenas.comprobacionCorreo(e.toString())) System.out.println(e+" - "+properties.get(e));
+                                                    }
+                                                }
+                                                default-> System.out.println("Esa opción no se encuentra en el menú");
+                                            }
+                                            break;
+                                        }
+                                        case 5:{
+                                            for (Object obj: properties.stringPropertyNames()){
+                                                if (FuncionesCadenas.comprobacionCorreo(obj.toString())) {
+                                                    Usuario aux=controladorUsuario.getUsuario(obj.toString());
+                                                    if (aux != null) {
+                                                        if (aux.getTipoUsuario() == TipoUsuario.INVERSOR) {
+                                                            if (!controladorUsuario.getListaInversionesResumenCSV((Inversor) aux).isEmpty()) {
+                                                                LinkedList<String> listaInversiones = controladorUsuario.getListaInversionesResumenCSV((Inversor) aux);
+                                                                try {
+                                                                    BufferedWriter bw = new BufferedWriter(new FileWriter("./src/datos/resumenInversion" + aux.getNombre() + ".csv"));
+                                                                    for (String linea : listaInversiones) {
+                                                                        bw.write(linea + "\n");
+                                                                    }
+                                                                    bw.close();
+                                                                    properties.setProperty("resumenInversion" + aux.getNombre(), "./src/datos/resumenInversion" + aux.getNombre() + ".csv");
+                                                                    BufferedReader br = new BufferedReader(new FileReader("./src/datos/resumenInversion" + aux.getNombre() + ".csv"));
+                                                                    String linea="";
+                                                                    String asunto = "Resumen de tus inversiones en FernanStarter";
+                                                                    String cuerpo = "Aquí tienes un resumen de tus inversiones en FernanStarter ¡Te esperamos!\n";
+
+                                                                    while((linea= br.readLine())!=null){
+                                                                        String[]partes=linea.split(";");
+                                                                        cuerpo+="-Proyecto: "+partes[0]+" Id de inversion: "+partes[1]+" Cantidad Invertida: "+ partes[2];
+                                                                        if (partes.length==4){
+                                                                            cuerpo+="Recompensa Elegida: "+partes[3]+"\n";
+                                                                        }
+
+                                                                    }
+
+                                                                    FuncionesCorreos.enviarConGMail(aux.getCorreo(),asunto,cuerpo);
+
+                                                                } catch (IOException e) {
+                                                                    e.printStackTrace();
+                                                                    System.out.println("Error");
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            controladorUsuario.operacionSatisfactoria();
+                                            break;
+                                        }
+                                        case 6:{
                                             System.out.println("Cerrando Sesion...");
+                                            try {
+                                                BufferedWriter bw2 = new BufferedWriter(new FileWriter(properties.getProperty("logs"), true));
+                                                bw2.write("Cerrando Sesión;" + usuarioActual.getCorreo() + ";" + LocalDateTime.now() + "\n");
+                                                bw2.close();
+                                            }catch (IOException e){
+                                                System.out.println("Error");
+                                                e.printStackTrace();
+                                            }
                                             break;
                                         }
                                         default:{
@@ -740,12 +1074,20 @@ public class Main {
                                             break;
                                         }
                                     }
-                                }while(opcion!=4);
+                                }while(opcion!=6);
 
 
                                 break;
                             }
                         }
+                        try {
+                            String fecha=FuncionesFechas.parsearLocalDateAString(LocalDate.now())+" "+LocalDateTime.now().getHour()+":"+LocalDateTime.now().getMinute();
+                            properties.setProperty(usuarioActual.getCorreo(), fecha);
+                            properties.store(new FileWriter("./src/datos/setup.properties"), "Sistema actualizado");
+                        }catch (IOException e){
+                            System.out.println("Error al guardar el archivo Properties");
+                        }
+
                     }else if (controladorUsuario.getUsuario(correoAux)!=null){
                         System.out.println("Sus credenciales no son válidas");
                         if (controladorUsuario.getUsuario(correoAux).getTipoUsuario()==TipoUsuario.INVERSOR){
@@ -761,12 +1103,25 @@ public class Main {
                     }
                     break;
                 }
-                case 3:{
+                case 4:{
                     System.out.println(ANSI_PURPLE+"Saliendo de FernanStarter"+ANSI_RESET);
                     break;
                 }
             }
-        }while (opcionInicial!=3);
+        }while (opcionInicial!=4);
+        try{
+            ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(properties.getProperty("recuperacionUsuarios")));
+            oos.writeObject(controladorUsuario);
+            oos.close();
+            ObjectOutputStream oos2=new ObjectOutputStream(new FileOutputStream(properties.getProperty("recuperacionProyectos")));
+            oos2.writeObject(controladorProyectos);
+            oos2.close();
+            System.out.println("Fichero cifrado");
+        }catch (FileNotFoundException e){
+            System.out.println("Fichero no encontrado");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         controladorUsuario.muestraUsuarios();
 
     }

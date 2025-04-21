@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-public class GestionUsuarios {
+public class GestionUsuarios implements Serializable {
     private HashMap<String,Usuario> usuarios = new HashMap<>();
     /**
      * Añade un usuario nuevo a la lista
@@ -12,6 +13,11 @@ public class GestionUsuarios {
     public void aniadirUsuario(Usuario nuevo){
         usuarios.put(nuevo.getCorreo(), nuevo);
     }
+
+    public void eliminarUsuario(Usuario usuario){
+        usuarios.remove(usuario.getCorreo(), usuario);
+    }
+
     /**
      * Devuelve el diccionario de usuarios
      * @author AnaOrCam
@@ -189,12 +195,19 @@ public class GestionUsuarios {
      * @param idInversion id de la inversion realizada
      * @param inversor inversor que ha realizado la inversion
      * @param cantidad cantidad para aumentar
-     * @return true si se a podido realizar la inversion
      */
-    public boolean aumentarInversion(int idInversion, float cantidad, Inversor inversor){
-        if (inversor.aumentarInversion(idInversion,cantidad)) return true;
-        return false;
+    public void aumentarInversion(int idInversion, float cantidad, Inversor inversor){
+        inversor.aumentarInversion(idInversion,cantidad);
     }
+
+    public boolean comprobarInversionYSaldo(int idInversion,float cantidad, Inversor inversor){
+        return inversor.comprobarInversionYSaldo(idInversion,cantidad);
+    }
+
+    public LinkedList<String> getListaInversionesResumenCSV(Inversor inversor){
+        return inversor.getProyectosInvertidosResumenCSV();
+    }
+
     /**
      * Disminuye la inversion
      * @author AnaOrCam
@@ -222,8 +235,11 @@ public class GestionUsuarios {
         return false;
     }
     public boolean compruebaCredenciales2(String correo,String contrasena){
-        if (usuarios.containsKey(correo) && usuarios.get(correo).equals(contrasena)) return true;
-        else return false;
+        if (usuarios.containsKey(correo)){
+            Usuario aux=usuarios.get(correo);
+            return aux.getContrasena().equals(contrasena);
+        }
+        return false;
     }
     /**
      * Busca un usuario segun su correo y contraseña

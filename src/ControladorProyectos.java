@@ -1,5 +1,8 @@
+import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 
-public class ControladorProyectos {
+public class ControladorProyectos implements Serializable {
 
     private GestionProyectos modelo;
     private VistaProyecto vista;
@@ -21,11 +24,89 @@ public class ControladorProyectos {
      */
     public boolean mostrarProyectos(){
         if (!modelo.getProyectos().isEmpty()) {
-            vista.muestraListaProyectos(modelo.getProyectos(), modelo.getListaRecompensas());
+            vista.muestraListaProyectos(modelo.getProyectos());
             return true;
         }
         return false;
     }
+    /**
+     * Muestra un proyecto con su grafico de inversion
+     * @author davidrn06
+     * @param aux proyecto del que se quiere saber informacion
+     */
+    public void muestraProyectoUnicoConGrafico(Proyecto aux){
+        vista.muestraProyectoConGrafica(aux);
+    }
+
+    /**
+     * Getter de la lista de inversiones.
+     * @author anaOrCam
+     * @return devuelve la Linkedlist que contiene las inversiones realizadas.
+     */
+    public LinkedList<Inversion> getListaInversiones(Proyecto proyecto) {
+        return modelo.getListaInversiones(proyecto);
+    }
+
+    /**
+     * Metodo que devuelve la lista de proyectos
+     * @author AnaOrCam
+     * @return devuelve una Linkedlist con los proyectos existentes
+     */
+    public LinkedList<Proyecto> getListaProyectos(){
+        return modelo.getProyectos();
+    }
+
+    /**
+     * Metodo que ordena los proyectos según fecha de apertura, fecha de cierre, cantidad a financiar o importe financiado.
+     * @author AnaOrCam
+     * @param proyectos se refiere a la Linkedlist que contiene los proyectos.
+     * @param tipoOrden se refiere al criterio de orden que se seguira basado en un numero entero.
+     */
+    public void ordenarProyectos(LinkedList<Proyecto> proyectos, int tipoOrden){
+        //Tipo orden:
+        // 1. Por cantidad invertida
+        // 2. Por cantidad a financiar
+        // 2. Por fecha de apertura
+        // 3. Por fecha de cierre
+        switch (tipoOrden){
+            case 1->{
+                LinkedList<Proyecto> listaOrdenada = new LinkedList<>(modelo.ordenarPorImporteFinanciado(proyectos));
+                vista.muestraListaProyectos(listaOrdenada);
+            }
+            case 2->{
+                LinkedList<Proyecto> listaOrdenada = new LinkedList<>(modelo.ordenarPorCantidadAFinanciar(proyectos));
+                vista.muestraListaProyectos(listaOrdenada);
+            }
+            case 3->{
+                LinkedList<Proyecto> listaOrdenada= new LinkedList<>(modelo.ordenarPorFechaApertura(proyectos));
+                vista.muestraListaProyectos(listaOrdenada);
+            }
+            case 4->{
+                LinkedList<Proyecto> listaOrdenada= new LinkedList<>(modelo.ordenarPorFechaCierre(proyectos));
+                vista.muestraListaProyectos(listaOrdenada);
+            }
+            default -> vista.operacionFallida();
+        }
+    }
+
+    /**
+     * Ordena y muestra la lista de inversiones por el nombre del inversor.
+     * @author anaOrCam
+     * @param proyecto se refiere al proyecto que contiene la lista de inversiones.
+     */
+    public void ordenarYMostrarInversionesPorNombreInversor(Proyecto proyecto){
+        vista.muestraInversiones(modelo.ordenarInversionesPorNombreInversor(proyecto));
+    }
+
+    /**
+     * Ordena y muestra la lista de inversiones por el nombre del inversor.
+     * @author anaOrCam
+     * @param proyecto se refiere al proyecto que contiene la lista de inversiones.
+     */
+    public void mostrarInversiones(Proyecto proyecto){
+        vista.muestraInversiones(modelo.getListaInversiones(proyecto));
+    }
+
     /**
      * Metodo que muestra proyectos con grafico
      * @author AnaOrCam
@@ -33,7 +114,7 @@ public class ControladorProyectos {
      */
     public boolean mostrarProyectosConGrafico(){
         if (!modelo.getProyectos().isEmpty()) {
-            vista.muestraListaProyectosConGrafica(modelo.getProyectos(), modelo.getListaRecompensas());
+            vista.muestraListaProyectosConGrafica(modelo.getProyectos());
             return true;
         }
         return false;
@@ -47,13 +128,24 @@ public class ControladorProyectos {
         modelo.insertarProyecto(proyecto);
         vista.proyectoInsertadoCorrectamente(proyecto);
     }
+
     /**
-     * Metodo que insertar recompensa en un proyecto
+     * Inserta una inversión en la lista de inversiones
+     * @author AnaOrCam
+     * @param  proyecto proyecto al que pertenece la inversion
+     * @param  inversion inversion que va a ser insertada
+     */
+    public void insertarInversion(Inversion inversion, Proyecto proyecto){
+        modelo.insertarInversion(inversion,proyecto);
+    }
+
+    /**
+     * Metodo que inserta recompensa en un proyecto
      * @author AnaOrCam
      * @param nombreProyecto nombre del proyecto en el que se va a insertar
      * @param  recompensa recompensa que va a ser insertada
      */
-    public void insertarRecompensa(Recompensa recompensa, String nombreProyecto){
+    public void insertarRecompensaPorNombre(Recompensa recompensa, String nombreProyecto){
         Proyecto aux=modelo.buscaProyecto(nombreProyecto);
         aux.insertaRecompensa(recompensa);
     }
@@ -105,11 +197,21 @@ public class ControladorProyectos {
      * @author AnaOrCam
      * @param cantidad cantidad a añadir
      * @param proyecto  proyecto en el que se va a añadir la financiacion
-     * @return devuelve true si se ha podido añadir
      */
-    public boolean aniadirFinanciacionAProyecto(float cantidad, Proyecto proyecto){
-        return modelo.aniadirFinanciacionAProyecto(cantidad, proyecto);
+    public void aniadirFinanciacionAProyecto(float cantidad, Proyecto proyecto){
+         modelo.aniadirFinanciacionAProyecto(cantidad, proyecto);
     }
+
+    /**
+     * Comprueba que el importe que se pasa por parametro mas lo actualmente invertido en el proyecto supera el total a invertir.
+     * @author AnaOrCam
+     * @param cantidad se refiere cantidad a comprobar.
+     * @return devuelve true si no supera la cantidad y false si por el contrario, la supera.
+     */
+    public boolean comprobarCantidadFinanciada(Proyecto proyecto, float cantidad){
+        return modelo.comprobarCantidadFinanciada(proyecto,cantidad);
+    }
+
     /**
      * Resta financiacion a un proyecto
      * @author AnaOrCam

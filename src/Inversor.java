@@ -1,8 +1,11 @@
 import utilidades.FuncionesCadenas;
 
+import java.io.Serializable;
+import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.List;
 
-public class Inversor extends Usuario implements Bloqueable{
+public class Inversor extends Usuario implements Bloqueable, Serializable {
     private LinkedList<Inversion> proyectosInvertidos;
     private LinkedList<String> amigosInvitados;
     private float invertidoTotal;
@@ -36,6 +39,35 @@ public class Inversor extends Usuario implements Bloqueable{
      */
     public LinkedList<Inversion> getProyectosInvertidos() {
         return proyectosInvertidos;
+    }
+    /**
+     * Devuelve la lista de proyectos invertidos en formato CSV
+     * @author AnaOrCam
+     * @return lista resultante
+     */
+    public LinkedList<String> getProyectosInvertidosResumenCSV() {
+        LinkedList<String> resumenInversiones=new LinkedList<>();
+        for (int i = 0; i < proyectosInvertidos.size() ; i++) {
+            if (proyectosInvertidos.get(i).getRecompensaElegida() != null) {
+                resumenInversiones.add(proyectosInvertidos.get(i).getNombreProyecto() + ";" + proyectosInvertidos.get(i).getIdInversion() + ";" + proyectosInvertidos.get(i).getCantidadInvertida() + ";" + proyectosInvertidos.get(i).getRecompensaElegida().getNombre());
+            }else{
+                resumenInversiones.add(proyectosInvertidos.get(i).getNombreProyecto() + ";" + proyectosInvertidos.get(i).getIdInversion() + ";" + proyectosInvertidos.get(i).getCantidadInvertida());
+            }
+        }
+        return resumenInversiones;
+    }
+    /**
+     * Ordena una lista de proyectos segun la cantidad invertida de un inversor
+     * @author AnaOrCam
+     * @return lista resultante
+     */
+    public List<Inversion> ordenarPorCantidadInvertida(){
+        List<Inversion> listaOrdenada=proyectosInvertidos.stream().toList();
+        return listaOrdenada
+                .stream()
+                .sorted((o1,o2) ->Integer.compare((int) o1.getCantidadInvertida(), (int)o2.getCantidadInvertida()))
+                .toList();
+
     }
 
     /**
@@ -165,14 +197,23 @@ public class Inversor extends Usuario implements Bloqueable{
      * @author AnaOrCam
      * @param idInversion se refiere al atributo id de Inversion.
      * @param cantidad se refiere a la cantidad que se sumará a la inversión.
-     * @return devuelve true si el saldo es mayor o igual a la cantidad y ha podido realizarse la operación y false en caso contrario.
      */
-    public boolean aumentarInversion(int idInversion, float cantidad){
-        if (buscarInversionPorId(idInversion)!=null){
+    public void aumentarInversion(int idInversion, float cantidad){
             Inversion inversionAModificar= buscarInversionPorId(idInversion);
-            if (saldo>=cantidad) {
-                inversionAModificar.aumentaInversion(cantidad);
-                invertidoTotal+=cantidad;
+            inversionAModificar.aumentaInversion(cantidad);
+            invertidoTotal+=cantidad;
+    }
+
+    /**
+     * Comprueba que el saldo es mayor a la inversion que se desea hacer y que el id de la inversion no apunta a un objeto nulo.
+     * @author AnaOrCam
+     * @param idInversion se refiere al atributo id de Inversion.
+     * @param cantidad se refiere a la cantidad que se desea invertir.
+     * @return devuelve true si el objeto con la id existe y si el saldo es mayor o igual a la cantidad a invertir y false en el canso contrario.
+     */
+    public boolean comprobarInversionYSaldo(int idInversion,float cantidad){
+        if (buscarInversionPorId(idInversion)!=null) {
+            if (saldo >= cantidad) {
                 return true;
             }
         }

@@ -1,7 +1,11 @@
+import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.List;
 
-public class GestionProyectos {
+public class GestionProyectos implements Serializable {
     private LinkedList<Proyecto> proyectos;
+
+
     /**
      * Constructor de gestion de proyecto
      * @author AnaOrCam
@@ -25,6 +29,17 @@ public class GestionProyectos {
     public void insertarProyecto(Proyecto proyecto){
         proyectos.add(proyecto);
     }
+
+    /**
+     * Inserta una inversión en la lista de inversiones
+     * @author AnaOrCam
+     * @param  proyecto proyecto al que pertenece la inversion
+     * @param  inversion inversion que va a ser insertada
+     */
+    public void insertarInversion(Inversion inversion, Proyecto proyecto){
+        proyecto.insertarInversion(inversion);
+    }
+
     /**
      * Busca un proyecto por su nombre
      * @author AnaOrCam
@@ -38,15 +53,97 @@ public class GestionProyectos {
         return null;
     }
     /**
+     * Ordena una lista de proyectos segun el importe financiado
+     * @author AnaOrCam
+     * @param proyectos lista de proyectos
+     * @return lista resultante
+     */
+    public List<Proyecto> ordenarPorImporteFinanciado(LinkedList<Proyecto> proyectos){
+        List<Proyecto> listaProyectos=proyectos.stream().toList();
+        return listaProyectos
+                .stream()
+                .sorted((o1,o2) -> o1.getCantidadInvertidaActual()-o2.getCantidadInvertidaActual())
+                .toList();
+    }
+    /**
+     * Ordena una lista de proyectos segun la cantidad a financiar
+     * @author AnaOrCam
+     * @param proyectos lista de proyectos
+     * @return lista resultante
+     */
+    public List<Proyecto> ordenarPorCantidadAFinanciar(LinkedList<Proyecto> proyectos){
+        List<Proyecto> listaProyectos=proyectos.stream().toList();
+        return listaProyectos
+                .stream()
+                .sorted((o1,o2) -> o1.getCantidadAInvertirTotal()-o2.getCantidadAInvertirTotal())
+                .toList();
+    }
+    /**
+     * Ordena una lista de proyectos segun la fecha de apertura
+     * @author AnaOrCam
+     * @param proyectos lista de proyectos
+     * @return lista resultante
+     */
+    public List<Proyecto> ordenarPorFechaApertura(LinkedList<Proyecto> proyectos){
+        List<Proyecto> listaProyectos=proyectos.stream().toList();
+        return listaProyectos
+                .stream()
+                .sorted((o1,o2) -> o1.getFechaApertura().compareTo(o2.getFechaApertura()))
+                .toList();
+    }
+    /**
+     * Ordena una lista de proyectos segun la fecha de cierre
+     * @author AnaOrCam
+     * @param proyectos lista de proyectos
+     * @return lista resultante
+     */
+    public List<Proyecto> ordenarPorFechaCierre(LinkedList<Proyecto> proyectos){
+        List<Proyecto> listaProyectos=proyectos.stream().toList();
+        return listaProyectos
+                .stream()
+                .sorted((o1,o2) -> o1.getFechaCierre().compareTo(o2.getFechaCierre()))
+                .toList();
+    }
+
+    /**
      * Añade financiaciona un proyecto
      * @author AnaOrCam
      * @param cantidad cantidad que se va a añadir
      * @param proyecto proyecto en el que se va a añadir
-     * @return devuelve true si se añade
      */
-    public boolean aniadirFinanciacionAProyecto(float cantidad, Proyecto proyecto){
-        return (proyecto.aniadirFinanciacion(cantidad));
+    public void aniadirFinanciacionAProyecto(float cantidad, Proyecto proyecto){
+            proyecto.aniadirFinanciacion(cantidad);
     }
+
+    /**
+     * Comprueba que el importe que se pasa por parametro mas lo actualmente invertido en el proyecto supera el total a invertir.
+     * @author AnaOrCam
+     * @param cantidad se refiere cantidad a comprobar.
+     * @return devuelve true si no supera la cantidad y false si por el contrario, la supera.
+     */
+    public boolean comprobarCantidadFinanciada(Proyecto proyecto, float cantidad){
+        return proyecto.comprobacionImporteFinanciacion(cantidad);
+    }
+
+    /**
+     * Getter de la lista de inversiones.
+     * @author anaOrCam
+     * @return devuelve la Linkedlist que contiene las inversiones realizadas.
+     */
+    public LinkedList<Inversion> getListaInversiones(Proyecto proyecto) {
+        return proyecto.getListaInversiones();
+    }
+
+    /**
+     * Ordena la lista de inversiones por el nombre del inversor.
+     * @author anaOrCam
+     * @param proyecto se refiere al proyecto que contiene la lista de inversiones.
+     * @return devuelve la lista ordenada en formato List.
+     */
+    public List<Inversion> ordenarInversionesPorNombreInversor(Proyecto proyecto){
+        return proyecto.ordenarInversionesPorNombreInversor();
+    }
+
     /**
      * Resta financiacion a un proyecto
      * @author AnaOrCam

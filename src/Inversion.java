@@ -1,9 +1,10 @@
-public class Inversion implements Invertible{
+import java.io.Serializable;
+
+public class Inversion implements Invertible , Serializable {
     private String nombreProyecto;
     private float cantidadInvertida;
     private Inversor inversor;
     private Recompensa recompensaElegida;
-    private static int contadorInversiones =0;
     private int idInversion;
 
     /**
@@ -14,12 +15,12 @@ public class Inversion implements Invertible{
      * @param  cantidadInvertida cantidad invertida en la inverison
      * @param recompensaElegida recompensa que ha elegido
      */
-    public Inversion(String proyecto, float cantidadInvertida, Inversor inversor, Recompensa recompensaElegida){
+    public Inversion(String proyecto, float cantidadInvertida, Inversor inversor, Recompensa recompensaElegida ,int idInversion){
         this.nombreProyecto =proyecto;
         this.cantidadInvertida=cantidadInvertida;
         this.inversor=inversor;
         this.recompensaElegida=recompensaElegida;
-        idInversion= contadorInversiones++;
+        this.idInversion= idInversion;
 
     }
     /**
@@ -29,12 +30,12 @@ public class Inversion implements Invertible{
      * @param proyecto nombre del proyecto en el que se ha realizadp
      * @param  cantidadInvertida cantidad invertida en la inverison
      */
-    public Inversion(String proyecto, float cantidadInvertida, Inversor inversor){
+    public Inversion(String proyecto, float cantidadInvertida, Inversor inversor, int idInversion){
         this.nombreProyecto =proyecto;
         this.cantidadInvertida=cantidadInvertida;
         this.inversor=inversor;
         this.recompensaElegida=null;
-        idInversion= contadorInversiones++;
+        this.idInversion= idInversion;
     }
     /**
      * Devuelve la cantidad invertida en una inversion
@@ -103,7 +104,7 @@ public class Inversion implements Invertible{
      */
     public String toString(){
         if (recompensaElegida==null){
-            return "Proyecto: "+nombreProyecto+" - ID de inversión: "+idInversion+"\nCantidad invertida: "+cantidadInvertida;
-        }else return "Proyecto: "+nombreProyecto+" - ID de inversión: "+idInversion+"\nCantidad invertida: "+cantidadInvertida+" - Recompensa elegida: "+recompensaElegida;
+            return "Proyecto: "+nombreProyecto+" - ID de inversión: "+idInversion+"\nCantidad invertida: "+cantidadInvertida+"\nInversor: "+inversor;
+        }else return "Proyecto: "+nombreProyecto+" - ID de inversión: "+idInversion+"\nCantidad invertida: "+cantidadInvertida+" - Recompensa elegida: "+recompensaElegida+"\nInversor: "+inversor;
     }
 }

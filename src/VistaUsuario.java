@@ -1,9 +1,10 @@
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-public class VistaUsuario {
+public class VistaUsuario implements Serializable {
     private String textoVerde;
     private String textoRojo;
     private String resetColorTexto;
@@ -153,7 +154,7 @@ public class VistaUsuario {
      * @param listaInversiones se refiere a la LinkedList que contiene las inversiones de un inversor.
      * @return no devuelve nada.
      */
-    public void mostrarProyecosInvertidos(LinkedList listaInversiones){
+    public void mostrarProyectosInvertidos(LinkedList listaInversiones){
         for (Object e: listaInversiones) {
             System.out.println(e);
         }

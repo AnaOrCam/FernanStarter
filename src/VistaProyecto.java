@@ -1,6 +1,8 @@
+import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.List;
 
-public class VistaProyecto {
+public class VistaProyecto implements Serializable {
     private String textoVerde;
     private String textoRojo;
     private String resetColorTexto;
@@ -24,18 +26,25 @@ public class VistaProyecto {
         this.textoMorado =morado;
         this.textoGris=gris;
     }
+    /**
+     * Muestra mensaje de operacion fallida
+     * @author AnaOrCam
+     */
+    public void operacionFallida(){
+        System.out.println(textoRojo+"Error. La operación no ha podido realizarse"+resetColorTexto);
+    }
 
     /**
      * Muestra la lista de proyectos.
      * @author AnaOrcam
      * @param listaProyectos se refiere a la LinkedList que contiene la lista de proyectos.
-     * @param listaRecompensas se refiere a la LinkedList que contiene la lista de recompensas.
      * @return no devuelve nada.
      */
-    public void muestraListaProyectos(LinkedList listaProyectos, LinkedList listaRecompensas){
+    public void muestraListaProyectos(LinkedList listaProyectos){
         for (int i = 0; i < listaProyectos.size(); i++) {
             System.out.println(listaProyectos.get(i));
             muestraRecompensas((Proyecto)listaProyectos.get(i));
+            System.out.println("----------------------------------");
         }
     }
 
@@ -43,16 +52,28 @@ public class VistaProyecto {
      * Muestra la lista de proyectos con la gráfica.
      * @author AnaOrcam
      * @param listaProyectos se refiere a la LinkedList que contiene la lista de proyectos.
-     * @param listaRecompensas se refiere a la LinkedList que contiene la lista de recompensas.
      * @return no devuelve nada.
      */
-    public void muestraListaProyectosConGrafica(LinkedList<Proyecto> listaProyectos, LinkedList listaRecompensas){
+    public void muestraListaProyectosConGrafica(LinkedList<Proyecto> listaProyectos){
         for (int i = 0; i < listaProyectos.size(); i++) {
             System.out.println(listaProyectos.get(i));
             System.out.println("Recompensas:");
             muestraRecompensas(listaProyectos.get(i));
             grafico(listaProyectos.get(i).calcularPorcentajeFinanciado(listaProyectos.get(i)));
         }
+    }
+    /**
+     * Muestra la lista de proyectos con la gráfica.
+     * @author davidrn06
+     * @param aux se refiere a la LinkedList que contiene la lista de proyectos.
+     */
+    public void muestraProyectoConGrafica(Proyecto aux){
+            System.out.println(aux);
+            if (!aux.getListaRecompensas().isEmpty()){
+                System.out.println("Recompensas:");
+                muestraRecompensas(aux);
+            }
+            grafico(aux.calcularPorcentajeFinanciado(aux));
     }
 
     /**
@@ -66,6 +87,16 @@ public class VistaProyecto {
         for (Object e: listaRecompensas){
             System.out.println(e);
         }
+    }
+
+    /**
+     * Muestra la lista de inversiones.
+     * @author AnaOrcam
+     * @param listaInversiones se refiere a la lista de inversiones que contiene un proyecto.
+     * @return no devuelve nada.
+     */
+    public void muestraInversiones(List<Inversion> listaInversiones){
+        listaInversiones.forEach(System.out::println);
     }
 
     /**
