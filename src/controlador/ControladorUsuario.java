@@ -1,3 +1,10 @@
+package controlador;
+
+import proyecto.Inversion;
+import proyecto.Proyecto;
+import proyecto.Recompensa;
+import usuario.*;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -12,7 +19,7 @@ public class ControladorUsuario implements Serializable {
      * @param modelo modelo pasado por parametro
      * @param vista  vista pasada por parametro
      */
-    public  ControladorUsuario(GestionUsuarios modelo,VistaUsuario vista){
+    public  ControladorUsuario(GestionUsuarios modelo, VistaUsuario vista){
         this.modelo=modelo;
         this.vista=vista;
     }
@@ -145,7 +152,7 @@ public class ControladorUsuario implements Serializable {
                     vista.credencialesValidas(correo);
                 }
             }
-            if (modelo.buscaUsuario(correo).getTipoUsuario()==TipoUsuario.GESTOR){
+            if (modelo.buscaUsuario(correo).getTipoUsuario()== TipoUsuario.GESTOR){
                 Gestor aux= (Gestor) modelo.buscaUsuario(correo);
                 if (!aux.isBloqueado()){
                     vista.credencialesValidas(correo);
@@ -223,7 +230,7 @@ public class ControladorUsuario implements Serializable {
         vista.operacionSatisfactoria();
     }
     /**
-     * Ingresa saldo a un Inversor
+     * Ingresa saldo a un usuario.Inversor
      * @author AnaOrCam
      * @param saldo cantidad a ingresar
      * @param inversor  quien lo ingresa

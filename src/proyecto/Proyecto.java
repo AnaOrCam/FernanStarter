@@ -1,3 +1,5 @@
+package proyecto;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.LinkedList;
@@ -16,17 +18,17 @@ public class Proyecto implements Serializable {
     private TematicaProyecto tematicaProyecto;
 
     /**
-     * Constructor del objeto Proyecto.
+     * Constructor del objeto proyecto.Proyecto.
      * @author davidrn06
      * @param numeroRecompensas se refiere al numero de recompensas.
      * @param nombre se refiere al atributo nombre del proyecto en formato String.
      * @param fechaApertura se refiere al atributo fecha de apertura en formato LocalDate.
      * @param fechaCierre se refiere al atributo fecha de cierre en formato LocalDate.
      * @param cantidadAInvertirTotal se refiere al atributo cantidadAInvertirTotal del objeto en tipo int.
-     * @param descripcion se refiere a la descripción del proyecto en formato TipoUsuario.
-     * @param tematicaProyecto se refiere al atributo tematicaProyecto del objeto en formato TematicaProyecto.
+     * @param descripcion se refiere a la descripción del proyecto en formato usuario.TipoUsuario.
+     * @param tematicaProyecto se refiere al atributo tematicaProyecto del objeto en formato proyecto.TematicaProyecto.
      */
-    public Proyecto(int numeroRecompensas,String nombre,LocalDate fechaApertura,LocalDate fechaCierre, int cantidadAInvertirTotal,String descripcion,TematicaProyecto tematicaProyecto){
+    public Proyecto(int numeroRecompensas, String nombre, LocalDate fechaApertura, LocalDate fechaCierre, int cantidadAInvertirTotal, String descripcion, TematicaProyecto tematicaProyecto){
         this.nombre=nombre;
         this.fechaApertura=fechaApertura;
         this.fechaCierre=fechaCierre;
@@ -50,7 +52,7 @@ public class Proyecto implements Serializable {
     /**
      * Getter del atributo tematicaProyecto.
      * @author davidrn06
-     * @return devuelve el atributo tematicaProyecto de tipo TematicaProyecto.
+     * @return devuelve el atributo tematicaProyecto de tipo proyecto.TematicaProyecto.
      */
     public TematicaProyecto getTematicaProyecto() {
         return tematicaProyecto;
@@ -59,7 +61,7 @@ public class Proyecto implements Serializable {
     /**
      * Modifica el atributo tematicaProyecto.
      * @author davidrn06
-     * @param tematicaProyecto se refiere al atributo tematicaProyecto que sustituirá an antiguo de tipo TematicaProyecto.
+     * @param tematicaProyecto se refiere al atributo tematicaProyecto que sustituirá an antiguo de tipo proyecto.TematicaProyecto.
      */
     public void setTematicaProyecto(TematicaProyecto tematicaProyecto) {
         this.tematicaProyecto = tematicaProyecto;
@@ -247,14 +249,14 @@ public class Proyecto implements Serializable {
     }
 
     /**
-     * Redefine la función toString para mostrar el objeto Proyecto.
+     * Redefine la función toString para mostrar el objeto proyecto.Proyecto.
      * @author AnaOrCam
      * @return devuelve el String definido.
      */
     public String toString(){
         String fechaAperturaString=parsearLocalDateAString(fechaApertura);
         String fechaCierreString =parsearLocalDateAString(fechaCierre);
-        return "Proyecto "+nombre+"\nFecha de apertura: "+ fechaAperturaString +" - "+"Fecha de cierre: "+ fechaCierreString+
+        return "proyecto.Proyecto "+nombre+"\nFecha de apertura: "+ fechaAperturaString +" - "+"Fecha de cierre: "+ fechaCierreString+
                 "\nDescripcion: "+descripcion+"\nCantidad invertida: "+cantidadInvertidaActual+
                 "\nCategoria: "+tematicaProyecto+
                 "\nFinanciación total del proyecto: "+cantidadAInvertirTotal+

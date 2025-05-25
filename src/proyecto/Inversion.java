@@ -1,6 +1,10 @@
+package proyecto;
+
+import usuario.Inversor;
+
 import java.io.Serializable;
 
-public class Inversion implements Invertible , Serializable {
+public class Inversion implements Invertible, Serializable {
     private String nombreProyecto;
     private float cantidadInvertida;
     private Inversor inversor;
@@ -15,7 +19,7 @@ public class Inversion implements Invertible , Serializable {
      * @param  cantidadInvertida cantidad invertida en la inverison
      * @param recompensaElegida recompensa que ha elegido
      */
-    public Inversion(String proyecto, float cantidadInvertida, Inversor inversor, Recompensa recompensaElegida ,int idInversion){
+    public Inversion(String proyecto, float cantidadInvertida, Inversor inversor, Recompensa recompensaElegida , int idInversion){
         this.nombreProyecto =proyecto;
         this.cantidadInvertida=cantidadInvertida;
         this.inversor=inversor;
@@ -70,7 +74,7 @@ public class Inversion implements Invertible , Serializable {
         this.cantidadInvertida+=cantidad;
     }
     /**
-     * Selecciona la Recompensa elegida
+     * Selecciona la proyecto.Recompensa elegida
      * @author AnaOrCam
      * @param recompensaElegida  recompensa que se elige
      */
@@ -104,7 +108,7 @@ public class Inversion implements Invertible , Serializable {
      */
     public String toString(){
         if (recompensaElegida==null){
-            return "Proyecto: "+nombreProyecto+" - ID de inversión: "+idInversion+"\nCantidad invertida: "+cantidadInvertida+"\nInversor: "+inversor;
-        }else return "Proyecto: "+nombreProyecto+" - ID de inversión: "+idInversion+"\nCantidad invertida: "+cantidadInvertida+" - Recompensa elegida: "+recompensaElegida+"\nInversor: "+inversor;
+            return "proyecto.Proyecto: "+nombreProyecto+" - ID de inversión: "+idInversion+"\nCantidad invertida: "+cantidadInvertida+"\nusuario.Inversor: "+inversor;
+        }else return "proyecto.Proyecto: "+nombreProyecto+" - ID de inversión: "+idInversion+"\nCantidad invertida: "+cantidadInvertida+" - proyecto.Recompensa elegida: "+recompensaElegida+"\nusuario.Inversor: "+inversor;
     }
 }

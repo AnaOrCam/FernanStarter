@@ -1,6 +1,13 @@
+package controlador;
+
+import proyecto.GestionProyectos;
+import proyecto.Inversion;
+import proyecto.Proyecto;
+import proyecto.Recompensa;
+import vista.VistaProyecto;
+
 import java.io.Serializable;
 import java.util.LinkedList;
-import java.util.List;
 
 public class ControladorProyectos implements Serializable {
 

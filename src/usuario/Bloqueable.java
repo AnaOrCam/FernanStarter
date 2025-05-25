@@ -1,3 +1,5 @@
+package usuario;
+
 public interface Bloqueable {
     /**
      * Metodo en interfaz para aplicar a aquellos usuarios que puedan ser bloqueados

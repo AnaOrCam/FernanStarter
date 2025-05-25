@@ -1,15 +1,17 @@
+package usuario;
+
 import java.io.Serializable;
 
 public class Administrador extends Usuario implements Serializable {
     private static String contrasenaMaestra="123dfg";
     /**
-     * Constructor de la clase Administrador
+     * Constructor de la clase usuario.Administrador
      * @author AnaOrCam
      */
 
     public Administrador(String nombre,String correo,String contrasena, TipoUsuario tipoUsuario){
         super(nombre, correo, contrasena, tipoUsuario);
-        ;
+
     }
     /**
      * Comprueba la contraseña maestra para crear admin(Aplicar en futuro)

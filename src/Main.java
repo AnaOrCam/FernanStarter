@@ -1,7 +1,13 @@
+import controlador.ControladorProyectos;
+import controlador.ControladorUsuario;
+import proyecto.*;
+import usuario.*;
 import utilidades.FuncionesCadenas;
 import utilidades.FuncionesCorreos;
 import utilidades.FuncionesFechas;
 import utilidades.FuncionesMenus;
+import vista.VistaProyecto;
+import vista.VistaUsuario;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -23,9 +29,9 @@ public class Main {
         GestionProyectos modeloProyectos= new GestionProyectos();
         VistaProyecto vistaProyectos=new VistaProyecto("\033[32m","\033[31m","\033[0m","\033[35m","\033[37m");
         GestionUsuarios modeloUsuarios=new GestionUsuarios();
-        VistaUsuario vistaUsuario=new VistaUsuario("\033[32m","\033[31m","\033[0m","\033[35m");
+        VistaUsuario vistaUsuarios=new VistaUsuario("\033[32m","\033[31m","\033[0m","\033[35m");
         ControladorProyectos controladorProyectos=new ControladorProyectos(modeloProyectos,vistaProyectos);
-        ControladorUsuario controladorUsuario=new ControladorUsuario(modeloUsuarios,vistaUsuario);
+        ControladorUsuario controladorUsuario=new ControladorUsuario(modeloUsuarios, vistaUsuarios);
         Properties properties=new Properties();
 
         try {
@@ -73,7 +79,7 @@ public class Main {
                                     if (controladorProyectos.buscarProyecto(nombreAux)!=null){
                                         controladorProyectos.muestraProyectoUnicoConGrafico(controladorProyectos.buscarProyecto(nombreAux));
                                     }else {
-                                        System.out.println("Proyecto no existente");
+                                        System.out.println("proyecto.Proyecto no existente");
                                     }
                                 }
                             }while(opAux==1);
@@ -97,7 +103,7 @@ public class Main {
                         //CREACION INVERSOR
                         case 1:{
                             boolean aux=false;
-                                System.out.println("Introduzca el nombre de usuario del nuevo perfil Inversor");
+                                System.out.println("Introduzca el nombre de usuario del nuevo perfil usuario.Inversor");
                                 nombreAux = s.nextLine();
                             do {
                                 do{
@@ -114,7 +120,7 @@ public class Main {
                             }while(!comprobacionCorreo(correoAux));
                             do {
                                 do {
-                                    System.out.println("Introduzca la contraseña de usuario del nuevo perfil Inversor ");
+                                    System.out.println("Introduzca la contraseña de usuario del nuevo perfil usuario.Inversor ");
                                     contraseniaAux = s.nextLine();
                                     System.out.println(fortalezaContrasena(contraseniaAux));
                                     if (fortalezaContrasena(contraseniaAux).equals("Robustez de la contraseña: Débil")){
@@ -134,7 +140,7 @@ public class Main {
                             enviarConGMail(correoAux, asunto, cuerpo);
                             int verificaion = Integer.parseInt(s.nextLine());
                             if (verificaion == autentificacion) {
-                                System.out.println("Usuario creado con exito");
+                                System.out.println("usuario.Usuario creado con exito");
                                 Inversor nuevo=new Inversor(nombreAux,correoAux,contraseniaAux,TipoUsuario.INVERSOR);
                                 controladorUsuario.aniadirUsuario(nuevo);
                                  nombreAux="";
@@ -152,7 +158,7 @@ public class Main {
                         //CREACION GESTOR
                         case 2:{
                             boolean aux =false;
-                                System.out.println("Introduzca el nombre de usuario del nuevo perfil Gestor");
+                                System.out.println("Introduzca el nombre de usuario del nuevo perfil usuario.Gestor");
                                 nombreAux = s.nextLine();
                             do {
                                 do{
@@ -169,7 +175,7 @@ public class Main {
                             }while(!comprobacionCorreo(correoAux));
                             do {
                                 do {
-                                    System.out.println("Introduzca la contraseña de usuario del nuevo perfil Gestor ");
+                                    System.out.println("Introduzca la contraseña de usuario del nuevo perfil usuario.Gestor ");
                                     contraseniaAux = s.nextLine();
                                     System.out.println(fortalezaContrasena(contraseniaAux));
                                     if (fortalezaContrasena(contraseniaAux).equals("Robustez de la contraseña: Débil")){
@@ -190,7 +196,7 @@ public class Main {
                             enviarConGMail(correoAux, asunto, cuerpo);
                             int verificaion = Integer.parseInt(s.nextLine());
                             if (verificaion == autentificacion) {
-                                System.out.println("Usuario creado con exito");
+                                System.out.println("usuario.Usuario creado con exito");
                                 Gestor nuevo=new Gestor(nombreAux,correoAux,contraseniaAux, TipoUsuario.GESTOR);
                                 controladorUsuario.aniadirUsuario(nuevo);
                                 nombreAux="";
@@ -207,7 +213,7 @@ public class Main {
                         //CREACION ADMINSITRADOR
                         case 3:{
                             boolean aux=false;
-                                System.out.println("Introduzca el nombre de usuario del nuevo perfil Administrador");
+                                System.out.println("Introduzca el nombre de usuario del nuevo perfil usuario.Administrador");
                                 nombreAux = s.nextLine();
                             do {
                                 do{
@@ -224,7 +230,7 @@ public class Main {
                             }while(!comprobacionCorreo(correoAux));
                             do {
                                 do {
-                                    System.out.println("Introduzca la contraseña de usuario del nuevo perfil Administrador ");
+                                    System.out.println("Introduzca la contraseña de usuario del nuevo perfil usuario.Administrador ");
                                     contraseniaAux = s.nextLine();
                                     System.out.println(fortalezaContrasena(contraseniaAux));
                                     if (fortalezaContrasena(contraseniaAux).equals("Robustez de la contraseña: Débil")){
@@ -244,7 +250,7 @@ public class Main {
                             enviarConGMail(correoAux, asunto, cuerpo);
                             int verificaion = Integer.parseInt(s.nextLine());
                             if (verificaion == autentificacion) {
-                                System.out.println("Usuario creado con exito");
+                                System.out.println("usuario.Usuario creado con exito");
                                 Administrador nuevo=new Administrador(nombreAux,correoAux,contraseniaAux, TipoUsuario.ADMINISTRADOR);
                                 controladorUsuario.aniadirUsuario(nuevo);
                                 nombreAux="";
@@ -309,9 +315,9 @@ public class Main {
                                             "5. Acceder a mi configuracion\n" +
                                             "6. Salir");
                                     opcion=Integer.parseInt(s.nextLine());
-                                    //Opciones Gestor
+                                    //Opciones usuario.Gestor
                                     switch (opcion){
-                                        //Opcion Gestor Crear proyecto
+                                        //Opcion usuario.Gestor Crear proyecto
                                         case 1:{
                                             String nombreNuevo;
                                             do {
@@ -355,7 +361,7 @@ public class Main {
                                             controladorUsuario.gestorAnadirProyecto(gestor,nuevo);
                                             try {
                                                 BufferedWriter bw2 = new BufferedWriter(new FileWriter(properties.getProperty("logs"), true));
-                                                bw2.write("Nuevo Proyecto;" + usuarioActual.getCorreo() + ";" + LocalDateTime.now() + "\n");
+                                                bw2.write("Nuevo proyecto.Proyecto;" + usuarioActual.getCorreo() + ";" + LocalDateTime.now() + "\n");
                                                 bw2.close();
                                             }catch (IOException e){
                                             System.out.println("Error");
@@ -433,7 +439,7 @@ public class Main {
                                                                 "4. Cantidad financiada hasta el momento\n" +
                                                                 "5. Fecha de apertura de inversiones\n" +
                                                                 "6. Fecha de cierre de inversiones\n" +
-                                                                "7. Añadir Recompensa" );
+                                                                "7. Añadir proyecto.Recompensa" );
                                                         opcion=Integer.parseInt(s.nextLine());
                                                         switch (opcion){
                                                             case 1:{
@@ -495,14 +501,14 @@ public class Main {
                                                         }
                                                         try{
                                                         BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
-                                                        bw2.write("Modificacion Proyecto;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                                        bw2.write("Modificacion proyecto.Proyecto;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
                                                         bw2.close();
                                                         }catch (IOException e){
                                                             System.out.println("Error");
                                                             e.printStackTrace();
                                                         }
                                                     }else {
-                                                        System.out.println("Proyecto no encontrado");
+                                                        System.out.println("proyecto.Proyecto no encontrado");
                                                     }
                                                 }
                                             }else {
@@ -522,7 +528,7 @@ public class Main {
                                                 controladorUsuario.borrarProyecto(gestor,auxiliarUsuarios);
                                                 try{
                                                 BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
-                                                bw2.write("Eliminación Proyecto;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                                bw2.write("Eliminación proyecto.Proyecto;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
                                                 bw2.close();
                                                 }catch (IOException e){
                                                     System.out.println("Error");
@@ -724,7 +730,7 @@ public class Main {
                                                         if (controladorProyectos.siRecompensa(cantidad,proyectoAux)) {
                                                             try{
                                                             BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
-                                                            bw2.write("Inversion Realizada;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                                            bw2.write("proyecto.Inversion Realizada;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
                                                             bw2.close();
                                                             }catch (IOException e){
                                                                 System.out.println("Error");
@@ -1036,9 +1042,9 @@ public class Main {
 
                                                                     while((linea= br.readLine())!=null){
                                                                         String[]partes=linea.split(";");
-                                                                        cuerpo+="-Proyecto: "+partes[0]+" Id de inversion: "+partes[1]+" Cantidad Invertida: "+ partes[2];
+                                                                        cuerpo+="-proyecto.Proyecto: "+partes[0]+" Id de inversion: "+partes[1]+" Cantidad Invertida: "+ partes[2];
                                                                         if (partes.length==4){
-                                                                            cuerpo+="Recompensa Elegida: "+partes[3]+"\n";
+                                                                            cuerpo+="proyecto.Recompensa Elegida: "+partes[3]+"\n";
                                                                         }
 
                                                                     }
@@ -1090,7 +1096,7 @@ public class Main {
 
                     }else if (controladorUsuario.getUsuario(correoAux)!=null){
                         System.out.println("Sus credenciales no son válidas");
-                        if (controladorUsuario.getUsuario(correoAux).getTipoUsuario()==TipoUsuario.INVERSOR){
+                        if (controladorUsuario.getUsuario(correoAux).getTipoUsuario()== TipoUsuario.INVERSOR){
                             Inversor aux=(Inversor) controladorUsuario.getUsuario(correoAux);
                             aux.sumaIntentos();
                         }

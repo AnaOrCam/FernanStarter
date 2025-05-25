@@ -3,7 +3,7 @@ package utilidades;
 public class FuncionesMenus {
 
     /**
-     * Muestra el menú principal del usuario Administrador.
+     * Muestra el menú principal del usuario usuario.Administrador.
      * @author AnaOrCam
      * @return no devuelve nada.
      */
@@ -18,7 +18,7 @@ public class FuncionesMenus {
     }
 
     /**
-     * Muestra el menú de bloqueo de usuarios del usuario Administrador.
+     * Muestra el menú de bloqueo de usuarios del usuario usuario.Administrador.
      * @author AnaOrCam
      * @return no devuelve nada.
      */
@@ -39,7 +39,7 @@ public class FuncionesMenus {
     }
 
     /**
-     * Muestra el menú principal de los usuarios Inversor.
+     * Muestra el menú principal de los usuarios usuario.Inversor.
      * @author AnaOrCam
      * @return no devuelve nada.
      */
@@ -73,9 +73,9 @@ public class FuncionesMenus {
      */
     public static void eleccionUsuarioACrear(){
         System.out.println("Que tipo de usuario desea crear");
-        System.out.println("1.Inversor");
-        System.out.println("2.Gestor");
-        System.out.println("3.Administrador");
+        System.out.println("1.usuario.Inversor");
+        System.out.println("2.usuario.Gestor");
+        System.out.println("3.usuario.Administrador");
     }
 
 }

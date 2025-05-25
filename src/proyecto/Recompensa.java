@@ -1,3 +1,5 @@
+package proyecto;
+
 import java.io.Serializable;
 
 public class Recompensa implements Serializable {
@@ -8,10 +10,10 @@ public class Recompensa implements Serializable {
     int id;
 
     /**
-     * Constructor del objeto Recompensa.
+     * Constructor del objeto proyecto.Recompensa.
      * @author davidrn06
      * @param nombre se refiere al atributo nombre de la recompensa en formato String.
-     * @param descripcion se refiere a la descripción de la recompensa en formato TipoUsuario.
+     * @param descripcion se refiere a la descripción de la recompensa en formato usuario.TipoUsuario.
      * @param importe se refiere al importe de la recompensa de tipo float.
      * @return no devuelve nada.
      */
@@ -79,7 +81,7 @@ public class Recompensa implements Serializable {
     }
 
     /**
-     * Redefine la función toString para mostrar el objeto Recompensa.
+     * Redefine la función toString para mostrar el objeto proyecto.Recompensa.
      * @author AnaOrCam
      * @return devuelve el String definido.
      */

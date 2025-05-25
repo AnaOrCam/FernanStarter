@@ -1,3 +1,7 @@
+package usuario;
+
+import proyecto.Proyecto;
+
 import java.io.Serializable;
 import java.util.LinkedList;
 
@@ -14,9 +18,24 @@ public class Gestor extends Usuario implements Bloqueable, Serializable {
      * @param tipoUsuario tipo de usuario gestor
      */
     public Gestor(String nombre, String correo, String contrasena, TipoUsuario tipoUsuario){
-        super( nombre, correo, contrasena, tipoUsuario);
-
+        super(nombre, correo, contrasena, tipoUsuario);
         bloqueado=false;
+        proyectosCreados=new LinkedList<>();
+        intentos=0;
+    }
+
+    /**
+     * Constructor para crear un usuario de tipo gestor
+     * @author AnaOrCam
+     * @param nombre nombre del gestor
+     * @param correo correo del gestor
+     * @param  contrasena contraseña de correo
+     * @param tipoUsuario tipo de usuario gestor
+     * @param bloqueado boolean del estado del gestor
+     */
+    public Gestor(String nombre, String correo, String contrasena, TipoUsuario tipoUsuario, boolean bloqueado){
+        super(nombre, correo, contrasena, tipoUsuario);
+        this.bloqueado=bloqueado;
         proyectosCreados=new LinkedList<>();
         intentos=0;
     }
@@ -33,7 +52,7 @@ public class Gestor extends Usuario implements Bloqueable, Serializable {
         this.proyectosCreados = proyectosCreados;
     }
     /**
-     * Devuelve sin un gestor esta bloqueadp
+     * Devuelve sin un gestor esta bloqueado
      * @author davidrn06
      * @return true si el usuario esta bloqueado
      */
@@ -56,7 +75,7 @@ public class Gestor extends Usuario implements Bloqueable, Serializable {
         this.bloqueado=false;
     }
     /**
-     * Sobreescribe el metodo toString del gestor teniendo en cuenta el de la clase padre Usuario
+     * Sobreescribe el metodo toString del gestor teniendo en cuenta el de la clase padre usuario.Usuario
      * @author AnaOrCam
      */
     public String toString(){

@@ -1,3 +1,5 @@
+package usuario;
+
 import java.io.Serializable;
 
 public abstract class Usuario implements Serializable {
@@ -7,12 +9,12 @@ public abstract class Usuario implements Serializable {
     private TipoUsuario tipoUsuario;
 
     /**
-     * Constructor del objeto Usuario.
+     * Constructor del objeto usuario.Usuario.
      * @author AnaOrCam
      * @param nombre se refiere al atributo nombre en formato String.
      * @param correo se refiere al correo del usuario de tipo String.
      * @param contrasena se refiere al atributo contrasena de tipo String.
-     * @param tipoUsuario se refiere al tipo de usuario de tipo TipoUsuario.
+     * @param tipoUsuario se refiere al tipo de usuario de tipo usuario.TipoUsuario.
      * @return no devuelve nada.
      */
     public Usuario(String nombre, String correo, String contrasena, TipoUsuario tipoUsuario){
@@ -82,14 +84,14 @@ public abstract class Usuario implements Serializable {
     /**
      * Getter del tipo de usuario del usuario.
      * @author AnaOrcam
-     * @return devuelve el atributo tipoUsuario de tipo TipoUsuario.
+     * @return devuelve el atributo tipoUsuario de tipo usuario.TipoUsuario.
      */
     public TipoUsuario getTipoUsuario() {
         return tipoUsuario;
     }
 
     /**
-     * Redefine la función toString para mostrar el objeto Usuario.
+     * Redefine la función toString para mostrar el objeto usuario.Usuario.
      * @author AnaOrCam
      * @return devuelve el String definido.
      */

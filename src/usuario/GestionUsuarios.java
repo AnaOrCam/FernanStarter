@@ -1,3 +1,9 @@
+package usuario;
+
+import proyecto.Inversion;
+import proyecto.Proyecto;
+import proyecto.Recompensa;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -23,7 +29,7 @@ public class GestionUsuarios implements Serializable {
      * @author AnaOrCam
      * @return devuelve el diccionario de usuarios
      */
-    public HashMap<String,Usuario> getUsuarios(){
+    public HashMap<String, Usuario> getUsuarios(){
         return usuarios;
     }
     /**
@@ -90,7 +96,7 @@ public class GestionUsuarios implements Serializable {
      * @return devuelve true si lo ha podido Desbloquear
      */
     public boolean desbloquearUsuario(Usuario usuario){
-        if (usuario.getTipoUsuario()==TipoUsuario.INVERSOR){
+        if (usuario.getTipoUsuario()== TipoUsuario.INVERSOR){
             Inversor aux=(Inversor) usuario;
             if (aux.isBloqueado()){
                 aux.desbloquearUsuario();
@@ -120,7 +126,7 @@ public class GestionUsuarios implements Serializable {
         inversor.ingresarSaldo(saldo);
     }
     /**
-     * Inserta una Inversion a un inversor
+     * Inserta una proyecto.Inversion a un inversor
      * @author AnaOrCam
      * @param usuario usuario que va a insertar
      * @param cantidad cantidad de la inversion

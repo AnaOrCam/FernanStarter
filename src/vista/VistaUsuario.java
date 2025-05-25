@@ -1,3 +1,9 @@
+package vista;
+
+import proyecto.Proyecto;
+import proyecto.Recompensa;
+import usuario.TipoUsuario;
+import usuario.Usuario;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -11,7 +17,7 @@ public class VistaUsuario implements Serializable {
     private String textoMorado;
 
     /**
-     * Constructor de la vista VistaProyecto.
+     * Constructor de la vista vista.VistaProyecto.
      * @author AnaOrCam
      * @param verde se refiere al color verde en formato String.
      * @param rojo se refiere al color rojo en formato String.
@@ -121,7 +127,7 @@ public class VistaUsuario implements Serializable {
     /**
      * Muestra los atributos de un proyecto.
      * @author davidrn06
-     * @param proyecto se refiere un proyecto de tipo Proyecto.
+     * @param proyecto se refiere un proyecto de tipo proyecto.Proyecto.
      * @return no devuelve nada.
      */
     public void vistaDetalladaProyecto(Proyecto proyecto){
@@ -132,7 +138,7 @@ public class VistaUsuario implements Serializable {
                         "Fecha de apertura de inversiones: " + proyecto.getFechaApertura() + "\n" +
                         "Fecha de cierre de inversiones: " + proyecto.getFechaCierre());
         for(int i=0;i<proyecto.getListaRecompensas().size();i++){
-            System.out.println("Recompensa "+(i+1)+" Nombre "+proyecto.getListaRecompensas().get(i).getNombre()+"\nDescripcion: "+proyecto.getListaRecompensas().get(i).getDescripcion()+" Importe: "+proyecto.getListaRecompensas().get(i).getImporte());
+            System.out.println("proyecto.Recompensa "+(i+1)+" Nombre "+proyecto.getListaRecompensas().get(i).getNombre()+"\nDescripcion: "+proyecto.getListaRecompensas().get(i).getDescripcion()+" Importe: "+proyecto.getListaRecompensas().get(i).getImporte());
         }
     }
 

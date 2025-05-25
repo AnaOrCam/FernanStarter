@@ -1,3 +1,10 @@
+package vista;
+
+import proyecto.Inversion;
+import proyecto.Proyecto;
+import proyecto.Recompensa;
+import proyecto.TematicaProyecto;
+
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,7 +17,7 @@ public class VistaProyecto implements Serializable {
     private String textoGris;
 
     /**
-     * Constructor de la vista VistaProyecto.
+     * Constructor de la vista vista.VistaProyecto.
      * @author AnaOrCam
      * @param verde se refiere al color verde en formato String.
      * @param rojo se refiere al color rojo en formato String.
@@ -106,7 +113,7 @@ public class VistaProyecto implements Serializable {
      * @return no devuelve nada.
      */
     public void proyectoInsertadoCorrectamente(Proyecto proyecto){
-        System.out.println(textoVerde +"Proyecto añadido correctamente"+ resetColorTexto);
+        System.out.println(textoVerde +"proyecto.Proyecto añadido correctamente"+ resetColorTexto);
         muestraProyecto(proyecto);
     }
 

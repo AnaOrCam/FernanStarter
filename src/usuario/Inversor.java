@@ -1,7 +1,10 @@
+package usuario;
+
+import proyecto.Inversion;
+import proyecto.Recompensa;
 import utilidades.FuncionesCadenas;
 
 import java.io.Serializable;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,7 +22,7 @@ public class Inversor extends Usuario implements Bloqueable, Serializable {
      * @param nombre se refiere al atributo nombre del objeto en formato String.
      * @param correo se refiere al atributo correo del objeto en formato String.
      * @param contrasena se refiere al atributo contrasena del objeto en formato String.
-     * @param tipoUsuario se refiere al atributo tipoUsuario del objeto en formato TipoUsuario.
+     * @param tipoUsuario se refiere al atributo tipoUsuario del objeto en formato usuario.TipoUsuario.
      * @return no devuelve nada.
      */
     public Inversor(String nombre,String correo,String contrasena, TipoUsuario tipoUsuario){
@@ -27,6 +30,27 @@ public class Inversor extends Usuario implements Bloqueable, Serializable {
         bloqueado=false;
         invertidoTotal =0;
         saldo=0;
+        proyectosInvertidos=new LinkedList<>();
+        amigosInvitados=new LinkedList<>();
+        intentos=0;
+    }
+
+    /**
+     * Constructor del objeto Inversor.
+     * @author AnaOrCam
+     * @param nombre se refiere al atributo nombre del objeto en formato String.
+     * @param correo se refiere al atributo correo del objeto en formato String.
+     * @param contrasena se refiere al atributo contrasena del objeto en formato String.
+     * @param tipoUsuario se refiere al atributo tipoUsuario del objeto en formato usuario.TipoUsuario.
+     * @param saldo se refiere al atributo saldo del objeto en formato float.
+     * @param invertidoTotal se refiere al atributo invertidoTotal del objeto en formato float.
+     * @param bloqueado se refiere al atributo bloqueado del objeto en formato boolean.
+     */
+    public Inversor(String nombre,String correo,String contrasena, TipoUsuario tipoUsuario, float saldo, float invertidoTotal, boolean bloqueado){
+        super( nombre, correo, contrasena, tipoUsuario);
+        this.bloqueado=bloqueado;
+        this.invertidoTotal =invertidoTotal;
+        this.saldo=saldo;
         proyectosInvertidos=new LinkedList<>();
         amigosInvitados=new LinkedList<>();
         intentos=0;
@@ -151,7 +175,7 @@ public class Inversor extends Usuario implements Bloqueable, Serializable {
     /**
      * Añade una nueva inversión a la lista proyectosInvertidos, suma la inversión al atributo totalInvertido y la resta a saldo.
      * @author AnaOrCam
-     * @param inversion se refiere al objeto Inversion que se añadirá a la lista.
+     * @param inversion se refiere al objeto proyecto.Inversion que se añadirá a la lista.
      * @param cantidad se refiere a la cantidad a sumar y sustraer en los atributos totalInvertido y saldo en tipo float.
      * @return devuelve true si la cantidad es menor o igual al saldo y se ha podido realizar la operación y false si no ha podido hacerse.
      */
@@ -168,8 +192,8 @@ public class Inversor extends Usuario implements Bloqueable, Serializable {
     /**
      * Busca una Inversión por su id.
      * @author AnaOrCam
-     * @param idInversion se refiere al atributo id de Inversion.
-     * @return devuelve el objeto Inversion si lo ha encontrado y null si no lo ha encontrado.
+     * @param idInversion se refiere al atributo id de proyecto.Inversion.
+     * @return devuelve el objeto proyecto.Inversion si lo ha encontrado y null si no lo ha encontrado.
      */
     public Inversion buscarInversionPorId(int idInversion){
         for (int i = 0; i < proyectosInvertidos.size(); i++) {
@@ -181,7 +205,7 @@ public class Inversor extends Usuario implements Bloqueable, Serializable {
     /**
      * Modifica la recompensa elegida.
      * @author AnaOrCam
-     * @param idInversion se refiere al atributo id de Inversion.
+     * @param idInversion se refiere al atributo id de proyecto.Inversion.
      * @param recompensa se refiere al objeto recompensa que sustituirá a la anterior.
      * @return no devuelve nada.
      */
@@ -195,7 +219,7 @@ public class Inversor extends Usuario implements Bloqueable, Serializable {
     /**
      * Suma una cantidad a una inversión ya realizada.
      * @author AnaOrCam
-     * @param idInversion se refiere al atributo id de Inversion.
+     * @param idInversion se refiere al atributo id de proyecto.Inversion.
      * @param cantidad se refiere a la cantidad que se sumará a la inversión.
      */
     public void aumentarInversion(int idInversion, float cantidad){
@@ -207,7 +231,7 @@ public class Inversor extends Usuario implements Bloqueable, Serializable {
     /**
      * Comprueba que el saldo es mayor a la inversion que se desea hacer y que el id de la inversion no apunta a un objeto nulo.
      * @author AnaOrCam
-     * @param idInversion se refiere al atributo id de Inversion.
+     * @param idInversion se refiere al atributo id de proyecto.Inversion.
      * @param cantidad se refiere a la cantidad que se desea invertir.
      * @return devuelve true si el objeto con la id existe y si el saldo es mayor o igual a la cantidad a invertir y false en el canso contrario.
      */
@@ -223,9 +247,9 @@ public class Inversor extends Usuario implements Bloqueable, Serializable {
     /**
      * Resta una cantidad a una inversión ya realizada.
      * @author AnaOrCam
-     * @param idInversion se refiere al atributo id de Inversion.
+     * @param idInversion se refiere al atributo id de proyecto.Inversion.
      * @param cantidad se refiere a la cantidad que se restará a la inversión.
-     * @return devuelve true si se ha encontrado el objeto Inversion y esta no tiene una recompensa asignada, si la cantidad a sustraer es menor que la cantidad invertida y ha podido realizarse la operación y false en caso contrario.
+     * @return devuelve true si se ha encontrado el objeto proyecto.Inversion y esta no tiene una recompensa asignada, si la cantidad a sustraer es menor que la cantidad invertida y ha podido realizarse la operación y false en caso contrario.
      */
     public boolean disminuirInversion(int idInversion, float cantidad){
         if (buscarInversionPorId(idInversion)!=null){
@@ -243,7 +267,7 @@ public class Inversor extends Usuario implements Bloqueable, Serializable {
     /**
      * Getter del atributo cantidadInvertida de un inversión en función de su id.
      * @author AnaOrCam
-     * @param idInversion se refiere al atributo id de Inversion.
+     * @param idInversion se refiere al atributo id de proyecto.Inversion.
      * @return devuelve la cantidad invertida.
      */
     public float getCantidadInvertidaEnInversion(int idInversion){
