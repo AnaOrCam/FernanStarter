@@ -1,4 +1,4 @@
-package dao;
+package proyecto;
 
 public class DAORecompensa {
 }
