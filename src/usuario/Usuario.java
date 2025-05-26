@@ -2,6 +2,8 @@ package usuario;
 
 import java.io.Serializable;
 
+import static utilidades.FuncionesCadenas.cifrarPass;
+
 public abstract class Usuario implements Serializable {
     private String nombre;
     private String correo;
@@ -20,7 +22,7 @@ public abstract class Usuario implements Serializable {
     public Usuario(String nombre, String correo, String contrasena, TipoUsuario tipoUsuario){
         this.nombre=nombre;
         this.correo=correo;
-        this.contrasena=contrasena;
+        this.contrasena=cifrarPass(contrasena);
         this.tipoUsuario=tipoUsuario;
     }
 

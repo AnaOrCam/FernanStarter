@@ -145,6 +145,7 @@ public class Main {
                                 System.out.println("usuario.Usuario creado con exito");
                                 Inversor nuevo=new Inversor(nombreAux,correoAux,contraseniaAux,TipoUsuario.INVERSOR);
                                 controladorUsuario.aniadirUsuario(nuevo);
+
                                  nombreAux="";
                                  correoAux="";
                                  contraseniaAux="";
