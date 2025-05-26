@@ -40,6 +40,10 @@ public class Proyecto implements Serializable {
         listaInversiones=new LinkedList<>();
     }
 
+    public Proyecto() {
+
+    }
+
     /**
      * Getter de la cantidadInvertidaActual.
      * @author davidrn06
@@ -273,4 +277,19 @@ public class Proyecto implements Serializable {
         return  this.nombre.equals(proyecto.nombre) ;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setFechaCierre(LocalDate fechaCierre) {
+        this.fechaCierre = fechaCierre;
+    }
+
+    public void setCantidadInvertidaActual(int cantidadInvertidaActual) {
+        this.cantidadInvertidaActual = cantidadInvertidaActual;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 }
