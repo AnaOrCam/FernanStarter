@@ -1,16 +1,48 @@
-package dao;
+package controlador;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
 public class DAOManager {
 
     private Connection connection=null;
-    private final String URL="";
-    private final String user="root";
-    private final String pass="root";
+    private String url;
+    private String user;
+    private String pass;
+    private static DAOManager singleton;
+
+    /**
+     * Constructor del objeto DAOManager
+     * @author anaOrCam
+     */
+    private DAOManager(){
+        try{
+            Properties properties=new Properties();
+            properties.load(new FileReader("./datos/setup.properties"));
+            connection=null;
+            url= properties.getProperty("URL_BBDD");
+            user= properties.getProperty("user");
+            pass= properties.getProperty("pass");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Implantación del patrón Singleton
+     * @author anaOrCam
+     */
+    public static DAOManager DAOManagerSingletonInstance(){
+        if (singleton==null){
+            singleton=new DAOManager();
+            return singleton;
+        }else return null;
+    }
 
     /**
      * Abre la base de datos
@@ -19,7 +51,7 @@ public class DAOManager {
     public void open(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(URL,user,pass);
+            connection = DriverManager.getConnection(url,user,pass);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

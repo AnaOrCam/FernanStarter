@@ -1,6 +1,10 @@
 package utilidades;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.util.HexFormat;
 
 public class FuncionesCadenas {
 
@@ -70,6 +74,23 @@ public class FuncionesCadenas {
             tituloCorrecto=false;
         }
         return tituloCorrecto;
+    }
+
+    /**
+     * Cifra la contraseña.
+     * @author anaOrCam
+     * @param contrasena se refiere a la contraseña introducida por el usuario.
+     * @return devuelve la contraseña cifrada.
+     */
+    public static String cifrarPass(String contrasena){
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hashBytes = digest.digest(contrasena.getBytes(StandardCharsets.UTF_8));
+            return HexFormat.of().formatHex(hashBytes);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     /**

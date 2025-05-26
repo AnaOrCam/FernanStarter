@@ -1,7 +1,6 @@
-package dao;
+package usuario;
 
-import usuario.Gestor;
-import usuario.TipoUsuario;
+import controlador.DAOManager;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -103,7 +102,7 @@ public class DAOGestor {
         try {
             Statement stmt = daoManager.getConnection().createStatement();
             ResultSet rs=stmt.executeQuery(sql);
-            if (rs.next()){
+            while (rs.next()){
                 Gestor gestor;
                 if (rs.getString("bloqueado")=="0") {
                     gestor = new Gestor(rs.getString("nombre"), rs.getString("correo"), rs.getString("pass"),

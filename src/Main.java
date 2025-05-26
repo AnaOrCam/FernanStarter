@@ -1,5 +1,6 @@
 import controlador.ControladorProyectos;
 import controlador.ControladorUsuario;
+import controlador.DAOManager;
 import proyecto.*;
 import usuario.*;
 import utilidades.FuncionesCadenas;
@@ -28,10 +29,11 @@ public class Main {
         Scanner s=new Scanner(System.in);
         GestionProyectos modeloProyectos= new GestionProyectos();
         VistaProyecto vistaProyectos=new VistaProyecto("\033[32m","\033[31m","\033[0m","\033[35m","\033[37m");
+        DAOManager daoManager= DAOManager.DAOManagerSingletonInstance();
         GestionUsuarios modeloUsuarios=new GestionUsuarios();
         VistaUsuario vistaUsuarios=new VistaUsuario("\033[32m","\033[31m","\033[0m","\033[35m");
-        ControladorProyectos controladorProyectos=new ControladorProyectos(modeloProyectos,vistaProyectos);
-        ControladorUsuario controladorUsuario=new ControladorUsuario(modeloUsuarios, vistaUsuarios);
+        ControladorProyectos controladorProyectos=new ControladorProyectos(modeloProyectos,vistaProyectos,daoManager);
+        ControladorUsuario controladorUsuario=new ControladorUsuario(modeloUsuarios, vistaUsuarios,daoManager);
         Properties properties=new Properties();
 
         try {

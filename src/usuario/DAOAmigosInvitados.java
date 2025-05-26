@@ -1,6 +1,6 @@
-package dao;
+package usuario;
 
-import usuario.Inversor;
+import controlador.DAOManager;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

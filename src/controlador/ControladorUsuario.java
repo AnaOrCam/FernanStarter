@@ -4,6 +4,7 @@ import proyecto.Inversion;
 import proyecto.Proyecto;
 import proyecto.Recompensa;
 import usuario.*;
+import vista.VistaUsuario;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -12,6 +13,7 @@ import java.util.LinkedList;
 public class ControladorUsuario implements Serializable {
     private GestionUsuarios modelo;
     private VistaUsuario vista;
+    private DAOManager daoManager;
 
     /**
      * Constructor del controlador de usuarios
@@ -19,9 +21,10 @@ public class ControladorUsuario implements Serializable {
      * @param modelo modelo pasado por parametro
      * @param vista  vista pasada por parametro
      */
-    public  ControladorUsuario(GestionUsuarios modelo, VistaUsuario vista){
+    public  ControladorUsuario(GestionUsuarios modelo, VistaUsuario vista, DAOManager daoManager){
         this.modelo=modelo;
         this.vista=vista;
+        this.daoManager=daoManager;
     }
     /**
      * Añade un usuario pasado por parametro

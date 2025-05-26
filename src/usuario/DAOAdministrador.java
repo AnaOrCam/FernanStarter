@@ -1,8 +1,7 @@
-package dao;
+package usuario;
 
 
-import usuario.Administrador;
-import usuario.TipoUsuario;
+import controlador.DAOManager;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

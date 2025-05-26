@@ -13,6 +13,8 @@ public class ControladorProyectos implements Serializable {
 
     private GestionProyectos modelo;
     private VistaProyecto vista;
+    private DAOManager daoManager;
+
     /**
      * Constructor del controlador de proyectos
      * @author davidrn06
@@ -20,9 +22,10 @@ public class ControladorProyectos implements Serializable {
      * @param vista se refiere a la vista donde se mostrara lo relaccionado con los proyectos.
      */
 
-    public ControladorProyectos(GestionProyectos modelo, VistaProyecto vista){
+    public ControladorProyectos(GestionProyectos modelo, VistaProyecto vista, DAOManager daoManager){
         this.modelo=modelo;
         this.vista=vista;
+        this.daoManager=daoManager;
     }
     /**
      * Metodo que muestra proyectos
