@@ -1,6 +1,7 @@
 package usuario;
 
 import controlador.DAOManager;
+import proyecto.DAOInversion;
 import proyecto.Inversion;
 import proyecto.Recompensa;
 import utilidades.FuncionesCadenas;
@@ -37,6 +38,15 @@ public class Inversor extends Usuario implements Bloqueable, Serializable {
     }
     public void insertarInversiones(LinkedList<Inversion> inversiones){
         proyectosInvertidos=inversiones;
+    }
+
+    public void rellenarListaInversiones(Inversor inversor, DAOManager daoManager){
+        DAOInversion daoInversion=new DAOInversion();
+        LinkedList<Inversion>listaInversiones=daoInversion.selectPorInversor(daoManager,inversor.getCorreo());
+        for (int i = 0; i < listaInversiones.size(); i++) {
+            if (!proyectosInvertidos.contains(listaInversiones.get(i))) proyectosInvertidos.add(listaInversiones.get(i));
+        }
+
     }
 
     /**

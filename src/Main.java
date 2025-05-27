@@ -43,7 +43,6 @@ public class Main {
         controladorProyectos.mostrarProyectos();
         controladorUsuario.rellenaListaUsuarios();
         controladorUsuario.muestraUsuarios();
-        controladorUsuario.cargarInversionDesdeBBDD(daoManager);
         try {
             properties.load(new FileReader("./src/datos/setup.properties"));
 
@@ -726,6 +725,7 @@ public class Main {
                                     opcion = Integer.parseInt(s.nextLine());
                                     switch (opcion) {
                                         case 1 -> {
+                                            controladorUsuario.rellenarListaInversiones(inversor);
                                             if (controladorUsuario.mostrarInversiones(inversor)) {
                                                 System.out.println("¿Quieres ordenar las inversiones por cantidad invertida? (si/no)");
                                                 String respuesta=s.nextLine();
@@ -753,6 +753,7 @@ public class Main {
                                                                             controladorUsuario.aumentarInversion(inversor,id,cantidad);
                                                                             controladorProyectos.aniadirFinanciacionAProyecto(cantidad,proyectoAuxiliar);
                                                                             daoInversion.updateSaldoInversion(daoManager,id,cantidad);
+                                                                            controladorUsuario.setSaldoBBDD(inversor);
                                                                             try{
                                                                                 BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
                                                                                 bw2.write("Inversion Actualizada;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
@@ -802,6 +803,7 @@ public class Main {
                                                                     Proyecto proyectoAuxiliar = controladorProyectos.buscarProyecto(controladorUsuario.getNombreProyecto(id, inversor));
                                                                     controladorProyectos.restarFinanciacionAProyecto(cantidad, proyectoAuxiliar);
                                                                     daoInversion.updateSaldoInversion(daoManager,id,cantidad);
+                                                                    controladorUsuario.setSaldoBBDD(inversor);
                                                                     try{
                                                                         BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
                                                                         bw2.write("Inversion Actualizada;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
@@ -907,6 +909,7 @@ public class Main {
                                                                 controladorProyectos.aniadirFinanciacionAProyecto(cantidad, proyectoAux);
                                                                 controladorProyectos.insertarInversion(inversionAux, proyectoAux);
                                                                 controladorUsuario.actualizarInvertido(inversor);
+                                                                controladorUsuario.setSaldoBBDD(inversor);
                                                                 daoInversion.insert(inversionAux,daoManager);
                                                                 try{
                                                                     BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));

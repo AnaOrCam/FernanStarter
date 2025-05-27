@@ -1,6 +1,7 @@
 package proyecto;
 
 import controlador.DAOManager;
+import usuario.DAOInversor;
 import usuario.Inversor;
 
 import java.sql.ResultSet;
@@ -93,7 +94,8 @@ public class DAOInversion {
     public LinkedList<Inversion> selectPorInversor(DAOManager daoManager,String correo) {
         LinkedList<Inversion> lista = new LinkedList<>();
         String sql = "SELECT * FROM inversion where correo='"+correo+"';";
-
+        DAORecompensa daoRecompensa=new DAORecompensa();
+        DAOInversor daoInversor=new DAOInversor();
         try {
             Statement stmt = daoManager.getConnection().createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -101,9 +103,8 @@ public class DAOInversion {
                 int id=rs.getInt("id");
                 float cantidad = rs.getFloat("cantidad");
                 String nombre_proyecto= rs.getString("nombre_proyecto");
-                Inversor aux=new Inversor(null,rs.getString("correo"),null,null);
-                Recompensa aux2 = new Recompensa(null,null,0);
-                aux2.setId(rs.getInt("id_recompensa"));
+                Inversor aux=daoInversor.read(rs.getString("correo"),daoManager);
+                Recompensa aux2 = daoRecompensa.select(rs.getInt("id"),daoManager);
                 Inversion inversion = new Inversion(nombre_proyecto, cantidad, aux,aux2,id);
                 lista.add(inversion);
             }

@@ -27,13 +27,16 @@ public class GestionUsuarios implements Serializable {
         DAOInversion daoInversion=new DAOInversion();
         DAOInversor daoInversor=new DAOInversor();
         LinkedList<Inversor>listaInversores=daoInversor.readAll(daoManager);
+        LinkedList<Inversion> inversiones=new LinkedList<>();
         for (Inversor a:listaInversores){
-            LinkedList<Inversion> inversiones=new LinkedList<>();
             inversiones=daoInversion.selectPorInversor(daoManager,a.getCorreo());
             a.insertarInversiones(inversiones);
             System.out.println(inversiones);
         }
 
+    }
+    public void rellenarListaInversiones(Inversor inversor, DAOManager daoManager){
+        inversor.rellenarListaInversiones(inversor,daoManager);
     }
 
     /**

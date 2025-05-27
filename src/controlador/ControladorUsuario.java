@@ -498,4 +498,8 @@ public class ControladorUsuario implements Serializable {
     public void actualizarInvertido(Inversor inversor){
         modelo.actualizarInvertido(inversor,daoManager);
     }
+
+    public void rellenarListaInversiones(Inversor inversor){
+        modelo.rellenarListaInversiones(inversor,daoManager);
+    }
 }
