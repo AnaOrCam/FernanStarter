@@ -2,13 +2,14 @@ package controlador;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-public class DAOManager {
+public class DAOManager implements Serializable {
 
     private Connection connection=null;
     private String url;
@@ -23,7 +24,7 @@ public class DAOManager {
     private DAOManager(){
         try{
             Properties properties=new Properties();
-            properties.load(new FileReader("./datos/setup.properties"));
+            properties.load(new FileReader("./src/datos/setup.properties"));
             connection=null;
             url= properties.getProperty("URL_BBDD");
             user= properties.getProperty("user");

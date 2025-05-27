@@ -8,12 +8,13 @@ import java.sql.Statement;
 import java.util.LinkedList;
 
 public class DAORecompensa {
-    public boolean insert(Recompensa recompensa, DAOManager daoManager) {
-        String sql = "INSERT INTO recompensa (id, nombre, descripcion, importe) VALUES (" +
+    public boolean insert(Recompensa recompensa, DAOManager daoManager, String nombreProyecto) {
+        String sql = "INSERT INTO recompensa (id, nombre, descripcion, importe, nombre_proyecto) VALUES (" +
                 recompensa.getId() + ", '" +
                 recompensa.getNombre() + "', '" +
                 recompensa.getDescripcion() + "', " +
-                recompensa.getImporte() + ");";
+                recompensa.getImporte() + ", '" +
+                nombreProyecto + "');";
 
         return daoManager.ejecutaSentencia(sql);
     }
@@ -23,6 +24,15 @@ public class DAORecompensa {
                 "descripcion = '" + recompensa.getDescripcion() + "', " +
                 "importe = " + recompensa.getImporte() + " " +
                 "WHERE id = " + recompensa.getId() + ";";
+
+        return daoManager.ejecutaSentencia(sql);
+    }
+    public boolean updateCambiarRecompensa(Recompensa recompensa, DAOManager daoManager,int idACambiar) {
+        String sql = "UPDATE recompensa SET " +
+                "nombre = '" + recompensa.getNombre() + "', " +
+                "descripcion = '" + recompensa.getDescripcion() + "', " +
+                "importe = " + recompensa.getImporte() + " " +
+                "WHERE id = " + idACambiar + ";";
 
         return daoManager.ejecutaSentencia(sql);
     }

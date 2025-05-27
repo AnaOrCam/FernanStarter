@@ -5,18 +5,20 @@ import controlador.DAOManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.LinkedList;
 
 public class DAOProyecto {
-    public boolean insert(Proyecto proyecto, DAOManager daoManager) {
-        String sql = "INSERT INTO proyecto (nombre, fechaApertura, fechaCierre, cantidadInvertidaActual, cantidadAInvertirTotal, descripcion, tematicaProyecto) VALUES ('" +
+    public boolean insert(Proyecto proyecto, DAOManager daoManager, String correoGestor) {
+        String sql = "INSERT INTO proyecto (nombre, fechaApertura, fechaCierre, cantidadInvertidaActual, cantidadAInvertirTotal, descripcion, tematicaProyecto, correoGestor) VALUES ('" +
                 proyecto.getNombre() + "', '" +
                 proyecto.getFechaApertura() + "', '" +
                 proyecto.getFechaCierre() + "', " +
                 proyecto.getCantidadInvertidaActual() + ", " +
                 proyecto.getCantidadAInvertirTotal() + ", '" +
                 proyecto.getDescripcion() + "', '" +
-                proyecto.getTematicaProyecto() + "');";
+                proyecto.getTematicaProyecto() + "', '" +
+                correoGestor + "');";
 
         return daoManager.ejecutaSentencia(sql);
     }
@@ -29,6 +31,42 @@ public class DAOProyecto {
                 "descripcion = '" + proyecto.getDescripcion() + "', " +
                 "tematicaProyecto = '" + proyecto.getTematicaProyecto() + "' " +
                 "WHERE nombre = '" + nombre + "';";
+
+        return daoManager.ejecutaSentencia(sql);
+    }
+    public boolean updateNombre( DAOManager daoManager,String nombre,String nombreNuevo) {
+        String sql = "UPDATE proyecto SET " +
+                "nombre='"+nombreNuevo+"' where nombre='"+nombre+"' ;";
+
+        return daoManager.ejecutaSentencia(sql);
+    }
+    public boolean updateTematica( DAOManager daoManager,String nombreProyecto,String nuevatematica) {
+        String sql = "UPDATE proyecto SET " +
+                "tematicaProyecto='"+nuevatematica+"' where nombre='"+nombreProyecto+"'; ";
+
+        return daoManager.ejecutaSentencia(sql);
+    }
+    public boolean updateCantidadAFinanciar( DAOManager daoManager,String nombreProyecto,int cantidad) {
+        String sql = "UPDATE proyecto SET " +
+                "cantidadAInvertirTotal="+cantidad+" where nombre='"+nombreProyecto+"' ;";
+
+        return daoManager.ejecutaSentencia(sql);
+    }
+    public boolean updateCantidadInvertida( DAOManager daoManager,String nombreProyecto,int cantidad) {
+        String sql = "UPDATE proyecto SET " +
+                "cantidadInvertidaActual="+cantidad+" where nombre='"+nombreProyecto+"' ;";
+
+        return daoManager.ejecutaSentencia(sql);
+    }
+    public boolean updateFechaApertura(DAOManager daoManager, String nombreProyecto, LocalDate nueva) {
+        String sql = "UPDATE proyecto SET " +
+                "fechaApertura='"+nueva+"' where nombre='"+nombreProyecto+"' ;";
+
+        return daoManager.ejecutaSentencia(sql);
+    }
+    public boolean updateFechaCierre(DAOManager daoManager, String nombreProyecto, LocalDate nueva) {
+        String sql = "UPDATE proyecto SET " +
+                "fechaCierre='"+nueva+"' where nombre='"+nombreProyecto+"' ;";
 
         return daoManager.ejecutaSentencia(sql);
     }

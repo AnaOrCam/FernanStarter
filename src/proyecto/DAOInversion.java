@@ -11,27 +11,41 @@ import java.util.LinkedList;
 public class DAOInversion {
 
     public boolean insert(Inversion inversion, DAOManager daoManager){
-        String sql = "INSERT INTO inversion (idInversion, cantidadInvertida, correoInversor, idRecompensaElegida, nombreProyecto) VALUES (" +
-                inversion.getIdInversion() + ", " +
-                inversion.getCantidadInvertida() + ", '" +
-                inversion.getInversor().getCorreo() + "', " +
-                inversion.getRecompensaElegida().getId() + ", '" +
-                inversion.getNombreProyecto() + "');";
-
+        String sql;
+        if (inversion.getRecompensaElegida() != null) {
+            sql = "INSERT INTO inversion (id, cantidad, correo, id_recompensa, nombre_proyecto) VALUES (" +
+                    inversion.getIdInversion() + ", " +
+                    inversion.getCantidadInvertida() + ", '" +
+                    inversion.getInversor().getCorreo() + "', " +
+                    inversion.getRecompensaElegida().getId() + ", '" +
+                    inversion.getNombreProyecto() + "');";
+        } else {
+            sql = "INSERT INTO inversion (id, cantidad, correo, nombre_proyecto) VALUES (" +
+                    inversion.getIdInversion() + ", " +
+                    inversion.getCantidadInvertida() + ", '" +
+                    inversion.getInversor().getCorreo() + "', '" +
+                    inversion.getNombreProyecto() + "');";
+        }
         return daoManager.ejecutaSentencia(sql);
     }
     public boolean update(Inversion inversion, DAOManager daoManager,int idAActualizar) {
         String sql = "UPDATE inversion SET " +
-                "cantidadInvertida = " + inversion.getCantidadInvertida() + ", " +
-                "correoInversor = '" + inversion.getInversor().getCorreo() + "', " +
-                "idRecompensaElegida = " + inversion.getRecompensaElegida().getId() + ", " +
-                "nombreProyecto = '" + inversion.getNombreProyecto() + "' " +
-                "WHERE idInversion = " + idAActualizar + ";";
+                "cantidad = " + inversion.getCantidadInvertida() + ", " +
+                "correo = '" + inversion.getInversor().getCorreo() + "', " +
+                "id = " + inversion.getRecompensaElegida().getId() + ", " +
+                "nombre_proyecto = '" + inversion.getNombreProyecto() + "' " +
+                "WHERE id = " + idAActualizar + ";";
+
+        return daoManager.ejecutaSentencia(sql);
+    }
+    public boolean updateSaldoInversion( DAOManager daoManager,int idAActualizar,Float cantidadAumentada) {
+        String sql = "UPDATE inversion SET " +
+                "cantidad = cantidad+" +cantidadAumentada+"where id="+idAActualizar+";";
 
         return daoManager.ejecutaSentencia(sql);
     }
     public boolean delete(Inversion inversion, DAOManager daoManager) {
-        String sql = "DELETE FROM inversion WHERE idInversion = " + inversion.getIdInversion() + ";";
+        String sql = "DELETE FROM inversion WHERE id = " + inversion.getIdInversion() + ";";
         return daoManager.ejecutaSentencia(sql);
     }
     public Inversion selectPorId(int  id, DAOManager daoManager ){
@@ -40,11 +54,11 @@ public class DAOInversion {
             Statement stmt = daoManager.getConnection().createStatement();
             ResultSet rs=stmt.executeQuery(sql);
             if (rs.next()){
-                Inversor aux=new Inversor(null,rs.getString("correoInversor"),null,null);
+                Inversor aux=new Inversor(null,rs.getString("correo"),null,null);
                 Recompensa aux2 = new Recompensa(null,null,0);
-                aux2.setId(rs.getInt("idRecompensaElegida"));
-                Inversion inversion =new Inversion(rs.getString("proyecto"),
-                        rs.getFloat("cantidadInvertida"),aux,aux2,rs.getInt("idInversion"));
+                aux2.setId(rs.getInt("id"));
+                Inversion inversion =new Inversion(rs.getString("nombre_proyecto"),
+                        rs.getFloat("cantidad"),aux,aux2,rs.getInt("id"));
                 return inversion;
             }
 
@@ -62,17 +76,17 @@ public class DAOInversion {
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                Inversor aux = new Inversor(null, rs.getString("correoInversor"), null, null);
+                Inversor aux = new Inversor(null, rs.getString("correo"), null, null);
 
                 Recompensa aux2 = new Recompensa(null, null, 0);
-                aux2.setId(rs.getInt("idRecompensaElegida"));
+                aux2.setId(rs.getInt("i"));
 
                 Inversion inversion = new Inversion(
-                        rs.getString("nombreProyecto"),
-                        rs.getFloat("cantidadInvertida"),
+                        rs.getString("nombre"),
+                        rs.getFloat("cantidad"),
                         aux,
                         aux2,
-                        rs.getInt("idInversion")
+                        rs.getInt("id")
                 );
 
                 lista.add(inversion);

@@ -273,4 +273,13 @@ public class ControladorProyectos implements Serializable {
     public Recompensa buscarRecompensa(String nombre, Proyecto proyecto){
         return modelo.buscarRecompensa(nombre, proyecto);
     }
+    public void open(){
+        daoManager.open();
+    }
+    public void close(){
+        daoManager.close();
+    }
+    public boolean ejecutaSentencia(String sql){
+        return daoManager.ejecutaSentencia(sql);
+    }
 }

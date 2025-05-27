@@ -35,23 +35,16 @@ public class Main {
         ControladorProyectos controladorProyectos=new ControladorProyectos(modeloProyectos,vistaProyectos,daoManager);
         ControladorUsuario controladorUsuario=new ControladorUsuario(modeloUsuarios, vistaUsuarios,daoManager);
         Properties properties=new Properties();
-
+        DAOProyecto daoProyecto=new DAOProyecto();
+        DAORecompensa daoRecompensa=new DAORecompensa();
+        DAOInversion daoInversion=new DAOInversion();
+        controladorProyectos.open();
         try {
             properties.load(new FileReader("./src/datos/setup.properties"));
-            File archivoUsuarios = new File(properties.getProperty("recuperacionUsuarios"));
-            File archivoProyectos = new File(properties.getProperty("recuperacionProyectos"));
 
-            if (archivoUsuarios.length() != 0 && archivoProyectos.length() != 0) {
-                ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivoUsuarios));
-                ObjectInputStream ois2 = new ObjectInputStream(new FileInputStream(archivoProyectos));
-                controladorUsuario = (ControladorUsuario) ois.readObject();
-                controladorProyectos = (ControladorProyectos) ois2.readObject();
-                ois.close();
-                ois2.close();
-            }
-        }catch (ClassNotFoundException e){
-            e.printStackTrace();
-        }catch (IOException e){
+
+
+        } catch (IOException e){
             e.printStackTrace();
         }
 
@@ -146,6 +139,14 @@ public class Main {
                                 Inversor nuevo=new Inversor(nombreAux,correoAux,contraseniaAux,TipoUsuario.INVERSOR);
                                 controladorUsuario.aniadirUsuario(nuevo);
                                 controladorUsuario.insertarUsuarioBBDD(nuevo);
+                                try{
+                                    BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
+                                    bw2.write("Usuario Insertado;"+nuevo.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                    bw2.close();
+                                }catch (IOException e){
+                                    System.out.println("Error");
+                                    e.printStackTrace();
+                                }
                                  nombreAux="";
                                  correoAux="";
                                  contraseniaAux="";
@@ -203,6 +204,14 @@ public class Main {
                                 Gestor nuevo=new Gestor(nombreAux,correoAux,contraseniaAux, TipoUsuario.GESTOR);
                                 controladorUsuario.aniadirUsuario(nuevo);
                                 controladorUsuario.insertarUsuarioBBDD(nuevo);
+                                try{
+                                    BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
+                                    bw2.write("Usuario Insertado;"+nuevo.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                    bw2.close();
+                                }catch (IOException e){
+                                    System.out.println("Error");
+                                    e.printStackTrace();
+                                }
                                 nombreAux="";
                                 correoAux="";
                                 contraseniaAux="";
@@ -258,6 +267,14 @@ public class Main {
                                 Administrador nuevo=new Administrador(nombreAux,correoAux,contraseniaAux, TipoUsuario.ADMINISTRADOR);
                                 controladorUsuario.aniadirUsuario(nuevo);
                                 controladorUsuario.insertarUsuarioBBDD(nuevo);
+                                try{
+                                    BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
+                                    bw2.write("Usuario Insertado;"+nuevo.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                    bw2.close();
+                                }catch (IOException e){
+                                    System.out.println("Error");
+                                    e.printStackTrace();
+                                }
                                 nombreAux="";
                                 correoAux="";
                                 contraseniaAux="";
@@ -274,7 +291,6 @@ public class Main {
                 }
                 //Iniciar Sesion
                 case 2:{
-                    controladorUsuario.rellenaListaUsuarios();
                     int autentificacion=0;
                     int codigo=0;
                     String correoAux="";
@@ -362,9 +378,28 @@ public class Main {
                                                 float importe=Float.parseFloat(s.nextLine());
                                                 Recompensa nueva=new Recompensa(nombreRecompensa,descripcionRecompensa,importe);
                                                 controladorProyectos.insertarRecompensa(nueva,nuevo);
+                                                daoRecompensa.insert(nueva,daoManager,nuevo.getNombre());
+                                                try{
+                                                    BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
+                                                    bw2.write("Recompensa Insertada;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                                    bw2.close();
+                                                }catch (IOException e){
+                                                    System.out.println("Error");
+                                                    e.printStackTrace();
+                                                }
+
                                             }
                                             controladorProyectos.insertarProyecto(nuevo);
                                             controladorUsuario.gestorAnadirProyecto(gestor,nuevo);
+                                            daoProyecto.insert(nuevo,daoManager, gestor.getCorreo());
+                                            try{
+                                                BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
+                                                bw2.write("Proyecto Insertado;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                                bw2.close();
+                                            }catch (IOException e){
+                                                System.out.println("Error");
+                                                e.printStackTrace();
+                                            }
                                             try {
                                                 BufferedWriter bw2 = new BufferedWriter(new FileWriter(properties.getProperty("logs"), true));
                                                 bw2.write("Nuevo proyecto.Proyecto;" + usuarioActual.getCorreo() + ";" + LocalDateTime.now() + "\n");
@@ -451,8 +486,18 @@ public class Main {
                                                             case 1:{
                                                                 System.out.println("Introduce el nuevo nombre");
                                                                 String nombreNuevo=s.nextLine();
+                                                                String nombreAntiguo=auxiliarProyectos.getNombre();
                                                                 auxiliarUsuarios.setNombre(nombreNuevo);
                                                                 auxiliarProyectos.setNombre(nombreNuevo);
+                                                                daoProyecto.updateNombre(daoManager,nombreAntiguo,nombreNuevo);
+                                                                try{
+                                                                    BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
+                                                                    bw2.write("Proyecto Actualizado;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                                                    bw2.close();
+                                                                }catch (IOException e){
+                                                                    System.out.println("Error");
+                                                                    e.printStackTrace();
+                                                                }
                                                                 break;
                                                             }
                                                             case 2:{
@@ -461,6 +506,15 @@ public class Main {
                                                                 String aux=s.nextLine();
                                                                 auxiliarUsuarios.setTematicaProyecto(TematicaProyecto.valueOf(aux.toUpperCase()));
                                                                 auxiliarProyectos.setTematicaProyecto(TematicaProyecto.valueOf(aux.toUpperCase()));
+                                                                daoProyecto.updateTematica(daoManager,auxiliarProyectos.getNombre(),aux);
+                                                                try{
+                                                                    BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
+                                                                    bw2.write("Proyecto Actualizado;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                                                    bw2.close();
+                                                                }catch (IOException e){
+                                                                    System.out.println("Error");
+                                                                    e.printStackTrace();
+                                                                }
                                                                 break;
                                                             }
                                                             case 3:{
@@ -468,24 +522,63 @@ public class Main {
                                                                 int nuevaCantidad=Integer.parseInt(s.nextLine());
                                                                 auxiliarUsuarios.setCantidadAInvertirTotal(nuevaCantidad);
                                                                 auxiliarProyectos.setCantidadAInvertirTotal(nuevaCantidad);
+                                                                daoProyecto.updateCantidadAFinanciar(daoManager,auxiliarProyectos.getNombre(),nuevaCantidad);
+                                                                try{
+                                                                    BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
+                                                                    bw2.write("Proyecto Actualizado;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                                                    bw2.close();
+                                                                }catch (IOException e){
+                                                                    System.out.println("Error");
+                                                                    e.printStackTrace();
+                                                                }
                                                                 break;
                                                             }case 4:{
-                                                                System.out.println("Elije la nueva cantidad invertuda usuarioActual");
+                                                                System.out.println("Elije la nueva cantidad invertida Actual");
                                                                 int nuevaCantidad=Integer.parseInt(s.nextLine());
                                                                 auxiliarUsuarios.aniadirFinanciacion(nuevaCantidad);
                                                                 auxiliarProyectos.aniadirFinanciacion(nuevaCantidad);
+                                                                daoProyecto.updateCantidadInvertida(daoManager,auxiliarProyectos.getNombre(),nuevaCantidad);
+                                                                try{
+                                                                    BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
+                                                                    bw2.write("Proyecto Actualizado;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                                                    bw2.close();
+                                                                }catch (IOException e){
+                                                                    System.out.println("Error");
+                                                                    e.printStackTrace();
+                                                                }
+
                                                                 break;
                                                             }case 5:{
                                                                 System.out.println("Fecha nueva de apertura");
                                                                 LocalDate fechaInicionueva = FuncionesFechas.parsearStringALocalDate(s.nextLine());
                                                                 auxiliarUsuarios.setFechaApertura(fechaInicionueva);
                                                                 auxiliarProyectos.setFechaApertura(fechaInicionueva);
+                                                                daoProyecto.updateFechaApertura(daoManager,auxiliarProyectos.getNombre(),fechaInicionueva);
+                                                                try{
+                                                                    BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
+                                                                    bw2.write("Proyecto Actualizado;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                                                    bw2.close();
+                                                                }catch (IOException e){
+                                                                    System.out.println("Error");
+                                                                    e.printStackTrace();
+                                                                }
                                                                 break;
+
                                                             }case 6:{
-                                                                System.out.println("Fecha cierre de apertura");
+                                                                System.out.println("Fecha nueva de cierre");
                                                                 LocalDate fechaCierreNueva = FuncionesFechas.parsearStringALocalDate(s.nextLine());
                                                                 auxiliarUsuarios.setFechaApertura(fechaCierreNueva);
                                                                 auxiliarProyectos.setFechaApertura(fechaCierreNueva);
+                                                                daoProyecto.updateFechaCierre(daoManager,auxiliarProyectos.getNombre(),fechaCierreNueva);
+                                                                try{
+                                                                    BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
+                                                                    bw2.write("Proyecto Actualizado;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                                                    bw2.close();
+                                                                }catch (IOException e){
+                                                                    System.out.println("Error");
+                                                                    e.printStackTrace();
+                                                                }
+
                                                                 break;
                                                             }case 7:{
                                                                 System.out.println("Estas son las recompensas");
@@ -501,6 +594,16 @@ public class Main {
                                                                     Recompensa nueva=new Recompensa(nombreRecompensa,descripcionRecompensa,importe);
                                                                     controladorProyectos.insertarRecompensa(nueva,auxiliarProyectos);
                                                                     controladorUsuario.operacionSatisfactoria();
+                                                                    daoRecompensa.insert(nueva,daoManager,auxiliarProyectos.getNombre());
+                                                                    try{
+                                                                        BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
+                                                                        bw2.write("Recompensa Insertada;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                                                        bw2.close();
+                                                                    }catch (IOException e){
+                                                                        System.out.println("Error");
+                                                                        e.printStackTrace();
+                                                                    }
+
                                                                 }
                                                                 break;
                                                             }
@@ -532,6 +635,15 @@ public class Main {
                                                 Proyecto auxiliarProyectos=controladorProyectos.buscarProyecto(opcionaux);
                                                 controladorProyectos.borrarProyecto(auxiliarProyectos);
                                                 controladorUsuario.borrarProyecto(gestor,auxiliarUsuarios);
+                                                daoProyecto.delete(daoManager,opcionaux);
+                                                try{
+                                                    BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
+                                                    bw2.write("Proyecto Borrado;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                                    bw2.close();
+                                                }catch (IOException e){
+                                                    System.out.println("Error");
+                                                    e.printStackTrace();
+                                                }
                                                 try{
                                                 BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
                                                 bw2.write("Eliminación proyecto.Proyecto;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
@@ -634,6 +746,15 @@ public class Main {
                                                                         if (controladorProyectos.comprobarCantidadFinanciada(proyectoAuxiliar,cantidad)) {
                                                                             controladorUsuario.aumentarInversion(inversor,id,cantidad);
                                                                             controladorProyectos.aniadirFinanciacionAProyecto(cantidad,proyectoAuxiliar);
+                                                                            daoInversion.updateSaldoInversion(daoManager,id,cantidad);
+                                                                            try{
+                                                                                BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
+                                                                                bw2.write("Inversion Actualizada;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                                                                bw2.close();
+                                                                            }catch (IOException e){
+                                                                                System.out.println("Error");
+                                                                                e.printStackTrace();
+                                                                            }
                                                                             float cantidadInvertidaTrasModificacion = controladorUsuario.getCantidadInvertidaEnInversion(id, inversor);
                                                                             if (controladorProyectos.siRecompensa(cantidadInvertidaTrasModificacion, proyectoAuxiliar)) {
                                                                                 System.out.println("¡Enhorabuena! Por tu nueva inversión puedes modificar tu recompensa: ");
@@ -651,6 +772,15 @@ public class Main {
                                                                                 } while (!recompensaValida);
                                                                                 Recompensa recompensaAuxiliar = controladorProyectos.buscarRecompensa(eleccion, proyectoAuxiliar);
                                                                                 controladorUsuario.setRecompensaElegida(id, inversor, recompensaAuxiliar);
+                                                                                daoRecompensa.updateCambiarRecompensa(recompensaAuxiliar,daoManager,id);
+                                                                                try{
+                                                                                    BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
+                                                                                    bw2.write("Recompensa Actualizada;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                                                                    bw2.close();
+                                                                                }catch (IOException e){
+                                                                                    System.out.println("Error");
+                                                                                    e.printStackTrace();
+                                                                                }
                                                                             }
                                                                         }else{
                                                                             System.out.println("No se puede realizar la inversión. Limite sobrepasado.");
@@ -665,6 +795,16 @@ public class Main {
                                                                 if (!controladorUsuario.getNombreProyecto(id,inversor).equalsIgnoreCase("")) {
                                                                     Proyecto proyectoAuxiliar = controladorProyectos.buscarProyecto(controladorUsuario.getNombreProyecto(id, inversor));
                                                                     controladorProyectos.restarFinanciacionAProyecto(cantidad, proyectoAuxiliar);
+                                                                    daoInversion.updateSaldoInversion(daoManager,id,cantidad);
+                                                                    try{
+                                                                        BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
+                                                                        bw2.write("Inversion Actualizada;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                                                        bw2.close();
+                                                                    }catch (IOException e){
+                                                                        System.out.println("Error");
+                                                                        e.printStackTrace();
+                                                                    }
+
                                                                 }
                                                             }
                                                             case 3 ->
@@ -760,6 +900,23 @@ public class Main {
                                                             if (controladorProyectos.comprobarCantidadFinanciada(proyectoAux,cantidad) && controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)) {
                                                                 controladorProyectos.aniadirFinanciacionAProyecto(cantidad, proyectoAux);
                                                                 controladorProyectos.insertarInversion(inversionAux, proyectoAux);
+                                                                daoInversion.insert(inversionAux,daoManager);
+                                                                try{
+                                                                    BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
+                                                                    bw2.write("Inversion Insertada;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                                                    bw2.close();
+                                                                }catch (IOException e){
+                                                                    System.out.println("Error");
+                                                                    e.printStackTrace();
+                                                                }
+                                                                try{
+                                                                    BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
+                                                                    bw2.write("Inversion Insertada;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                                                    bw2.close();
+                                                                }catch (IOException e){
+                                                                    System.out.println("Error");
+                                                                    e.printStackTrace();
+                                                                }
 
                                                             }else if(!controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)){
                                                                 System.out.println("No se ha podido realizar la operación. Saldo insuficiente");
@@ -771,6 +928,15 @@ public class Main {
                                                             if (controladorProyectos.comprobarCantidadFinanciada(proyectoAux,cantidad) && controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)){
                                                                 controladorProyectos.aniadirFinanciacionAProyecto(cantidad, proyectoAux);
                                                                 controladorProyectos.insertarInversion(inversionAux,proyectoAux);
+                                                                daoInversion.insert(inversionAux,daoManager);
+                                                                try{
+                                                                    BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
+                                                                    bw2.write("Inversion Insertada;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
+                                                                    bw2.close();
+                                                                }catch (IOException e){
+                                                                    System.out.println("Error");
+                                                                    e.printStackTrace();
+                                                                }
                                                             }else if(!controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)){
                                                                 System.out.println("No se ha podido realizar la operación. Saldo insuficiente");
                                                             }else{
@@ -1121,20 +1287,9 @@ public class Main {
                 }
             }
         }while (opcionInicial!=4);
-        try{
-            ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(properties.getProperty("recuperacionUsuarios")));
-            oos.writeObject(controladorUsuario);
-            oos.close();
-            ObjectOutputStream oos2=new ObjectOutputStream(new FileOutputStream(properties.getProperty("recuperacionProyectos")));
-            oos2.writeObject(controladorProyectos);
-            oos2.close();
-            System.out.println("Fichero cifrado");
-        }catch (FileNotFoundException e){
-            System.out.println("Fichero no encontrado");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
         controladorUsuario.muestraUsuarios();
+        controladorProyectos.close();
 
     }
 }
