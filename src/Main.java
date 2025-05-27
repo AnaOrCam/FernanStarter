@@ -665,6 +665,7 @@ public class Main {
                                                     System.out.println("Introduce el nuevo nombre");
                                                     gestor.setNombre(s.nextLine());
                                                     controladorUsuario.operacionSatisfactoria();
+                                                    controladorUsuario.setMenuConfiguracionBBDD(gestor,"nombre");
                                                     System.out.println(gestor);
                                                     break;
                                                 }
@@ -672,6 +673,7 @@ public class Main {
                                                     System.out.println("Introduce la nueva contraseña");
                                                     gestor.setContrasena(s.nextLine());
                                                     controladorUsuario.operacionSatisfactoria();
+                                                    controladorUsuario.setMenuConfiguracionBBDD(gestor,"pass");
                                                     break;
                                                 }
                                                 case 3:{
@@ -963,6 +965,7 @@ public class Main {
                                                     System.out.println("¿Cuánto quieres ingresar?");
                                                     float cantidad=Float.parseFloat(s.nextLine());
                                                     controladorUsuario.ingresarSaldo(cantidad,inversor);
+                                                    controladorUsuario.setSaldoBBDD(inversor);
                                                 }
                                                 case 3-> System.out.println("Saliendo de cartera digital...");
                                                 default -> System.out.println("Esa opción no se encuentra en el menú");
@@ -974,6 +977,7 @@ public class Main {
                                             if (controladorUsuario.invitarAmigo(amigo,inversor)){
                                                 System.out.println("Tus amigos invitados hasta la fecha son los siguientes:");
                                                 controladorUsuario.mostrarAmigos(inversor);
+                                                controladorUsuario.insertarAmigoBBDD(inversor,amigo);
                                             }else{
                                                 System.out.println("No se ha podido realizar la invitación. El formato introducido no es un correo electrónico.");
                                             }
@@ -990,6 +994,7 @@ public class Main {
                                                     System.out.println("Introduce el nuevo nombre");
                                                     inversor.setNombre(s.nextLine());
                                                     controladorUsuario.operacionSatisfactoria();
+                                                    controladorUsuario.setMenuConfiguracionBBDD(inversor,"nombre");
                                                     System.out.println(inversor);
                                                     break;
                                                 }
@@ -997,6 +1002,7 @@ public class Main {
                                                     System.out.println("Introduce la nueva contraseña");
                                                     inversor.setContrasena(s.nextLine());
                                                     controladorUsuario.operacionSatisfactoria();
+                                                    controladorUsuario.setMenuConfiguracionBBDD(inversor,"pass");
                                                     break;
                                                 }
                                                 case 3:{
@@ -1145,6 +1151,7 @@ public class Main {
                                                     System.out.println("Introduce el nuevo nombre");
                                                     admin.setNombre(s.nextLine());
                                                     controladorUsuario.operacionSatisfactoria();
+                                                    controladorUsuario.setMenuConfiguracionBBDD(admin,"nombre");
                                                     System.out.println(admin);
                                                     break;
                                                 }
@@ -1152,6 +1159,7 @@ public class Main {
                                                     System.out.println("Introduce la nueva contraseña");
                                                     admin.setContrasena(s.nextLine());
                                                     controladorUsuario.operacionSatisfactoria();
+                                                    controladorUsuario.setMenuConfiguracionBBDD(admin,"pass");
                                                     break;
                                                 }
                                                 case 3:{

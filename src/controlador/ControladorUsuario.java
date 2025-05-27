@@ -439,4 +439,28 @@ public class ControladorUsuario implements Serializable {
     public void rellenaListaUsuarios(){
         modelo.rellenaListaUsuarios(daoManager);
     }
+
+    /**
+     * Actualiza los cambios hechos en configuraciçon de usuarios en la BBDD.
+     * @author anaOrCam
+     */
+    public void setMenuConfiguracionBBDD(Usuario usuario,String tipoUpdate){
+        modelo.setMenuConfiguracionBBDD(usuario,daoManager,tipoUpdate);
+    }
+
+    /**
+     * Actualiza el saldo del inversor en la BBDD.
+     * @author anaOrCam
+     */
+    public void setSaldoBBDD(Inversor inversor){
+        modelo.setSaldoBBDD(inversor,daoManager);
+    }
+
+    /**
+     * Inserta un amigo del inversor en la BBDD.
+     * @author anaOrCam
+     */
+    public void insertarAmigoBBDD(Inversor inversor, String amigo){
+        modelo.insertarAmigoBBDD(inversor,amigo,daoManager);
+    }
 }

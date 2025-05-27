@@ -403,4 +403,47 @@ public class GestionUsuarios implements Serializable {
             usuarios.put(listaInversores.get(i).getCorreo(),listaInversores.get(i));
         }
     }
+
+    /**
+     * Actualiza los cambios hechos en configuraciçon de usuarios en la BBDD.
+     * @author anaOrCam
+     */
+    public void setMenuConfiguracionBBDD(Usuario usuario, DAOManager daoManager,String tipoUpdate){
+        DAOInversor daoInversor=new DAOInversor();
+        DAOGestor daoGestor=new DAOGestor();
+        DAOAdministrador daoAdministrador=new DAOAdministrador();
+        switch (usuario.getTipoUsuario()){
+            case GESTOR -> {
+                Gestor gestor=(Gestor) usuario;
+                if (tipoUpdate.equals("nombre")) daoGestor.update("nombre",gestor,daoManager);
+                else if (tipoUpdate.equals("pass")) daoGestor.update("pass",gestor,daoManager);
+            }
+            case INVERSOR -> {
+                Inversor inversor=(Inversor) usuario;
+                if (tipoUpdate.equals("nombre")) daoInversor.update("nombre",inversor,daoManager);
+                else if (tipoUpdate.equals("pass")) daoInversor.update("pass",inversor,daoManager);
+            }
+            case ADMINISTRADOR -> {
+                Administrador admin=(Administrador) usuario;
+                if (tipoUpdate.equals("nombre")) daoAdministrador.update("nombre",admin,daoManager);
+                else if (tipoUpdate.equals("pass")) daoAdministrador.update("pass",admin,daoManager);
+            }
+        }
+    }
+
+    /**
+     * Actualiza el saldo del inversor en la BBDD.
+     * @author anaOrCam
+     */
+    public void setSaldoBBDD(Inversor inversor,DAOManager daoManager){
+        inversor.setSaldoBBDD(inversor,daoManager);
+    }
+
+    /**
+     * Inserta un amigo del inversor en la BBDD.
+     * @author anaOrCam
+     */
+    public void insertarAmigoBBDD(Inversor inversor, String amigo, DAOManager daoManager){
+        inversor.insertarAmigoBBDD(inversor,amigo,daoManager);
+    }
 }

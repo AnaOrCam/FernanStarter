@@ -301,4 +301,21 @@ public class Inversor extends Usuario implements Bloqueable, Serializable {
         return daoInversor.insert(inversor, daoManager);
     }
 
+    /**
+     * Actualiza el saldo del inversor en la BBDD.
+     * @author anaOrCam
+     */
+    public void setSaldoBBDD(Inversor inversor,DAOManager daoManager){
+        DAOInversor daoInversor=new DAOInversor();
+        daoInversor.update("saldo",inversor,daoManager);
+    }
+
+    /**
+     * Inserta un amigo del inversor en la BBDD.
+     * @author anaOrCam
+     */
+    public void insertarAmigoBBDD(Inversor inversor, String amigo, DAOManager daoManager){
+        DAOAmigosInvitados daoAmigosInvitados=new DAOAmigosInvitados();
+        daoAmigosInvitados.insert(inversor,amigo,daoManager);
+    }
 }
