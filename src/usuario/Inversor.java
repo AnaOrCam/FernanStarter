@@ -1,5 +1,6 @@
 package usuario;
 
+import controlador.DAOManager;
 import proyecto.Inversion;
 import proyecto.Recompensa;
 import utilidades.FuncionesCadenas;
@@ -288,6 +289,16 @@ public class Inversor extends Usuario implements Bloqueable, Serializable {
         if (intentos==3){
             bloquearUsuario();
         }
+    }
+
+    /**
+     * Inserta un Inversor en la BBDD.
+     * @author anaOrCam
+     * @return true si se hace la inserción y false si no.
+     */
+    public boolean insertarInversorBBDD(Inversor inversor, DAOManager daoManager){
+        DAOInversor daoInversor=new DAOInversor();
+        return daoInversor.insert(inversor, daoManager);
     }
 
 }

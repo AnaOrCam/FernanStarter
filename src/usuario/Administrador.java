@@ -1,5 +1,7 @@
 package usuario;
 
+import controlador.DAOManager;
+
 import java.io.Serializable;
 
 public class Administrador extends Usuario implements Serializable {
@@ -38,6 +40,16 @@ public class Administrador extends Usuario implements Serializable {
      */
     public String toString(){
        return super.toString();
+    }
+
+    /**
+     * Inserta un Administrador en la BBDD.
+     * @author anaOrCam
+     * @return true si se hace la inserción y false si no.
+     */
+    public boolean insertarAdminBBDD(Administrador admin, DAOManager daoManager){
+        DAOAdministrador daoAdministrador=new DAOAdministrador();
+        return daoAdministrador.insert(admin, daoManager);
     }
 
 }

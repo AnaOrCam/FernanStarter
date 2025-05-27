@@ -1,5 +1,6 @@
 package usuario;
 
+import controlador.DAOManager;
 import proyecto.Proyecto;
 
 import java.io.Serializable;
@@ -98,6 +99,16 @@ public class Gestor extends Usuario implements Bloqueable, Serializable {
         if (intentos==3){
             bloquearUsuario();
         }
+    }
+
+    /**
+     * Inserta un Gestor en la BBDD.
+     * @author anaOrCam
+     * @return true si se hace la inserción y false si no.
+     */
+    public boolean insertarGestorBBDD(Gestor gestor, DAOManager daoManager){
+        DAOGestor daoGestor=new DAOGestor();
+        return daoGestor.insert(gestor, daoManager);
     }
 
 }

@@ -422,4 +422,21 @@ public class ControladorUsuario implements Serializable {
     public Boolean compruebaExistenUsuarios(){
         return modelo.compruebaExistenUsuario();
     }
+
+    /**
+     * Inserta un Usuario en la BBDD.
+     * @author anaOrCam
+     * @return true si se hace la inserción y false si no.
+     */
+    public boolean insertarUsuarioBBDD(Usuario usuario){
+        return modelo.insertarUsuarioBBDD(usuario,daoManager);
+    }
+
+    /**
+     * Rellena la lista de usuarios desde la BBDD.
+     * @author anaOrCam
+     */
+    public void rellenaListaUsuarios(){
+        modelo.rellenaListaUsuarios(daoManager);
+    }
 }

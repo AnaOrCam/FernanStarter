@@ -1,5 +1,6 @@
 package usuario;
 
+import controlador.DAOManager;
 import proyecto.Inversion;
 import proyecto.Proyecto;
 import proyecto.Recompensa;
@@ -11,6 +12,7 @@ import java.util.List;
 
 public class GestionUsuarios implements Serializable {
     private HashMap<String,Usuario> usuarios = new HashMap<>();
+
     /**
      * Añade un usuario nuevo a la lista
      * @author AnaOrCam
@@ -359,5 +361,46 @@ public class GestionUsuarios implements Serializable {
             }
         }
         return false;
+    }
+
+    /**
+     * Inserta un Usuario en la BBDD.
+     * @author anaOrCam
+     * @return true si se hace la inserción y false si no.
+     */
+    public boolean insertarUsuarioBBDD(Usuario usuario, DAOManager daoManager){
+        if (usuario.getTipoUsuario()==TipoUsuario.INVERSOR) {
+            Inversor inversor=(Inversor) usuario;
+            return inversor.insertarInversorBBDD(inversor,daoManager);
+        } else if (usuario.getTipoUsuario()==TipoUsuario.GESTOR) {
+            Gestor gestor=(Gestor)usuario;
+            return gestor.insertarGestorBBDD(gestor,daoManager);
+        } else if (usuario.getTipoUsuario()==TipoUsuario.ADMINISTRADOR) {
+            Administrador admin=(Administrador) usuario;
+            return admin.insertarAdminBBDD(admin,daoManager);
+        }
+        return false;
+    }
+
+    /**
+     * Rellena la lista de usuarios desde la BBDD.
+     * @author anaOrCam
+     */
+    public void rellenaListaUsuarios(DAOManager daoManager){
+        DAOInversor daoInversor=new DAOInversor();
+        DAOGestor daoGestor=new DAOGestor();
+        DAOAdministrador daoAdministrador=new DAOAdministrador();
+        LinkedList<Administrador> listaAdministradores=daoAdministrador.readAll(daoManager);
+        LinkedList<Gestor> listaGestores=daoGestor.readAll(daoManager);
+        LinkedList<Inversor>listaInversores=daoInversor.readAll(daoManager);
+        for (int i = 0; i < listaAdministradores.size(); i++) {
+            usuarios.put(listaAdministradores.get(i).getCorreo(),listaAdministradores.get(i));
+        }
+        for (int i = 0; i < listaGestores.size(); i++) {
+            usuarios.put(listaGestores.get(i).getCorreo(),listaGestores.get(i));
+        }
+        for (int i = 0; i < listaInversores.size(); i++) {
+            usuarios.put(listaInversores.get(i).getCorreo(),listaInversores.get(i));
+        }
     }
 }

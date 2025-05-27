@@ -145,7 +145,7 @@ public class Main {
                                 System.out.println("usuario.Usuario creado con exito");
                                 Inversor nuevo=new Inversor(nombreAux,correoAux,contraseniaAux,TipoUsuario.INVERSOR);
                                 controladorUsuario.aniadirUsuario(nuevo);
-
+                                controladorUsuario.insertarUsuarioBBDD(nuevo);
                                  nombreAux="";
                                  correoAux="";
                                  contraseniaAux="";
@@ -202,6 +202,7 @@ public class Main {
                                 System.out.println("usuario.Usuario creado con exito");
                                 Gestor nuevo=new Gestor(nombreAux,correoAux,contraseniaAux, TipoUsuario.GESTOR);
                                 controladorUsuario.aniadirUsuario(nuevo);
+                                controladorUsuario.insertarUsuarioBBDD(nuevo);
                                 nombreAux="";
                                 correoAux="";
                                 contraseniaAux="";
@@ -256,6 +257,7 @@ public class Main {
                                 System.out.println("usuario.Usuario creado con exito");
                                 Administrador nuevo=new Administrador(nombreAux,correoAux,contraseniaAux, TipoUsuario.ADMINISTRADOR);
                                 controladorUsuario.aniadirUsuario(nuevo);
+                                controladorUsuario.insertarUsuarioBBDD(nuevo);
                                 nombreAux="";
                                 correoAux="";
                                 contraseniaAux="";
@@ -272,6 +274,7 @@ public class Main {
                 }
                 //Iniciar Sesion
                 case 2:{
+                    controladorUsuario.rellenaListaUsuarios();
                     int autentificacion=0;
                     int codigo=0;
                     String correoAux="";
@@ -279,7 +282,7 @@ public class Main {
                     System.out.println("Introduzca correo");
                     correoAux=s.nextLine();
                     System.out.println("Introduzca la contraseña asociada a su correo");
-                    contraseniaAunx=s.nextLine();
+                    contraseniaAunx=cifrarPass(s.nextLine());
                     if (controladorUsuario.compruebaCredenciales(correoAux,contraseniaAunx)){
                         System.out.println("Hemos enviado un código a tu correo. Introduce la autentificación");
                          autentificacion = generarAutentificacion();
