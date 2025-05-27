@@ -487,4 +487,12 @@ public class ControladorUsuario implements Serializable {
     public void rellenarListaAmigos(Inversor inversor){
         modelo.rellenarListaAmigos(inversor,daoManager);
     }
+
+    /**
+     * Actualiza la cantidad total invertida por el inversor en la BBDD.
+     * @author anaOrCam
+     */
+    public void actualizarInvertido(Inversor inversor){
+        modelo.actualizarInvertido(inversor,daoManager);
+    }
 }

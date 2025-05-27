@@ -330,4 +330,13 @@ public class Inversor extends Usuario implements Bloqueable, Serializable {
             if (!amigosInvitados.contains(listaAmigosBBDD.get(i))) amigosInvitados.add(listaAmigosBBDD.get(i));
         }
     }
+
+    /**
+     * Actualiza la cantidad total invertida por el inversor en la BBDD.
+     * @author anaOrCam
+     */
+    public void actualizarInvertido(Inversor inversor, DAOManager daoManager){
+        DAOInversor daoInversor=new DAOInversor();
+        daoInversor.update("invertidoTotal",inversor,daoManager);
+    }
 }

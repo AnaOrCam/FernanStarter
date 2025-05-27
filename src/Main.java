@@ -905,6 +905,7 @@ public class Main {
                                                             if (controladorProyectos.comprobarCantidadFinanciada(proyectoAux,cantidad) && controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)) {
                                                                 controladorProyectos.aniadirFinanciacionAProyecto(cantidad, proyectoAux);
                                                                 controladorProyectos.insertarInversion(inversionAux, proyectoAux);
+                                                                controladorUsuario.actualizarInvertido(inversor);
                                                                 daoInversion.insert(inversionAux,daoManager);
                                                                 try{
                                                                     BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));

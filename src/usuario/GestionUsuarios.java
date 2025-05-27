@@ -497,4 +497,12 @@ public class GestionUsuarios implements Serializable {
     public void rellenarListaAmigos(Inversor inversor, DAOManager daoManager){
         inversor.rellenarListaAmigos(inversor, daoManager);
     }
+
+    /**
+     * Actualiza la cantidad total invertida por el inversor en la BBDD.
+     * @author anaOrCam
+     */
+    public void actualizarInvertido(Inversor inversor, DAOManager daoManager){
+        inversor.actualizarInvertido(inversor,daoManager);
+    }
 }
