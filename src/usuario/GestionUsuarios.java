@@ -489,4 +489,12 @@ public class GestionUsuarios implements Serializable {
             }
         }
     }
+
+    /**
+     * Rellena la lista de amigos del inversor en la BBDD.
+     * @author anaOrCam
+     */
+    public void rellenarListaAmigos(Inversor inversor, DAOManager daoManager){
+        inversor.rellenarListaAmigos(inversor, daoManager);
+    }
 }

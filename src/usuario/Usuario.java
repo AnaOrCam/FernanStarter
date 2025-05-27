@@ -22,9 +22,11 @@ public abstract class Usuario implements Serializable {
     public Usuario(String nombre, String correo, String contrasena, TipoUsuario tipoUsuario){
         this.nombre=nombre;
         this.correo=correo;
-        this.contrasena=cifrarPass(contrasena);
+        this.contrasena=contrasena;
         this.tipoUsuario=tipoUsuario;
     }
+
+
 
     /**
      * Getter del nombre del usuario.
@@ -98,7 +100,7 @@ public abstract class Usuario implements Serializable {
      * @return devuelve el String definido.
      */
     public String toString(){
-        return "Nombre: "+nombre+"\nCuenta tipo "+tipoUsuario+"\nCorreo: "+correo;
+        return "Nombre: "+nombre+"\nCuenta tipo "+tipoUsuario+"\nCorreo: "+correo+"\nPass: "+contrasena;
     }
 
 

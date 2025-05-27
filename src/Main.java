@@ -41,6 +41,8 @@ public class Main {
         controladorProyectos.open();
         controladorProyectos.cargarProyectosDesdeBBDD();
         controladorProyectos.mostrarProyectos();
+        controladorUsuario.rellenaListaUsuarios();
+        controladorUsuario.muestraUsuarios();
         try {
             properties.load(new FileReader("./src/datos/setup.properties"));
 
@@ -136,7 +138,7 @@ public class Main {
                             int verificaion = Integer.parseInt(s.nextLine());
                             if (verificaion == autentificacion) {
                                 System.out.println("usuario.Usuario creado con exito");
-                                Inversor nuevo=new Inversor(nombreAux,correoAux,contraseniaAux,TipoUsuario.INVERSOR);
+                                Inversor nuevo=new Inversor(nombreAux,correoAux,cifrarPass(contraseniaAux),TipoUsuario.INVERSOR);
                                 controladorUsuario.aniadirUsuario(nuevo);
                                 controladorUsuario.insertarUsuarioBBDD(nuevo);
                                 try{
@@ -201,7 +203,7 @@ public class Main {
                             int verificaion = Integer.parseInt(s.nextLine());
                             if (verificaion == autentificacion) {
                                 System.out.println("usuario.Usuario creado con exito");
-                                Gestor nuevo=new Gestor(nombreAux,correoAux,contraseniaAux, TipoUsuario.GESTOR);
+                                Gestor nuevo=new Gestor(nombreAux,correoAux,cifrarPass(contraseniaAux), TipoUsuario.GESTOR);
                                 controladorUsuario.aniadirUsuario(nuevo);
                                 controladorUsuario.insertarUsuarioBBDD(nuevo);
                                 try{
@@ -264,7 +266,7 @@ public class Main {
                             int verificaion = Integer.parseInt(s.nextLine());
                             if (verificaion == autentificacion) {
                                 System.out.println("usuario.Usuario creado con exito");
-                                Administrador nuevo=new Administrador(nombreAux,correoAux,contraseniaAux, TipoUsuario.ADMINISTRADOR);
+                                Administrador nuevo=new Administrador(nombreAux,correoAux,cifrarPass(contraseniaAux), TipoUsuario.ADMINISTRADOR);
                                 controladorUsuario.aniadirUsuario(nuevo);
                                 controladorUsuario.insertarUsuarioBBDD(nuevo);
                                 try{
@@ -975,11 +977,12 @@ public class Main {
                                             }
                                         }
                                         case 4 -> {
+                                            controladorUsuario.rellenarListaAmigos(inversor);
+                                            System.out.println("Tus amigos invitados hasta la fecha son los siguientes:");
+                                            controladorUsuario.mostrarAmigos(inversor);
                                             System.out.println("¿A quien quieres invitar? Introduce su email");
                                             String amigo = s.nextLine();
                                             if (controladorUsuario.invitarAmigo(amigo,inversor)){
-                                                System.out.println("Tus amigos invitados hasta la fecha son los siguientes:");
-                                                controladorUsuario.mostrarAmigos(inversor);
                                                 controladorUsuario.insertarAmigoBBDD(inversor,amigo);
                                             }else{
                                                 System.out.println("No se ha podido realizar la invitación. El formato introducido no es un correo electrónico.");

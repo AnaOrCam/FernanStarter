@@ -318,4 +318,16 @@ public class Inversor extends Usuario implements Bloqueable, Serializable {
         DAOAmigosInvitados daoAmigosInvitados=new DAOAmigosInvitados();
         daoAmigosInvitados.insert(inversor,amigo,daoManager);
     }
+
+    /**
+     * Rellena la lista de amigos del inversor en la BBDD.
+     * @author anaOrCam
+     */
+    public void rellenarListaAmigos(Inversor inversor, DAOManager daoManager){
+        DAOAmigosInvitados daoAmigosInvitados=new DAOAmigosInvitados();
+        LinkedList<String> listaAmigosBBDD=daoAmigosInvitados.readAll(inversor,daoManager);
+        for (int i = 0; i < listaAmigosBBDD.size(); i++) {
+            if (!amigosInvitados.contains(listaAmigosBBDD.get(i))) amigosInvitados.add(listaAmigosBBDD.get(i));
+        }
+    }
 }

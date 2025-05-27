@@ -29,12 +29,12 @@ public class DAOAmigosInvitados {
      * @return devuelve la lista de amigos.
      */
     public LinkedList<String> readAll(Inversor inversor, DAOManager daoManager){
-        String sql="SELECT * FROM amigos_invitados";
+        String sql="SELECT * FROM amigos_invitados WHERE correo='"+inversor.getCorreo()+"';";
         LinkedList <String> listaAmigos=new LinkedList<>();
         try{
             Statement stmt=daoManager.getConnection().createStatement();
             ResultSet rs= stmt.executeQuery(sql);
-            if (rs.next()){
+            while (rs.next()){
                 listaAmigos.add(rs.getString("amigo"));
             }
         } catch (SQLException e) {

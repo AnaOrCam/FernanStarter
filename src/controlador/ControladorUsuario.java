@@ -479,4 +479,12 @@ public class ControladorUsuario implements Serializable {
     public void actualizarIsBloqueadoBBDD(Usuario usuario){
         modelo.actualizarIsBloqueadoBBDD(usuario,daoManager);
     }
+
+    /**
+     * Rellena la lista de amigos del inversor en la BBDD.
+     * @author anaOrCam
+     */
+    public void rellenarListaAmigos(Inversor inversor){
+        modelo.rellenarListaAmigos(inversor,daoManager);
+    }
 }
