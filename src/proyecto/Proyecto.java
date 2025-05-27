@@ -205,7 +205,7 @@ public class Proyecto implements Serializable {
 
     /**
      * Añade recompensas a la lista de recompensas del proyecto.
-     * @author davidrn06
+     * @author davidrn06.
      * @param nueva se refiere a la nueva recompensa que se incluira en la lista de recompensas.
      */
     public void insertaRecompensa(Recompensa nueva){
