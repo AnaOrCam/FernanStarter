@@ -67,31 +67,23 @@ public class DAOInversion {
         }
         return null;
     }
-    public LinkedList<Inversion> selectTodo(DAOManager daoManager) {
+    public LinkedList<Inversion> selectPorProyecto(DAOManager daoManager,String nombreProyecto) {
         LinkedList<Inversion> lista = new LinkedList<>();
-        String sql = "SELECT * FROM inversion";
+        String sql = "SELECT * FROM inversion where nombre_proyecto='"+nombreProyecto+"';";
 
         try {
             Statement stmt = daoManager.getConnection().createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-
             while (rs.next()) {
-                Inversor aux = new Inversor(null, rs.getString("correo"), null, null);
-
-                Recompensa aux2 = new Recompensa(null, null, 0);
-                aux2.setId(rs.getInt("i"));
-
-                Inversion inversion = new Inversion(
-                        rs.getString("nombre"),
-                        rs.getFloat("cantidad"),
-                        aux,
-                        aux2,
-                        rs.getInt("id")
-                );
-
+                int id=rs.getInt("id");
+                float cantidad = rs.getFloat("cantidad");
+                String nombre_proyecto= rs.getString("nombre_proyecto");
+                Inversor aux=new Inversor(null,rs.getString("correo"),null,null);
+                Recompensa aux2 = new Recompensa(null,null,0);
+                aux2.setId(rs.getInt("id_recompensa"));
+                Inversion inversion = new Inversion(nombre_proyecto, cantidad, aux,aux2,id);
                 lista.add(inversion);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

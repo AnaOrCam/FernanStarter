@@ -7,6 +7,7 @@ import proyecto.Recompensa;
 import vista.VistaProyecto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class ControladorProyectos implements Serializable {
@@ -26,6 +27,9 @@ public class ControladorProyectos implements Serializable {
         this.modelo=modelo;
         this.vista=vista;
         this.daoManager=daoManager;
+    }
+    public void cargarProyectosDesdeBBDD(){
+        modelo.cargarProyectosDesdeBBDD(daoManager);
     }
     /**
      * Metodo que muestra proyectos

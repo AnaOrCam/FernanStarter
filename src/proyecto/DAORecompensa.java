@@ -86,4 +86,28 @@ public class DAORecompensa {
 
         return lista;
     }
+    public LinkedList<Recompensa> selectPorProyecto(DAOManager daoManager,String nombreProyecto) {
+        LinkedList<Recompensa> lista = new LinkedList<>();
+        String sql = "SELECT * FROM recompensa where nombre_proyecto='"+nombreProyecto+"';";
+
+        try {
+            Statement stmt = daoManager.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                String nombre = rs.getString("nombre");
+                String descripcion = rs.getString("descripcion");
+                float importe = rs.getFloat("importe");
+
+                Recompensa recompensa = new Recompensa(nombre, descripcion, importe);
+                recompensa.setId(rs.getInt("id"));
+
+                lista.add(recompensa);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
 }

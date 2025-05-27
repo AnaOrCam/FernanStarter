@@ -1,6 +1,9 @@
 package proyecto;
 
+import controlador.DAOManager;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,6 +17,22 @@ public class GestionProyectos implements Serializable {
      */
     public GestionProyectos(){
         proyectos=new LinkedList<>();
+    }
+    public void cargarProyectosDesdeBBDD(DAOManager daoManager){
+        DAOProyecto daoProyecto=new DAOProyecto();
+        DAORecompensa daoRecompensa=new DAORecompensa();
+        DAOInversion daoInversion=new DAOInversion();
+
+        proyectos=daoProyecto.selectTodo(daoManager);
+        for (Proyecto a:proyectos){
+            LinkedList<Recompensa> recompensas=new LinkedList<>();
+            recompensas=daoRecompensa.selectPorProyecto(daoManager,a.getNombre());
+            a.insertaRecompensas(recompensas);
+            LinkedList<Inversion> inversiones=new LinkedList<>();
+            inversiones=daoInversion.selectPorProyecto(daoManager,a.getNombre());
+            a.insertarInversiones(inversiones);
+        }
+
     }
     /**
      * Devuelve la lista de proyectos

@@ -211,6 +211,12 @@ public class Proyecto implements Serializable {
     public void insertaRecompensa(Recompensa nueva){
         listaRecompensas.add(nueva);
     }
+    public void insertaRecompensas(LinkedList<Recompensa> nueva){
+        listaRecompensas=nueva;
+    }
+    public void insertarInversiones(LinkedList<Inversion> nueva){
+        listaInversiones=nueva;
+    }
 
     /**
      * Crea una lista de posibles recompensas a elegir.

@@ -39,6 +39,8 @@ public class Main {
         DAORecompensa daoRecompensa=new DAORecompensa();
         DAOInversion daoInversion=new DAOInversion();
         controladorProyectos.open();
+        controladorProyectos.cargarProyectosDesdeBBDD();
+        controladorProyectos.mostrarProyectos();
         try {
             properties.load(new FileReader("./src/datos/setup.properties"));
 
