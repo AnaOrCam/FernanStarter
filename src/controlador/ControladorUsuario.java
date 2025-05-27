@@ -431,6 +431,9 @@ public class ControladorUsuario implements Serializable {
     public boolean insertarUsuarioBBDD(Usuario usuario){
         return modelo.insertarUsuarioBBDD(usuario,daoManager);
     }
+    public void cargarInversionDesdeBBDD(DAOManager daoManager){
+        modelo.cargarInversionDesdeBBDD(daoManager);
+    }
 
     /**
      * Rellena la lista de usuarios desde la BBDD.

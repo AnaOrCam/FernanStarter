@@ -43,6 +43,7 @@ public class Main {
         controladorProyectos.mostrarProyectos();
         controladorUsuario.rellenaListaUsuarios();
         controladorUsuario.muestraUsuarios();
+        controladorUsuario.cargarInversionDesdeBBDD(daoManager);
         try {
             properties.load(new FileReader("./src/datos/setup.properties"));
 

@@ -35,6 +35,9 @@ public class Inversor extends Usuario implements Bloqueable, Serializable {
         amigosInvitados=new LinkedList<>();
         intentos=0;
     }
+    public void insertarInversiones(LinkedList<Inversion> inversiones){
+        proyectosInvertidos=inversiones;
+    }
 
     /**
      * Constructor del objeto Inversor.

@@ -90,5 +90,28 @@ public class DAOInversion {
 
         return lista;
     }
+    public LinkedList<Inversion> selectPorInversor(DAOManager daoManager,String correo) {
+        LinkedList<Inversion> lista = new LinkedList<>();
+        String sql = "SELECT * FROM inversion where correo='"+correo+"';";
+
+        try {
+            Statement stmt = daoManager.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                int id=rs.getInt("id");
+                float cantidad = rs.getFloat("cantidad");
+                String nombre_proyecto= rs.getString("nombre_proyecto");
+                Inversor aux=new Inversor(null,rs.getString("correo"),null,null);
+                Recompensa aux2 = new Recompensa(null,null,0);
+                aux2.setId(rs.getInt("id_recompensa"));
+                Inversion inversion = new Inversion(nombre_proyecto, cantidad, aux,aux2,id);
+                lista.add(inversion);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
 
 }

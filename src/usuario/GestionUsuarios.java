@@ -1,9 +1,7 @@
 package usuario;
 
 import controlador.DAOManager;
-import proyecto.Inversion;
-import proyecto.Proyecto;
-import proyecto.Recompensa;
+import proyecto.*;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -24,6 +22,18 @@ public class GestionUsuarios implements Serializable {
 
     public void eliminarUsuario(Usuario usuario){
         usuarios.remove(usuario.getCorreo(), usuario);
+    }
+    public void cargarInversionDesdeBBDD(DAOManager daoManager){
+        DAOInversion daoInversion=new DAOInversion();
+        DAOInversor daoInversor=new DAOInversor();
+        LinkedList<Inversor>listaInversores=daoInversor.readAll(daoManager);
+        for (Inversor a:listaInversores){
+            LinkedList<Inversion> inversiones=new LinkedList<>();
+            inversiones=daoInversion.selectPorInversor(daoManager,a.getCorreo());
+            a.insertarInversiones(inversiones);
+            System.out.println(inversiones);
+        }
+
     }
 
     /**
