@@ -42,8 +42,6 @@ public class Main {
         try {
             properties.load(new FileReader("./src/datos/setup.properties"));
 
-
-
         } catch (IOException e){
             e.printStackTrace();
         }
