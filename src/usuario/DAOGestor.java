@@ -52,12 +52,12 @@ public class DAOGestor {
     /**
      * Ejecuta un delete en la base de datos
      * @author AnaOrCam
-     * @param correo se refiere al correo del objeto administrador que se borrará de la base de datos.
+     * @param gestor se refiere al  objeto gestor que se borrará de la base de datos.
      * @param daoManager se refiere al objeto DAOManager que permite que se ejecute la sentencia
      * @return true si se hace el insert y false si no.
      */
-    public boolean delete(String correo, DAOManager daoManager){
-        String sql="DELETE FROM gestor WHERE correo='"+correo+"';";
+    public boolean delete(Gestor gestor, DAOManager daoManager){
+        String sql="DELETE FROM gestor WHERE correo='"+gestor.getCorreo()+"';";
         return daoManager.ejecutaSentencia(sql);
     }
 

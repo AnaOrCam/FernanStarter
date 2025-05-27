@@ -446,4 +446,47 @@ public class GestionUsuarios implements Serializable {
     public void insertarAmigoBBDD(Inversor inversor, String amigo, DAOManager daoManager){
         inversor.insertarAmigoBBDD(inversor,amigo,daoManager);
     }
+
+    /**
+     * Elimina un usuario en la BBDD.
+     * @author anaOrCam
+     */
+    public void borrarUsuarioBBDD(Usuario usuario,DAOManager daoManager){
+        DAOInversor daoInversor=new DAOInversor();
+        DAOGestor daoGestor=new DAOGestor();
+        DAOAdministrador daoAdministrador=new DAOAdministrador();
+        switch (usuario.getTipoUsuario()){
+            case ADMINISTRADOR -> {
+                Administrador admin=(Administrador) usuario;
+                daoAdministrador.delete(admin,daoManager);
+            }
+            case INVERSOR -> {
+                Inversor inversor=(Inversor) usuario;
+                daoInversor.delete(inversor,daoManager);
+            }
+            case GESTOR -> {
+                Gestor gestor=(Gestor) usuario;
+                daoGestor.delete(gestor,daoManager);
+            }
+        }
+    }
+
+    /**
+     * Actualiza el estado de un usuario en la BBDD.
+     * @author anaOrCam
+     */
+    public void actualizarIsBloqueadoBBDD(Usuario usuario,DAOManager daoManager){
+        DAOInversor daoInversor=new DAOInversor();
+        DAOGestor daoGestor=new DAOGestor();
+        switch (usuario.getTipoUsuario()){
+            case GESTOR -> {
+                Gestor gestor=(Gestor) usuario;
+                daoGestor.update("bloqueado",gestor,daoManager);
+            }
+            case INVERSOR -> {
+                Inversor inversor=(Inversor) usuario;
+                daoInversor.update("bloqueado",inversor,daoManager);
+            }
+        }
+    }
 }

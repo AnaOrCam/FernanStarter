@@ -671,7 +671,7 @@ public class Main {
                                                 }
                                                 case 2:{
                                                     System.out.println("Introduce la nueva contraseña");
-                                                    gestor.setContrasena(s.nextLine());
+                                                    gestor.setContrasena(cifrarPass(s.nextLine()));
                                                     controladorUsuario.operacionSatisfactoria();
                                                     controladorUsuario.setMenuConfiguracionBBDD(gestor,"pass");
                                                     break;
@@ -681,6 +681,7 @@ public class Main {
                                                     String contrasena=s.nextLine();
                                                     if (controladorUsuario.getProyectosCreadosPorGestorSinVista(gestor).isEmpty()) {
                                                         if (controladorUsuario.eliminarUsuario(gestor,contrasena)) {
+                                                            controladorUsuario.borrarUsuarioBBDD(gestor);
                                                             opcion = 6;
                                                         }
                                                     }else{
@@ -1000,7 +1001,7 @@ public class Main {
                                                 }
                                                 case 2:{
                                                     System.out.println("Introduce la nueva contraseña");
-                                                    inversor.setContrasena(s.nextLine());
+                                                    inversor.setContrasena(cifrarPass(s.nextLine()));
                                                     controladorUsuario.operacionSatisfactoria();
                                                     controladorUsuario.setMenuConfiguracionBBDD(inversor,"pass");
                                                     break;
@@ -1009,6 +1010,7 @@ public class Main {
                                                     System.out.println("Introduce la contraseña para validar la operación:");
                                                     String contrasena=s.nextLine();
                                                     if (controladorUsuario.eliminarUsuario(inversor,contrasena)) {
+                                                        controladorUsuario.borrarUsuarioBBDD(inversor);
                                                         opcion = 6;
                                                     }
                                                     break;
@@ -1058,6 +1060,7 @@ public class Main {
                                                                 System.out.println("Este usuario ya se encuentra bloqueado");
                                                             }else {
                                                                 controladorUsuario.bloquearUsuario(inversor);
+                                                                controladorUsuario.actualizarIsBloqueadoBBDD(inversor);
                                                             }
                                                         }else if (aBloquear.getTipoUsuario()==(TipoUsuario.GESTOR)){
                                                             Gestor gestor=(Gestor) aBloquear;
@@ -1065,6 +1068,7 @@ public class Main {
                                                                 System.out.println("Este usuario ya se encuentra bloqueado");
                                                             }else {
                                                                 controladorUsuario.bloquearUsuario(gestor);
+                                                                controladorUsuario.actualizarIsBloqueadoBBDD(gestor);
                                                             }
                                                         }else controladorUsuario.operacionFallida();
                                                     }else {
@@ -1157,7 +1161,7 @@ public class Main {
                                                 }
                                                 case 2:{
                                                     System.out.println("Introduce la nueva contraseña");
-                                                    admin.setContrasena(s.nextLine());
+                                                    admin.setContrasena(cifrarPass(s.nextLine()));
                                                     controladorUsuario.operacionSatisfactoria();
                                                     controladorUsuario.setMenuConfiguracionBBDD(admin,"pass");
                                                     break;
@@ -1166,6 +1170,7 @@ public class Main {
                                                     System.out.println("Introduce la contraseña para validar la operación:");
                                                     String contrasena=s.nextLine();
                                                     if (controladorUsuario.eliminarUsuario(admin,contrasena)) {
+                                                        controladorUsuario.borrarUsuarioBBDD(admin);
                                                         opcion = 6;
                                                     }
                                                     break;

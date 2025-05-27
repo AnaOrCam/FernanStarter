@@ -463,4 +463,20 @@ public class ControladorUsuario implements Serializable {
     public void insertarAmigoBBDD(Inversor inversor, String amigo){
         modelo.insertarAmigoBBDD(inversor,amigo,daoManager);
     }
+
+    /**
+     * Elimina un usuario en la BBDD.
+     * @author anaOrCam
+     */
+    public void borrarUsuarioBBDD(Usuario usuario){
+        modelo.borrarUsuarioBBDD(usuario,daoManager);
+    }
+
+    /**
+     * Actualiza el estado de un usuario en la BBDD.
+     * @author anaOrCam
+     */
+    public void actualizarIsBloqueadoBBDD(Usuario usuario){
+        modelo.actualizarIsBloqueadoBBDD(usuario,daoManager);
+    }
 }

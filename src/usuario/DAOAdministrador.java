@@ -89,7 +89,7 @@ public class DAOAdministrador {
         try{
             Statement stmt=daoManager.getConnection().createStatement();
             ResultSet rs=stmt.executeQuery(sql);
-            if (rs.next()){
+            while (rs.next()){
                 Administrador administrador=new Administrador(rs.getString("nombre"),rs.getString("correo"),rs.getString("pass"),
                         TipoUsuario.valueOf(rs.getString("tipo_usuario")));
                 listaAdministradores.add(administrador);

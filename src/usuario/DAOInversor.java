@@ -54,7 +54,7 @@ public class DAOInversor {
     /**
      * Ejecuta un delete en la base de datos
      * @author AnaOrCam
-     * @param inversor se refiere al objeto administrador que se borrará de la base de datos.
+     * @param inversor se refiere al objeto inversor que se borrará de la base de datos.
      * @param daoManager se refiere al objeto DAOManager que permite que se ejecute la sentencia
      * @return true si se hace el insert y false si no.
      */
@@ -103,7 +103,7 @@ public class DAOInversor {
         try{
             Statement stmt=daoManager.getConnection().createStatement();
             ResultSet rs= stmt.executeQuery(sql);
-            if (rs.next()){
+            while (rs.next()){
                 Inversor inversor;
                 if (rs.getString("bloqueado").equals("0")){
                     inversor=new Inversor(rs.getString("nombre"),rs.getString("correo"),rs.getString("pass"),
