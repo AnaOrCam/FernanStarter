@@ -1,9 +1,6 @@
 package controlador;
 
-import proyecto.GestionProyectos;
-import proyecto.Inversion;
-import proyecto.Proyecto;
-import proyecto.Recompensa;
+import proyecto.*;
 import vista.VistaProyecto;
 
 import java.io.Serializable;
@@ -285,5 +282,10 @@ public class ControladorProyectos implements Serializable {
     }
     public boolean ejecutaSentencia(String sql){
         return daoManager.ejecutaSentencia(sql);
+    }
+
+    public void updateCantidadInvertida(Proyecto proyecto, DAOManager daoManager){
+        DAOProyecto daoProyecto=new DAOProyecto();
+        daoProyecto.updateCantidadInvertida(daoManager, proyecto.getNombre(), proyecto.getCantidadInvertidaActual());
     }
 }

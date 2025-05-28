@@ -754,6 +754,7 @@ public class Main {
                                                                             controladorProyectos.aniadirFinanciacionAProyecto(cantidad,proyectoAuxiliar);
                                                                             daoInversion.updateSaldoInversion(daoManager,id,cantidad);
                                                                             controladorUsuario.setSaldoBBDD(inversor);
+                                                                            controladorProyectos.updateCantidadInvertida(proyectoAuxiliar,daoManager);
                                                                             try{
                                                                                 BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
                                                                                 bw2.write("Inversion Actualizada;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
@@ -804,6 +805,7 @@ public class Main {
                                                                     controladorProyectos.restarFinanciacionAProyecto(cantidad, proyectoAuxiliar);
                                                                     daoInversion.updateSaldoInversion(daoManager,id,cantidad);
                                                                     controladorUsuario.setSaldoBBDD(inversor);
+                                                                    controladorProyectos.updateCantidadInvertida(proyectoAuxiliar,daoManager);
                                                                     try{
                                                                         BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
                                                                         bw2.write("Inversion Actualizada;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
@@ -911,6 +913,7 @@ public class Main {
                                                                 controladorUsuario.actualizarInvertido(inversor);
                                                                 controladorUsuario.setSaldoBBDD(inversor);
                                                                 daoInversion.insert(inversionAux,daoManager);
+                                                                controladorProyectos.updateCantidadInvertida(proyectoAux,daoManager);
                                                                 try{
                                                                     BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
                                                                     bw2.write("Inversion Insertada;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
@@ -938,7 +941,10 @@ public class Main {
                                                             if (controladorProyectos.comprobarCantidadFinanciada(proyectoAux,cantidad) && controladorUsuario.insertarInversion(inversionAux, inversor, cantidad)){
                                                                 controladorProyectos.aniadirFinanciacionAProyecto(cantidad, proyectoAux);
                                                                 controladorProyectos.insertarInversion(inversionAux,proyectoAux);
+                                                                controladorUsuario.actualizarInvertido(inversor);
+                                                                controladorUsuario.setSaldoBBDD(inversor);
                                                                 daoInversion.insert(inversionAux,daoManager);
+                                                                controladorProyectos.updateCantidadInvertida(proyectoAux,daoManager);
                                                                 try{
                                                                     BufferedWriter bw2 =new BufferedWriter(new FileWriter(properties.getProperty("logs"),true));
                                                                     bw2.write("Inversion Insertada;"+usuarioActual.getCorreo()+";"+LocalDateTime.now()+"\n");
