@@ -26,8 +26,6 @@ public abstract class Usuario implements Serializable {
         this.tipoUsuario=tipoUsuario;
     }
 
-
-
     /**
      * Getter del nombre del usuario.
      * @author davidrn06
