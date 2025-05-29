@@ -75,7 +75,7 @@ public class DAOGestor {
             ResultSet rs=stmt.executeQuery(sql);
             if (rs.next()){
                 Gestor gestor;
-                if (rs.getString("bloqueado")=="0") {
+                if (rs.getString("bloqueado").equals("0")) {
                     gestor = new Gestor(rs.getString("nombre"), rs.getString("correo"), rs.getString("pass"),
                             TipoUsuario.valueOf(rs.getString("tipo_usuario")),false);
                 }else{
